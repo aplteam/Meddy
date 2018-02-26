@@ -1,0 +1,29 @@
+# Tab
+
+## Overview
+
+The only purpose of the "Tab" data type is to split a complex GUI into several pieces that are
+esasily understood by end users, even in the poor implementation under Windows.
+
+Notes:
+
+* The "Label" becomes the caption of the Tab.
+* The names of the SubForms associated with the tabs are `n.{YourName}_SF_00`
+
+
+This data type does not make it into the →[*.The_result|result].
+
+## Example
+
+~~~
+DT←#.GUI.Enums.InputDataTypes
+defMat←⍉⍪'Tab1' 'First' '' DT.Tab 0 1 1
+defMat⍪←'TimeInt' 'Int' 81234 DT.Time 0 1 1
+defMat⍪←'Tab2' 'Second' '' DT.Tab 0 1 1
+defMat⍪←'TimeFloat' 'Float' 0.081234 DT.Time 0 1 1
+#.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Images\DataTypes\Tab.png)

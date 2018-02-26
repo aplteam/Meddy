@@ -1,0 +1,21 @@
+# Smoothing
+
+Most controls obey to the size of a standard row. Some might not due to their nature: Radio
+buttons, check boxes and images.
+
+For them the position is often slightly changed in an attempt to make them fit better into the
+standard grid. This is explained best by an example. We use a group of radio buttons.
+
+![](.\Images\Misc\Radio_01.png)
+
+Note the gaping gap between the label and the group. The two controls, which are logically related,
+are effectively separated dues to the space between them.
+
+This is not only ugly, it is a serious usability issue. The following screen shot shows how it
+actually looks like thanks to smoothing:
+
+![](.\Images\Misc\Radio_02.png)
+
+It is still not exactly brilliant, but it's much better.
+
+See also →[*Polishing_Posn].

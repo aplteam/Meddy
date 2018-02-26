@@ -1,0 +1,74 @@
+# Functions in n
+
+Any `n` namespace comes with some helper functions. Note that the names of all these helper
+functions also start with a `∆` character.
+
+## The function ∆List
+
+The most important function is `∆List`; this function lists the full contents of the `n` namespace.
+Note that an `n` namespace may or may not contain variables:
+
+~~~
+ Btn_00        Button       OK
+ Btn_01        Button       Cancel
+ Progressbar   ProgressBar
+ StatusField1  StatusField
+ Statusbar     StatusBar
+ Text1a        Edit
+ Text1a_Label  Label        Text1a
+ Text2a        Edit
+ Text2a_Label  Label        Text2a
+ Text3a        Edit
+ Text3a_Label  Label        Text3a
+ Text4a        Edit
+ Text4a_Label  Label        Text4a
+ Text5a        Edit
+ Text5a_Label  Label        Text5a
+ Text6a        Edit
+ Text6a_Label  Label        Text6a
+ _SubForm      SubForm
+ ∆Cancel       Button       Cancel
+ ∆OK           Button       OK
+ ∆Form         Form
+ ∆g            Vars
+ ∆globalParms  Vars
+ ∆parms        Vars
+ ∆Hgap         Vars
+ ∆Vgap         Vars
+ ∆buttons      Vars
+~~~
+
+Note that you can specify a zero as left argument in order to supress the variables.
+
+`∆List` shows the following information:
+
+1. Name given to the reference.
+1. Type of the object.
+1. Caption of the object (empty if that sort of object does not have a caption).
+
+
+An empty right argument makes `∆List` list the full content. Instead you can specify a control type
+(simple text vector) or several control types (a vector of text vectors) like "Edit", "Label" or
+"Grid". Then only those are listed.
+
+## Other helper functions in n
+
+`∆CloseForm`
+
+The niladic `∆CloseForm` function is the recommended way to close a GUI. The simple reason is that
+the GUI might just have ceased to exist due to a user action (=click into the close box) and
+therefore calling the `Close` method of that form might cause a VALUE ERROR. The function deals
+with that properly.
+
+`∆GetMethods`
+
+Lists all helper functions.
+
+`∆GetRefs`
+
+Returns a vector of all references when `⍵` is empty or of all objects of type `⍵`. `⍵` might be a
+simple string or a vector of strings.
+
+`∆List`
+
+See above.

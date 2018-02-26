@@ -1,0 +1,15 @@
+ n←{changeFlag}Init2 n;msg;parms
+⍝ These are the statements that need to run again in case the INI file gets changed while the app is running.
+⍝ Therefore they are separated in this function which is called early in `Run-Init` and again later in case
+⍝ of a change.
+ :If ~F.IsFile'app.ini'
+     msg←⊂'Could not find INI file "app.ini".'
+     msg,←⊂'The program cannot be started.'
+     msg,←'' 'The current directory is:'F.PWD
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.caption←'Meddy'
+     parms G.Dialogs.ShowMsg msg
+     Off 1
+ :EndIf
+ n.∆INI←GetIniFile ⍬
+⍝Done

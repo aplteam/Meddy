@@ -1,0 +1,15 @@
+ GetEmbeddedParmsAndRemoveFromMarkdown←{
+ ⍝ Returns both the markdown with the embedded parms and the embedded parms as such.
+ ⍝ Ignores comment lines between any lines that carry `[parm]:` and also
+ ⍝ the LeanPub definition of the encoding (`{:: encoding="`).
+     (n markdown)←⍵
+     bool←~WhereIsLeanPubEncodingLine markdown
+     0=+/isParm←bool\∧\'['=↑¨bool/markdown:markdown''
+     embeddedParms←isParm/markdown
+     pattern←'(^\s{0,3}\[parm]:\s{0}verbose\s{0,}=).*$'
+     embeddedParms←pattern ⎕R('\10\n')⍠('Greedy' 0)('IC' 0)⊣embeddedParms
+     embeddedParms←(⍴'[parm]:')↓¨embeddedParms
+     embeddedParms←SplitEmbeddedParm¨embeddedParms
+     ((~bool∧~isParm)/markdown)←⊂''
+     markdown embeddedParms
+ }

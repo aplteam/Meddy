@@ -1,0 +1,5 @@
+ {r}←SelectAllText rf;noOf;txt
+ r←0
+ :If ~0∊noOf←⍴txt←,rf.Text
+     rf.SelText←(0 0)(noOf,1+⍴(noOf-1)⊃txt)
+ :EndIf

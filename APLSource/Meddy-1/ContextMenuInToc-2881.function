@@ -1,0 +1,28 @@
+ {r}←ContextMenuInToc n;cm;res;row;ind
+ r←⍬
+ cm←CreateContextMenuForToc n
+ :If ~0∊⍴res←⎕DQ cm.∆menu
+     :Select ↑res
+⍝     :Case cm.Find
+         ⍝ Not implemented yet
+     :Case cm.ExpandAll
+         n.Toc.Visible←0
+         row←n.Toc.SelItems⍳1
+         :If ~0∊⍴ind←A.Where 2{⍺<⍵}/n.Toc.Depth
+             {}n.Toc{2 ⎕NQ ⍺'Expanding'⍵}¨ind
+         :EndIf
+         :If ~0∊⍴row
+             ⎕NQ n.Toc'ItemUp'(1+row)0 0
+         :EndIf
+         n.Toc.Visible←1
+     :Case cm.RetractAllAll
+         n.Toc.Visible←0
+         :If ~0∊⍴ind←A.Where 2{⍺<⍵}/n.Toc.Depth
+         :AndIf ~0∊⍴ind←ind~A.Where n.Toc.Depth∊0 1
+             {}n.Toc{2 ⎕NQ ⍺'Retracting'⍵}¨ind
+         :EndIf
+         n.Toc.SelItems←(⍴n.Toc.SelItems)↑1
+         ⎕NQ n.Toc'ItemUp' 0 0 0
+         n.Toc.Visible←1
+     :EndSelect
+ :EndIf

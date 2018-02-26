@@ -1,0 +1,4 @@
+# hasStatusbar
+
+Boolean that decides whether the for will have a statusbar. Defaults to 1.
+

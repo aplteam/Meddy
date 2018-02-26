@@ -1,0 +1,26 @@
+# DropDown
+
+## Overview
+
+This data type creates a Combox object. It allows the user to select from the range of items
+specified in the "Default" column of the definition matrix.
+
+The result of this data type is a vector of Booleans.
+
+Note: In order to pre-select a line different from the first you must specify `SelItems` via the
+→[*.props|"props" parameter]
+
+## Example
+
+~~~
+DT←#.GUI.Enums.InputDataTypes
+month←↓12 3⍴'JanFebMarAprMaiJunJulAugSepOctNovDec'
+defMat←⍉⍪'ControlName' '' month DT.DropDown 0 1 1
+parms←#.GUI.Input.CreateParms
+parms.props←1 2⍴'DD'(⊂'SelItems' (12↑0 0 0 1))
+parms #.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Images\DataTypes\DropDown.png)

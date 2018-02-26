@@ -1,0 +1,6 @@
+ r←GetCurrentLine ref;EM_LINEFROMCHAR;SendMessage
+ ⍝ Returns the line the caret is currently positioned in.
+ ⍝ `ref` must point to a multi-line Edit control.
+ EM_LINEFROMCHAR←201
+ ⎕NA'U user32|SendMessage* U U I I'
+ r←SendMessage ref.Handle EM_LINEFROMCHAR ¯1 0

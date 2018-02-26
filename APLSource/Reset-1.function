@@ -1,0 +1,5 @@
+ Reset
+ #.CursorObj←0
+ ⎕NUNTIE ⎕NNUMS
+ ⎕FUNTIE ⎕NNUMS
+⍝Done

@@ -1,0 +1,18 @@
+ n←EstablishPreferences n;regKey;prefName;value
+⍝ Reads the preferences from the Windows Registry or uses defaults.
+ n.∆Prefs←n.⎕NS''
+ n.∆Prefs.SaveHtml←0
+ n.∆Prefs.Width←900
+ n.∆Prefs.StyleSheet←'MarkAPL'
+ n.∆Prefs.Warnings←0
+ regKey←n.∆globalParms.regKey,'\Preferences\'
+ :For prefName :In ' '~¨⍨↓n.∆Prefs.⎕NL 2
+     :Trap 11
+         value←##.WinRegSimple.Read regKey,prefName
+     :Else
+         value←n.∆Prefs.⍎prefName
+     :EndTrap
+     ⍎'n.∆Prefs.',prefName,'←value'
+ :EndFor
+ SavePrefsInRegistry n
+⍝Done

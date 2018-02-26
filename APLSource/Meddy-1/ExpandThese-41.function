@@ -1,0 +1,8 @@
+ ExpandThese←{
+     n←⍺
+     itemNos←⍵
+     states←n.Toc GetState¨itemNos
+     (5⊃¨states)←1
+     _←n.Toc SetState¨itemNos,¨⊂¨states
+     1:r←⍬
+ }

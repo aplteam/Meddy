@@ -1,0 +1,18 @@
+# AddTabs
+
+Syntax:
+
+~~~
+n ← {posn} AddTabs (n captions)
+~~~
+
+Note:
+
+* The tabs created by this function will be added to the n namespace as references named `Tab_00`, `Tab_01` and so force.
+* Note that if you want to have both, tabs and buttons, on the form you must call `AddTabs` prior to `AddButtons`.
+
+
+For details see the documentation of the class itself with ADOC.
+
+What is →[*.ADOC]?
+

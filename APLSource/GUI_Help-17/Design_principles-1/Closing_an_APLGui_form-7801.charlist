@@ -1,0 +1,7 @@
+# Closing an APLGui form
+
+The official way to close an APLGui Form is to call the appropriate method which is `n.∆CloseForm`.
+
+Note that a GUI might continue to be visible; that's because somewhere it still a reference
+pointing to the `n` namespace. Only when the last reference to `n` is deleted will the Form disappear.
+

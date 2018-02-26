@@ -1,0 +1,16 @@
+ {r}←n OpenRecentFile filename;parms;tell;regKey;list
+ :If F.Exists filename
+     OpenFile_ n filename
+ :Else
+     parms←G.Dialogs.CreateParmsForYesOrNo
+     parms.addToCaption←'Open recent file'
+     tell←'The file:'('  ',filename)'does not exist.' '' 'Remove from recent files?'
+     :If n.∆globalParms parms G.Dialogs.YesOrNo tell
+         regKey←n.∆globalParms.regKey,'\RecentFiles'
+         list←';'A.Split #.WinRegSimple.Read regKey
+         list←((A.Lowercase list)≢¨⊂A.Lowercase filename)/list
+         #.WinRegSimple.Write regKey(↑{⍺,';',⍵}/list)
+         {}AddRecentFilesFromWindowsRegistry n n.∆Menubar.recent
+     :EndIf
+ :EndIf
+⍝Done

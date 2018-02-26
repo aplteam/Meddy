@@ -1,0 +1,21 @@
+# StdForm
+The vast majority of the APLGui utilities use an instance of `StdForm`. The name stands for "Standard Form".
+A form created by `StdForm.Create` comes with several useful features:
+
+* There is a status bar with two fields. There is also a progress bar although it is invisible by default.
+* Icon & caption are taken from general (=APLGui wide) parameters.
+* "Size" and "Posn" are saved in the Windows Registry automatically if a key is provided.
+* "Size" and "Posn" are restored when a key is provided and found in the Windows Registry.
+* The programmer may define a minimum size.
+* One can add buttons to the form simply by calling the `AddButtons` method.
+* One can add tabs - including a fitting sub-form - to the form simply by calling the `AddTabs` method
+
+Default appearance and behaviour can be changed of course.
+
+For implementation details execute:
+
+~~~
+]ADOC.Browse #.GUI.StdForm
+~~~
+
+What is →[*.ADOC]?

@@ -1,0 +1,8 @@
+ OnInitialOptionsFromUser←{
+     n←⍵
+     n.Full.Size[1]+←10   ⍝TODO⍝  Circumvention for bug: the size of the group is too small (2016-09-09)
+     n.Full.Posn←2 1×n.(∆Vgap ∆Hgap)
+     n.View.Posn[0]←n.∆Vgap+↑+⌿⊃n.Full.(Posn Size)
+     n.View.Posn[1]←n.∆Hgap
+     ⍬
+ }

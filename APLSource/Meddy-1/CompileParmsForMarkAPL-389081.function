@@ -1,0 +1,31 @@
+ parms←CompileParmsForMarkAPL(n parms embeddedParms);ind
+⍝ Returns the leading parameters: all leading lines that start with `[parm]:`
+ parms.createFullHtmlPage←n.FullHtmlDocument.State
+ parms.title←'Meddy'
+ parms.head←'<meta name="author" content="',⎕AN,'">'
+ parms.enforceEdge←1
+ parms.verbose←0
+ parms.checkFootnotes←1
+ parms.checkLinks←1
+ parms←parms InjectConfigFile n.∆Filename
+ parms.width←n.∆Prefs.Width
+ :If ~0∊⍴embeddedParms←⊃embeddedParms
+     :If (↑⍴embeddedParms)≠ind←embeddedParms[;0]⍳⊂'screenCSS'
+         parms.screenCSS←''''~⍨1⊃embeddedParms[ind;]
+     :EndIf
+     :If (↑⍴embeddedParms)≠ind←embeddedParms[;0]⍳⊂'printCSS'
+         parms.printCSS←''''~⍨1⊃embeddedParms[ind;]
+     :EndIf
+     :If (↑⍴embeddedParms)≠ind←embeddedParms[;0]⍳⊂'cssURL'
+         parms.cssURL←''''~⍨1⊃embeddedParms[ind;]
+     :EndIf
+     :If ⎕NULL≢parms.cssURL
+         parms.cssURL,←(~(¯1↑parms.cssURL)∊' /\')/'/'
+     :EndIf
+     :If ¯1≡parms.leanpubExtensions
+         parms.leanpubExtensions←0
+     :EndIf
+ :AndIf ~0∊⍴embeddedParms←(~embeddedParms[;0]∊'screenCSS' 'printCSS' 'cssURL')⌿embeddedParms
+     parms.{⍎⍺,'←',⍕⍵}/¨↓embeddedParms
+ :EndIf
+⍝Done

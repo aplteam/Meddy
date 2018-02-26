@@ -1,0 +1,11 @@
+ n←HandleLetsCrash n
+ :If n.∆INI.Get'Config' 'LetsCrash'
+ :AndIf (~A.IsDevelopment)∨1≡n.∆INI.Get'Config' 'Trap'
+     :If 3=⎕NC'#.Meddy.OnLetsCrash'
+         n.∆Menubar.LetsCrash←n.∆Menubar.help.⎕NEW'MenuItem'(('Caption' 'Let''s crash')('Event'('Select' '#.Meddy.OnLetsCrash')))
+     :ElseIf 3=⎕NC'#._Meddy.Meddy.OnLetsCrash'
+         n.∆Menubar.LetsCrash←n.∆Menubar.help.⎕NEW'MenuItem'(('Caption' 'Let''s crash')('Event'('Select' '#._Meddy.Meddy.OnLetsCrash')))
+     :Else
+         . ⍝ Huuh?!
+     :EndIf
+ :EndIf

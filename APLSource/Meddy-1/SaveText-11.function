@@ -1,0 +1,3 @@
+ {r}←SaveText(filename text);buff
+ buff←{↓⍣(↑2=⍴⍴⍵)⊣⍵}text
+ r←A.WriteUtf8File filename buff

@@ -1,0 +1,6 @@
+ GetCandidatesFromHits←{
+ ⍝ ⍺⍺ is either ≥ (search _after_ the cursor position or > (search before current cursor position).
+ ⍝ ⍺ is the `hits` matrix.
+ ⍝ ⍵ is the current selection: (0|1)⊃SelText
+     (⍺[;2]⍺⍺ ⍵[0])∨(⍺[;2]=⍵[0])∧(1+⍺[;3])⍺⍺ ⍵[1]
+ }

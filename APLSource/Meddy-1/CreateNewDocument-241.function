@@ -1,0 +1,13 @@
+ {r}←CreateNewDocument n;cmd
+ r←⍬
+ :If 0∊⍴∊n.HTML.Text
+     CreateNewDocument_ n
+ :Else
+     cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+     cmd,←'-new '
+     cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
+     cmd,←A.IsDevelopment/'"',⎕WSID,'" '
+     ##.WinSys.ShellExecute cmd
+ :EndIf
+ n←CloseDragAndDropSubForm n
+⍝Done

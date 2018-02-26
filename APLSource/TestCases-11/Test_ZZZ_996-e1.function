@@ -1,0 +1,19 @@
+ R←Test_ZZZ_996(stopFlag batchFlag);⎕IO;⎕ML;⎕TRAP;md;ind;date;version;meddyDate;meddyVersion
+⍝ Checks whether the version number in the ReadMe.md is correct
+ ⎕IO←0 ⋄ ⎕ML←3
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆OK
+
+ md←#.APLTreeUtils.ReadUtf8File'Docs\readme.md'
+ →FailsIf 1≠⍴ind←#.APLTreeUtils.Where∨/¨'|Lastupdate|'∘⍷¨md~¨' '
+ date←#.APLTreeUtils.dmb{1↓⍵/⍨2=+\⍵='|'}ind⊃md
+ :If ~0∊⍴date
+     meddyDate←2⊃##.Meddy.Version
+     →FailsIf date≢meddyDate
+ :EndIf
+ →FailsIf 1≠⍴ind←#.APLTreeUtils.Where∨/¨'|Version|'∘⍷¨md~¨' '
+ version←#.APLTreeUtils.dmb{1↓⍵/⍨2=+\⍵='|'}ind⊃md
+ meddyVersion←1⊃##.Meddy.Version
+ →FailsIf version≢meddyVersion
+
+ R←∆OK

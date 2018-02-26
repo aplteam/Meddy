@@ -1,0 +1,6 @@
+ SendKeystroke←{
+     (n menuItem)←⍵
+     code←(n.∆Menubar.(cut copy paste)⍳menuItem)⊃('CT' 0 46 1)('CP' 0 45 2)('PT' 0 45 1)
+     _←⎕NQ n.Markdown'KeyPress',code
+     1:r←0
+ }

@@ -1,0 +1,3 @@
+ GetIniFile←{
+     ⎕NEW #.IniFiles(,⊂'app.ini')
+ }

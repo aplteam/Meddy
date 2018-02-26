@@ -1,0 +1,12 @@
+# Reference
+
+The reference typically discusses the main goal(s) of a class and the parameters one can set.
+
+It does not discuss single methods. Those are documented within the class scripts. You can view these
+pieces of information with the help of the `]ADOC_browse` user command.
+
+Example:
+
+~~~
+      ]ADOC-browse #.GUI.IE
+~~~

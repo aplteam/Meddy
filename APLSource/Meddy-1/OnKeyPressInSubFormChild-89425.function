@@ -1,0 +1,13 @@
+ r←OnKeyPressInSubFormChild msg;rf;key;n;CtrlA
+ r←0
+ (rf key)←msg[0 2]
+ n←GetRef2n rf
+ CtrlA←1 65 2
+ :If CtrlA≡3↓msg
+     SelectAllText rf
+ :ElseIf 'CP'≡key
+     2 ⎕NQ rf'KeyPress'key
+ :ElseIf ~(⊂key)∊'BT' 'TB'
+     ⎕NQ rf Events.CheckMarkdown
+     r←1
+ :EndIf

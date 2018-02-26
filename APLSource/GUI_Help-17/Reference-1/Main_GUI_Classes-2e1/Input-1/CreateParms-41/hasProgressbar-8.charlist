@@ -1,0 +1,4 @@
+# hasProgressbar
+
+Boolean that defaults to 1. However, the progress bar remains invisible until additional action is taken.
+

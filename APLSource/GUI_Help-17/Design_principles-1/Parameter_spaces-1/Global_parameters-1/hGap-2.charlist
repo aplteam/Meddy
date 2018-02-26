@@ -1,0 +1,4 @@
+# hGap
+
+Horizontal gap between controls. If this is a fraction of 1 then it defines the % of the height of `fontStandard`.
+

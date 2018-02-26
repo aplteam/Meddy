@@ -1,0 +1,4 @@
+# focusButton
+
+Which button gets the focus, if any. 0=left-most (OK) button.
+

@@ -1,0 +1,7 @@
+ {r}←SavePath n;regKey
+ r←⍬
+ :If ~0∊⍴n.∆Path
+     regKey←n.∆globalParms.regKey,'\Preferences\Path'
+     ##.WinRegSimple.Write regKey n.∆Path
+ :EndIf
+⍝Done

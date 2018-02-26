@@ -1,0 +1,17 @@
+ txt←MakeUrlsAbsolute_ ns;this;offset;length;drop;url;⎕TRAP
+ ⎕TRAP←0 'S'
+ :If 1=ns.PatternNum
+     :For offset length :In ns.(Offsets Lengths)
+         drop←+/↑¨ns.(Offsets Lengths)
+         url←{⍵↑⍨⍵⍳'"'}drop↓ns.Block
+         :If ∨/'://'⍷url
+         :OrIf ('/'=↑url)∨(':'∊url)
+             ⍝ It's an absolute path - nothing to do
+             txt←ns.Match
+         :Else
+             txt←#.FilesAndDirs.EnforceSlash ns.Match,↑⎕NPARTS n.∆Filename
+         :EndIf
+     :EndFor
+ :Else
+     txt←ns.Match
+ :EndIf

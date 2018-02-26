@@ -1,0 +1,14 @@
+ CheckForMeddyConfigFile←{
+⍝ Tries to find a Meddy config file (.Meddy) in the folder the markdown document was loaded from.
+⍝ If there is such a file it looks for `outputpath` and returns its value. Otherwise ''.
+     n←⍵
+     (folder filename extension)←⎕NPARTS n.∆Filename
+     0=#.FilesAndDirs.IsFile folder,'.Meddy':''
+     data←A.Nest A.ReadUtf8File(↑⎕NPARTS n.∆Filename),'.Meddy'
+     data←⊃'='A.Split¨,data
+     bool←(' '~¨⍨A.Lowercase data[;0])≡¨⊂'outputpath'
+     0=+/bool:''
+     target←1↓¯1↓A.dmb↑bool/data[;1]
+     {(':'∊⍵)∨('\\'≡2⍴⍵)}target:target               ⍝ Absolute path? Done!
+     'expand'#.FilesAndDirs.NormalizePath folder,target,filename,'.html'
+ }

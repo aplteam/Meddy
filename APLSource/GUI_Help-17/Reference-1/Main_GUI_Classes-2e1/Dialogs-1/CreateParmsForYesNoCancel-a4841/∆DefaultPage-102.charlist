@@ -1,0 +1,4 @@
+# CreateParmsForYesNoCancel
+
+Note that `CreateParmsForYesNoCancel` calls →[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Dialogs.CreateParms]
+and then adds the parameters discussed here.

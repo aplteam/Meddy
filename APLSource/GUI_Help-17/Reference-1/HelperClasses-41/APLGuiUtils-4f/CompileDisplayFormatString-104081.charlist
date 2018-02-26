@@ -1,0 +1,13 @@
+# CompileDisplayFormatString
+
+Syntax:
+
+~~~
+string ← CompileDisplayFormatString parameterNamespace 
+~~~
+
+Takes a parameter space that contains `addToCaption`.
+
+Returns a string useful to set `⎕DF`. Contains the current namespace (will be correct because
+APLGuiUtils is `:Include`d).
+

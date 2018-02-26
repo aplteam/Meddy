@@ -1,0 +1,7 @@
+# onOkay
+
+If specified this must be a monadic function that checks the user's input and returns either 1 (let
+pass) or 0 (don't).
+
+For how to qualify callbacks so that they will be found see →[*.Callback_functions].
+

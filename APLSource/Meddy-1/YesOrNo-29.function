@@ -1,0 +1,2 @@
+ r←n YesOrNo question;parms
+ r←n.∆globalParms G.Dialogs.YesOrNo question

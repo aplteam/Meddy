@@ -1,0 +1,31 @@
+[DATA]:index='Polishing Posn ⋄ Change Posn'
+
+# Polishing Posn
+
+Occasionally you might find the way `Input` positions controls unacceptable. This is an example:
+
+![Badly placed check boxes](Images\Input\Size_1.png)
+
+In such a case you can position the controls yourself by specifying a function 
+→[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.CreateParms.onInitial] which will be called after all controls 
+have been created but before the final size of the Form is calculated.
+
+For the three controls (let's ignore the push button) shown above this would do:
+
+~~~
+  {r}←AdjustFindFormSize n
+⍝ Repositions the two check boxes.
+ r←⍬
+ n.Regular_expression.Posn[0]←n.∆Vgap+↑+⌿⊃n.Search_for.(Posn Size)
+ n.Case_sensitive.Posn[0]←n.∆Vgap+↑+⌿⊃n.Regular_expression.(Posn Size)
+~~~
+
+The names should explain themselves.
+
+`↑+⌿⊃n.Search_for.(Posn Size)` calculates the position of the bottom left corner of the "Search for" field. By adding `n.∆Vgap` to this
+we get a proper position.
+
+This would be the result:
+
+![Refined check boxes](Images\Input\Size_2.png)
+

@@ -1,0 +1,11 @@
+ OnDropFiles←{
+     filenames←2⊃⍵
+     filenames←({(⊂A.Lowercase↑¯1↑⎕NPARTS ⍵)∊'.md' '.markdown' ''}¨filenames)/filenames
+     0∊⍴filenames:TellInvalidExtension 2⊃⍵
+     n←GetRef2n↑⍵
+     1≠⍴2⊃⍵:⍬⊢n.∆globalParms G.Dialogs.ShowMsg'Meddy can only process one file at the time per drag-and-drop.'
+     filename←↑2⊃⍵
+     _←OpenFile_ n filename
+     n←CloseDragAndDropSubForm n
+     ⍬
+ }

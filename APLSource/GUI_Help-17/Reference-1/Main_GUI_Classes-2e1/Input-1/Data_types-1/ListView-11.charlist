@@ -1,0 +1,53 @@
+# ListView
+
+## Overview
+
+Creates a ListView. "Default" may be either a vector of text vectors or a matrix.
+
+In case "Label" is empty the ListView will not have a visible label.
+
+The default style is "Single", meaning that the user can select just one row from the list. You can
+overwrite this setting by specifying the "Props" column. More details are provided further down.
+
+#### "Length"
+
+"Length" must be a two-item vector. Both items can be either `¯1` or a positive integer. A positive
+integer is interpreted as number of rows or columns respectively.
+
+A `¯1` for either the number of rows or the number of columns (or both) means that the number of
+rows / columns is determined by the space occupied by all other controls but those carrying `¯1`
+in their length definition.
+
+It does not matter whether those other controls are defined in the definition matrix before or
+after the ListView since the calculation and amendment is performed **after** all controls are created.
+
+#### "Restrictions"
+
+Currently there is a restriction in place: ListView does not support check boxes. Any attempt to
+overcome this restriction by setting parameters via the "Props" column of the definition matrix
+are not going to work. However, this restriction may be lifted later.
+
+#### "Props"
+
+This data type requires almost always the specification of some properties via the "Props" column
+of the definition matrix. A typical scenario would be to specify "SelItems" and "Style" as shown here:.
+
+~~~
+parms←#.GUI.Input.CreateParms
+parms.props⍪←'Coltitles' (...)
+parms.props⍪←'SelItems' (...)
+parms.props⍪←'Style' 'Multi'
+~~~
+
+## Example
+
+~~~
+DT←#.GUI.Enums.InputDataTypes
+mat←{(' '~⍨¨↓⍵),[0.5]↓#.APLTreeUtils.FormatDateTime⊃(⎕AT ⍵)[;1]}⎕NL 3
+defMat←⍉⍪'LV2' 'Table' mat DT.ListView 20 1 1
+#.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Images\DataTypes\ListView.png)

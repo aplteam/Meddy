@@ -1,0 +1,36 @@
+# Radio buttons
+
+## Overview
+
+This defines a group of radio buttons. "Label" must use `⋄` as separator for the labels of the
+intended radio buttons.
+
+"Default" must be one of:
+
+* A Boolean vector with the same length as "Default" (after is has bin split at the `⋄` characters) minus 1 because of the group caption.
+* A scalar. This defines the default radio button, with 0 being the first one.
+
+
+The first sub string in "Label" defines the caption of the group. Radio button groups must**
+always** have a caption.
+
+Note that in case you specify "props": those are affecting the group, not the check boxes.
+
+## Smoothing
+
+Note that radio buttons are one of the data types that are subject of →[*.Smoothing|smoothing].
+
+## Example
+
+~~~
+DT←#.GUI.Enums.InputDataTypes
+list←'My options:⋄One⋄Two⋄Three'
+defMat←⍉⍪'Radio' list  2 DT.Radio 0
+#.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Help\Images\DataTypes\RadioButtons_01.png)
+
+For a group of check boxes see →[*.YesNo].

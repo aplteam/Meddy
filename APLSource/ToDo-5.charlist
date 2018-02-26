@@ -1,0 +1,17 @@
+## Ideas
+
+* Spell checker?!
+
+See http://www.javascriptspellcheck.com/JavaScript_SpellCheck_Hello_World
+
+
+I've downloaded the JavaScript code. On the aforementioned web site there are
+examples for how to implement. We might be able to take advantage of that.
+
+The idea is to create a window "Spell checker" and to fill it with just one 
+paragraph (and never any code blocks but maybe comments) and then give the 
+user control. When the user takes any kind of action we could (hopefully!)
+copy the text back into the Edit control and maybe also update the preview.
+
+However, if this is not going to work then we have to remove the JavaScript
+folder from Meddy.

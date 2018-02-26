@@ -1,0 +1,4 @@
+# cancel
+
+Boolean that defaults to 1, meaning that pressing <Cancel> triggers the "Cancel" button.
+

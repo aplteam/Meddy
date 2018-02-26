@@ -1,0 +1,12 @@
+# The abc  "FormRefNamespace" class
+
+Normally the namespace designated to store all references created by one of APLGui's main classes
+(named n by convention) is created by `RefNamespace.Create`.
+
+There are two exceptions: `StdForm` and `Dialogs`; they both create their `n` namespaces by calling
+`FormRefNamespace.Create`. However, since the `FormRefNamespace` class inherits from the
+`RefNamespace` class everything that's said for `RefNamespace` holds true for the
+`FormRefNamespace` class as well.
+
+`FormRefNamespace` just adds a method `∆CloseForm` to the `n` namespace.
+

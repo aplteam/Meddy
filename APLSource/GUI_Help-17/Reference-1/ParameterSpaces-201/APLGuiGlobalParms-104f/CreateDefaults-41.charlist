@@ -1,0 +1,4 @@
+# CreateDefaults
+
+Returns a parameter space with defaults useful as global parameters.
+

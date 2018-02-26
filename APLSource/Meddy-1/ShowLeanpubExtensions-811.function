@@ -1,0 +1,4 @@
+ ShowLeanpubExtensions←{
+     rc←n OpenInDefaultBrowser F.PWD,'\LeanPubExtensions.html'
+     1:rc←rc
+ }

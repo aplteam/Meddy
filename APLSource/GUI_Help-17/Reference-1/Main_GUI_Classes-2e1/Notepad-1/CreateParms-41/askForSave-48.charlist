@@ -1,0 +1,4 @@
+# askForSave
+
+If this is 1 (default=0) the user is asked whether he wants to "save" the (possibly changed) text.
+

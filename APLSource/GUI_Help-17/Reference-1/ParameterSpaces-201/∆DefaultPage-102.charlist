@@ -1,0 +1,33 @@
+# Parameters spaces
+
+A parameter space is an ordinary namespace populated with some variables and some functions and possibly also references.
+
+The general idea is to call any `CreateParms`* function (examples are `APLGuiGlobalParms.CreateDefaults` and
+`Request.CreateParmsForNumber` and `Notepad.CreateParms`), modify any of the values and then pass the namespace on
+to functions like `StdForm.Create` or `Request.YesOrNo` or `NotePad.Create`.
+
+All parameter spaces used anywhere in the APLGui project are created by the `GuiParameterSpace.Create` function. This
+function injects two helpers into any such namespace:
+
+## The ∆List helper
+
+This helper is useful for listing the contents of any given parameter space:
+
+~~~
+           ⎕←globalParms.∆List'
+     caption
+     centerIn
+     fontAPL                    #.APLGuiGlobalParms.[Font] 
+     fontInput                  #.APLGuiGlobalParms.[Font] 
+     fontLabel                 #.APLGuiGlobalParms.[Font] 
+     fontStandard               #.APLGuiGlobalParms.[Font] 
+     honorCaptionForSizeCalc                             1 
+     honorStatusbarForSizeCalc                           1 
+     icon                                                  
+     maxButton                                           1 
+     minButton                                           1 
+     parmType                                  APLGuiParms 
+     regKey                                                
+     sysMenu                                             1 
+     testMode                                            0 
+~~~

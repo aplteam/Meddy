@@ -1,0 +1,19 @@
+:Class Align
+⍝ "Left", "Center" and "Right"
+    ∇ r←Left
+      :Access Public Shared
+      r←1
+    ∇
+    ∇ r←Center
+      :Access Public Shared
+      r←2
+    ∇
+    ∇ r←Right
+      :Access Public Shared
+      r←3
+    ∇
+    ∇ r←∆List
+      :Access Public Shared
+      r←⍉{⍵,[-0.5]⍎¨⍵}(⎕NL-3)~⊂'∆List'
+    ∇
+:EndClass

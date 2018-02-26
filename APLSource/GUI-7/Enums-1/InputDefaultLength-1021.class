@@ -1,0 +1,28 @@
+:Class InputDefaultLength
+⍝ Used in `Input` as default length for certain data types.
+
+    ∇ r←Character
+      :Access Public Shared
+      r←30
+    ∇
+
+    ∇ r←Numeric
+      :Access Public Shared
+      r←12
+    ∇
+
+    ∇ r←Currency
+      :Access Public Shared
+      r←16
+    ∇
+
+    ∇ r←Spinner
+      :Access Public Shared
+      r←6
+    ∇
+
+    ∇ r←∆List
+      :Access Public Shared
+      r←⍉{⍵,[-0.5]⍎¨⍵}(⎕NL-3)~⊂'∆List'
+    ∇
+:EndClass

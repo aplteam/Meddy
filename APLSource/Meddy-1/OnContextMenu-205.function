@@ -1,0 +1,10 @@
+ OnContextMenu←{
+     n←GetRef2n↑⍵
+     menu←⎕NEW⊂'Menu'
+     menu.EditFile←menu.⎕NEW'MenuItem'(⊂'Caption' 'Edit the file')
+     menu.(Cancel EditFile).onSelect←1
+     sel←⎕DQ menu
+     menu.Cancel≡↑sel:0
+     menu.EditFile≡↑sel:0⊣EditFile n
+     0
+ }

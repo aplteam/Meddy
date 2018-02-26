@@ -1,0 +1,6 @@
+# cancelBtnCaption
+
+Caption of the "Cancel" (default) button.
+
+If you don't want to have a "Cancel" button at all (not recommended)  set this to 0.
+

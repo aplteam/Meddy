@@ -1,0 +1,687 @@
+:Namespace APLGuiUtils
+
+⍝ Included in many GUI classes, and in **all** main classes.\\
+⍝ Carries often-used utilities.
+
+    ∇ r←APLGuiError
+      r←605  ⍝ Thrown by APLGui in case it is unhappy with something
+    ∇
+
+    ∇ {r}←{array}ExecPrivateFns(fnsName args);fns
+      :Access Public Shared
+      ⍝ The sole purpose of this is to execute private functions of a class when running the test suite.
+      ⍝ This is the only way to test provate functions directly.
+      fns←⍎fnsName
+      :If 0=⎕NC'array'
+          r←fns args
+      :Else
+          r←array fns args
+      :EndIf
+    ∇
+
+    ∇ {r}←{name}CopyNamespace ns;listV;listF;listN;listI
+    ⍝ Returns a new namespace and copies all variables, functions, operators and
+    ⍝ sub namespaces in ``ns` over.\\
+    ⍝ Force a named namespace by specifying a name via `⍺`.\\
+    ⍝ Notes:
+    ⍝ 1. Any sub namespaces in `ns` must not contain references, otherwise
+    ⍝    you will get a DOMAIN ERROR.
+    ⍝ 2. Scripts (classes as well as namespaces) are not copied over.
+    ⍝ 3. If thereare any instances (like font objects) then references will be established for each of them
+      :If 0=⎕NC'name'
+          r←⎕NS''
+      :Else
+          name ⎕NS''
+          r←⍎name
+      :EndIf
+      listV←~∘' '¨↓ns.⎕NL 2
+      listF←~∘' '¨↓ns.⎕NL 3 4
+      listN←~∘' '¨↓ns.⎕NL 9.1
+      listI←~∘' '¨↓ns.⎕NL 9.2 ⍝ Instances (fonts etc.)
+      :If ~0∊⍴listV
+          ns r.{⍎⍵,'←⍺.⍎⍵'}¨listV
+      :EndIf
+      :If ~0∊⍴listF
+          ns r.{⎕FX ⍺.⎕CR ⍵}¨listF
+      :EndIf
+      :If ~0∊⍴listN
+          r ns.{⍵ ⍺.⎕NS⍎⍵}¨listN
+      :EndIf
+      :If ~0∊⍴listI
+          ns r.{⍎⍵,'←⍺.⍎⍵'}¨listI
+      :EndIf
+    ∇
+
+ CheckPosition←{
+     rf←⍵
+     corr←RefToWinSys.(GetSystemMetrics SM_CYCAPTION)
+     corr+←RefToWinSys.(GetSystemMetrics SM_CYMENU)
+     rf.Posn[0]⌈←corr+20
+     (2=+/b←(corr++⌿⊃n.∆Form.(Size Posn))<(↑↑¯1↑⎕CLASS ⎕THIS).##.APLGuiHelpers.ScreenEstate):⍬
+     posn←b[0]⊃(corr+⌈0.5×(↑↑¯1↑⎕CLASS ⎕THIS).##.APLGuiHelpers.ScreenEstate[0]-rf.Size[0]+corr)(rf.Posn[0])
+     posn,←b[1]⊃(⌈0.5×(↑↑¯1↑⎕CLASS ⎕THIS).##.APLGuiHelpers.ScreenEstate[1]-rf.Size[1])(rf.Posn[1])
+     rf.Posn←posn
+     ⍬
+ }
+
+      CheckTimeout←{
+          (globalParms parms)←⍵
+          parms.timeout≠0:parms
+          parms.timeout⌈←globalParms.testMode
+          parms
+      }
+
+      CompileCaption←{
+      ⍝ ⍵[0] = The "global" caption
+      ⍝ ⍵[1] = The form-specific caption
+          (gp lp)←⍵                         ⍝ Global and local parms.
+          gc←{(0=⍴,↑⍵)⊃⍵}(lp gp).caption    ⍝ Local or global caption.
+          lc←lp.addToCaption                ⍝ Additional Local caption.
+          (0∊⍴gc):lc                        ⍝ No global caption? Return the local caption.
+          (0∊⍴lc):gc                        ⍝ No local caption?
+          gc,': ',lc                        ⍝ Compile the two.
+      }
+
+      CompileDisplayFormatString←{
+ ⍝ Takes a parameter namespace (must contain `addToCaption`)
+ ⍝ Returns a string useful to set `⎕DF` either with `addToCaption` (if not empty)
+ ⍝ or ⍺ which normally would be `n.∆globalParms.caption`.
+          ⍺←''
+          0∊⍴⍵.addToCaption:(⍕⎕THIS),'[',⍺,']'
+          (⍕⎕THIS),'[',(⍵.addToCaption),']'
+      }
+
+    ∇ caption←CompileProgressbarMessage(n hotKey);parms;globalParms;ind;bc;to;hotKey
+        ⍝ Compiles the message shown on the progress bar when "autoPress" is used.
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      to←parms.timeout
+      :If parms.testMode
+      :AndIf ¯1≠ind←parms.autoPress
+          bc←(,n.∆buttons)[ind].Caption
+          caption←'In ',(⍕to),' seconds "',bc,'" is auto-pressed (stop=',hotKey,')'
+      :Else
+          :If 0=parms.⎕NC'focusButton'
+          :OrIf ¯1=ind←parms.focusButton
+              bc←0⊃((,n.∆buttons.Default)/,n.∆buttons.Caption),⊂''
+              'Default button is not defined!'⎕SIGNAL 11/⍨0∊⍴bc
+              caption←'In ',(⍕to),' seconds "',bc,'" is auto-pressed (stop=',hotKey,')'
+          :Else
+              bc←(,n.∆buttons)[ind].Caption
+              caption←'In ',(⍕to),' second',((1<⍴to)/'s'),' "',bc,'" is auto-pressed (stop=',hotKey,')'
+          :EndIf
+      :EndIf
+      caption←' ',caption
+    ∇
+
+    ∇ n←n CreateAutoPressTimer_ timeout;focusHas
+     :If n.∆parms.hasProgressbar
+         n.Progressbar.Limits←0,1⌈timeout
+         n.Progressbar.Visible←1
+         :If timeout<1  ⍝ That means it is a test cases
+             n.Timer←n.∆Form.⎕NEW'Timer'(,⊂'Interval'(100⌈timeout))
+         :Else
+             n.Timer←n.∆Form.⎕NEW'Timer'(,⊂'Interval' 1000)
+         :EndIf
+         n.Timer.onTimer←'OnAutoPressTimer&'n
+         n.Timer.Counter←0
+     :EndIf
+    ∇
+
+    ∇ n←CreateProgressbarTimerAndMessage n;parms;globalParms;hotKey;∆
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      :If parms.hasProgressbar
+      :AndIf 0<parms.timeout
+          hotKey←parms.destroyAutoPressTimerHotKey
+          'Missing: hot key for stopping the auto-press timer'⎕SIGNAL 11/⍨0∊⍴hotKey
+          n.Progressbar.Accelerator←(⎕NEW(↑↑¯1↑⎕CLASS ⎕THIS).##.KeyCodes).GetKeyCodeFor hotKey
+          n.Progressbar.onSelect←'OnStopDestroy'
+          ∆←''
+          ∆,←⊂'Text'(CompileProgressbarMessage n hotKey)
+          ∆,←⊂'Points'(0 0)
+          n.ProgressbarCaption←n.Progressbar.⎕NEW'Text'∆
+      :EndIf
+    ∇
+
+      DisableAutoClick←{
+          rf←⍵                                  ⍝ Ref the the form
+          0=rf.n.∆parms.hasProgressbar:0
+          _←{0:: ⋄ rf.n.Progressbar.(Thumb Limits Visible)←⍵}0(0 0)0  ⍝ Must be trapped because the ...
+          {0::1 ⋄ 1⊣rf.n.Timer.Close ⍬}⍬                              ⍝ ... controls might have ceased to exist
+      }
+
+    ∇ r←GetFocusHandle;∆GetFocusHandle
+      '∆GetFocusHandle'⎕NA'I4 USER32.C32|GetFocus >I4'
+      r←↑∆GetFocusHandle⊂⍬
+    ∇
+
+ GetFormCaptionTextSize←{
+⍝ Returns the size needed for displaying the caption in a form.
+⍝ At the moment we lack the skills for doing this, so we make something up.
+⍝ Right argument is "n".
+     rf←⎕NEW'Form'(('Coord' 'Pixel')('Visible' 0)('Size'(5 5)))
+     n←⍵
+     size←rf.GetTextSize n.∆Form.Caption
+     size[1]+←40×n.∆Form.SysMenu∨~0∊⍴n.∆Form.IconObj  ⍝ Does the form has an icon and/or a system menu? Add 40 pixels!
+     size[1]+←40++/(40 40×n.∆Form.(MinButton MaxButton))+60×n.∆Form.HelpButton ⍝ Add close btn, Min btn, Max btn & help btn
+     size
+ }
+
+      GetListViewItemHeight←{
+⍝ ⍵ is ref pointing to a ListView
+⍝ Returns the height of a single item
+⍝ ⍺ is the index into the ListView. It's default is 0.
+          ref←⍵
+          h←ref.Handle
+          LVM_GETITEMRECT←4110
+          LVIR_BOUNDS←0
+          _←⎕NA'u user32|SendMessage* U U U ={I I I I }'
+          (rc res)←SendMessage h LVM_GETITEMRECT 0(4↑LVIR_BOUNDS)
+          1≠rc:5+↑ref.GetTextSize'9' ⍝ In case of an error we return the height of text plus 5 as best guess
+          -/res[3 1]
+      }
+
+    ∇ r←x GetParms y;types;bool;msg;defaults;noCheckFlag;this;filename
+      :Access Public Shared
+⍝ Makes sure that `globalParms` and `parms` (in this sequence) are returned.\\
+⍝ `y` may be empty or a scalar with a single parameter namespace or a two-item-vector with any combination.
+⍝ `x` is the default parameter space for the given class.
+      (defaults noCheckFlag)←x,(⍴,x)↓⍬ 0
+      y←2↑y,r←⍬ ⍬
+      types←{''≡⍵:'' ⋄ ⍬≡⍵:'' ⋄ 6::'Invalid parameter'⎕SIGNAL 605 ⋄ ⍵.parmType}¨y
+⍝ Check parmType for matching the defaults
+      :If 0=noCheckFlag ⍝ For some (StdForm) noch check is performed
+      :AndIf ~0∊⍴msg←defaults CheckParmsTypes types
+          msg ⎕SIGNAL 605 ⍝ APLGuiError
+      :EndIf
+⍝ Make sure that [0] becomes "APLGuiGlobalParms":
+      :If (⊂'APLGuiGlobalParms')∊types
+          r[0]←y[types⍳⊂'APLGuiGlobalParms']
+      :Else
+          :Trap 16  ⍝ This ↓ will crash when not called from inside an APLGui class.
+              r[0]←⊂(↑↑¯1↑⎕CLASS ⎕THIS).##.APLGuiGlobalParms.CreateDefaults
+          :Else
+              r[0]←⊂##.APLGuiGlobalParms.CreateDefaults
+          :EndTrap
+      :EndIf
+⍝ Make sure that [1] becomes the other one if not empty or "defaults":
+      bool←types≢¨⊂'APLGuiGlobalParms'
+      bool∧←~0∊¨⍴¨y
+      :If 1=+/bool
+          r[1]←bool/y
+      :Else
+          r[1]←⊂defaults
+      :EndIf
+      :If ∨/'testMode'∘≡¨{⍵[;0]}r[1].∆List
+      :AndIf ¯1≡r[1].testMode
+          r[1].testMode←r[0].testMode
+      :EndIf
+      :If ∨/'timeout'∘≡¨{⍵[;0]}r[1].∆List
+          r[1]←⊂CheckTimeout r
+      :EndIf
+      :If ~0∊⍴1⊃r
+      :AndIf 0∧.≠↑¨(r[1].⎕NC)¨'timeout' 'autoPress'
+      :AndIf 0≥r[1].timeout
+      :AndIf ~r[1].autoPress∊¯1 0
+          r[1].timeout←0.1
+      :EndIf
+      r[1]←HandleParmsDefaults r
+      :If 2∧.={↑⍵.⎕NC'icon'}¨r
+      :AndIf 0<+/↑∘⍴¨r.icon
+          :For this :In r
+              :If ~0∊⍴this.icon
+              :AndIf 'file://'{⍺≡Lowercase(⍴⍺)↑⍵}this.icon
+                  filename←((⍴'file://')↓this.icon)
+                  this.icon←⎕NEW'Icon'(⊂'File'filename)
+                  this.icon.⎕DF'[Icon ',filename,']'
+              :EndIf
+          :EndFor
+      :EndIf
+    ∇
+
+    ∇ r←n GetParm parmName;val
+      :If 0<n.∆parms.⎕NC parmName
+          val←n.∆parms.⍎parmName
+      :AndIf (¯1≢val)∧~0∊⍴val
+          r←val
+      :Else
+          r←n.∆globalParms.⍎parmName
+      :EndIf
+    ∇
+
+    ∇ r←defaults CheckParmsTypes types
+      r←''
+      :If ~0∊⍴types←types~''⍬
+          :If {~(⍴⍵)=⍴∪⍵}types
+              r←'Check the parameters: same type twice?!'
+              :Return
+          :EndIf
+          :If ~(1=⍴types)∧types≡,⊂'APLGuiGlobalParms'
+          :AndIf ~(⊂defaults.parmType)∊types
+              r←'Invalid: "parmType"'
+          :EndIf
+      :EndIf
+    ∇
+
+      GetRefTo←{
+          name←⍵
+          9=#.⎕NC name:#.⍎name
+          9=##.⎕NC name:##.⍎name
+          parent←0⊃⎕RSI
+          9=parent.⎕NC name:parent.⍎name
+          6 ⎕SIGNAL⍨'Cannot find ',name,'?!'
+      }
+
+      GetRefTo_n←{
+ ⍝ Takes a ref (typically the first element of a callback) and walks up
+ ⍝ the hirarchy until it finds a control that contains a namespace "n".
+ ⍝ Returns a ref to the "n" namespace.
+          (9=⍵.⎕NC'n'):⍵.n
+          ∇ ⍵.##
+      }
+
+      GetRegPath←{
+⍝ Examples:
+⍝ 'HKCU\Software\Foo\Me' ←→ GetRegPath 'Foo\Me'
+⍝ 'HKCU\Software\Foo\Me' ←→ GetRegPath 'Foo' 'Me'
+⍝ '' ←→ GetRegPath ''
+⍝ '' ←→ GetRegPath 'Foo' ''
+          (0∊⍴⍵):''
+          (1=≡⍵):'HKCU\Software\',⍵
+          (0∊⍴1⊃⍵):''
+          'HKCU\Software\',(0⊃⍵),'\',1⊃⍵
+      }
+
+      GetWinRegKeyForForm←{
+⍝ Takes globalParms and parms and compiles a Window Registry Key (including "Value" name)
+⍝ that can be used to save "Posn" and "Size" in the Windows Registry
+⍝ In general the more specific RegKey (that's parms) overrule globalParms.
+⍝ globalParms.Caption and, if not empty, parms.addToCaption are then added as Value name.
+          (2≠≡,¨⍵):11 ⎕SIGNAL⍨'Invalid right argument'
+          (0∊↑∘⍴∘,¨⍵):''
+          (globalParms parms)←⍵
+          (0∊⍴globalParms.regKey):''
+          (0∊⍴parms.regKey2):''
+          GetRegPath globalParms.regKey((¯1≡parms.regKey2)⊃parms.(regKey2 addToCaption))
+      }
+
+    ∇ {r}←OnAutoPressTimer msg;rf;focusHas;db;n;limits
+        ⍝ Works out whether a button needs to be clicked automatically or not.
+        ⍝ In test mode we click the button defined by "autoPress".
+        ⍝ Othwerwise we click the button that has the focus. If no button has the
+        ⍝ focus then we click the one that has "default" set.
+      r←⍬
+      rf←↑msg
+      rf.Counter+←1
+      n←rf.##.n
+      :Trap 6
+          limits←1⊃n.Progressbar.Limits
+      :Else
+          :Return
+      :EndTrap
+      :If rf.Counter≤1⊃n.Progressbar.Limits
+          n.Progressbar.Thumb←rf.Counter
+      :Else
+          n.Progressbar.Visible←0
+          focusHas←2 ⎕NQ #'GetFocusObj'
+          :Trap 6 ⋄ n.Timer.Close ⋄ :EndTrap
+          n←focusHas AutoPressButton n
+      :EndIf
+    ∇
+
+    ∇ r←OnCloseForm msg;rf;n;fns
+ ⍝ "Posn" and "Size" of the Form 0⊃⍵ is pointing to are saved in the Windows Registry
+ ⍝ if a key is found in ∆globalParms and ∆parms.
+ ⍝ This functon also sets the global ∆closed←1 which is why any APLGui Form
+ ⍝ must associate this function with the "Close" event.
+ ⍝ In case there is a parameter `onCLose` defined on `parms` it's expected to be a function
+ ⍝ which should return a 1 (close goes through) or 0 (prevent the close).
+      rf←0⊃msg                                  ⍝ The form we are dealing with.
+      n←GetRefTo_n rf
+      r←1
+      :If 0<n.⎕NC'∆parms'
+      :AndIf 2=n.∆parms.⎕NC'onClose'
+      :AndIf ~0∊⍴n.∆parms.onClose
+          fns←(0⊃n.∆parms.onClose).⍎1⊃n.∆parms.onClose
+          r←fns n
+      :EndIf
+      :If r
+          rf.∆closed←1                          ⍝ Allows us to check whether the Form is about to close.
+          :If 0≠n.⎕NC'∆globalParms'             ⍝ Global parms
+              :If 0∊⍴rf.n.∆globalParms.regKey   ⍝ A Windows Registry key?
+              :OrIf 0∊⍴rf.n.∆parms.regKey2      ⍝ A Windows Registry key?
+                  r←1
+              :Else
+                  {}(↑↑¯1↑⎕CLASS ⎕THIS).##.APLGuiHelpers.SavePosnAndSizeInRegistry rf.n  ⍝ Possibly "Posn" and "Size"
+                  r←1
+              :EndIf
+          :EndIf
+      :EndIf
+    ∇
+
+    OnConfigure←{⍵[0 1 2 3],((↑⍺){(0∊⍴⍺):⍵ ⋄ ⍺⌈⍵}⍵[4]),((↑⌽⍺){(0∊⍴⍺):⍵ ⋄ ⍺⌈⍵}⍵[5])}
+
+    ∇ OnStopDestroy msg;rf;Name;n
+      rf←0⊃msg
+      n←rf.##.##.n
+      :Trap 0 ⋄ n.Timer.Close ⋄ :EndTrap
+      n.Progressbar.(Visible Thumb Limits)←0 0(0 0)
+      n.ProgressbarCaption.Visible←0
+    ∇
+
+    ∇ {r}←OnTimer msg;rf;focusHas;db;ind;n
+        ⍝ Controls whether a button needs to be clicked automatically or not.
+        ⍝ In test mode we click the button defined by "autoPress".
+        ⍝ Othwerwise we click the button that has the focus. If no button has the
+        ⍝ focus then we click the one that has "default" set.
+      r←⍬
+      rf←0⊃msg
+      rf.Counter+←1
+      n←rf.##.n
+      :If rf.Counter≤1⊃n.Progressbar.Limits
+          n.Progressbar.Thumb←rf.Counter
+      :Else
+          n.Progressbar.Visible←0
+          focusHas←2 ⎕NQ #'GetFocusObj'
+          :Trap 6 ⋄ n.Timer.Close ⋄ :EndTrap
+          :If n.∆parms.testMode
+          :AndIf 0<n.∆parms.⎕NC'autoPress'
+          :AndIf ¯1≠ind←n.∆parms.autoPress
+              ⎕NQ(n.∆buttons[ind])'Select'
+          :Else
+              :If 1↑focusHas∊n.∆buttons
+                  ⎕NQ(n.∆buttons[n.∆buttons⍳focusHas])'Select'
+              :Else
+                  ⎕NQ(n.∆buttons[n.∆buttons.Default⍳1])'Select'
+              :EndIf
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ r←RefToAPLTreeUtils;⎕TRAP
+      ⎕TRAP←0 'N'
+      r←GetRefTo'APLTreeUtils'
+    ∇
+
+    ∇ r←RefToFilesAndDirs;⎕TRAP
+      ⎕TRAP←0 'N'
+      r←GetRefTo'FilesAndDirs'
+    ∇
+
+    ∇ r←RefToWinRegSimple;⎕TRAP
+      ⎕TRAP←0 'N'
+      r←GetRefTo'WinRegSimple'
+    ∇
+
+    ∇ r←RefToWinSys;⎕TRAP
+      ⎕TRAP←0 'N'
+      r←GetRefTo'WinSys'
+    ∇
+
+    ∇ r←n CheckCallback callback
+    ⍝ Returns one of:
+    ⍝ * Empty vector
+    ⍝ * Text vector with the name of the callback
+    ⍝ * Two-itemvector with:
+    ⍝   1. A ref pointing to the parent of the callback.
+    ⍝   2. A text vector with the name of the callback.
+      :If 0∊⍴callback
+          r←''
+      :ElseIf 2=≡callback
+          r←callback
+      :ElseIf '.'∊callback
+          r←{(⍎↑⍵)(1⊃⍵)}¯1 0↓¨'.'##.##.APLTreeUtils.SplitPath callback
+      :Else
+          r←({↑⍵↓⍨+/∧\⍵=↑⍵}⎕RSI)callback
+      :EndIf
+    ∇
+
+      PosnPlusSize←{
+          +⌿⊃⍵.(Posn Size)
+      }
+
+      GetIcon←{
+      ⍝ Tries to define local Icon first, then global Icon
+          (li gi)←⍵                ⍝ Local icon, global Icon
+          (~0∊⍴li):⍺,⊂'Icon'li     ⍝ Local trumps global
+          (~0∊⍴gi):⍺,⊂'Icon'gi
+          ⍺                        ⍝ No Icon at all
+      }
+
+    ∇ n←AdjustSize_ n;oldPosn;oldSize;allControls;height;width
+     (oldPosn oldSize)←n.∆Form.(Posn Size)
+     :If 0<n.⎕NC'StatusField1'
+         n.StatusField1.Coord←'Pixel'
+         {}n.StatusField1.(Posn Size) ⍝ Don't remove this: without this the StatusField might not be visible! (2013-08-27)
+     :EndIf
+     allControls←⎕WN n.∆Form                               ⍝ All controls
+     allControls/⍨←~({⍵.Type}¨allControls)∊'StatusBar' 'Timer' 'Font'  ⍝ For size calculation we ignore certain controls
+     :If 0<n.⎕NC'∆buttons'                                 ⍝ If there are buttons ...
+         allControls~←n.∆buttons                           ⍝ ... we exclude them for the time being.
+     :EndIf
+     (height width)←(n.∆initialVgap+n.∆Vgap)n.∆Hgap+⌈⌿⊃{+⌿⊃⍵.(Posn Size)}¨allControls  ⍝ Calculate height and width needed plus distance
+     :If 0<n.⎕NC'DateTime'
+         height+←220                                       ⍝ DateTime unfoldes when clicked at; we want to cover that area. minSize makes no sense here.
+     :EndIf
+     :If ~0∊⍴n.∆buttons                                    ⍝ Are there any push buttons at all?
+         :If 2=⍴⍴n.∆buttons                                ⍝ Are they arranged as a matrix?
+             height+←+/n.∆Vgap+↑¨n.∆buttons[;0].Size
+         :Else
+             height+←n.∆Vgap+↑{⍵.Size}↑n.∆buttons
+         :EndIf
+         width⌈←n.∆Hgap+1⊃+⌿⊃{⍵.(Posn Size)}↑⌽n.∆buttons
+     :EndIf
+     :If n.∆parms.hasStatusbar
+         height+←↑{⍵.Size}↑{list/⍨(⊂'StatusBar')≡¨{⍵.Type}¨list←⎕WN ⍵}n.∆Form
+     :EndIf
+     :If ⍬≢0⊃n.∆parms.size
+         height←n.∆parms.size[0]
+     :EndIf
+     :If ⍬≢1⊃n.∆parms.size
+         width←1⊃n.∆parms.size
+     :EndIf
+     width⌈←CalcSizeOfFormCaption n
+     2 ⎕NQ n.∆Form'Configure',(n.∆Form.Posn),(↑¨n.∆parms.minSize)⌈height,width
+     n.∆Form.Posn+←⌊(oldSize-n.∆Form.Size)÷2
+     :If 0<n.⎕NC'StatusField1'
+         n.StatusField1.Size[1]-←7   ⍝ Ensure left and right are the same
+     :EndIf
+    ∇
+
+    ∇ parms←HandleParmsDefaults(globalParms parms)
+      :If 0<parms.⎕NC'hGap'
+      :AndIf ¯1≡parms.hGap
+          parms.hGap←globalParms.hGap
+      :EndIf
+      :If 0<parms.⎕NC'vGap'
+      :AndIf ¯1≡parms.vGap
+          parms.vGap←globalParms.vGap
+      :EndIf
+    ∇
+
+    ∇ {n}←ReorderTabIndex n;list;thisTab
+        ⍝ Make sure that pressing <tab> jumps in the right order.
+        ⍝ This is important only when custom controls are added
+        ⍝ to a form after the buttons have already been created.
+     list←⎕WN n.∆Form
+     list←(~list.Type∊'TabControl' 'MenuBar' 'TipField')/list
+     {}ReorderTabIndex_ list
+     :If ~0∊⍴n.∆GetRefs'TabControl'
+         :For thisTab :In ↑,/'SubForm'∘⎕WN¨'TabControl'⎕WN n.∆Form
+             list←⎕WN thisTab
+             list←(~list.Type∊'TabControl' 'MenuBar' 'TipField' 'Image')/list
+             {}ReorderTabIndex_ list
+         :EndFor
+     :EndIf
+          ⍝Done
+    ∇
+
+      ReorderTabIndex_←{
+    ⍝ Sub-function of ReorderTabIndex. Is fed with a list of controls.
+    ⍝ That might be all the (sensitive) controls on that form or just
+    ⍝ the controls of a sub form when Tabs are involved.
+          list←⍵
+          coord←⊃{+⌿⊃⍵}¨GetPosnAndSize list
+          ind←⍋coord[;1]
+          coord←coord[ind;]
+          list←list[ind]
+          ind←⍋coord[;0]
+          coord←coord[ind;]
+          list←list[ind]
+          list.TabIndex←⍳⍴list.TabIndex
+          ⍬
+      }
+
+    ∇ n←{align}PositionButtons n;al;btnSizes;need;newPosn1
+            ⍝ In case buttons are supposed to be centered or aligned to the right we need to
+            ⍝ take action. This function must be called after the form got the right size.
+            ⍝ The optional left argument can be one of #.GUI.Enums.Align.*
+     al←##.Enums.Align
+     :If 0=⎕NC'align'
+         align←n.∆globalParms.alignButtons{0∊⍴⍵:⍺ ⋄ ⍵}n.∆parms.alignButtons
+     :EndIf
+     :Select align
+     :Case al.Right
+         btnSizes←n.∆Hgap+1⊃¨n.∆buttons.Size
+         n.∆buttons.Posn←(↑¨n.∆buttons.Posn),¨n.∆Form.Size[1]-⌽+\btnSizes
+         n.∆buttons.Attach←⊂4⍴'Bottom' 'Right'
+     :Case al.Center
+         btnSizes←,1⊃¨n.∆buttons.Size
+         need←n.∆Vgap{+/⍵,(¯1+⍴⍵)⍴⍺}btnSizes
+         newPosn1←(⌊0.5×n.∆Form.Size[1]-need)
+         n.∆buttons.Posn←(⍴n.∆buttons.Posn)⍴(↑¨,n.∆buttons.Posn),¨,(⍴n.∆buttons)⍴newPosn1+0,¯1↓+\btnSizes+n.∆Vgap
+         n.∆buttons.Attach←⊂4⍴'Bottom' 'Right'
+     :Case al.Left
+                 ⍝ This case is already handled because it is the default
+     :Else
+         . ⍝ Huuh?!
+     :EndSelect
+    ∇
+
+      GetFontStandard←{
+          (globalParms parms)←⍵
+          f←parms{0=⍺.⎕NC ⍵:0 ⋄ ~0∊⍴⍺.⍎⍵}'fontStandard'
+          f:parms.fontStandard
+          globalParms.fontStandard
+      }
+
+    ∇ r←GetGap(globalParms parms name);gv;lv
+     ⍝ Returns the "name" (which is either "hGap" or "vGap") from either parms (if defined) or globalParms otherwise.
+      ('Invalid: "name')⎕SIGNAL APLGuiError/⍨~(⊂name)∊'vGap' 'hGap'
+      gv←globalParms⍎name       ⍝ Global value
+      lv←0                      ⍝ Local value
+      :If 0<parms.⎕NC name
+          lv←parms⍎name
+      :EndIf
+      r←lv{0∊⍴⍺:⍵ ⋄ ⍺}gv
+      :If 645=⎕DR r             ⍝ Float? That is percentage of the height of fontStandard!
+          r←⌊r×(GetFontStandard globalParms parms).Size
+      :EndIf
+    ∇
+
+      GetPosnAndSize←{
+    ⍝ Needed because although most controls have a property "Posn", Images don't: they have "Points".
+    ⍝ Also, the "Size" of an image can be in "Image" itself or rather an Image.Picture.
+          ctrl←⍵
+          0<≡ctrl:∇¨ctrl
+          ctrl.Type≢'Image':ctrl.(Posn Size)
+          r←ctrl.(Points Size)
+          0≠↑⍴∊1⊃r:r
+          ctrl.(Points Picture.Size)
+      }
+
+    ∇ {n}←{focusHas}AutoPressButton n;ind
+      :If n.∆parms.testMode
+      :AndIf 0<n.∆parms.⎕NC'autoPress'
+      :AndIf ¯1≠ind←n.∆parms.autoPress
+          ⎕NQ((,n.∆buttons)[ind])'Select'
+      :Else
+          :If 1↑focusHas∊n.∆buttons
+              ⎕NQ(focusHas{⍵[⍵⍳⍺]},n.∆buttons)'Select'
+          :ElseIf ¯1≠n.∆parms.autoPress
+              ⎕NQ(n.∆parms.autoPress⊃,n.∆buttons)'Select'
+          :Else
+              ⎕NQ((,n.∆buttons)[(,n.∆buttons.Default)⍳1])'Select'
+          :EndIf
+      :EndIf
+    ∇
+
+ GetMenubarHeight←{
+      ⍝ Returns the height of the menubar or, if there is no menubar, zero.
+      ⍝ Typically used to correct size/posn of Forms that do have a menubar.
+     n←⍵
+     0∊⍴'Menubar'⎕WN n.∆Form:0
+     RefToWinSys.(GetSystemMetrics SM_CYMENU)
+ }
+
+      CheckUserCallback_←{
+      ⍝ ⍺: name of the event (help, okay,...)
+      ⍝ ⍵: either...
+      ⍝    * a string (possibly fully qualified)
+      ⍝    * a vector of two with a ref (parent namespace or instance etc) and a string (fns name).
+      ⍝    If it is a simple string that is not fully qualified then we try to
+      ⍝    find it where the tool in question was called from.
+          0∊⍴⍵:⍵
+          2=≡⍵:⍵            ⍝ Alread ref to parent and string with function name?
+          ('.'∊⍵)∧3=⌊|⎕NC⊂⍵:{(⍎¯1↓0⊃⍵)(1⊃⍵)}'.'SplitPath ⍵ ⍝ Do we see it? (dot is needed to avoid name clashes)
+          calledFrom←{↑⍵↓⍨+/∧\⍵≡¨⊂↑⍵}⎕RSI
+          home←calledFrom{2=|≡⍵:0⊃⍵ ⋄ ⍺}⍵
+          3=⌊|home.⎕NC⊂⍵:home ⍵
+          msg←'Cannot see ',⍺,' callback'
+          ~'.'∊⍵:msg ⎕SIGNAL APLGuiError
+          (calledFrom name)←{(⍎¯1↓0⊃⍵)(1⊃⍵)}'.'SplitPath ⍵
+          3≠⌊|calledFrom.⎕NC⊂name:msg ⎕SIGNAL APLGuiError
+          calledFrom name
+      }
+
+    ∇ {r}←FunctionReturnsResult(parent callback)
+      :If (↑callback)∊'#⎕'
+          r←|↑↑⎕AT callback
+      :Else
+          r←|↑↑parent.⎕AT callback
+      :EndIf
+    ∇
+
+      GetAllMenuItems←{
+      ⍝ ⍵ is typically n.menubar which is the namespace returned by Menubar.Create
+          menubar←⍵
+          list←menubar.∆GetRefs''
+          (list.Type≡¨⊂'MenuItem')/list
+      }
+
+    ∇ {r}←OnMenuItem msg;n;row;callback;parent;fns;rf;fnsName
+      rf←↑msg
+      n←GetRefTo_n rf
+      :If (↑msg)∊n.menubar.∆Callbacks[;0]
+          row←n.menubar.∆Callbacks[;0]⍳↑msg
+          callback←1⊃n.menubar.∆Callbacks[row;]
+          (parent fnsName)←callback CheckUserCallback_ callback
+          fns←parent⍎fnsName
+          :If 0=FunctionReturnsResult parent callback
+              fns n rf
+          :Else
+              fns n rf
+          :EndIf
+      :EndIf
+    ∇
+
+ CalcSizeOfFormCaption←{
+      ⍝ The name says it all but see also the comment in ##.Enums.Globals.AddToCaptionWidth
+     n←⍵
+     buff←##.##.WinSys.GetFormCaptionFontInfo
+     ns←⎕NS''
+     font←ns.⎕NEW'Font'(('Size'(|buff[0]))('Weight'(buff[4])))
+     ##.Enums.Globals.AddToCaptionWidth+1⊃n.∆Form.GetTextSize n.∆Form.Caption font
+ }
+
+    ∇ parms←CheckParmsForProgressbarAndStatusbar parms
+      :If 0<parms.⎕NC'timeout'
+      :AndIf 0≠parms.timeout        ⍝ In case timeout ≠ 0 we need a progressbar
+          parms.hasProgressbar←1
+      :EndIf
+      :If 0<parms.⎕NC'hasProgressbar'
+      :AndIf parms.hasProgressbar      ⍝ In case we need a progressbar we need a statusbar
+          parms.hasStatusbar←1
+      :EndIf
+    ∇
+
+:EndNamespace

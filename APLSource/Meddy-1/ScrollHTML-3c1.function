@@ -1,0 +1,8 @@
+ ScrollHTML←{
+⍝ Scroll the HTML so that the current header is shown.
+     n←⍵
+     ind←+/n.Toc.∆Toc[;3]≤↑↑n.Markdown.SelText
+     n.Toc.SelItems[]←0
+     n.Toc.SelItems[ind]←1
+     n ScrollToHeader ind
+ }

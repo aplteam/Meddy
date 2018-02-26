@@ -1,0 +1,17 @@
+ {r}←FindInMarkdown n;parms;ref;def;result;DT;searchFor;bool;regExMetaChars;hits
+ r←⍬
+ parms←G.Input.CreateParms
+ parms.addToCaption←'Find in Markdown'
+ parms.onInitial←'AdjustFindFormSize'
+ parms.onOkay←'OnHandleFindInMarkdown'
+ parms.okBtnCaption←'Find'
+ DT←G.Enums.InputDataTypes
+ def←0 7⍴⍬
+ def⍪←'&Search_for' ''n.∆Find.SearchFor DT.Character 40 1 1
+ def⍪←'Regular_&expression' ''n.∆Find.IsRegEx DT.YesNo ⍬ 1 1
+ def⍪←'&Case_sensitive' ''n.∆Find.Case DT.YesNo ⍬ 1 1
+ def⍪←'IgnoreInlineCode' 'Ignore &inline code'n.∆Find.IgnoreInlineCode DT.YesNo ⍬ 1 1
+ def⍪←'IgnoreCodeBlock' 'Ignore code &blocks'n.∆Find.IgnoreCodeBlocks DT.YesNo ⍬ 1 1
+ def⍪←'Direction' 'Direction⋄&Up⋄&Down'(0 1)DT.Radio ⍬ 1 1
+ result←n.∆globalParms parms G.Input.Run def
+⍝Done

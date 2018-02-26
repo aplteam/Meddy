@@ -1,0 +1,11 @@
+ History
+⍝ * 0.2.0
+⍝   * "Export HTML" now gives three opportunities: "Save always", "Save never" and "Keep asking". Same
+⍝     for the Preferences dialog.
+⍝   * When a file is opened all <tab> characters are replaced by 4 spaces.
+⍝   * F11 (View in default browser) has been moved to F10.
+⍝   * F11 is now "Toggle full-screen mode" which is standard in all browsers and many editors.
+⍝   * F6 now syncs the Preview pane with the Markdown pane and the TOC, depending on the cursor position
+⍝     in the markdown.
+⍝   * Cursor movements don't change the Preview any more: too slow and sometimes not appreciated.
+⍝   * Size and Posn of the main form are now restored at the next start when possible.

@@ -1,0 +1,22 @@
+# The "Create" method
+
+This method adds a menu bar to a given form and populates it.
+
+## Parameters:
+
+1. `parent` is a ref pointing to an existing GUI control that will host the menu bar, typically a form, often an instance of `→[*.StdForm]`.
+1. `definition` is a vector of text vectors defining the menu bar as described in the →[*.Menubar|introduction].
+1. `parms` is a namespace with certain parameters. Typically you will create such a namespace by calling Menubar.CreateMenubarParms. If the defaults are fine this can be an empty vector.
+1. `instanceOfKeyCodes` must be, well, an instance of the `→[*.KeyCodes]` class.
+
+
+## Result:
+
+A namespace that contains references pointing to the controls created. The names of the references
+match the names from the menu bar definition. However, there is one more reference called
+"Menubar" which is pointing to the menu bar itself. That's why the name "Menubar" is a reserved one.
+
+The menu bar and its children live as long as the namespace with the references do exist.
+
+Note that the namespace also contains a method `∆List` which can be used to list the contents. It
+returns the name, the type and the caption of all the objects if that is appropriate.

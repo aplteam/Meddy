@@ -1,0 +1,35 @@
+ ∆TopicProperties←{
+⍝ This function is needed by the APLTreeHelp system.
+⍝ You can edit this function from the APLTreeHelp GUI via the context menu.
+⍝ *** NOTE:
+⍝     Make only changes to this function that affect the explicit result.
+⍝     Any other changes will eventually disappear because these functions are rebuild
+⍝     under program control from their explicit result under certain circumstances.
+⍝        This is also the reason why you should use the `active` flag to hide a topic
+⍝     temporarily because although just putting a `⍝` symbol in front of its line
+⍝     seems to have the same effect, in the long run that's not true because the
+⍝     commented line will disappear in the event of a rebuild.
+⍝ ----------------------------------
+⍝ r gets a table with these columns:
+⍝ [;0] namespace or function name.
+⍝ [;1] caption in the tree view. If empty the namespace/fns name is taken.
+⍝ [;2] active flag.
+⍝ [;3] developmentOnly flag; 1=the corresponding node does not show in user mode.
+     r←0 4⍴''
+     r⍪←'Terms' '' 1 0
+     r⍪←'N_Namespace' 'The "n" namespace' 1 0
+     r⍪←'Parameter_spaces' '' 1 0
+     r⍪←'Accessing_globalParms_and_parms' 'Accessing "globalParms" and "parms"' 1 0
+     r⍪←'The_Windows_Registry' 'The Windows Registry' 1 0
+     r⍪←'Caption_and_AddToCaption' '"Caption" and "AddToCaption"' 1 0
+     r⍪←'Fonts' '' 1 0
+     r⍪←'System_variables' 'System variables: ⎕IO and ⎕ML' 1 0
+     r⍪←'Closing_an_APLGui_form' 'Closing an APLGui form' 1 0
+     r⍪←'Testing' '' 1 0
+     r⍪←'Errors' '' 1 0
+     r⍪←'Form_size_calculation' 'Form size calculation' 1 0
+     r⍪←'Gaps_between_controls' 'Gaps between controls' 1 0
+     r⍪←'Button_Alignment' 'Button alignment' 1 0
+     r⍪←'Callback_functions' 'Callback functions' 1 0
+     r
+ }

@@ -1,0 +1,26 @@
+ r←OnPushButtonInFindAndReplace msg;n2;obj;n
+ r←0
+ obj←↑msg
+ n2←GetRef2n obj
+ :If obj≢n2.Close
+     n←GetRef2n n2.∆Form.##
+     n.∆Find.SearchFor←n2.Search_for.Text
+     n.∆Find.ReplaceBy←n2.Replace_with.Text
+     n.∆Find.Case←n2.Case_sensitive.State
+     n.∆Find.IsRegEx←n2.Regular_expression.State
+     n.∆Find.IgnoreInlineCode←n2.IgnoreInlineCode.State
+     n.∆Find.IgnoreCodeBlocks←n2.IgnoreCodeBlock.State
+     :Select obj
+     :Case n2.Find_next
+         FindForReplace n n2
+     :Case n2.Replace
+         ReplaceNext n n2
+     :Case n2.Replace_all
+         ReplaceAll n n2
+     :Case n2.Close
+         ⎕NQ n2.∆Form'Close'
+     :EndSelect
+ :Else
+     ⎕NQ n2.∆Form'Close'
+ :EndIf
+⍝Done

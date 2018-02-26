@@ -1,0 +1,7 @@
+# hasAbortButton
+
+Boolean that defaults to 0.
+
+If this is 1 then the GUI create by `Busy` will have an "Abort" button. When the user presses the
+button `n.∆ABORTED` will be set to 1.
+

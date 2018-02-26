@@ -1,0 +1,8 @@
+ flag←n AskForDelete parent;parms;msg
+ parms←G.Dialogs.CreateParmsForYesOrNo
+ parms.addToCaption←'Delete search string'
+ parms.parent←parent
+ msg←⊂'You have not specified a replace string.'
+ msg,←'' 'Are you sure that you want to delete the search string?'
+ flag←n.∆globalParms parms G.Dialogs.YesOrNo msg
+⍝Done

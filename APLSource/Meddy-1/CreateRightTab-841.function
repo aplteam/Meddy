@@ -1,0 +1,32 @@
+ CreateRightTab←{
+     n←⍵
+     parent←n.Right
+
+     parent.Coord←'Prop'
+     ∆←''
+     ∆,←⊂'Posn'(0 0)
+     ∆,←⊂'Size'(100 100)
+     ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     n.TC2←parent.⎕NEW'TabControl'∆
+     parent.Coord←'Pixel'
+     n.TabBtn1←n.TC2.⎕NEW'TabButton'(⊂'Caption' 'Preview')
+     n.TabBtn2←n.TC2.⎕NEW'TabButton'(⊂'Caption' 'HTML')
+
+     ∆←''
+     ∆,←⊂'Coord' 'Prop'
+     ∆,←⊂'Posn'(0 0)
+     ∆,←⊂'Size'(100 100)
+     ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     n.SF1←n.TC2.⎕NEW'SubForm'(∆,⊂'TabObj'n.TabBtn1)
+     n.SF2←n.TC2.⎕NEW'SubForm'(∆,⊂'TabObj'n.TabBtn2)
+
+     ('SubForm'⎕WN n.TC2).Coord←⊂'Pixel'
+     _←('SubForm'⎕WN n.TC2){⍺.Size[0]-←⍵ ⋄ ⍬}¨2+n.Statusbar.Size[0]
+
+     n←CreatePreview n
+     n←CreateOutput n
+
+     n.HTML.onKeyPress←'OnKeyPressInSubFormChild'
+
+     n
+ }

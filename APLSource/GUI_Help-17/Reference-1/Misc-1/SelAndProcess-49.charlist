@@ -1,0 +1,5 @@
+# SelAndProcess
+
+This is a base class used by both, `→[*.SelectionTool]` and `→[*.ProcessTool]`. It has no
+independent value.
+

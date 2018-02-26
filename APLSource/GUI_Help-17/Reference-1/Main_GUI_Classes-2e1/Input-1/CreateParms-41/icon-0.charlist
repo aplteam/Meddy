@@ -1,0 +1,5 @@
+# icon
+
+Default is an empty vector. Might become either an icon object or a \*.ico filename. The latter one
+must be prefixed by "file://".
+

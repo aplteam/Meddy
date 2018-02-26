@@ -1,0 +1,11 @@
+# OnConfigure
+
+Syntax:
+
+~~~
+msg ← OnConfigure msg
+~~~
+
+This callback has an effect only when `minSize` was specified: it prevents the user from making the
+form smaller than "MinSize".
+

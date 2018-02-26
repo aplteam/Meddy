@@ -1,0 +1,49 @@
+:Class APLGuiParms
+    ⎕IO←0 ⋄ ⎕ML←3
+
+    ∇ r←CreateDefaults
+      :Access Public Shared
+    ⍝ This generates a parameter space with default settings to be used as "global parameters".
+    ⍝ * `caption`<br />Used by all forms automatically.
+    ⍝ * `honorCaptionForSizeCalc`<br />Takes the full caption into account when calculating the size of a form.
+    ⍝ * `honorStatusbarForSizeCalc`<br />Take the status bar (incl. a progress bar) into account when calculating the size of a form.
+    ⍝ * `icon`<br />Might become an Icon used by all forms.
+    ⍝ * `fontStandard`<br />Font used for forms. That's what controls will inherit.
+    ⍝ * `fontInput`<br />Font used for input fields, tables and lists.
+    ⍝ * `fontLables`<br />Font used for Lables.
+    ⍝ * `parmType`<br />Carries the name (type) of the parameter namespace.
+    ⍝ * `sysMenu`<br />Shall any form have a system menu?
+    ⍝ * `centerin`<br />If this becomes a ref to a form then all objects will center within that form automatically..
+    ⍝ * `maxButton`<br />Shall the GUI have a max button?
+    ⍝ * `minButton`<br />Shall the GUI have a min button?
+    ⍝ * `regKey`<br />Used to save Posn & Size in the Windows Registry. Refer to help for details.
+    ⍝ * `testMode`<br />Set this to 1 only if you are running test cases of some sort. Refer to the help for details.
+    ⍝ * `timeout`<br />How long shall a dialog wait until the default button is pressed automatically (by a timer).
+      r←##.APLGuiParameterSpace.Create
+      r.caption←''
+      r.honorCaptionForSizeCalc←1
+      r.honorStatusbarForSizeCalc←1
+      r.icon←''
+      r.(fontStandard fontInput fontLables fontAPL)←CreateStandardFonts ⍬
+      r.parmType←'APLGuiParms'
+      r.sysMenu←1
+      r.centerIn←⍬
+      r.maxButton←1
+      r.minButton←1
+      r.regKey←''
+      r.testMode←0
+      r.timeout←0
+     ⍝Done
+    ∇
+
+    ∇ r←CreateStandardFonts dummy;apl;label;input;standard
+    ⍝ Creates 4 fonts to be used as standard, input, label and APL font.
+      :Access Public Shared
+      standard←(⎕NEW'Font'(('PName' 'Tahoma')('Size' 18)))
+      input←(⎕NEW'Font'(('PName' 'Courier New')('Size' 18)))
+      label←(⎕NEW'Font'(('PName' 'Tahoma')('Size' 15)))
+      apl←(⎕NEW'Font'(('PName' 'APL385 Unicode')('Size' 19)))
+      r←(standard input label apl)
+    ∇
+
+:EndClass

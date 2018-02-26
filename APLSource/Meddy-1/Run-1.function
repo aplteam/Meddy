@@ -1,0 +1,27 @@
+ {r}Run dummy;n;⎕ML;⎕IO;A;F;⎕TRAP
+⍝ Main function
+ r←⍬
+ ⎕IO←0 ⋄ ⎕ML←3
+ EnableCONTINUE_workspaces ⍬
+ 'This application requires to run under Dyalog''s 32 bit version'⎕SIGNAL 11/⍨∨/'-64'⍷↑#.APLVersion
+ 'This application requires to run under at least Dyalog 16.0'⎕SIGNAL 11/⍨16>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'#.APLTreeUtils.Split ⍵)÷1 10}1⊃#.APLVersion
+ ⍝AllowRide_ 4599 1
+ {}2035⌶'ScaledPixel'
+ #.⎕SHADOW'ErrParms'
+ ⎕TRAP←#.HandleError.SetTrap ⍬
+ n←##.GUI.RefNamespace.Create'Meddy'
+ n←Init n
+ AllowRide n
+ ⎕TRAP←(n.∆INI.Get'Config:trap')SetTrap n
+ n.∆Path←ReadPathFromRegistry ⍬
+ n←CreateGui n
+ HandleCommandLineParms n
+ 2 ⎕NQ #'Flush'
+ ⎕DL 0.1
+ GetMarkAPLScriptIntoWS n
+ WarnOnDragAndDrop n
+ HandlePreferences n
+ DQ n.∆Form
+ SavePath n
+ Shutdown
+⍝Done

@@ -1,0 +1,7 @@
+ TellNotInDevelopment←{
+     msg←'Sorry, this feature is only available in the runtime EXE'
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.addToCaption←'Open File'
+     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     1:r←⍬
+ }

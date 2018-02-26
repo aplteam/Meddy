@@ -1,0 +1,13 @@
+ {r}←AdjustFindAndReplaceFormSize n;width
+⍝ Beautifies the "Find and replace" form.
+ r←⍬
+ width←⌈/1⊃¨n.(Find_next Replace Replace_all Close).Size
+ width{⍵.Size[1]←⍺}¨n.(Find_next Replace Replace_all Close)
+ n.Find_next.Posn[1]←(2×n.∆Vgap)+1⊃+⌿⊃n.Replace_with.(Posn Size)
+ n.Direction.Posn[0]←n.∆Vgap+↑+⌿⊃n.Find_next.(Posn Size)
+ n.Direction.Posn[1]←40+n.Find_next.Posn[1]
+ n.Replace.Posn[0]←n.∆Vgap+↑+⌿⊃n.Direction.(Posn Size)
+ n.Replace.Posn[1]←⊃n.Find_next.Posn[1]
+ n.Replace_all.Posn←(n.∆Vgap+↑+⌿⊃n.Replace.(Posn Size)),n.Replace.Posn[1]
+ n.Close.Posn←(n.∆Vgap+↑+⌿⊃n.Replace_all.(Posn Size)),n.Replace_all.Posn[1]
+⍝Done

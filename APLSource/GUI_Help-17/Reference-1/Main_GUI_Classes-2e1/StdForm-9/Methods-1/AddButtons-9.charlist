@@ -1,0 +1,20 @@
+# AddButtons
+
+Syntax:
+
+~~~
+n ← AddButtons (n captions)
+~~~
+
+Useful to create one or more buttons on the form.
+
+Note:
+
+* The buttons created by this function will be added to the `n` namespace as references named `Btn_00`, `Btn_01` and so force.
+* `n.∆buttons` is a vector that keeps references to all buttons created by `AddButtons`. This is useful for statements like `n.∆buttons.Active←0`
+
+
+For details see the documentation of the class itself with ADOC.
+
+What is →[*.ADOC]?
+

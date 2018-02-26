@@ -1,0 +1,8 @@
+ {success}←{newFlag}RefreshPreview n
+ #.CursorObj←1
+ WriteToStatusbar n'Converting Markdown to HTML...'
+ newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
+ success←newFlag ProcessMarkdown n
+ 0 WriteToStatusbar n''
+ #.CursorObj←0
+⍝Done

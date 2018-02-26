@@ -1,0 +1,4 @@
+# redirectHttpToDefaultBrowser
+
+Boolean that defaults to 1. If 1 then all links with "http(s)://" are directed to the default browser.
+

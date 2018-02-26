@@ -1,0 +1,9 @@
+ str←{Del}Propagate modifiers;sw;b;v;si
+⍝ Recreate a string of the modifiers in order to be passed to another command
+⍝ e.g. myArgs.Propagate 'VERSION'
+⍝ Invalid modifiers are ignored.
+ str←'' ⋄ si←SwD[;0]∊sw←({⍺←⍵=1↑⍵ ⋄ 1↓¨⍺⊂⍵}' ',modifiers)~⊂''
+ :If 1∊b←0≢¨v←si/SwD[;1]
+     :If 0=⎕NC'Del' ⋄ Del←'-' ⋄ :EndIf
+     str←∊(b/v){' ',Del,⍵,(1≢⍺)/'=',{∨/⍵∊Del,' ''"':Q,((1+⍵=Q)/⍵),Q←'"' ⋄ ⍵}⍕⍺}¨b/si/SwD[;0]
+ :EndIf

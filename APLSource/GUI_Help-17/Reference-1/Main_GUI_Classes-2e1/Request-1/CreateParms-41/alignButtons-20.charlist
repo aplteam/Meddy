@@ -1,0 +1,4 @@
+# alignButtons
+
+Defaults to `##.Enums.Align.Left`. Can be "center" or "right" instead.
+

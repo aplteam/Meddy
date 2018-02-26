@@ -1,0 +1,5 @@
+ n←SaveFontSize n;regKey
+⍝ Saves Size of the font used for Markdown, TOC and HTML.
+ :If ~0∊⍴regKey←n.∆globalParms.regKey,'\FontSize'
+     ##.WinRegSimple.Write regKey n.∆CurrentFontSize
+ :EndIf

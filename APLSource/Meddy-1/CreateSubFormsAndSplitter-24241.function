@@ -1,0 +1,64 @@
+ n←{flag}CreateSubFormsAndSplitter n;∆;regKey;buff
+ flag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'flag'
+
+ ∆←''
+ ∆,←⊂'Coord' 'Prop'
+ ∆,←⊂'Size'(100 10)
+ ∆,←⊂'Posn'(0 0)
+ ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Left')
+ n.TocSF←n.∆Form.⎕NEW'SubForm'∆
+
+ ∆←''
+ ∆,←⊂'Coord' 'Prop'
+ ∆,←⊂'Size'(100 45)
+ ∆,←⊂'Posn'(0 10)
+ ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+ n.Left←n.∆Form.⎕NEW'SubForm'∆
+
+ ∆←''
+ ∆,←⊂'Coord' 'Prop'
+ ∆,←⊂'Size'(100 45)
+ ∆,←⊂'Posn'(0 55)
+ ∆,←⊂'Attach'('Top' 'Right' 'Bottom' 'Right')
+ n.Right←n.∆Form.⎕NEW'SubForm'∆
+
+ n.(TocSF Left Right).(Active Visible)←flag
+
+ ∆←''
+ ∆,←⊂'SplitObj1'n.TocSF
+ ∆,←⊂'SplitObj2'n.Right
+ ∆,←⊂'Align' 'Left'
+ n.Splitter1←n.∆Form.⎕NEW'Splitter'∆
+ n.Splitter1.Coord←'Prop'
+ n.Splitter1.Posn[1]←10
+ n.Splitter1.Coord←'Pixel'
+
+ ∆←''
+ ∆,←⊂'SplitObj1'n.Left
+ ∆,←⊂'SplitObj2'n.Right
+ ∆,←⊂'Align' 'Right'
+ n.Splitter2←n.∆Form.⎕NEW'Splitter'∆
+ n.Splitter2.Coord←'Prop'
+ n.Splitter2.Posn[1]←55
+ n.Splitter2.Coord←'Pixel'
+
+ n.(TocSF Left Right).Coord←⊂'Pixel'
+ n.TocSF.Posn[0]+←3+↑n.ToolControl.Size
+ n.Left.Posn[0]+←n.TocSF.Posn[0]
+ n.Right.Posn[0]←n.Left.Posn[0]
+
+ regKey←n.∆globalParms.regKey,'\',n.∆parms.regKey2,'\'
+ :If 0∊⍴{11::'' ⋄ ##.WinRegSimple.Read ⍵,'\Splitter1Posn'}regKey
+     n.Splitter1.Posn[0]←n.Splitter2.Posn[0]←n.Left.Posn[0]
+     n.TocSF.Size[0]←n.Right.Size[0]←n.Left.Size[0]
+ :Else
+     buff←⍎##.WinRegSimple.Read regKey,'Splitter1Posn'
+     buff[1]⌊←n.∆Form.Size[1]-30
+     n.Splitter1.Posn←buff
+     buff←⍎##.WinRegSimple.Read regKey,'Splitter2Posn'
+     buff[1]⌊←n.∆Form.Size[1]-20
+     n.Splitter2.Posn←buff
+ :EndIf
+ n.Splitter1.Size[1]←3
+ n.Splitter2.Size[1]←3
+⍝Done

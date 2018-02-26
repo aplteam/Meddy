@@ -1,0 +1,5 @@
+ ShowMarkAPL_Reference←{
+     n←⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\MarkAPL.html'
+     1:rc←rc
+ }

@@ -1,0 +1,5 @@
+ GetState←{
+⍝ Returns the ItemState for the TreeView as a bit vector
+     rf←⍺
+     ⌽(32⍴2)⊤2 ⎕NQ rf'GetItemState'⍵   ⍝ Don't call the method: bug 10925
+ }

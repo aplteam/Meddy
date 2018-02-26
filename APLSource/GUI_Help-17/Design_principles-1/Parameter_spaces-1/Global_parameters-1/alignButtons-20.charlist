@@ -1,0 +1,5 @@
+# alignButtons
+
+Defaults to `##.Enums.Align.Left`. Can be "center" or "right" instead. Specifies the overall
+standard alignment. of buttons in any of the Forms created with APLGui tools.
+

@@ -1,0 +1,24 @@
+:Class Buttons
+⍝ Use this to populate the "autoPress" or the "focusButton" etc.
+⍝ Create your own "EnumButtons" if you must use another language.
+    ∇ r←OK
+      :Access Public Shared
+      r←0
+    ∇
+    ∇ r←Cancel
+      :Access Public Shared
+      r←1
+    ∇
+    ∇ r←Help
+      :Access Public Shared
+      r←2
+    ∇
+    ∇ r←None
+      :Access Public Shared
+      r←¯1
+    ∇
+    ∇ r←∆List
+      :Access Public Shared
+      r←⍉{⍵,[-0.5]⍎¨⍵}(⎕NL-3)~⊂'∆List'
+    ∇
+:EndClass

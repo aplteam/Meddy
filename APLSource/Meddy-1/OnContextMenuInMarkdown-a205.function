@@ -1,0 +1,5 @@
+ OnContextMenuInMarkdown←{
+     n←GetRef2n↑⍵
+     _←ProcessContextMenuOnMarkdown n
+     0
+ }

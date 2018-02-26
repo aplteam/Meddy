@@ -1,0 +1,12 @@
+# Button alignment
+
+By default buttons are aligned to the left of a form. That may or may not suit your taste. You can
+change this by assigning `Enums.Align.Center` or `Enums.Align.Right` to `alignButtons`; this is a
+global parameter but can also be set for many classes as a local parameter.
+
+Note however that for both, "left" and "right" "Attach" is set accordingly. As a result the buttons
+will stay in place (=aligned to either the left or the right) in case the form is resized.
+
+There is no good solution for this when the buttons are centered: you normally don't want the
+buttons to change their sizes! Therefore it is recommended to use "center" only when a form is not resizable.
+

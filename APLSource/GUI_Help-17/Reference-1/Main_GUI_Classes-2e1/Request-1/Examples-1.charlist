@@ -1,0 +1,57 @@
+# Examples
+
+## AskForNumber
+
+~~~
+Request.AskForNumber'Number of copies:'
+~~~
+
+![](.\Images\Request\01.png)
+
+~~~
+┌→──┐
+│1 0│  ⍝ In case "OK" was selected
+└~──┘
+~~~
+
+## AskForString
+
+~~~
+Request.AskForString'Enter your name:'
+~~~
+
+![](.\Images\Request\02.png)
+
+~~~
+┌→──────┐
+│   ┌⊖┐ │
+│ 0 │ │ │ ⍝ In case "Cancel" was selected
+│   └─┘ │
+└∊──────┘
+~~~
+
+## AskForPassword
+
+~~~
+Request.AskForPassword 20
+~~~
+
+![](.\Images\Request\03.png)
+
+Returns te password entered.
+
+## AskForDate
+
+~~~
+Request.AskForDate ⍬
+~~~
+
+![](.\Images\Request\04.png)
+
+~~~
+┌→─────────────┐ 
+│   ┌→───────┐ │
+│ 1 │2000 4 3│ │
+│   └~───────┘ │
+└∊─────────────┘
+~~~

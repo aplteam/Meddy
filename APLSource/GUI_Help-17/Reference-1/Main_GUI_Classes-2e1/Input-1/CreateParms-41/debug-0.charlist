@@ -1,0 +1,5 @@
+# debug
+
+Boolean that defaults to 0 and will remain 0 in Runtime no matter what the setting is. With 1 a
+developer gets additional features via the context menu.
+

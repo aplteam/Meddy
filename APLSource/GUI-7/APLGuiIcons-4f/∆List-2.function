@@ -1,0 +1,4 @@
+ r←∆List;⎕IO
+⍝ List all variables in this namespace
+ ⎕IO←0
+ r←{⍵,[0.5]⍎¨⍵}⎕NL-2

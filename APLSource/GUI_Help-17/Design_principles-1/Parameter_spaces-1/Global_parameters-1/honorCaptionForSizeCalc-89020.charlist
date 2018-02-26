@@ -1,0 +1,4 @@
+# honorCaptionForSizeCalc
+
+Boolean that defaults to 1. Takes the full caption into account when calculating the size of a form.
+

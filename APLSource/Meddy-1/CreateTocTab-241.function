@@ -1,0 +1,20 @@
+ CreateTocTab←{
+     n←⍵
+     parent←n.TocSF
+     parent.Coord←'Prop'
+
+     ∆←''
+     ∆,←⊂'Posn'(0 0)
+     ∆,←⊂'Size'(100 100)
+     ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     ∆,←⊂'FontObj'n.FontAPL
+     ∆,←⊂'FullRowSelect' 1
+     n.Toc←parent.⎕NEW'TreeView'∆
+     n.Toc.onItemUp←'OnHeaderSelected'
+     n.Toc.onKeyPress←'OnKeyPressInTOC'
+     n.Toc.on9998←'On9998'
+     n.Toc.onContextMenu←'OnContextMenuInToc'
+     n.Toc.Coord←'Pixel'
+
+     n
+ }

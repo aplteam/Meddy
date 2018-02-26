@@ -1,0 +1,39 @@
+# Requirements
+
+The APLGui stuff needs several classes/scripted namespaces from the Open Source project APLTree
+from the APL wiki; for details see
+
+→[http://aplwiki.com/CategoryAplTree]
+
+These objects are needed:
+
+~~~
+APLTreeUtils
+DateAndTime    ⍝ Only when "Input" is used
+WinRegSimple
+WinSys
+~~~
+
+Note that there is a function `APLGuiAdmin.CheckOtherRequirements` available which is checking for
+these scripts being available. All must live in the same namespace as the APLGui stuff; default is `#.GUI`.
+
+If you are not happy with that you can simply create refs. For examples, if those scripts live in
+the root (`#`) but your APLGui stuff lives in `#.GUI` then you do this and you are done:
+
+~~~
+#.GUI.APLTreeUtils←#.APLTreeUtils
+#.GUI.DateAndTime←#.DateAndTime
+#.GUI.FilesAndDirs←#.FilesAndDirs
+#.GUI.WinSys←#.WinSys
+~~~
+
+When you load (or copy from) the workspace APLGui.dws then it contains not only all the namespaces
+and (`#`) but comprise APLGui but also the three aforementioned scripts from the APLTree project.
+You should  however check on the APL Wiki whether they are still up-to date or not.
+
+If you want to use only, say, the `Dialogs` class then you can delete all the other main classes
+except `MenuBar` and `StdForm`: they are used by most of the other main classes, therefore you are
+advised to not delete them at all.
+
+See the →[*.Start_using_APLGui|How-to/Start using APLGui] for a recipe how to start.
+

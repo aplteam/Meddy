@@ -1,0 +1,29 @@
+# Examples
+
+## Example I.
+
+The example shows the README.HTML file that comes with APLGui.
+
+~~~
+ref←⍎'∆Form'⎕WC'Form' ('Caption' 'IE test')
+n←#.GUI.IE.CreateIE ref
+#.GUI.IE.ShowHtmlFile n.IEobject 'README.html'
+~~~
+
+![](.\Images\IE_01.png)
+
+## Example II.
+
+This example demonstrates how to display dynamically created HTML:
+
+~~~
+html←'<h1>Example II.</h2>' '<p>That's it, really</p>'
+n←#.GUI.IE.CreateIE ref
+#.GUI.IE.ShowHtml n.IEobject html
+~~~
+
+## Example III.
+
+Show the APL wiki's Front Page but don't allow the user to go anywhere from there:
+
+

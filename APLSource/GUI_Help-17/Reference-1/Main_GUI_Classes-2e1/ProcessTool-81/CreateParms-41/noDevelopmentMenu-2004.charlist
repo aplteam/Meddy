@@ -1,0 +1,5 @@
+# noDevelopmentMenu
+
+Defaults to 0. Has no effect in case `debug` is 0. Use this to suppress the Developer's menu even
+when `debug` is 1.
+

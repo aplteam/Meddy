@@ -1,0 +1,20 @@
+# onPushButton
+
+This callback is triggered when the user presses any user-defined button. That means you have just
+one callback associated with your one to many push buttons.
+
+Note that this is about any buttons introduced via the data type "button". This has nothing to do
+with the "OK", the "Cancel" and the optional "Help" button.
+
+The callback function must accept a right argument. This will be a two-item vector with:
+
+1. A reference pointing to the button that was triggered. You need this only in case of more than 
+   one push button in order to tell them apart.
+1. The →[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.The_n_namespace|`n` namespace].
+
+
+The function does not need to return a result but if it does it will be ignored. Note that if it is
+as direct function it **always** needs to return a result.
+
+For how to qualify callbacks so that they will be found see →[*.Callback_functions].
+

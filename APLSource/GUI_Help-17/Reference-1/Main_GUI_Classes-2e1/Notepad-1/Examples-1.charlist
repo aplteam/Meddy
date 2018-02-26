@@ -1,0 +1,45 @@
+# Examples
+
+## Edit
+
+The `Edit` method allows you to edit a variable (vector of text vectors) in the workspace:
+
+~~~
+Notepad.Edit 'This is a text' 'with two lines'
+~~~
+
+![](.\Images\Notepad\01.png)
+
+## EditFile
+
+The `EditFile` method allows you to edit a file on disk:
+
+~~~
+fn←FilesAndDirs.GetTempFileName''
+APLTreeUtils.WriteUtf8File fn'This is a simple string'
+Notepad.EditFile fn
+~~~
+
+![](.\Images\Notepad\02.png)
+
+## Browse
+
+The `Browse` method allows you to display a variable (vector of text vectors) in the workspace:
+
+~~~
+#.GUI.Notepad.Browse 'This is a text' 'with two lines'
+~~~
+
+![](.\Images\Notepad\03.png)
+
+## BrowseFile
+
+The `BrowseFile` method allows you to browse a file on disk:
+
+~~~
+fn←FilesAndDirs.GetTempFileName''
+APLTreeUtils.WriteUtf8File fn'This is a simple string'
+Notepad.BrowseFile fn
+~~~
+
+![](.\Images\Notepad\04.png)

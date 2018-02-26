@@ -1,0 +1,12 @@
+ {r}←ProcessContextMenuOnMarkdown n;m;∆;res;filename;cl;contextMenu
+ r←⍬
+ contextMenu←CreateContextMenuOnMarkdown n
+ res←n DQ contextMenu
+ :If ~0∊⍴res
+     :Select ↑res
+     :Case contextMenu.Find
+         FindInMarkdown n
+     :Case contextMenu.ViewParms
+         InjectParameters n
+     :EndSelect
+ :EndIf

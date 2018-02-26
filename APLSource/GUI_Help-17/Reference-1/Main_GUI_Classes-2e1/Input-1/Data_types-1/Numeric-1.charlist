@@ -1,0 +1,28 @@
+# Numeric
+
+## Overview
+
+This is a single-line edit field with a field type "Numeric".
+
+Notes:
+
+* If "length" is 0 then the length of the field defaults to `#.GUI.Enums.InputDefaultLength.Numeric` except when the text vector in "default" needs more space.
+* This data type has always a label. If no label was specified in the definition matrix then the name is taken, with any underscores replaced by blanks.
+*  You can define "Default" either as a number or as text. However, the result will always be a number.
+* If nothing is specified as default (empty vector) it is going to be 0.
+* If you specify "100.23" as default but no decimals then you find that "100" is the result.
+* "Decimals" defaults to 0.
+* You must set `→[*.props]` accordingly in order to change the value of "Decimals".
+
+
+## Example
+
+~~~
+DT←#.GUI.Enums.InputDataTypes
+defMat←⍉⍪'Number1' 'Test' '100.23' DT.Numeric 30
+#.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Images\DataTypes\Numeric.png)

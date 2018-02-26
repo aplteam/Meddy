@@ -1,0 +1,16 @@
+ GetEmbeddedParms←{
+⍝ returns the leading parameters: all leading lines that start with `[parm]:`
+     md←⍵
+     bool←~WhereIsLeanPubEncodingLine md
+     firstChars←↑¨bool/md
+     noOf←+/∧\firstChars∊'[⍝'
+     0=noOf:'' ''
+     noOf-←+/∧\'⍝'=⌽noOf↑firstChars
+     0=noOf:''
+     bool2←'['=noOf↑firstChars
+     buff←noOf↑bool/md
+     list←bool2/buff
+     parms←'[parm]:'{⍵/⍨⍺∘≡¨(⍴⍺)↑¨⍵}list
+     comments←(~bool2)/buff
+     parms comments
+ }

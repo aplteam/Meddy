@@ -1,0 +1,5 @@
+# menubar
+
+By default an "Edit" menu with two commands ("copy" & "paste") is added. You can amend or replace
+that, or specify an empty vector for no menubar at all. See the `Menubar` class for details.
+

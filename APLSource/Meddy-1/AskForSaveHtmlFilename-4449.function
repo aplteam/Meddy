@@ -1,0 +1,14 @@
+ filename←{filename}AskForSaveHtmlFilename n;parms;path
+ parms←G.FileBox.CreateParms
+ parms.fileMode←'Write'
+ :If 0=⎕NC'filename'
+     parms.file←↑,/1↓⎕NPARTS n.∆HtmlFilename
+     path←↑⎕NPARTS n.∆HtmlFilename
+ :Else
+     parms.file←↑,/1↓⎕NPARTS filename
+     path←↑⎕NPARTS filename
+ :EndIf
+ parms.addToCaption←'Save HTML file'
+ parms.filters←⊂'*.html' 'HTML file'
+ filename←n.∆globalParms parms G.FileBox.Run path
+⍝Done

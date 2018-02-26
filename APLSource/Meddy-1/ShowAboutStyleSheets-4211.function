@@ -1,0 +1,5 @@
+ ShowAboutStyleSheets←{
+     n←⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\Styles.html'
+     1:rc←rc
+ }

@@ -1,0 +1,14 @@
+# OptionsTool
+
+This is the right tool if you want your user to select one item from or list (radio buttons; this is the default)
+or zero to many items from a list (check boxes).
+
+The list should not be long: it's not scrollable. For selections from long lists use `→[*.SelectionTool]` instead.
+
+For implementation details execute:
+
+~~~
+]ADOC.Browse #.GUI.OptionsTool
+~~~
+
+What is →[*.ADOC]

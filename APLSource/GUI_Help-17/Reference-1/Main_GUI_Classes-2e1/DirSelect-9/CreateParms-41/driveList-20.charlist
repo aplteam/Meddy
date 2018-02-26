@@ -1,0 +1,5 @@
+# driveList
+
+List of drives the use may select from. Becomes inactive in case fixDefaultDrive is 1. Defaults to
+all drives available but honours noCDROM
+

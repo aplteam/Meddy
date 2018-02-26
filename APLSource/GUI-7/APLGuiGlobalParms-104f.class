@@ -1,0 +1,63 @@
+:Class APLGuiGlobalParms
+
+    ⎕IO←0 ⋄ ⎕ML←3
+
+    ∇ r←CreateDefaults
+      :Access Public Shared
+    ⍝ This generates a parameter space with default settings to be used as "global parameters".
+    ⍝ | Name | Description |
+    ⍝ |------|-------------|
+    ⍝ | `alarmColor` | Colour to be used for error messages etc. |
+    ⍝ | `alignButtons | Enums.Align.[ Left | Center | Right ]
+    ⍝ | `caption` | Main caption of the application. Is shwon in every form.|
+    ⍝ | `centerIn` | If specified typically the main form; any form will be centered within it.|
+    ⍝ | `fontStandard` | Standard font |
+    ⍝ | `fontInput` | Font used for input field, list and rgids. |
+    ⍝ | `fontLabel` | Font used for labels. |
+    ⍝ | `fontAPL` | Font used for APL code. |
+    ⍝ | `honorCaptionForSizeCalc` | Flag theat defaults to 1.|
+    ⍝ | `honorStatusbarForSizeCalc` | Flag that defaults to 1.|
+    ⍝ | `icon` | If specified this must be a ref pointing to an "Icon" object.|
+    ⍝ | `initialVgap` | Vertical gap betwen controls.|
+    ⍝ | `parent` | If specified this must be a Form. Any dialog created will be a child of this Form then.|
+    ⍝ | `parmType` | Fixed string.|
+    ⍝ | `regKey` | Windows Registry key. If specified this is used to save information like "Posn", "Size" etc.|
+    ⍝ | `testMode` | Defaults to 0. Gets 1 only when test cases are executed.|
+    ⍝ | `timeout` | Integer that defines the number of seconds until the form closes itself and triggers the default button.|
+    ⍝ | `hGap` | Defaults to .99.|
+    ⍝ | `vGap` | Defaults to .99.|
+      r←##.APLGuiParameterSpace.Create
+      r.alarmColor←250 60 0
+      r.alignButtons←##.Enums.Align.Left
+      r.caption←''
+      r.centerIn←''
+      r.(fontStandard fontInput fontLabel fontAPL)←CreateStandardFonts ⍬
+      r.honorCaptionForSizeCalc←1
+      r.honorStatusbarForSizeCalc←1
+      r.icon←''
+      r.initialVgap←¯1
+      r.parent←⍬
+      r.parmType←'APLGuiGlobalParms'
+      r.regKey←''
+      r.testMode←0
+      r.timeout←0
+      r.hGap←0.99
+      r.vGap←0.99
+     ⍝Done
+    ∇
+
+    ∇ r←CreateStandardFonts dummy;apl;label;input;standard
+    ⍝ Creates 4 fonts to be used as standard, input, label and APL font.
+      :Access Public Shared
+      standard←(⎕NEW'Font'(('PName' 'Tahoma')('Size' 18)))
+      standard.⎕DF'[Font Standard]:Tahoma_18'
+      input←(⎕NEW'Font'(('PName' 'Courier New')('Size' 18)))
+      input.⎕DF'[Font Input]:Courier_18'
+      label←(⎕NEW'Font'(('PName' 'Tahoma')('Size' 15)))
+      label.⎕DF'[Font Label]:Tahoma_15'
+      apl←(⎕NEW'Font'(('PName' 'APL385 Unicode')('Size' 19)))
+      apl.⎕DF'[Font APL]:APL385 Unicode_19'
+      r←(standard input label apl)
+    ∇
+
+:EndClass

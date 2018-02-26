@@ -1,0 +1,62 @@
+# Class-specific parameters
+
+In addition to the global parameters all of APLGui's main classes have their own set of parameters.
+
+You can ask a certain class for a namespace with all the possible parameters, populated with
+defaults whenever possible. In the following example the selection tool is used:
+
+~~~
+      parms←#.SelectionTool.CreateParms
+~~~
+
+If there is no `Run` function but two or more helper functions (as in the `Dialogs` class:
+`YesOrNo`, `NoOrYes`, ...) then there will be specialized versions of the `CreateParms` function
+available like `CreateNoOrYesParms`.
+
+All parameter namespaces have a built-in method `∆List` which is useful for checking the settings:
+
+~~~
+      ⎕←parms.∆List                         
+addToCaption                               
+autoPress                               ¯1 
+checkboxes                               0 
+colTitles                                  
+default                                  0 
+destroyAutoPressTimerHotKey            F12 
+hasProgressbar                           1 
+hasStatusbar                             1 
+hasVersionField                          0 
+icon                                       
+info                                       
+minSize                                    
+parent                              #.Demo 
+parmType                     SelectionTool 
+posn                                       
+savePosnAndSizeInRegistry                1 
+size                                       
+sortByCol                                1 
+statusbarMessage                           
+style                               single 
+timeout                                  0 
+useWindowsRegistry                       0 
+~~~
+
+The idea is to...
+
+* create the namespace.
+* make the necessary adoptions (assignments) to it.
+* pass the namespace when the `Create` or `Run` method of  the APLGui class in question is called, possibly together with the globalParms.
+
+
+Notes:
+
+* Because convention is favoured over configuration you don't have to do any of this: you can *always* just run the `Create` or `Run` method without 
+  any parameters at all.
+* A value of `¯1` normally means that no reasonable default can be established at the time the parameter namespace was created. However, there will 
+  be a reasonable default taken into account when the value is referenced later and it's still `¯1`.
+
+
+The parameter namespace can be accessed at any time as `∆parms` in the →[*.N_Namespace|`n` namespace]. Note that this is always true, even if no 
+parameter namespace was passed: the tool in
+question will create such a namespace itself and populate it with defaults.
+

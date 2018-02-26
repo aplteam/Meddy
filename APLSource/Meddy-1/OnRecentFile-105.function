@@ -1,0 +1,15 @@
+ OnRecentFile msg;ref;n;filename;cmd
+⍝ User has selected a file from the "Recent files" menu list.
+ ref←↑msg
+ n←GetRef2n ref
+ filename←{⍵↓⍨1+⍵⍳' '}ref.Caption
+ :If 0∊⍴∊n.HTML.Text
+     n OpenRecentFile filename
+ :Else
+     cmd←''
+     cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+     cmd,←'-file="',filename,'" '
+     cmd,←A.IsDevelopment/'"',⎕WSID,'" '
+     ##.WinSys.ShellExecute cmd
+ :EndIf
+⍝Done

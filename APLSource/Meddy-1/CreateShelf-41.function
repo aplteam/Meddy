@@ -1,0 +1,46 @@
+ CreateShelf←{
+     n←⍵
+     parent←n.SF1
+
+     ∆←''
+     ∆,←⊂'Coord' 'Prop'
+     ∆,←⊂'Posn'(0 0)
+     ∆,←⊂'Size'(100 100)
+     ∆,←⊂'AcceptFiles' 1
+     ∆,←⊂'Style' 'Multi'
+     ∆,←⊂'ReadOnly' 1
+     ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     ∆,←⊂'VScroll' ¯1
+     ∆,←⊂'Style' 'Multi'
+     ∆,←⊂'FontObj'n.FontSmall
+     ∆,←⊂'TipObj'n.Tip
+     ∆,←⊂'Tip'('Drag and drop a file onto this area or use' 'the "Open" command from the "File" menu')
+     n.Shelf←parent.⎕NEW'Edit'∆
+     n.Shelf.Text←'' ⍝ Otherwise it's a matrix
+     n.Shelf.onContextMenu←'OnContextMenu'
+     n.Shelf.Coord←'Pixel'
+
+     ∆←''
+     ∆,←⊂'Coord' 'Pixel'
+     ∆,←⊂'Size'(⍬ 120)
+     ∆,←⊂'Caption' '&Process file'
+     ∆,←⊂'Active' 0
+     ∆,←⊂'Attach'(4⍴'Bottom' 'Left')
+     n.ProcessFile←parent.⎕NEW'Button'∆
+     n.ProcessFile.Posn←(n.Shelf.Size[0]-n.ProcessFile.Size[0]+10),10
+     n.Shelf.Size[0]-←10+10+n.ProcessFile.Size[0]
+     n.ProcessFile.onSelect←'OnProcessFile'
+
+     ∆←''
+     ∆,←⊂'Size'(⍬ 120)
+     ∆,←⊂'Caption' '&Reset'
+     ∆,←⊂'TipObj'n.Tip
+     ∆,←⊂'Tip' 'Removes all filenames from the list'
+     ∆,←⊂'Active' 0
+     ∆,←⊂'Attach'(4⍴'Bottom' 'Left')
+     n.ResetFileList←parent.⎕NEW'Button'∆
+     n.ResetFileList.Posn←(n.ProcessFile.Posn[0]),15+1⊃+⌿⊃n.ProcessFile.(Size Posn)
+     n.ResetFileList.onSelect←'OnReset'
+
+     n
+ }

@@ -1,0 +1,12 @@
+ R←Test_ReplaceSel_005(stopFlag batchFlag);⎕TRAP;text;selText;content;buff
+⍝ Replace string by two rows.
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ text←'First' 'This is it' 'Third'
+ selText←(2 6)(2 9)
+ content←'New stuff' 'really!'
+ buff←(selText text)##.Meddy.ReplaceSelectionBy content
+ →PassesIf'First' 'This New stuff' 'really!it' 'Third'≡buff
+ R←∆OK

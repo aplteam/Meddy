@@ -1,0 +1,20 @@
+ {r}←OnKeyPressInTOC msg;key;keyNo;shiftState;n;obj
+ r←0
+ (obj key keyNo shiftState)←msg[0 2 4 5]
+ n←GetRef2n↑msg
+ :If keyNo shiftState≡70 2
+     ⍝ Ctrl+F                                   ⍝ There are currently no plans to implement this
+ :ElseIf keyNo shiftState≡9 0                   ⍝ TAB
+     ⎕NQ n.Markdown'GotFocus'
+ :ElseIf 107 2≡msg[4 5]                         ⍝ Ctrl++
+     n ChangeFontSize 1
+     ⎕NQ n.Toc'GotFocus'
+ :ElseIf 109 2≡msg[4 5]                         ⍝ Ctrl+-
+     n ChangeFontSize ¯1
+     ⎕NQ n.Toc'GotFocus'
+ :EndIf
+ :If (⊂key)∊'DC' 'UC' 'LL' 'RL'   ⍝ Cursor down, Cursor up, Home, End
+     {}⎕NQ obj 9998
+     r←1
+ :EndIf
+⍝Done

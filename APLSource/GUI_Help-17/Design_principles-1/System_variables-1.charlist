@@ -1,0 +1,14 @@
+# System variables: []IO and []ML
+
+Note that APLGui uses `⎕IO←0` and `⎕ML←3` internally.
+
+However, you should not be too concerned about this since the only potential conflicts are the
+specifications of `defaultButton`, `cancelButton`and `autoPress`.
+
+These parameters specify a particular button by sequence number; for example, if the left-most
+button should be triggered by pressing <enter> then you need to set `defaultButton←0`; in this
+respect the internal setting of `⎕IO` affects you.
+
+Also, when you look at the references pointing to push buttons then you will find that the names of
+those references start with "Btn0" rather than "Btn1".
+

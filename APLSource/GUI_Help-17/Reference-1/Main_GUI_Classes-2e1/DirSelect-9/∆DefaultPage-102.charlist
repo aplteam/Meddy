@@ -1,0 +1,17 @@
+# DirSelect
+Builds up a GUI that allows the user to select a directory.
+
+The user can be prevented from moving around but by default she has all freedom to do whatever she likes.
+
+By default all drives but CD-ROM drives are available to the user.
+
+There are several parameters available that you may set in order to make `DirSelect` suit your needs. See
+`→[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.DirSelect.CreateParms]` for details.
+
+For implementation details execute:
+
+~~~
+      ]ADOC.Browse #.GUI.Dialogs
+~~~
+
+What is →[*.ADOC]?

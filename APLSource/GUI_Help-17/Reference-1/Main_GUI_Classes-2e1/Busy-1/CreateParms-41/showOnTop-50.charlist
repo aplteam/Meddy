@@ -1,0 +1,7 @@
+# showOnTop
+
+Boolean that defaults to 0.
+
+Set this to 1 if the GUI should have an "Keep on top" check box when "onTop" is 0. that allows the
+user to change the "OnTop" property herself.
+

@@ -1,0 +1,5 @@
+ GetFromMatrix←{
+⍝ Takes a two-column matrix ⍵[0] and returns the row that fits ⍵[1]
+     (mat key)←⍵
+     1⊃mat[mat[;0]⍳⊂key;]
+ }

@@ -1,0 +1,26 @@
+[DATA]:index=''
+
+# Load modules
+
+If you want to use not all but some of the main classes of APL GUI then you need help: it is challanging to find out 
+which classes are needed to run a certain module. 
+
+There is a namespace `#.GUI_Configurator` available that offers two methods that can help with this task:
+
+## SelectMainClasses
+
+The `SelectMainClasses` function is a niladic function that takes no argument. It offers a list with all main modules
+and allows the user to select the modules she is interested in. 
+
+The function returns either an empty vector (noting selected) or a vector of text vectors with the names of the
+modules selected by the user plus all dependencies.
+
+## LoadClasses
+
+The `LoadClasses` function is a monadic function. It requires the path where all the modules can be loaded from.
+
+It first offers all the main modules to the user for selection and then loads those modules please all dependencies.
+
+## Cleaning up
+
+After having loaded the modules you are interested in you might delete `#.GUI_Configurator`.

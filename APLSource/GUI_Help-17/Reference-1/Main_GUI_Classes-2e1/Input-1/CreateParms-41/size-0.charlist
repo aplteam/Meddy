@@ -1,0 +1,5 @@
+# size
+
+Defaults to `⍬ ⍬`. Is ignored if the calculated size is larger than the specified size, meaning
+that it acts more linke "minSize" when defined.
+

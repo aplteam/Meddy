@@ -1,0 +1,5 @@
+ EnableCONTINUE_workspaces←{
+     16>+/1 0.1×'.'{{↑↑(//)⎕VFI ⍵}¨2↑⍵⊂⍨⍵≠⍺}1⊃#.APLVersion:shy←⍬
+     _←2704⌶1
+     1:shy←⍬
+ }

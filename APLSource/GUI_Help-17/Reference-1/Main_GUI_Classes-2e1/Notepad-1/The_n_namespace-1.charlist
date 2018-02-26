@@ -1,0 +1,32 @@
+# The n namespace
+
+`n` contains all the usual stuff as →[*.N_Namespace|documented here].
+
+In addition `Notepad`'s `n` namespace contains:
+
+## ∆askForSave
+
+A Boolean that is 1 in case the user shall be asked whether she wants to save all changes. The
+question won't be asked if the text was not changed at all.
+
+## ∆filename
+
+Both `EditFile` and `BrowseFile` assign the filename (their right argument) to `∆filename` but it
+does not exist at all in case `Edit` or `Browse` is invoked.
+
+## ∆changeFlag
+
+A Boolean that becomes 1 only when the user has changed the text. Note that this is not reset in
+case the user executes a "Save" operation.
+
+## ∆originalText
+
+The original text when `Notepad` was instantiated. This is used by the "Restore original text" menu
+command and also for identifying a (real) change.
+
+## ∆result
+
+`∆result` will become the final version of `text.Note`. However, that is true only after the
+`onClose` callback has been running. That means that if you check something **within** the
+`onClose` callback in `Notepad` you must refer to `n.Edit.Text` rather than `∆result`. Only in its
+very last step will `onClose` assign `n.Edit.Text` to `∆result`.

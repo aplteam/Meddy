@@ -1,0 +1,7 @@
+ {r}←ResetMarkdownAndPreview n
+ r←⍬
+ n.Markdown.Text←n.Markdown.∆LastSavedVersion←''
+ n.HTML.(∆HTML Text)←⊂''
+ n.HTML.⎕EX'∆ns'
+ UnloadWebBrowserControl ⍬
+⍝Done

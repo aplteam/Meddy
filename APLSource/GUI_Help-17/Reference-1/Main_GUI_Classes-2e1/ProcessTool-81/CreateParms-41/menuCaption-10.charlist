@@ -1,0 +1,4 @@
+# menuCaption
+
+Defaults to "Command(s)". Is ignored in case "menuItemCaptions" is empty.
+

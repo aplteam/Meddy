@@ -1,0 +1,5 @@
+ {r}←UnloadWebBrowserControl dummy;list
+⍝ Because of difficulties when trying to reuse the Microsoft Web Browser Control
+⍝ we explicitly unload it. That takes some time but works perfectly.
+ list←2 ⎕NQ'.' 'ListTypeLibs'
+ r←{2 ⎕NQ'.' 'DeleteTypeLib'⍵}¨1⊃¨list

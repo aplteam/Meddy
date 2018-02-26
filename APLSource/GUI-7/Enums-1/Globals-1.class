@@ -1,0 +1,30 @@
+:Class Globals
+⍝ This class collects a number of things we would like to calculate dynamically but one
+⍝ of the following is true:
+⍝ * we can't.
+⍝ * we don't know how.
+⍝ * we are too lazy.
+
+    ∇ r←AddToCaptionWidth
+    ⍝ Calculating the size of the caption plus what's needed by Windows is a bit tricky,
+    ⍝ to say the least: we don't know the font (!) and gaps between the button (min, max
+    ⍝ etc) are VERY different between Windows 10 and older versions of Windows.
+    ⍝
+    ⍝ So we guess, and this vars is the best we can manage right now.
+    ⍝ This is however not about the font, this is just about the min-max-close buttons
+    ⍝ and the icon.
+      :Access Public Shared
+      r←160
+    ∇
+
+    ∇ r←InitialVgapMinSize
+    ⍝ Defines the minimum size for the "initialVgap" parameter
+      r←25
+      :Access Public Shared
+    ∇
+
+    ∇ r←∆List
+      :Access Public Shared
+      r←⍉{⍵,[-0.5]⍎¨⍵}(⎕NL-3)~⊂'∆List'
+    ∇
+:EndClass

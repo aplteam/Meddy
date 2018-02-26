@@ -1,0 +1,8 @@
+ r←OnOkayInGoToLineNumbers n
+ :If n.Input.Value∊1+⍳n.∆parms.∆NoOfLines
+     r←1
+ :Else
+     r←0
+     n.StatusField1.Text←'Invalid line number!'
+ :EndIf
+⍝Done

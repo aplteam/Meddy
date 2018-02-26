@@ -1,0 +1,13 @@
+# StartHelp
+
+Syntax:
+
+~~~
+{r} ← StartHelp dummy
+~~~
+
+This starts the APLGui help file. The help files must either live in the current directory or in
+Files/ within the current directory.
+
+If the help file cannot be found an error is signalled.
+

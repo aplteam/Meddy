@@ -1,0 +1,4 @@
+# allowCreate
+
+Boolean that defaults to 0. Set this to 1 to allow the user to create a directory via the context menu.
+

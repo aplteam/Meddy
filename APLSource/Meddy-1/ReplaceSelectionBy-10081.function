@@ -1,0 +1,42 @@
+ {r}←selText_text ReplaceSelectionBy markdown;top;bottom;buff;selText;text;start;end;buff2;noOf
+⍝ Insert `markdown` into `text` at `selText`.
+ (selText text)←selText_text
+ top←(¯1+0 0⊃selText)↑text
+ bottom←(1 0⊃selText)↓text
+ buff←text[(¯1+↑↑selText)+⍳1+-/⌽0⊃¨selText]
+ noOf←1+-/⌽↑¨selText
+ markdown←,⊂∘,⍣(↑(≡markdown)∊0 1)⊣markdown
+ :If 1=noOf
+     start←(¯1+0 1⊃selText)↑↑buff
+     end←(¯1+1 1⊃selText)↓↑buff
+     :If 1=⍴markdown
+         buff2←start,(↑markdown),end
+         r←top,(⊂buff2),bottom
+     :ElseIf 2=⍴markdown
+         buff2←(⊂start,0⊃markdown),⊂(↑¯1↑markdown),end
+         r←top,buff2,bottom
+     :Else
+         buff2←(⊂start,0⊃markdown),(1↓¯1↓markdown),⊂(↑¯1↑markdown),end
+         r←top,buff2,bottom
+     :EndIf
+ :ElseIf 1 ⍝ 2=noOf
+     :If 1=0 1⊃selText                              ⍝ Fully...
+     :AndIf (1 1⊃selText)=1+⍴(¯1+↑1⊃selText)⊃text   ⍝ ... selected?!
+         r←top,markdown,bottom
+     :Else
+         start←(¯1+0 1⊃selText)↑0⊃buff
+         end←(¯1+1 1⊃selText)↓↑¯1↑buff
+         :If 1=⍴markdown
+             buff2←⊂start,(↑markdown),end
+         :Else
+             buff2←(⊂start,0⊃markdown),(1↓¯1↓markdown),(⊂(↑¯1↑markdown),end)
+         :EndIf
+         r←top,buff2,bottom
+     :EndIf
+ :Else
+     start←(¯1+0 1⊃selText)↑0⊃buff
+     end←(¯1+1 1⊃selText)↓↑¯1↑buff
+
+     buff2←(start,0⊃markdown),(1↓¯1↓markdown),⊂(↑¯1↑markdown),end
+     r←top,buff2,bottom
+ :EndIf

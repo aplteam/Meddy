@@ -1,0 +1,5 @@
+ {r}←ReplaceSelection with;EM_REPLACESEL;∆SendMessage
+ r←⍬
+ {}'∆SendMessage'⎕NA'U USER32|SendMessage* P U P <0T[]'
+ EM_REPLACESEL←194 ⍝ x00c3
+ {}∆SendMessage n.Markdown.Handle EM_REPLACESEL 0 with

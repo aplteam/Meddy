@@ -1,0 +1,6 @@
+# undoRedoBufferLength
+
+This specifies the length of the Undo/Redo buffer. The value defaults to 500.
+
+Note that setting this to 0 effectively removed the "Undo" and "Redo" menu items from the "Edit" menu.
+

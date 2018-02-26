@@ -1,0 +1,3 @@
+ OnLetsCrash←{
+     . ⍝ Deliberate crash (INI entry [CONFIG]LetsTrash is 1 and user selected "Let's crash" from the Help menu)
+ }

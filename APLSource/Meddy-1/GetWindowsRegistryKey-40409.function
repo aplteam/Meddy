@@ -1,0 +1,2 @@
+ r←GetWindowsRegistryKey appName
+ r←'HKLM\Software\APLTeam\',appName,'\'

@@ -1,0 +1,6 @@
+ {r}←Redo n;buff;wasSelText;where;was;SendMessage
+ :If 0<0⊃'?'n.∆CommitUndoRedo ⍬
+     buff←'>'n.∆CommitUndoRedo(n.Markdown.Text)n.Markdown.SelText
+     r←n PerformUndoRedo buff
+ :EndIf
+⍝Done

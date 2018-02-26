@@ -1,0 +1,6 @@
+:Class OptionsStyles
+⍝ Defines the possibilities for button styles.
+    :Field public shared readonly radio←'radio'
+    :Field public shared readonly check←'check'
+    :Field public shared readonly push←'push'
+:EndClass

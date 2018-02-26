@@ -1,0 +1,7 @@
+ {rc}←Undo n;buff;was
+ rc←⍬
+ :If 0<1⊃'?'n.∆CommitUndoRedo ⎕NULL
+     buff←'<'n.∆CommitUndoRedo n.Markdown.Text n.Markdown.SelText
+     rc←n PerformUndoRedo buff
+ :EndIf
+⍝Done

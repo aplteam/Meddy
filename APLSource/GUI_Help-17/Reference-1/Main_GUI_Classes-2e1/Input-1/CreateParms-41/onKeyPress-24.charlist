@@ -1,0 +1,16 @@
+# onKeyPress
+
+A user-defined function for the KeyPress event must...
+
+* accept a left argument. This will be the →[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.The_n_namespace|`n` namespace].
+* accept a right argument. This will be the standard message any KeyPress callback receives.
+
+
+The function may return one of two possible results:
+
+* A Boolean. 0 suppresses the key pressed.
+* The - possibly modified - right argument.
+
+
+For how to qualify callbacks so that they will be found see →[*.Callback_functions].
+

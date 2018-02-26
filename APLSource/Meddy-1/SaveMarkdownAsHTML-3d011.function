@@ -1,0 +1,18 @@
+ {r}←{askFlag}SaveMarkdownAsHTML n;filename
+ r←⍬
+ askFlag←{0<⎕NC ⍵:'ASK'≡A.Uppercase⍎⍵ ⋄ 0∊⍴n.∆HtmlFilename}'askFlag'
+ :If 0∊⍴n.∆HtmlFilename
+ :AndIf ~0∊⍴n.∆Filename
+     n.∆HtmlFilename←↑{⍺,⍵}/(¯1↓1 ⎕NPARTS n.∆Filename),⊂'.html'
+ :EndIf
+ :If askFlag
+     filename←AskForSaveHtmlFilename n
+ :Else
+     filename←n.∆HtmlFilename
+ :EndIf
+ :If ~0∊⍴filename
+     filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0∊⍴⍵:'.html' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
+     SaveMarkdownAsHTML_ n filename
+     n.∆HtmlFilename←filename
+ :EndIf
+⍝Done

@@ -1,0 +1,8 @@
+ {r}←TellThereWasAnError ErrorParmsName;msg;⎕TRAP
+ r←⍬
+ ⎕TRAP←0 'S'
+ msg←⊂ErrorParmsName.AppName,' has crashed'
+ msg,←'' 'Please send a bug report to kai@aplteam.com'
+ msg,←''('You find crash related files at ',ErrorParmsName.errorFolder)
+ G.Dialogs.ShowMsg msg
+⍝Done

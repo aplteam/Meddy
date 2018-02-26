@@ -1,0 +1,23 @@
+:Class Fonts
+⍝ Use this to define the "Fonts" used anywhere in GUIApl
+    ∇ r←Standard
+      :Access Public Shared
+      r←'fontStandard'
+    ∇
+    ∇ r←Input
+      :Access Public Shared
+      r←'fontInput'
+    ∇
+    ∇ r←Label
+      :Access Public Shared
+      r←'fontLabel'
+    ∇
+    ∇ r←APL
+      :Access Public Shared
+      r←'fontAPL'
+    ∇
+    ∇ r←∆List
+      :Access Public Shared
+      r←⍉{⍵,[-0.5]⍎¨⍵}(⎕NL-3)~'∆'⎕NL-3
+    ∇
+:EndClass

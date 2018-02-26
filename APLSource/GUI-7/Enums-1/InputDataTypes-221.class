@@ -1,0 +1,107 @@
+:Class InputDataTypes
+⍝ All data types the "Input" class does support
+
+    ∇ r←Button
+      :Access Public Shared
+      r←1
+    ∇
+
+    ∇ r←Character
+      :Access Public Shared
+      r←2
+    ∇
+
+    ∇ r←Currency
+      :Access Public Shared
+      r←4
+    ∇
+
+    ∇ r←Date
+      :Access Public Shared
+      r←5
+    ∇
+
+    ∇ r←DropDown
+      :Access Public Shared
+      r←6
+    ∇
+
+    ∇ r←DropEdit
+      :Access Public Shared
+      r←7
+    ∇
+
+    ∇ r←Label
+      :Access Public Shared
+      r←9
+    ∇
+
+    ∇ r←ListView
+      :Access Public Shared
+      r←10
+    ∇
+
+    ∇ r←Notepad
+      :Access Public Shared
+      r←11
+    ∇
+
+    ∇ r←Numeric
+      :Access Public Shared
+      r←12
+    ∇
+
+    ∇ r←Image
+      :Access Public Shared
+      r←13
+    ∇
+
+    ∇ r←PlaceHolder
+      :Access Public Shared
+      r←14
+    ∇
+
+    ∇ r←Radio
+      :Access Public Shared
+      r←15
+    ∇
+
+    ∇ r←Spinner
+      :Access Public Shared
+      r←16
+    ∇
+
+    ∇ r←Tab
+      :Access Public Shared
+      r←17
+    ∇
+
+    ∇ r←Time
+      :Access Public Shared
+      r←18
+    ∇
+
+    ∇ r←YesNo
+      :Access Public Shared
+      r←19
+    ∇
+
+    ∇ r←Password
+      :Access Public Shared
+      r←20
+    ∇
+
+⍝⍝⍝ Functions
+
+    ∇ r←∆List
+      :Access Public Shared
+      r←⍉{⍵,[-0.5]⍎¨⍵}(⎕NL-3)~'∆'⎕NL-3
+    ∇
+
+    ∇ r←∆ListInputFields
+      :Access Public Shared
+      r←∆List
+      r⌿⍨←~r[;1]∊Label Image PlaceHolder Tab
+    ∇
+
+:EndClass

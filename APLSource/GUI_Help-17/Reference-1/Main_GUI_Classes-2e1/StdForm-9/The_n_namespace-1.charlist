@@ -1,0 +1,8 @@
+# The "n" namespace
+
+The `n` contains all the usual stuff as →[*.N_Namespace|documented here].
+
+Since `StdForm` is used by almost all other APLGui main classes the `n` namespace of, say, a
+`SelectionTool` instance is originally the `n` namespace created when `StdForm` is instantiated
+but then other stuff is added to it.
+

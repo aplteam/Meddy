@@ -1,0 +1,15 @@
+ option←ReallyInsertFileContents n;parms;bool;ok;list
+ parms←G.OptionsTool.CreateParms
+ parms.addToCaption←'Choose action'
+ parms.info←'What would you like to do?'
+ :If ≡/n.Markdown.SelText
+     list←⊂'Insert at cursor position'
+     parms.default←1 0
+ :Else
+     list←⊂'Replace current selection'
+     parms.default←0 1
+ :EndIf
+ list,←⊂'Replace whole contents'
+ (ok bool)←n.∆globalParms parms G.OptionsTool.Run list
+ option←ok/A.Where bool
+⍝Done

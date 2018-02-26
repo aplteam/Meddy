@@ -1,0 +1,725 @@
+:Class Dialogs
+⍝ Creates a form with text on it (either a simple string or a vector of strings) and a couple of buttons.
+⍝
+⍝ This can be a useful starting point for tailor-made controls but the class also comes with
+⍝ many cover (modal) functions solving common every-day problems:
+⍝ * Decision making: `YesOrNo`, `NoOrYes`, `YesNoCancel` and `OkOrCancel`.
+⍝ * Offer more than just the two default buttons with `DisplayButtons`.
+⍝ * Display messages with `ShowMsg` or `ShowLongMsg`.
+⍝
+⍝ Author: Kai Jaeger ⋄ Copyright: APL Team Ltd
+
+    :Include ##.APLTreeUtils
+    :Include APLGuiUtils
+
+    ⎕IO←0 ⋄ ⎕ML←3
+
+    :Field Public Shared ReadOnly QuitWaitEvent←9998
+
+    ∇ r←ListHelpers
+      :Access Public Shared
+      r←'DisplayButtons' 'NoOrYes' 'OkOrCancel' 'ShowLongMsg' 'ShowMsg' 'YesNoCancel' 'YesOrNo'
+    ∇
+
+    ∇ boolean←{x}YesOrNo question;n;_;globalParms;parms;⎕TRAP
+    ⍝ Modal dialog asking a yes-no question with "Yes" being the default button.
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForYesOrNo GetParms x
+      parms←CheckParmsForProgressbarAndStatusbar parms
+      parms.focusButton←(¯1=parms.autoPress)⊃parms.autoPress 0
+      parms.question{(0∊⍴⍵):⍺ ⋄ ⍵}←question
+      parms.buttons←'Yes' 'No'
+      n←CreateButtonForm globalParms parms
+      n(CreateAutoPressTimer)←parms.timeout
+      n←AdjustSize n
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{(0∊⍴⍵):⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+      n←HandleFocus n
+      ⎕DQ n.∆Form
+      boolean←(1 0 0)[WhichButtonWasPressed n]
+      n.∆CloseForm
+    ∇
+
+    ∇ boolean←{x}NoOrYes question;n;_;parms;globalParms;⎕TRAP
+    ⍝ Modal dialog asking a yes-no question with "No" being the default button.
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForNoOrYes GetParms x
+      parms←CheckParmsForProgressbarAndStatusbar parms
+      parms.focusButton←(¯1=parms.autoPress)⊃parms.autoPress 1
+      parms.question{(0∊⍴⍵):⍺ ⋄ ⍵}←question
+      parms.buttons←'Yes' 'No'
+      n←CreateButtonForm globalParms parms
+      n(CreateAutoPressTimer)←parms.timeout
+      n←AdjustSize n
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{(0∊⍴⍵):⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+      n←HandleFocus n
+      ⎕DQ n.∆Form
+      boolean←(1 0 0)[WhichButtonWasPressed n]
+      n.∆CloseForm
+    ∇
+
+    ∇ boolean←{x}YesNoCancel question;n;_;globalParms;parms;⎕TRAP
+    ⍝ Modal dialog asking a yes-no question with  "Cancel" option and "Yes" being the default button.\\
+    ⍝ Returns Boolean for "Yes" or "No" and `¯1` for "Cancel"
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForYesNoCancel GetParms x
+      parms←CheckParmsForProgressbarAndStatusbar parms
+      parms.focusButton←(¯1=parms.autoPress)⊃parms.autoPress 0
+      parms.cancelButton←2
+      parms.question{(~0∊⍴⍵):⍵ ⋄ ⍺}←question
+      parms.buttons←'Yes' 'No' 'Cancel'
+      n←CreateButtonForm globalParms parms
+      n(CreateAutoPressTimer)←parms.timeout
+      n←AdjustSize n
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{(0∊⍴⍵):⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+      n←HandleFocus n
+      ⎕DQ n.∆Form
+      boolean←(1 0 ¯1 ¯1)[WhichButtonWasPressed n]
+      n.∆CloseForm
+    ∇
+
+    ∇ boolean←{x}OkOrCancel question;n;_;parms;globalParms;⎕TRAP
+    ⍝ Modal dialog showing a piece of information together with two buttons: "OK" and "Cancel".
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForOkOrCancel GetParms x
+      parms.focusButton←(¯1=parms.autoPress)⊃parms.autoPress 0
+      parms.question{(0∊⍴⍵):⍺ ⋄ ⍵}←question
+      parms.buttons←'OK' 'Cancel'
+      n←CreateButtonForm globalParms parms
+      n(CreateAutoPressTimer)←parms.timeout
+      n←AdjustSize n
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{(0∊⍴⍵):⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+      n←HandleFocus n
+      ⎕DQ n.∆Form
+      boolean←(1 0 ¯1 ¯1)[WhichButtonWasPressed n]
+      n.∆CloseForm
+    ∇
+
+    ∇ n←{x}CreateDisplayButtons(question buttons);n;_;globalParms;parms;⎕TRAP
+    ⍝ Creates a dialog asking a question and as many button as you like.\\
+    ⍝ `buttons` can be a vector of text vectors or a matrix of text
+    ⍝ vectors treated as button captions.\\
+    ⍝ Returns the `n` namespace. Use `DisplayButtons` for a modal call.
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForDisplayButtons GetParms x
+      parms←ProcessDisplayButtonParms parms buttons
+      parms.question{(~0∊⍴⍵):⍵ ⋄ ⍺}←question
+      parms.buttons←buttons
+      parms.onButtonPressed←'onButtonPressed'CheckUserCallback_ parms.onButtonPressed
+      n←CreateButtonForm globalParms parms
+      n(CreateAutoPressTimer)←parms.timeout
+      n←AdjustSize n
+      n←PositionButtons n
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{(0∊⍴⍵):⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+    ∇
+
+    ∇ boolean←{x}DisplayButtons(question buttons);n;_;globalParms;parms;⎕TRAP
+      :Access Public Shared
+    ⍝ Creates a dialog asking a question and as many button as you like.\\
+    ⍝ The user can then interact with the (modal) dialog.
+    ⍝ `buttons` can be a vector of text vectors or a matrix of text
+    ⍝ vectors treated as button captions.\\
+    ⍝ Returns a vector of Booleans with a 1 for the button pressed.
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      x←{0<⎕NC ⍵:⍎⍵ ⋄ ⍬}'x'
+      n←x CreateDisplayButtons question buttons
+      boolean←WaitOnDisplayButtons n
+      n.∆CloseForm
+    ∇
+
+    ∇ boolean←WaitOnDisplayButtons n
+      :Access Public Shared
+      ⍝ Expects a `DisplayButtons` dialog to be available via the `n` namespace.\\
+      ⍝ Hands over control to the user and returns a vector of Booleans with a 1
+      ⍝ for the button pressed by the user, or none in case of <Escape> or <Alt+F4>.
+      n←HandleFocus n
+      ⎕DQ n.∆Form
+      :If 0∊⍴n.∆buttonPressed  ⍝ Alt+F4 etc
+          boolean←(⍴,n.∆buttons)⍴0
+      :Else
+          boolean←{⍵×{~⍵.Cancel}(⍵⍳1)⊃,n.∆buttons},n.∆buttons≡¨n.∆buttonPressed
+      :EndIf
+    ∇
+
+    ∇ {dummy}←{x}ShowMsg msg;n;_;parms;globalParms;⎕TRAP
+    ⍝ Modal dialog showing a piece of information together with an "Ok" button.\\
+    ⍝ "msg" may be either a text vector or a vector of text vectors.
+    ⍝ See also `DisplayLongMsg`.
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      dummy←⍬
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForShowMsg GetParms x
+      parms←CheckParmsForProgressbarAndStatusbar parms
+      :If ~0∊⍴msg
+          parms.question←msg
+      :EndIf
+      n←CreateButtonForm globalParms parms
+      n.∆buttons.Cancel←1
+      n(CreateAutoPressTimer)←parms.timeout
+      n←AdjustSize n
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{(0∊⍴⍵):⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+      n←HandleFocus n
+      ⎕DQ n.∆Form
+      n.∆CloseForm
+    ∇
+
+    ∇ {button}←{x}ShowLongMsg msg;globalParms;parms;n;⎕TRAP
+    ⍝ Use this (modal) function to display a potentially long message or
+    ⍝ use it as a template for something similar.\\
+    ⍝ The message is actually displayed within a multi edit field with
+    ⍝ scrollbars when appropriate.\\
+    ⍝ Returns the index of the button pressed (first button=0) to leave the form
+    ⍝ or `¯1` if there are no buttons. This is because without any button there
+    ⍝ are two ways to close the form: click the close box or press <Alt+F4>;
+    ⍝ both actions result in `¯1` with or without buttons.
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'C' '(⎕IO⊃⎕DM) ⎕SIGNAL ⎕en')(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForShowLongMsg GetParms x
+      parms.focusButton←(¯1=parms.autoPress)⊃parms.autoPress 0
+      parms.question←msg
+      n←CreateLongMsgForm globalParms parms
+      n(CreateAutoPressTimer)←parms.timeout
+      n←AdjustSize n
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{(0∊⍴⍵):⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+      ⎕NQ n.Msg'GotFocus' ⋄ ⎕DQ n.∆Form
+      :If {0::1 ⋄ 0⊣⍵.Type}n.∆Form  ⍝ Did the user close down the window?
+          button←¯1
+      :Else
+          button←WhichButtonWasPressed n
+      :EndIf
+      n.∆CloseForm
+    ∇
+
+    ∇ n←CreateLongMsgForm(globalParms parms);was;height;width
+      :Access Public Shared
+      ⍎CheckParms parms
+      n←##.FormRefNamespace.Create parms.addToCaption
+      n.∆Vgap←GetGap globalParms parms'vGap'
+      n.∆Hgap←GetGap globalParms parms'hGap'
+      :If ¯1≡parms.initialVgap
+          n.∆initialVgap←##.Enums.Globals.InitialVgapMinSize⌈(GetFontStandard globalParms parms).Size
+      :Else
+          n.∆initialVgap←parms.initialVgap
+      :EndIf
+      :If 1=⍴,parms.buttons
+          parms.cancelButton←parms.defaultButton←0
+      :EndIf
+      (globalParms parms)←(GetDefaultParmsForType parms.parmType)GetParms globalParms parms
+      n←CreateForm n parms globalParms
+      n.∆Form ⎕WS'Event'QuitWaitEvent 1
+      n←CreateIcon n
+      n←##.APLGuiHelpers.CreateStatusbar n
+      n←##.APLGuiHelpers.CreateProgressbar n
+      n←CreateButtons n
+      n←CreateEditForMsg n
+      n←CreateProgressbarTimerAndMessage n
+      n.∆Form.n←n
+    ∇
+
+    ∇ n←CreateButtonForm(globalParms parms);was;height;width
+      :Access Public Shared
+      ⍎CheckParms parms
+      (globalParms parms)←(GetDefaultParmsForType parms.parmType)GetParms globalParms parms
+      parms.onButtonPressed←'ButtonPressed'CheckUserCallback parms.onButtonPressed
+      n←##.FormRefNamespace.Create parms.addToCaption
+      n.∆Vgap←GetGap globalParms parms'vGap'
+      n.∆Hgap←GetGap globalParms parms'hGap'
+      :If ¯1≡parms.initialVgap
+          n.∆initialVgap←##.Enums.Globals.InitialVgapMinSize⌈(GetFontStandard globalParms parms).Size
+      :Else
+          n.∆initialVgap←parms.initialVgap
+      :EndIf
+      n←CreateForm n parms globalParms
+      n.∆Form ⎕WS'Event'QuitWaitEvent 1
+      n←CreateIcon n
+      n←##.APLGuiHelpers.CreateStatusbar n
+      n←##.APLGuiHelpers.CreateProgressbar n
+      n←CreateQuestion n
+      n←CreateButtons n
+      n←CreateProgressbarTimerAndMessage n
+      n.∆Form.n←n
+      n.∆result←⍬
+    ∇
+
+    ∇ r←CreateParms
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to `Dialogs.CreateForm`.\\
+    ⍝ Note that all other (more specialized) `CreateParmsFor*` funtions call this one first, then add
+    ⍝ additional parameters or modify existing ones.
+    ⍝ | Name | Description |
+    ⍝ |------|-------------|
+    ⍝ | `addToCaption` |
+    ⍝ | `alignButtons` |
+    ⍝ | `autoPress` | .|
+    ⍝ | `buttons` | .|
+    ⍝ | `cancelButton` | .|
+    ⍝ | `caption` | .|
+    ⍝ | `centerIn` | .|
+    ⍝ | `destroyAutoPressTimerHotKey` | .|
+    ⍝ | `focusButton` | .|
+    ⍝ | `font*` | .|
+    ⍝ | `hasStatusbar` | .|
+    ⍝ | `hasProgressbar` | .|
+    ⍝ | `hGap` | .|
+    ⍝ | `honorCaptionsForSizeCalc` | .|
+    ⍝ | `honorStatusbarMsgForSizeCalc` | .|
+    ⍝ | `icon` | .|
+    ⍝ | `initialVgap` | .|
+    ⍝ | `minSize` | .|
+    ⍝ | `onButtonPressed` | Name of a callback function to be called in case a button was pressed. Is either fully qualified or a two-item vector with a ref pointing to the parent in the first item and the name in the second or must live where the method will be called from.|
+    ⍝ | `parent` | Reference pointing to a form that will own the form about to be created. |
+    ⍝ | `parmType` | .|
+    ⍝ | `posn` | .|
+    ⍝ | `sizeable` | .|
+    ⍝ | `size` | .|
+    ⍝ | `statusbarMessage` | .|
+    ⍝ | `style` | .|
+    ⍝ | `testMode` | .|
+    ⍝ | `timeout` | .|
+    ⍝ | `vGap` | .|
+      r←##.APLGuiParameterSpace.Create
+      r.addToCaption←'Question'
+      r.alignButtons←##.Enums.Align.Left
+      r.autoPress←¯1
+      r.buttons←'OK' 'Cancel'
+      r.cancelButton←1
+      r.caption←''
+      r.centerIn←''
+      r.destroyAutoPressTimerHotKey←'F12'
+      r.focusButton←¯1
+      r.(fontAPL fontInput fontLabel fontStandard)←⊂''
+      r.hasStatusbar←0
+      r.hasProgressbar←0
+      r.hGap←¯1
+      r.honorCaptionForSizeCalc←1
+      r.honorStatusbarMsgForSizeCalc←1
+      r.icon←''
+      r.initialVgap←¯1
+      r.minSize←160 340
+      r.onButtonPressed←''
+      r.parent←⍬
+      r.parmType←'Dialogs.General'
+      r.posn←⍬ ⍬
+      r.sizeable←1
+      r.size←⍬ ⍬
+      r.statusbarMessage←''
+      r.style←##.Enums.DialogStyles.None
+      r.testMode←¯1
+      r.timeout←0
+      r.vGap←¯1
+     ⍝Done
+    ∇
+
+    ∇ r←CreateParmsForShowLongMsg
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to `Dialogs.ShowLongMsg`.\\
+    ⍝ Provides all the common parameters (see `[CreateParms](#)`) plus these additions/modifications:
+    ⍝ | Name | Description |
+    ⍝ | -----|-------------|
+    ⍝ | `addToCaption`  | . |
+    ⍝ | `APL`           | . |
+    ⍝ | `caption`       | . |
+    ⍝ | `defaultButton` | . |
+    ⍝ | `focusButton`   | . |
+    ⍝ | `parmType`      | Fixed string: "Dialogs.ShowLongMsg". |
+    ⍝ | `size`          | . |
+    ⍝ | `sizeable`      | . |
+    ⍝ | `timeout`       | . |
+      r←CreateParms
+      r.addToCaption←'Message'
+      r.APL←0
+      r.caption←''
+      r.defaultButton←0
+      r.focusButton←0
+      r.parmType←'Dialogs.ShowLongMsg'
+      r.size←⌊0.25×RefToWinSys.(GetSystemMetrics¨SM_CYFULLSCREEN SM_CXFULLSCREEN)
+      r.sizeable←1
+      r.timeout←HasAutoPress r
+    ∇
+
+    ∇ r←CreateParmsForYesOrNo
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to  `Dialogs.YesOrNo`.\\
+    ⍝ Provides all the common parameters (see `[CreateParms](#)`) plus these additions/modifications:
+    ⍝ | Name | Description |
+    ⍝ | -----|-------------|
+    ⍝ | `defaultButton` | . |
+    ⍝ | `parmType`      | Fixed string: "Dialogs.YesOrNo". |
+    ⍝ | `question` | Question you want to ask the user.|
+    ⍝ | `timeout`       | . |
+      r←CreateParms
+      r.defaultButton←0
+      r.parmType←'Dialogs.YesOrNo'
+      r.question←''
+      r.timeout←HasAutoPress r
+    ∇
+
+
+    ∇ r←CreateParmsForNoOrYes
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to  `Dialogs.NoOrYes`.\\
+    ⍝ Provides all the common parameters (see `[CreateParms](#)`) plus these additions/modifications:
+    ⍝ | Name | Description |
+    ⍝ | -----|-------------|
+    ⍝ | `defaultButton` | . |
+    ⍝ | `parmType`      | Fixed string: "Dialogs.NoOrYes". |
+    ⍝ | `question` | Question you want to ask the user.|
+    ⍝ | `timeout`       | . |
+      r←CreateParms
+      r.defaultButton←1
+      r.parmType←'Dialogs.NoOrYes'
+      r.question←''
+      r.timeout←HasAutoPress r
+    ∇
+
+    ∇ r←CreateParmsForYesNoCancel
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to  `Dialogs.YesNoCancel`.\\
+    ⍝ Provides all the common parameters (see `[CreateParms](#)`) plus these additions/modifications:
+    ⍝ | Name | Description |
+    ⍝ | -----|-------------|
+    ⍝ | `defaultButton` | . |
+    ⍝ | `parmType`      | Fixed string: "Dialogs.YesNoCancel". |
+    ⍝ | `question` | Question you want to ask the user.|
+    ⍝ | `timeout`       | . |
+      r←CreateParms
+      r.defaultButton←0
+      r.parmType←'Dialogs.YesNoCancel'
+      r.question←''
+      r.timeout←HasAutoPress r
+    ∇
+
+    ∇ r←CreateParmsForOkOrCancel
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to  `Dialogs.OkOrCancel`.\\
+    ⍝ Provides all the common parameters (see `[CreateParms](#)`) plus these additions/modifications:
+    ⍝ | Name | Description |
+    ⍝ | -----|-------------|
+    ⍝ | `defaultButton` | . |
+    ⍝ | `parmType`      | Fixed string: "Dialogs.OkOrCancel". |
+    ⍝ | `question` | Question you want to ask the user.|
+    ⍝ | `timeout`       | . |
+      r←CreateParms
+      r.defaultButton←0
+      r.parmType←'Dialogs.OkOrCancel'
+      r.question←''
+      r.timeout←HasAutoPress r
+    ∇
+
+    ∇ r←CreateParmsForShowMsg
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to  `Dialogs.ShowMsg`.\\
+    ⍝ Provides all the common parameters (see `[CreateParms](#)`) plus these additions/modifications:
+    ⍝ | Name | Description |
+    ⍝ | -----|-------------|
+    ⍝ | `addToCaption`  | String added to the caption defined as caption in `∆globalParms`. |
+    ⍝ | `caption`       | Defaults to an empty string. |
+    ⍝ | `buttons`       |
+    ⍝ | `defaultButtons`| Defaults to `0` (= left-most button). This defines the button pressed "automatically".|
+    ⍝ | `focusButton`   | Defaults to `0` (= left-most button). |
+    ⍝ | `parmType`      | Fixed string: "Dialogs.ShowMsg". |
+    ⍝ | `timeout`       | Defaults to 0 in case `autopress` is `¯1` and `0.1` otherwise. |
+      r←CreateParms
+      r.addToCaption←'Message'
+      r.caption←''
+      r.buttons←⊂'OK'
+      r.defaultButton←0
+      r.focusButton←0
+      r.parmType←'Dialogs.ShowMsg'
+      r.timeout←HasAutoPress r
+    ∇
+
+    ∇ r←CreateParmsForDisplayButtons
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to  `Dialogs.DisplayButtons`.\\
+    ⍝ Provides all the common parameters (see `[CreateParms](#)`) plus these additions/modifications:
+    ⍝ | Name | Description |
+    ⍝ | -----|-------------|
+    ⍝ | `parmType` | Fixed string: "Dialogs.DisplayButtons". |
+    ⍝ | `cancelButton` | Defaults to `¯1`. |
+      r←CreateParms
+      r.parmType←'Dialogs.DisplayButtons'
+      r.cancelButton←¯1
+      r.question←''
+    ∇
+
+    ∇ {r}←x CheckUserCallback msg
+      :Access Public Shared
+      r←x CheckUserCallback_ msg
+    ∇
+
+⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝ Private
+
+    ∇ n←CreateForm(n parms globalParms);∆
+      ∆←''
+      ∆,←⊂'Caption'(CompileCaption globalParms parms)
+      ∆,←⊂'Coord' 'Pixel'
+      ∆,←⊂'Posn'(parms.posn)
+      ∆,←⊂'Size'(parms.size)
+      ∆,←⊂'Font'(parms.fontStandard{0∊⍴⍺:⍵ ⋄ ⍺}globalParms.fontStandard)
+      ∆(GetIcon)←(parms globalParms).icon
+      ∆,←⊂'Sizeable'(parms.sizeable)
+      :If ~0∊⍴,parms.parent
+          n.∆Form←parms.parent.⎕NEW'Form'∆
+      :ElseIf 0∊⍴globalParms.parent
+          n.∆Form←⎕NEW'Form'∆
+      :Else
+          n.∆Form←globalParms.parent.⎕NEW'Form'∆
+      :EndIf
+      n.∆Form.⎕DF CompileDisplayFormatString parms
+      n.(∆parms ∆globalParms)←parms globalParms
+    ∇
+
+    ∇ n←CreateEditForMsg n;parms;globalParms;question;∆;needed
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      question←,Nest parms.question
+      ∆←''
+      ∆,←⊂'Posn'n.(∆Vgap ∆Hgap)
+      :If 0∊⍴n.∆buttons    ⍝ No buttons?!
+          needed←n.∆Form.Size[0]-2×n.∆Vgap
+          :If n.∆parms.hasStatusbar
+              needed-←↑n.Statusbar.Size
+          :EndIf
+          needed,←n.∆Form.Size[1]-2×n.∆Hgap
+          ∆,←⊂'Size'needed
+      :Else
+          needed←(↑(↑n.∆buttons).Posn)-2×n.∆Vgap
+          needed,←n.∆Form.Size[1]-2×n.∆Hgap
+          ∆,←⊂'Size'needed
+      :EndIf
+      ∆,←⊂'Style' 'Multi'
+      ∆,←⊂'ReadOnly' 1
+      ∆,←⊂'Text'question
+      ∆,←⊂'VScroll' ¯1
+      ∆,←⊂'Attach'('Top' 'Left' 'Right' 'Bottom')
+      :If parms.APL
+          ∆,←⊂'FontObj'(n GetParm ##.Enums.Fonts.APL)
+      :Else
+          ∆,←⊂'FontObj'(n GetParm ##.Enums.Fonts.Label)
+      :EndIf
+      n.Msg←n.∆Form.⎕NEW'Edit'∆
+      n.Msg.⎕DF'[Edit]:Msg'
+     ⍝Done
+    ∇
+
+    ∇ n←CreateQuestion n;parms;globalParms;∆;startPosn;para;question;i;height
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      ∆←''
+      question←,Nest parms.question
+      i←0
+      n.Question←⍬      ⍝ Keeps a vector with refs to all labels.
+      startPosn←(##.Enums.DialogStyles.None≡parms.style)⊃{(##.Enums.Globals.InitialVgapMinSize 65⌈⍵)⍵}n.(∆initialVgap ∆Hgap)
+      :For para :In question
+          ∆,←⊂'Caption'para
+          ∆,←⊂'Attach'(4⍴'Top' 'Left')
+          ∆,←⊂'Font'(n GetParm ##.Enums.Fonts.Standard)
+          n.Question,←n.∆Form.⎕NEW'Label'∆
+          i+←1
+      :EndFor
+      '[Label]'∘{⍵.⎕DF ⍺}¨n.Question
+      height←0⊃n.Question[0].GetTextSize 0⊃question
+      n.Question.Posn←{startPosn+(⍵×5+height),0}¨⍳i
+    ⍝Done
+    ∇
+
+    ∇ n←CreateButtons n;noOfRows;x;y;allButtons
+      allButtons←{⍵⍴⍨¯2↑1 1,⍴⍵}n.∆parms.buttons
+      n←CreateButtons_ n allButtons
+      noOfRows←0⊃⍴allButtons
+      :If noOfRows>1
+          x←n.∆Form.Size[0]-↑,/⌽(1⊃⍴allButtons)⍴¨((,n.∆buttons)[0].Size[0]+(noOfRows⍴n.∆Vgap))×1+⍳noOfRows
+          :If n.∆parms.hasStatusbar
+              x-←↑n.Statusbar.Size
+          :EndIf
+          y←+\n.∆Hgap+0,(¯1+1⊃⍴allButtons)⍴1⊃↑n.∆buttons.Size
+          (,n.∆buttons).Posn←x,¨(⍴x)⍴y
+      :EndIf
+      n.∆buttonPressed←⍬
+      :If ~0∊⍴n.∆buttons
+          n.∆buttons.onSelect←⊂'OnButtonPressed'
+      :EndIf
+    ∇
+
+    ∇ n←CreateButtons_(n allButtons);i;noOfRows;k;allButtonsInThisRow;l;thisBtn;∆;rf;name
+      noOfRows←0⊃⍴allButtons
+      n.∆buttons←(⍴allButtons)⍴⊂⍬
+      i←¯1
+      :For k :In ⍳noOfRows
+          allButtonsInThisRow←allButtons[↑k;]
+          :For l :In ⍳⍴allButtonsInThisRow
+              thisBtn←l⊃allButtonsInThisRow
+              i+←1
+              ∆←('Caption'thisBtn)('Attach'(4⍴'Bottom' 'Left'))
+              ∆,←(i=n.∆parms.cancelButton)/⊂'Cancel' 1
+              :If 0<n.∆parms.⎕NC'defaultButton'
+                  ∆,←(i=n.∆parms.defaultButton)/⊂'Default' 1
+              :EndIf
+              ∆,←⊂'Size'(⍬(1⊃n.∆Form.GetTextSize'W'⍴⍨2+⌈/↑∘⍴¨,n.∆parms.buttons))
+              ∆,←⊂'Attach'(4⍴'Bottom' 'Left')
+              name←'Btn',⍕i
+              rf←⍎'n.',name,'←n.∆Form.⎕NEW''Button'' ∆'
+              rf.⎕DF'[Button]:',name
+              :If thisBtn≢n.∆parms.cancelButton
+              :AndIf 0=n.∆parms.⎕NC'defaultButton'
+                  rf.onSelect←1
+              :EndIf
+              :If 0<n.∆parms.timeout
+                  rf.onLostFocus←'OnButtonLostFocus'
+              :EndIf
+              rf.Posn[0]←n.∆Form.Size[0]-n.∆Vgap+rf.Size[0]+{(0=⍵.⎕NC'Statusbar'):0 ⋄ ⍵.Statusbar.Size[0]}n
+              :If 0=i
+                  rf.Posn[1]←n.∆Hgap
+              :Else
+                  rf.Posn[1]←n.∆Hgap+1⊃+⌿⊃(↑⌽(,n.∆buttons)~⊂⍬).(Posn Size)
+              :EndIf
+              n.∆buttons[k;l]←rf
+          :EndFor
+      :EndFor
+    ∇
+
+    ∇ r←CheckParms parms
+    ⍝ Check the parameters. Returns an empty string or a ⎕SIGNAL statement that can be ⍎
+      r←''
+      :If ~(parms.style)∊##.Enums.DialogStyles.(⍎¨⎕NL-3)
+          r←'''Invalid value for "Style''⎕SIGNAL ',⍕APLGuiError
+      :EndIf
+    ∇
+
+    ∇ n←CreateIcon n;parms;globalParms;type;∆;types;data;rf1;rf2
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      :If ##.Enums.DialogStyles.None≢type←parms.style
+          ∆←''
+          ∆,←⊂'Posn'(20 15)
+          ∆,←⊂'Attach'(4⍴'Top' 'Left')
+          ∆,←⊂'Size'(40 40)
+          ∆,←⊂'EdgeStyle' 'Dialog'
+          rf1←n.∆Form.⎕NEW'SubForm'∆
+          rf1.⎕DF'[SubForm]'
+          types←'' 'Query' 'Info' 'Error' 'Warn' 'Stop'
+          data←##.APLGuiIcons.⍎type⊃types
+          ∆←{('Bits'(0⊃⍵))('CMap'(1⊃⍵))('Mask'(2⊃⍵))('KeepBits' 1)}data
+          rf2←⎕NEW'Icon'∆
+          ∆←''
+          ∆,←⊂'Points'(1 1)
+          ∆,←⊂'Picture'rf2
+          n.Icon←rf1.⎕NEW'Image'∆
+      :EndIf
+    ∇
+
+    ∇ {r}←OnButtonPressed msg;n;rf;fns;parent;fnsName
+      r←1
+      n←GetRefTo_n 0⊃msg
+      rf←0⊃msg
+      n.∆buttonPressed←rf
+      :If ~0∊⍴n.∆parms.onButtonPressed
+          :If 2=≡n.∆parms.onButtonPressed
+              parent←0⊃n.∆parms.onButtonPressed
+              fnsName←1⊃n.∆parms.onButtonPressed
+          :ElseIf 3=⎕NC n.∆parms.onButtonPressed
+              parent←'#'
+              fnsName←n.∆parms.onButtonPressed
+          :Else
+              parent←↑1↓⎕RSI
+              fnsName←n.∆parms.onButtonPressed
+          :EndIf
+          fns←parent⍎fnsName
+          →(n fns 0⊃msg)/0
+      :EndIf
+      rf.onSelect←0
+      ⎕NQ n.∆Form QuitWaitEvent
+    ∇
+
+    ∇ n←HandleFocus n
+      :Access Public Shared
+      :If ¯1≠n.∆parms.focusButton
+          ⎕NQ(n.∆parms.focusButton⊃,n.∆buttons)'GotFocus'
+      :EndIf
+    ∇
+
+      OnButtonLostFocus←{
+          to←2⊃⍵
+          (0∊⍴to):1                 ⍝ When the focus goes to another application then we let the timer carry on
+          rf←0⊃⍵
+          (~to∊rf.##.n.(⍎¨⎕NL-9)):1 ⍝ Same application but a different control? Let it carry on as well.
+          DisableAutoClick rf.##    ⍝ Focus changed elsewhere within that very Form, so we stop the timer.
+      }
+
+      OnCloseForm←{
+      ⍝ We prevent the form from being closed by the user:
+      ⍝ she is supposed to click a button!
+          0
+      }
+
+    ∇ n←AdjustSize n
+      :Access Public Shared
+      n←AdjustSize_ n
+    ∇
+
+    ∇ n←n CreateAutoPressTimer timeout
+      :Access Public Shared
+      :If 0<timeout
+          n←n CreateAutoPressTimer_ timeout
+      :EndIf
+    ∇
+
+      GetDefaultParmsForType←{
+          name←'CreateParmsFor',1⊃'.'SplitPath ⍵
+          3=⎕NC name:⍎name
+          'CreateParmsForGeneral'≡name:CreateParms
+          6 ⎕SIGNAL⍨'Missing: ',name
+      }
+
+      WhichButtonWasPressed←{
+      ⍝ Takes an "n" namespace as right argument and returns the index (vector based!)
+      ⍝ of the button that was pressed by the user.
+          n←⍵
+          (,n.∆buttons)⍳↑n.∆buttonPressed
+      }
+
+      HasAutoPress←{
+      ⍝ Checks whether `autoPress` is defined or not.
+      ⍝ Takes a parameter space as ⍵.
+          0.1×¯1≠⍵.autoPress
+      }
+
+    ∇ parms←ProcessDisplayButtonParms(parms buttons)
+      :If ¯1=parms.autoPress
+          :If ¯1=parms.focusButton
+              :If 0∊⍴parms.focusButton←((⊂'OK')∊buttons)/(,buttons)⍳⊂'OK'
+                  parms.focusButton←0       ⍝ We have to put the focus somewhere!
+              :EndIf
+          :Else
+              'Invalid: "focusButton"'⎕SIGNAL(~parms.focusButton∊⍳⍴,buttons)/APLGuiError
+          :EndIf
+      :Else
+          parms.focusButton←parms.autoPress
+      :EndIf
+      'Invalid: "cancelButton"'⎕SIGNAL(~parms.cancelButton∊¯1,⍳×/⍴buttons)/APLGuiError
+    ∇
+
+:EndClass

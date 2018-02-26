@@ -1,0 +1,22 @@
+# Parameter spaces
+
+In APLGui, non-trivial parameters are always passed by...
+
+* creating a namespace that contains some variables with default variables and some helper methods.
+* overwriting the values with appropriate defaults for the task at hand.
+* passing a ref pointing to the namespace to one of the constructors of one of the main classes.
+
+In principle there are *always* two such parameter spaces involved:'
+
+* A "global" (=shared by all main classes) parameter space with settings like application icon, default fonts,
+  common caption etc.
+* A utility-specific parameter space.
+
+
+Whether you are passing those parameter spaces or not to the `Create` method of any of the main class constructors
+does not really matter because if you don't then the `Create` method will do it on your behalf anyway.
+
+Callbacks, when running, might need access to those parameter spaces: note that this access is available via the
+→[*.N_Namespace|`n` namespace].
+
+More details are available on →[*.Reference.ParameterSpaces|"Parameter spaces"].

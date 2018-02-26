@@ -1,0 +1,10 @@
+ {r}←WarnAboutCSS n;parms;msg
+ r←⍬
+ :If n.HideCSS.State
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.addToCaption←'Saving HTML'
+     parms.minSize←⍬ 550
+     parms.(hasProgressbar hasStatusbar)←0
+     msg←'Note that the HTML will be saved without CSS'
+     parms n.∆globalParms G.Dialogs.ShowMsg msg
+ :EndIf

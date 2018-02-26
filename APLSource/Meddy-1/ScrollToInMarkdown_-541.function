@@ -1,0 +1,10 @@
+ {r}←ScrollToInMarkdown_ ref;SendMessage;firstVisibleLine;currentLine;EM_LINESCROLL
+ ⍝ Makes sure that the current line (defined by SelText) will become visible.
+ ⍝ `ref` must point to a multi-line Edit control.
+ EM_LINESCROLL←182
+ ⎕NA'U user32|SendMessage* U U I I'
+ firstVisibleLine←GetFirstVisibleLine ref
+ currentLine←GetCurrentLine ref
+ r←currentLine-firstVisibleLine
+ {}SendMessage ref.Handle EM_LINESCROLL 0 r
+⍝Done

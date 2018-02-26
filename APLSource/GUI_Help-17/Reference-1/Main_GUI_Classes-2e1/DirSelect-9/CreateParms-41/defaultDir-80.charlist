@@ -1,0 +1,4 @@
+# defaultDir
+
+The directory that becomes pre-selected. The user cannot go "above" this in case fixDefaultDir is 1.
+

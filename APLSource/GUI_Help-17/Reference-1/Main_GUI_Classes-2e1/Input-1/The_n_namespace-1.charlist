@@ -1,0 +1,68 @@
+# The "n" namespace
+
+## Overview
+
+The `n` namespace contains all the usual stuff →[*.N_Namespace|as documented here]. This is important 
+for any callbacks that need to acecss to data while `Input.Run` is still running.
+
+## ∆Result
+
+This reflects the current state of the data entered by the user. It's identical with what the `Run`
+function will finally return as →[*.The_result|a result].
+
+## The ∆g sub-namespace
+
+`Input`'s `n` namespace contains a sub-namespace `∆g` which contains a number of globals important
+to the inner working of `Input`. These variables may be referenced but you should not change them.
+
+The following variables in `∆g` are of particular interest:
+
+#### defMat
+
+This is the definition matrix of the GUI.
+
+#### NoOfColumns
+
+This is either a simple integer or - when tabs are involved - a vector of integers with the number
+of columns involved.
+
+#### NoOfTabs
+
+Holds the number of tabs involved and might therefore well be 0.
+
+## Additional references
+
+There are also a couple of special references listed here.
+
+#### ∆OK, ∆Help, ∆Cancel
+
+* `∆OK` and `∆Cancel` will always exist.
+* `∆Help` will exist only when a help button is defined.
+* `∆OK` will always be `Btn_00`, and `∆Help` - if it exists at all - will always be `Btn_01`.
+* `∆Cancel` will be either `Btn_01` or `Btn_02`, depending on the existence of `∆Help`.
+
+
+It is recommended to deal with the `∆`-variables rather than the buttons themselves.
+
+#### ∆TabButtons, ∆TabSubForm
+
+Those variables exists only in case Tabs are involved. They carry references to all tabs and all
+tab-related SubForms.
+
+## Specialty: the menubar
+
+If there is a menubar involved (by default there is) then the `n` namespace that represents the
+menubar itself is assigned to `n` under the name `menubar`.
+
+This avoids convoluting the `n` namespace with separators and menus and menu items and at the same
+time makes it much easier to deal with the menubar itself, for example:
+
+~~~
+      n.menubar.∆List''
+copy        MenuItem  Copy	Ctrl+C
+cut         MenuItem  Cut	Ctrl+X
+edit        Menu      &Edit
+menubar     Vars
+paste       MenuItem  Paste	Ctrl+V
+∆Callbacks  Vars
+~~~

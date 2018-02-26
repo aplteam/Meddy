@@ -1,0 +1,34 @@
+ {r}←InjectParameters n;parms;ps;list;bool;markdown;noOf;buff;alreadyDefined;isNum;ok;comments;list2;isLeanpubEncoding
+ r←⍬
+ ps←#.MarkAPL.CreateParms
+ list←ps.∆List[;0]
+ list~←'inputFilename' 'outputFilename' 'compileFunctions' 'debug' 'homeFolder' 'verbose' ⍝ These parameters should not be embedded by the user
+ :If 0<noOf←+/∧\'['=↑¨,n.Markdown.Text
+     list~←{{⍵↑⍨⍵⍳'='}(⍴'[parm]:')↓⍵}¨{⍵/⍨'[parm]:'∘{⍺≡A.Lowercase(⍴⍺)↑⍵}¨⍵}noOf↑,n.Markdown.Text
+ :EndIf
+ (alreadyDefined comments)←GetEmbeddedParms n.Markdown.Text
+ list~←{⍵↑⍨⌊/⍵⍳' ='}¨(⍴'[parm]:')↓¨alreadyDefined
+ :If ~0∊⍴list
+     parms←G.OptionsTool.CreateParms
+     parms.addToCaption←'Inject parameters'
+     parms.style←G.Enums.OptionsStyles.check
+     parms.info←'Which parameters do you want to embedd?'
+     parms.fontLabel←n.∆globalParms.fontAPL
+     isNum←0=↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
+     (ok bool)←n.∆globalParms parms G.OptionsTool.Run↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
+     :If ok
+         ⍝ We don't check `bool` because the user might just want to reformat the list of parameters
+         markdown←,n.Markdown.Text
+         (list isNum)←bool∘/¨list isNum
+         list2←({⍵↑⍨⌊/⍵⍳' ='}¨{(⍴'[parm]:')↓⍵}¨alreadyDefined),list     ⍝ Needed for eliminating doubles
+         buff←alreadyDefined,'[parm]:'∘,¨list,¨('=' '=''''')[~isNum]
+         buff←(⌽{(⍳⍴⍵)=⍵⍳⍵}⌽list2)/buff                                 ⍝ Eliminate any doubles but make last one win
+         buff←(⊃'='A.Split¨buff),'='
+         buff←(↓1↓[1]⎕FMT A.{dlb dtb ⍵}¨buff[;0 2 1]),comments
+         buff←A.dtb buff
+         isLeanpubEncoding←WhereIsLeanPubEncodingLine markdown
+         markdown←(isLeanpubEncoding/markdown),buff,(⍴alreadyDefined,comments)↓(~isLeanpubEncoding)/markdown
+         n.Markdown.Text←markdown
+     :EndIf
+ :EndIf
+⍝Done

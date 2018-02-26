@@ -1,0 +1,4 @@
+ r←∆GetHome
+ r←↑,/1 ⎕NPARTS(↑⎕NPARTS ⎕WSID),'..'
+ r,←'/_Source/'
+⍝Done

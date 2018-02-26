@@ -1,0 +1,68 @@
+# The Windows Registry
+
+Most of the APLGui objects can save their Posn and Size in the Windows Registry and restore these
+values when recreated, and some do so by default.
+
+For this there are two different strings used:
+
+ 
+ 
+ 
+ 
+**1. The "regKey" parameter from the global parameters.**
+
+There is no default. If you want to take advantage of the auto-save feature for "Posn" and "Size"
+then you must set this parameter, typically to the name of the application. Here we will assume
+"MyApp" for this.
+
+ 
+ 
+ 
+ 
+**2. The "regKey2" parameter from the local parameters.**
+
+In some cases this defaults to the "addToCaption" parameter in case the "regKey" parameter in the
+global parameters is not empty and regKey2 is `¯1`.
+
+You can set this to any other string you like. If you don't want the "Posn" and "Size" saved for a
+particular object you can achieve this by assigning an empty vector to "regKey2". Also, when the
+"regKey" parameter is not set but the "regKey2" is then again nothing is saved in the Windows
+Registry at all.
+
+You have to look up what the default is for a particular object but common sense helps:
+
+* For dialogs like YesOrNo saving either Posn or Size does not make much (if any) sense, so it's not done: "regKey2" is not a valid parameter at all.
+* For `Notepad` and `StdForm` it makes perfect sense, so they are doing it by default.
+* For `OptionsTool`, `SelectionTool` and `ProcessTool` it more often than not does not make sense, so by default it's not saving/restoring those values, but you can change this default behaviour be setting "regKey2" appropriately.
+
+
+## Examples:
+
+~~~
+      globalParms←#.APLGuiGlobalParms.CreateDefaults
+      globalParms.regKey←'MyApp'
+      formParms←#.GUI.StdForm.CreateParms
+      formParms.regKey2←'MyKey'
+~~~
+
+With these settings you get this:
+
+~~~
+      #.APLGuiUtils.GetRegPath globalParms.regKey formParms.regKey2
+HKCU
+Software
+MyApp
+MyKey
+      formParms.regKey2←''
+      ''≡#.APLGuiUtils.GetRegPath globalParms.regKey formParms.regKey2
+1
+~~~
+
+However, note that the default for `regKey2` might be `¯1`:
+
+~~~
+      #.StdForm.CreateParms.regKey2
+¯1
+~~~
+
+This means that `addToCaption` will be assigned to `regKey2` internally just in time.

@@ -1,0 +1,5 @@
+# The "Browse" method
+
+The `Browse` method is essentially identical with the `Edit` method but does not allow the user to
+change the data. This achieved by setting "readonly" for all columns to 1.
+

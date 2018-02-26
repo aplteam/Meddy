@@ -1,0 +1,5 @@
+# default
+
+Which option(s) shall be preselected from the start. Must be Boolean. For check boxes a single
+value is expanded.
+

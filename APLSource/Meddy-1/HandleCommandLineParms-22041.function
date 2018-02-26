@@ -1,0 +1,25 @@
+ {r}←HandleCommandLineParms n;list;filename;msg;parms;posn;folder
+ r←⍬
+ :If ~0∊⍴posn←'-posn='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
+     n.∆Form.Posn←↑(//)⎕VFI↑posn
+ :EndIf
+ :If ~0∊⍴folder←'-folder='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
+     n.∆Path←↑folder
+ :EndIf
+ :If ~0∊⍴list←'-file='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
+     :If ##.FilesAndDirs.Exists filename←↑¯1↑list
+         OpenFile_ n filename
+     :Else
+         {}n TellFileDoesNotExist filename
+     :EndIf
+ :ElseIf ∨/'-new'∘≡¨2 ⎕NQ #'GetCommandLineArgs'
+     CreateNewDocument_ n
+ :ElseIf 2=⍴#.GetCommandLineArgs
+     filename←↑¯1↑#.GetCommandLineArgs
+ :AndIf (A.Lowercase ¯1↑⎕NPARTS filename)∊'.md' '.markdown'
+     :If ##.FilesAndDirs.Exists filename
+         OpenFile_ n filename
+     :Else
+         {}n TellFileDoesNotExist filename
+     :EndIf
+ :EndIf

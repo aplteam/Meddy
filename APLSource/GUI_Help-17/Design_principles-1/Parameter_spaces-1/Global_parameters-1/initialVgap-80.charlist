@@ -1,0 +1,6 @@
+# initialVgap
+
+The space between the top border of the Form and the first control.
+
+Defaults to →[#._APLGUI.GUI_Help.Design_principles.Parameter_spaces.Global_parameters.vGap] but at least `Enums.Globals.InitialVgapMinSize`.
+

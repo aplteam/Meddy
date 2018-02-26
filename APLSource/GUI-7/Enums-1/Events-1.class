@@ -1,0 +1,11 @@
+:Class Events
+⍝ Use this for certain event numbers rather than integers.
+    ∇ r←QuitDQ
+      :Access Public Shared
+      r←9955
+    ∇
+    ∇ r←∆List
+      :Access Public Shared
+      r←⍉{⍵,[-0.5]⍎¨⍵}(⎕NL-3)~⊂'∆List'
+    ∇
+:EndClass

@@ -1,0 +1,7 @@
+ TellNeedForRestart←{
+     n←⍵
+     parms←G.Dialogs.CreateParmsForShowMsg
+
+
+     1:r←⍬
+ }

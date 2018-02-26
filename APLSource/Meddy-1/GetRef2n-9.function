@@ -1,0 +1,5 @@
+ GetRef2n←{
+     9=⍵.⎕NC'n':⍵.n
+     ⍵≡⍵.##:''           ⍝ Can happen in context menus, for example
+     ∇ ⍵.##
+ }

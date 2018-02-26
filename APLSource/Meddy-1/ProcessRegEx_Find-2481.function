@@ -1,0 +1,27 @@
+ r←n ProcessRegEx_Find(txt searchFor);pattern;options
+⍝ Return starting point (within item), length, item number.
+⍝ Returns ¯1 in case of a crash.
+ :Trap 11
+     options←('IC'(~n.∆Find.Case))('Greedy' 0)('DotAll' 1)('Mode' 'M')
+     :If ∨/n.∆Find.(IgnoreCodeBlocks IgnoreInlineCode)
+         pattern←''
+         :If n.∆Find.IgnoreCodeBlocks
+             pattern,←⊂'^ *~~~.*^ *~~~'   ⍝ With ` {0,3}` we mist code blocks in lists!
+             pattern,←⊂'^ *```.*^ *```'   ⍝ Ditto ↑
+         :EndIf
+         :If n.∆Find.IgnoreInlineCode
+             pattern,←⊂'`\N*`'
+         :EndIf
+         pattern,←⊂searchFor
+         r←pattern ⎕S 0 1 3⍠options⊣1↓↑,/(⎕UCS 13),¨txt
+         r←2↑[1]⊃((¯1+⍴pattern)=⊢/⊃r)/r        ⍝ Ignore hits by all but the last pattern (=ignore code blocks)
+     :Else
+         r←⊃searchFor ⎕S 0 1⍠options⊣1↓↑,/(⎕UCS 13),¨txt
+     :EndIf
+     :If ~0∊⍴r
+         r←(+\↑∘⍴¨txt)CalcBlockNumbers r
+     :EndIf
+ :Else
+     r←¯1
+     TellRegExError ⍬
+ :EndTrap

@@ -1,0 +1,4 @@
+# useWindowsRegistry
+
+Save and load "Posn" and "Size" into/from the Windows Registry.
+

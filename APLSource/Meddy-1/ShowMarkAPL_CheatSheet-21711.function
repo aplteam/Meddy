@@ -1,0 +1,5 @@
+ ShowMarkAPL_CheatSheet←{
+     n←⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\MarkAPL_CheatSheet.html'
+     1:rc←rc
+ }

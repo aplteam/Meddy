@@ -1,0 +1,19 @@
+# MonitorInfo
+
+Syntax:
+
+~~~
+r←MonitorInfo
+~~~
+
+Gives valuable information about current monitor(s):
+
+* R[1+2] Top-left corner of the virtual desktop.
+* R[3+4] Size of the  virtual desktop.
+* R[5] Number of monitors.
+* R[6] Flag; is true if all monitors have the same display format.
+
+
+Note however that having two or more monitors with different sizes is not working well. The bigger
+the differences the worse it's going to get.
+

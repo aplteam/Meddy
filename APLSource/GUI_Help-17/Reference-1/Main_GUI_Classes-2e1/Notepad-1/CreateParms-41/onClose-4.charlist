@@ -1,0 +1,7 @@
+# onClose
+
+Callback fns called when the user attempts to close Notepad. Must return a Boolean: 0=okay,
+1=prevent user from leaving Notepad.
+
+For how to qualify callbacks so that they will be found see →[*.Callback_functions].
+

@@ -1,0 +1,8 @@
+ TellFileDoesNotExist←{
+     n←⍺
+     filename←⍵
+     msg←'Sorry, this file does not exist:' ''filename
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.addToCaption←'Open file'
+     n.∆globalParms parms G.Dialogs.ShowMsg msg
+ }

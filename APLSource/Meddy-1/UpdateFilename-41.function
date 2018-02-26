@@ -1,0 +1,6 @@
+ {r}←UpdateFilename(n fullPath)
+ r←⍬
+ n.∆Path←↑⎕NPARTS fullPath
+ n.∆Filename←fullPath
+ n.∆Form.Caption←n.∆globalParms.caption,' - ',n.∆Filename
+⍝Done

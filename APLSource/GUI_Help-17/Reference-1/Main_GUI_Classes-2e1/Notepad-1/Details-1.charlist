@@ -1,0 +1,100 @@
+# Details
+
+Note that the editor converts <TAB> characters to 4 blanks.
+
+## Showing / editing APL code
+
+There are two parameters that tells `Notepad` how to deal with APL code:
+
+#### APLFont
+
+Setting `APLFont←1` makes `Notaepad` use `globalParms.fontAPL` rather than `globalParms.fontInput`.
+
+#### APLMode
+
+Setting `APLMode←1` makes `Notepad` produce APL characters when pressing Ctrl+v, Ctrl+c or Ctrl+x
+rather than triggering an action.
+
+## The "n" namespace
+
+This namespace carries a couple of global variables:
+
+|-|
+|Vars name|Description|
+|∆changeFlag|Boolean that indicates whether the text got changed by the user.|
+|∆filename|EditFile and BrowseFile only: the file to be loaded from / saved to.|
+|∆originalText|The original text. (Is reset automatically when a "Save" operation is performed)|
+|∆result|The result. For details see →[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Notepad.The_n_namespace|the "n" namespace].|
+
+## Callbacks
+
+#### 	The "onClose" callback
+
+You can specify a callback that will be executed when the user attempts to close the form or
+execute the "Quit" command from the menu. This can be used to, say, check the user's input.
+
+The callback must except a right argument (the "n" namespace) and return a Boolean scalar. A 0 is
+interpreted as "Okay, carry on" while a 1 does not allow the user to close the form.
+
+#### 	The "onInitial" Callback
+
+You can specify a callback that will be executed after the Form got created and just before "Wait"
+is executed. This can be used to, say, display a message etc.
+
+The callback must except a right argument (the "n" namespace).
+
+It may or may not return a result but the result is ignored when provided. Note that when it is a
+direct function then it **always** has to provide a result.
+
+You can specify the callback either fully qualified or just as the function name but in the latter
+case the function must live where the `Notepad.*` function was called from.
+
+## 	The "File" menu
+
+The methods available deal with the details, so you don't need to worry too much:
+
+By default Notepad is an editor for stuff in the workspace, therefore the "File" menu carries just
+a "Quit" command.
+
+There are however three flags available:
+
+* `hasMenuItem_Open`
+* `hasMenuItem_Save`
+* `hasMenuItem_SaveAs`
+
+
+They all default to 0 when `Notepad.CreateParms` is called but `hasMenuItem_Save` and
+`hasMenuItem_SaveAs` default to 1 when `Notepad.CreateForEditFile` is called.
+
+Note that specifying `hasMenuItem_Save` requires `n.∆filename` to be set at one stage or another.
+
+There are two corresponding callback definitions available:
+
+* `onOpen`
+* `onSaveAs`
+
+
+If you set one of the flags to 1 then the corresponding callback must be defined, too, otherwise
+`Notepad` will throw an error.
+
+Note that for `onOpen` there is a default: the method `Notepad.OnOpenDefault` will be executed in
+case the user selects the "Open..." command form the "File" menu.
+
+You only have to specify your own callback if you are unhappy with what it's doing like restricting
+the directory or file type etc. Use `Notepad.OnOpenDefault` as a blue print for your own callback.
+
+Note that `hasMenuItem_Save` is different: saving the text, either via the File:Save menu command
+or at the end of a `Notepad` session, will be done automatically by the `Notepad` class for you.
+
+Also, when `hasMenuItem_Open` is 0 but a filename is specified then the file will be loaded
+automatically by the `Notepad` class.
+
+The `∆originalText` will be reset by both the "Save" as well as the "Save as..." menu commands.
+This is not the case for `∆changeFlag`.
+
+If "Save" is active then you must set the `filename` property as well, otherwise it makes no sense.
+If you forget to do this then `Notepad` will throw an error.
+
+Note that the "Save" menu command is inactive by default. It is activated automatically as soon as
+a change is performed or a file is loaded via the File:Open menu command, and it will become
+inactive again when either the file is saved or the "Restore" command is executed.

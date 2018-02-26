@@ -1,0 +1,7 @@
+ {r}←hideFlag ProcessHTML n
+ r←⍬
+ :If hideFlag
+     n.HTML.Text←'<style.*</style>'⎕R''⍠('Mode' 'D')('DotAll' 1)⊣n.HTML.∆HTML
+ :Else
+     n.HTML.Text←n.HTML.∆HTML
+ :EndIf

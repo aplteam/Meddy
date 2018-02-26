@@ -1,0 +1,9 @@
+# How to create a Form
+
+Here we discuss the functions that assist you in creating a Form with the `StdForm` class.
+The sequence of actions:
+
+* Create a →[*.ParameterSpaces|parameter space]
+* Call the `Create` method in order to create the Form.
+* Optionally call one of the helpers in order to add more controls to the Form. see
+* `→[*.AddTabs]` and `→[*.AddButtons]` for details.

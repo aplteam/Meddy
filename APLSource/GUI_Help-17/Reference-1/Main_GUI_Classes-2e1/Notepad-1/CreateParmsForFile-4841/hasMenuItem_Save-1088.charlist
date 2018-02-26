@@ -1,0 +1,4 @@
+# hasMenuItem_Save
+
+By default there is no "Save" menu item in the "File" menu. This is handled by `Notepad`.
+

@@ -1,0 +1,26 @@
+ r←GetToc n;toc
+⍝ Returns the TOC as an APL array.
+ .
+ :If 0∊⍴toc←⊃n.HTML.∆ns.toc
+     n.Toc.Items←''
+     n.Toc.SelItems←⍬
+     n.Toc.Visible←0
+ :Else
+     n.Toc.Items←toc[;1]
+     n.Toc.RealDepth←toc[;0] ⍝ In case the user has built an invalid structure of headers we need to remember his definition
+     toc[;0]←toc[;0]-(↑toc[;0])-1
+     n.Toc.Depth←¯1+1,2{(⍺+1)≥⍵:⍵ ⋄ ⍺+1}/toc[;0] ⍝ Correct an user mistakes, otherwise we get a DOMAIN ERROR.
+     n.TocSF.(Active Visible)←1
+     {}{2 ⎕NQ n.Toc'Expanding'⍵}¨A.Where n.Toc.Depth∊0 1
+     :If ~0∊⍴invalid←A.Where 0,2{(⍺+1)≥⍵:0 ⋄ 1}/toc[;0]
+         states←n.Toc GetState¨invalid
+         (4⊃¨states)←0                  ⍝ Reset
+         :If ~0∊⍴invalid
+             (4⊃¨states)←1              ⍝ Make invalid bold
+         :EndIf
+         {}n.Toc SetState¨invalid,¨⊂¨states
+     :EndIf
+     n.Toc.SelItems[row]←1
+     n.Toc.Visible←1
+ :EndIf
+⍝Done

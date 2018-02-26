@@ -1,0 +1,16 @@
+# Callback functions
+
+Callback functions in `APLGui` follow certain rules.
+
+## Naming convention
+
+All parameters specifying a callback function start their names with `on` (lowercase "o").  It is
+recommended that user-defined callbacks use `On` (uppercase "O").
+
+## Where to find them
+
+There are three ways to specify a callback function so that they will be found:
+
+* Specify a fully qualified name like `#.Foo.OnFns`
+* Specify a two item vector with a ref pointing to a namespace or class or instance and the name of the callback.
+* Specify just the name of the callback function. That works only when the callback lives where the tool in question was called from. Also, that space must be a simple namespace.

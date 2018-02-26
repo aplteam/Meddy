@@ -1,0 +1,3 @@
+# Non-standard file extension test
+
+Very simple example

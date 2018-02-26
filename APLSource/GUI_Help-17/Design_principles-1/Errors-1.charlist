@@ -1,0 +1,13 @@
+# Errors
+
+When APLGui runs into a problem or cannot accept a parameter then it will throw an error with
+`⎕SIGNAL`. The number of the error is defined by the variable `APLGuiUtils.APLGuiError` except in
+cases when the problem APLGui has run into is external.
+
+A typical example would an access error when trying to read a file; in such cases the original
+error is thrown of course.
+
+If that number is not acceptable for you then just change that variable but keep in mind that an
+update with a newer version of APLGui will potentially overwrite your change. Therefore, unless
+you already use that very number, it's best to leave it as it is.
+

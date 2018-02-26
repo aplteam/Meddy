@@ -1,0 +1,4 @@
+ {r}←ToggleFullscreenMode n
+ r←⍬
+ n.∆Form.State←2×0=n.∆Form.State
+⍝Done

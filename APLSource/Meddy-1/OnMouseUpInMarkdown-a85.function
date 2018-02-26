@@ -1,0 +1,1 @@
+ OnMouseUpInMarkdown←{n←GetRef2n↑⍵ ⋄ ⎕NQ n.∆Form 9999}

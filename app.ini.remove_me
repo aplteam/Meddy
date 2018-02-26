@@ -1,0 +1,11 @@
+﻿[CONFIG]
+
+; Note that crash files, log files and aplcores are saved at %APPDATA%\Meddy
+
+Trap        = ¯1     ; ¯1=Error trapping in RunTime but not otherwise. 1=Trap; 0=do not trap
+LetsCrash   = 0     ; Should always be 0 except for testing a crash
+
+[RIDE]
+Allow       = 0     ; If this is 1 a Ride is possible
+Port        = 4502
+Wait        = 1     ; If this is 1 then the app enters an endless loop in order to allow a RIDE

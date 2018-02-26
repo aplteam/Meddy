@@ -1,0 +1,28 @@
+ n←CreateToolControl n;∆;properSizes
+ n.ToolControl←n.∆Form.⎕NEW⊂'ToolBar'
+ n.ToolControl.Posn←5 5
+
+ ∆←''
+ ∆,←⊂'Style' 'Check'
+ ∆,←⊂'Caption' 'Produce full HTML &document'
+ ∆,←⊂'State' 1
+ ∆,←⊂'Visible' 0
+ ∆,←⊂'Active' 0
+ n.FullHtmlDocument←n.ToolControl.⎕NEW'Button'∆
+ n.FullHtmlDocument.TipObj←n.Tip
+ n.FullHtmlDocument.Tip←'If this not checked then an' 'HTML snippet is generated'
+ n.FullHtmlDocument.onSelect←'OnToggleFullHtmlDocument'
+
+ ∆←''
+ ∆,←⊂'Style' 'Check'
+ ∆,←⊂'Caption' 'Hide right &pane'
+ ∆,←⊂'State' 0
+ ∆,←⊂'Active' 0
+ ∆,←⊂'Visible' 0
+ ∆,←⊂'Accelerator'(120 0)
+ n.HidePreview←n.ToolControl.⎕NEW'Button'∆
+ n.HidePreview.Posn[1]+←10
+ n.HidePreview.TipObj←n.Tip
+ n.HidePreview.Tip←'Toggles visibility of the preview/HTML tab,' 'enlarging the Markdown edit pane.' 'Shortcut is F9.'
+ n.HidePreview.onSelect←'OnTogglePreview'
+ ⍝Done

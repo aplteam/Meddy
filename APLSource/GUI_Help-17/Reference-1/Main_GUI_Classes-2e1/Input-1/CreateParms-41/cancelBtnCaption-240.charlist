@@ -1,0 +1,7 @@
+# cancelBtnCaption
+
+Defaults to "Cancel". Can be any string. If you don't want a "Cancel" button at all set this to an empty string.
+
+Note that a button with the caption "Cancel" gets the `Default` property set to 1. 
+
+

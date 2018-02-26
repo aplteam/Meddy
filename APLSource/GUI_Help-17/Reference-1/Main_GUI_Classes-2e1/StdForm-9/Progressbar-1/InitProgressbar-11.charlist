@@ -1,0 +1,10 @@
+# InitProgressbar
+
+Syntax:
+
+~~~
+{r}←InitProgressbar (n total)
+~~~
+
+Useful to initialize the progress bar.
+

@@ -1,0 +1,4 @@
+# caseSensitive
+
+Boolean that defaults to 1. Setting this to 0 makes the check case insensitive.
+

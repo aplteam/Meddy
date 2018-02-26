@@ -1,0 +1,43 @@
+ R←Test_001(stopFlag batchFlag);⎕TRAP;∆CommitUndoRedo
+⍝ Test the Unod/Redo stuff
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ ∆CommitUndoRedo←(⎕NS'')##.Meddy.UndoRedo
+ '!'∆CommitUndoRedo ¯1
+ →FailsIf 0 0≢'?'∆CommitUndoRedo ⎕NULL
+ ∆CommitUndoRedo 1 1
+ →FailsIf 0 1≢'?'∆CommitUndoRedo ⎕NULL
+ ∆CommitUndoRedo 2 2
+ →FailsIf 0 2≢'?'∆CommitUndoRedo ⎕NULL
+ ∆CommitUndoRedo 3 3
+ →FailsIf 0 3≢'?'∆CommitUndoRedo ⎕NULL
+ ∆CommitUndoRedo 4 4
+ →FailsIf 0 4≢'?'∆CommitUndoRedo ⎕NULL
+ ∆CommitUndoRedo 5 5
+ →FailsIf 0 5≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf(5 5)⎕NULL≢'⊃'∆CommitUndoRedo ⎕NULL
+ →FailsIf 0 5≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 5 5≢'<'∆CommitUndoRedo 6 6
+ →FailsIf 1 4≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 4 4≢'<'∆CommitUndoRedo 5 5
+ →FailsIf 2 3≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 3 3≢'<'∆CommitUndoRedo 4 4
+ →FailsIf 3 2≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 2 2≢'<'∆CommitUndoRedo 3 3
+ →FailsIf 4 1≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 1 1≢'<'∆CommitUndoRedo 2 2
+ →FailsIf 5 0≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 2 2≢'>'∆CommitUndoRedo 1 1
+ →FailsIf 4 1≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 3 3≢'>'∆CommitUndoRedo 2 2
+ →FailsIf 3 2≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 4 4≢'>'∆CommitUndoRedo 3 3
+ →FailsIf 2 3≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 5 5≢'>'∆CommitUndoRedo 4 4
+ →FailsIf 1 4≢'?'∆CommitUndoRedo ⎕NULL
+ →FailsIf 6 6≢'>'∆CommitUndoRedo 5 5
+ →FailsIf 0 5≢'?'∆CommitUndoRedo ⎕NULL
+
+ R←∆OK

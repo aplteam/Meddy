@@ -1,0 +1,12 @@
+# ADOC
+
+Since version 16.0 `]adoc` is an official Dyalog APL user command.
+
+`ADOC` is based on the principle that technical documentation should be as close as possible to 
+the thing they try to document (that's the code), because otherwise sooner or later (translates 
+always to sooner) the documentation will get out of sync with its topic.
+
+Wrong documentation however is worse than no documentation at all.
+
+`]ADOC` offers methods that extract information from classes, namespace scripts and
+interfaces. The implementor of a class can also add additional information by using markdown.

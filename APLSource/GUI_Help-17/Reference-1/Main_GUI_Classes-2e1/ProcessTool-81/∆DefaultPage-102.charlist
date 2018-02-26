@@ -1,0 +1,74 @@
+# ProcessTool
+
+This class allows you to create a form that can show either a list of items or a table with several columns which'
+' allows the user to execute one or more commands in a number of ways:'
+
+* Pressing the "Process" button (that's the default)
+* From the Form's main menu
+* From a context menu
+* Via a double-click (only if style is "simple")
+* Via pressing Ctrl+Enter
+
+The purpose of this class is not to function as a selection tool; for this see the `→[*.SelectionTool]` class. However, 
+the `SelectionTool` class is indeed very similar to the ProcessTool class. Therefore we list just the differences here:
+
+* The `Run` as well as the `Create` method both require two mandatory parameters rather than one: the list (or table) and
+  the - fully qualified - name of a callback in charge for doing the processing.
+* The first button's caption is "Process" rather than "OK" by default. You can change this by setting the
+  `parms.processBtnCaption`. If you don't want such a button at all just assign an empty vector to it.
+* The second button's caption is "Close" rather than "Cancel".
+* A double-click processes by default the currently selected item. However, this works only when `parms.style` is
+  "single", which is the default. If you set this to "multi" then a double-click won't have an effect.
+* By default Ctrl+Enter has no effect. By setting `parms.ctrlEnter` to 1 you can change this: then pressing <Ctrl+Enter>
+  lets the class process all currently selected item(s).
+* By assigning a string or a vector of strings to `parms.menuItemCaption` (which will be used as caption(s) in the menu)
+  you can force an additional menu to appear in the menu bar. The default caption for the menu ("Special") can be changed
+  by setting `parms.menuCaption`.
+* By assigning a string or a vector of strings to `parms.contextMenuCaption` (which will be used as caption(s) in the
+  menu) you can make a context menu available to the user.
+* The result of the `Run` method is a vector of Booleans representing the current selection. You can change this by assigning
+  whatever you like to `∆result` from within your `onQuit` callback. This will then be returned as the result. When you do
+  this keep in mind that the user might have changed the sequence of the list or table by clicking on a column header.
+* You might need some more data in order to process an item or a row. This can be achieved by setting the "data" property -
+  see the next paragraph: associated data.
+
+## Associated data
+
+Often there will be a need to access data that is linked to the selection list but should not or must not
+be shown to the user. Such data can be specified via the `parms.data` property. To your callbacks that will be available
+as `n.∆data`. The data must be a matrix.
+
+When the table is sorted by the user then `ProcessTool` makes sure that the sequence of rows in `∆data` is changed
+accordingly. Note however that the user can sort the rows only when "colTitles" is not empty.
+
+## The callback
+Whether you use one, all or a mixture of the different ways available to process selected items, there is just one
+callback that will be executed. This callback must be ambivalent, expecting a three-item vector as right argument
+and sometimes also a left argument. This is the right argument:
+
+* 'A string specifying the type of the event. This is one of: "ContextMenu", "MenuItem", "Ctrl+Enter", "DblClick" or'
+  "PushButton".
+* A vector of Booleans. This reflects which rows (or items) were selected when the user pressed the "Process" button'
+  (or triggered any other equivalent action).
+* 'The `n` namespace that gives you access to all controls, parameter spaces and variables.
+
+A left argument is passed only when the user did select a command form the context menu; in this case it is the
+caption of the menu item in question.
+
+The function must return as result (`⍬`) although the result will be ignored for the time being.
+
+## ReportInfo
+
+In case you've specified a table internally both `Items` as well as `ReportInfo` are set. Note that `ReportInfo` will
+have one more (empty) column then you would normally expect. This is necessary to overcome a Windows design bug
+which would (without that additional empty column) lead to an unnecessary scroll bar.
+
+## Misc
+
+For implementation details execute:
+
+~~~
+]ADOC.Browse #.GUI.ProcessTool
+~~~
+
+What is →[*.ADOC]?

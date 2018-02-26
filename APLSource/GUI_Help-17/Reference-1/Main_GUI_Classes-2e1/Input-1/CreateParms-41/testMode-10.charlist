@@ -1,0 +1,12 @@
+# testMode
+
+Boolean that defaults to 0.
+
+By setting this to 1 the parameters
+→[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.CreateParms.autoPress] and
+→[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.CreateParms.timeout] are taken into account. That
+means that incase `testMode` is 0 these two parameters will be ignored.
+
+Note that `testMode` is also a global parameters. If the global `testMode` is 1 then the setting of
+the local one is ignored. See →[#._APLGUI.GUI_Help.Design_principles.Testing] for details.
+

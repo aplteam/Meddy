@@ -1,0 +1,27 @@
+ {r}←ProcessRegEx_ReplaceAll(n searchFor replaceString);options;pattern;replaceBy
+ :Trap 11
+     options←('IC'(~n.∆Find.Case))('Greedy' 0)('DotAll' 1)('Mode' 'M')
+     replaceBy←pattern←''
+     :If ∨/n.∆Find.(IgnoreCodeBlocks IgnoreInlineCode)
+         :If n.∆Find.IgnoreCodeBlocks
+             pattern,←⊂'^ {0,3}~~~.*^ {0,3}~~~'
+             pattern,←⊂'^ {0,3}```.*^ {0,3}```'
+             replaceBy,←,¨'&&'
+         :EndIf
+         :If n.∆Find.IgnoreInlineCode
+             pattern,←⊂'`\N*`'
+             replaceBy,←,'&'
+         :EndIf
+         replaceBy,←⊂replaceString
+         pattern,←⊂searchFor
+         n.Markdown.Text←(⎕UCS 13)A.Split pattern ⎕R replaceBy⍠options⊣1↓↑,/(⎕UCS 13),¨n.Markdown.Text
+     :Else
+         pattern,←⊂searchFor
+         replaceBy,←⊂replaceString
+         n.Markdown.Text←(⎕UCS 13)A.Split pattern ⎕R replaceBy⍠options⊣1↓↑,/(⎕UCS 13),¨n.Markdown.Text
+     :EndIf
+ :Else
+     r←¯1
+     TellRegExError ⍬
+ :EndTrap
+⍝Done

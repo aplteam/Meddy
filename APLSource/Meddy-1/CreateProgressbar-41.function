@@ -1,0 +1,9 @@
+ CreateProgressbar←{
+     n←⍵
+     ∆←''
+     ∆,←⊂'Coord' 'Prop'
+     ∆,←⊂'Posn'(0 0)
+     ∆,←⊂'Size'(100 100)
+     ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     n.Statusbar.⎕NEW'Progressbar'∆
+ }

@@ -1,0 +1,5 @@
+ {r}←InitFindAndReplace n
+ r←⍬
+ AdjustFindAndReplaceFormSize n
+ n.Close.Cancel←1
+⍝Done

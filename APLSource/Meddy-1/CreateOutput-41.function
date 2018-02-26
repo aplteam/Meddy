@@ -1,0 +1,33 @@
+ CreateOutput←{
+     n←⍵
+     parent←n.SF2
+
+     ∆←''
+     ∆,←⊂'Coord' 'Prop'
+     ∆,←⊂'Posn'(0 0)
+     ∆,←⊂'Size'(100 100)
+     ∆,←⊂'Style' 'Multi'
+     ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     ∆,←⊂'ReadOnly' 1
+     ∆,←⊂'VScroll' ¯1
+     ∆,←⊂'Style' 'Multi'
+     ∆,←⊂'FontObj'n.FontStd
+     n.HTML←parent.⎕NEW'Edit'∆
+     n.HTML.Text←'' ⍝ Otherwise it's a matrix
+     n.HTML.Coord←'Pixel'
+     n.HTML.onContextMenu←'OnContextMenuInHTML'
+
+     ∆←''
+     ∆,←⊂'Coord' 'Pixel'
+     ∆,←⊂'Caption' '&Hide CSS'
+     ∆,←⊂'Style' 'Check'
+     ∆,←⊂'Attach'(4⍴'Bottom' 'Left')
+     ∆,←⊂'TipObj'n.Tip
+     ∆,←⊂'Tip'('Use this to hide the CSS.' 'However, when you save the HTML' 'the CSS will always be saved, too.')
+     n.HideCSS←parent.⎕NEW'Button'∆
+     n.HTML.Size[0]-←10+10+n.HideCSS.Size[0]
+     n.HideCSS.Posn←(parent.Size[0]-n.HideCSS.Size[0]),10
+     n.HideCSS.onSelect←'OnHideCSS'
+
+     n
+ }

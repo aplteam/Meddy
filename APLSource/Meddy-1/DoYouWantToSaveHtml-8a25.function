@@ -1,0 +1,14 @@
+ flag←DoYouWantToSaveHtml n;parms;result;btn
+ flag←0
+ :If 0≠n.∆parms.saveHtml
+     parms←G.OptionsTool.CreateParms
+     parms.addToCaption←'HTML'
+     parms.info←'Would you like to save the HTML as well?'
+     parms.default←3⍴0
+     parms.default[n.∆parms.saveHtml]←1
+     (btn result)←n.∆globalParms parms G.OptionsTool.Run'Never' 'Always' 'Keep asking'
+ :AndIf 1=btn
+     n.∆parms.saveHtml←⍸result
+     flag←n.∆parms.saveHtml∊1 2
+ :EndIf
+⍝Done

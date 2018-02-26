@@ -1,0 +1,9 @@
+# onQuit
+
+In case you want to return seomthing via `n.∆results` you can specify a callback function for this.
+This callback will be invoked when the user either closes the window or presses the button that by
+default has a caption "Close".
+
+The callback must accept a right argument (the `n` namespace) and may return a result. The result,
+if there is any, must be a Boolean. A 1 allows the GUI to be closed down while a 0 prevents this.
+

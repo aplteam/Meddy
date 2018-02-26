@@ -1,0 +1,14 @@
+ CalcBlockNumbers←{
+⍝ `blockLengths` is typically ↑∘⍴¨n.Markdown.Text
+⍝ `hits` is matrix with two columns:
+⍝ [;1] Offsset
+⍝ [;2] Length
+⍝ Appends two new columns:
+⍝ [1] Block number (index in text)
+⍝ [2] Offset within that block
+⍝ Together the two can be used to set `SelText`.
+     blockLengths←⍺
+     hits←⍵
+     blocks←+/hits[;0]∘.>{⍵+⍳⍴⍵}blockLengths
+     (hits,blocks+1),(⊣/hits)-blocks+(⊂blocks)⌷0,blockLengths
+ }

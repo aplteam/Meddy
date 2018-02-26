@@ -1,0 +1,13 @@
+ {r}←{filename}ViewHtmlFile n;parms;msg
+ r←⍬
+ filename←{0<⎕NC ⍵:⍎⍵ ⋄ n.∆HtmlFilename}'filename'
+ :If n.Markdown.∆LastSavedVersion≡n.Markdown.Text
+     parms←G.Dialogs.CreateParmsForYesOrNo
+     parms.addToCaption←'View in browser'
+     msg←⊂'The current version has not been saved yet.'
+     msg,←⊂'The last saved version will be displayed.'
+     msg,←'' 'Continue anyway?'
+ :OrIf n.∆globalParms parms G.Dialogs.YesOrNo msg
+     {}ViewHtmlFile_ filename
+ :EndIf
+⍝Done

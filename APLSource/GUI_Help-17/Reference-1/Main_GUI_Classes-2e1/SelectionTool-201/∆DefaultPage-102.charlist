@@ -1,0 +1,19 @@
+# SelectionTool
+
+This class creates a form with either a list of items or a table with several columns. Its only purpose is to
+allow the user to select either zero to one or zero to many rows, depending on the "style" parameter.
+
+That means that the GUI will be destroyed before any processing of the selected items can take place. If you
+want to present the user a list or a table as an interface for executing certain commands repeatedly see
+the `→[*.ProcessTool]` class which is a close relative of the `SelectionTool` class.
+
+Note that the result returned by the Run method refers to its argument, not what is visible in the GUI at the
+moment the users presses the "OK" button: this might differ in case the user has performed a sort-by-column earlier on.
+
+For implementation details execute:
+
+~~~
+]ADOC.Browse #.GUI.SelectionTool
+~~~
+
+What is →[*.ADOC]

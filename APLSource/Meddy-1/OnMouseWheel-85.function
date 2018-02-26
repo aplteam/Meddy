@@ -1,0 +1,1 @@
+ OnMouseWheel←{2≠⍵[5]:1 ⋄ n←GetRef2n↑⍵ ⋄ _←n ChangeFontSize×6⊃⍵ ⋄ 0}

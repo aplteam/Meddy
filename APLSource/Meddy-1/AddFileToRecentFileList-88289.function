@@ -1,0 +1,6 @@
+ {r}←n AddFileToRecentFileList filename;regKey;list;bool
+ r←⍬
+ regKey←n.∆globalParms.regKey,'\RecentFiles'
+ list←GetListOfRecentFilesFromWindowsRegistry regKey
+ {}n AddRecentFileToWindowsRegistryAndFileMenu regKey list filename
+⍝Done

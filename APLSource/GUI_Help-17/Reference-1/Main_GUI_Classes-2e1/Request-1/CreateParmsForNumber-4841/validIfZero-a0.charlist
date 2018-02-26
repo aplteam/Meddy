@@ -1,0 +1,4 @@
+# validIfZero
+
+Boolean. The "OK" button remains inactive if the value is 0.
+

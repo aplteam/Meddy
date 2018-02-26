@@ -1,0 +1,14 @@
+# appendColon
+
+Boolean that defaults to 1. This makes `Input` add a colon (:) to most labels.
+
+These are the data types that do not get a colon appended to the labels no matter what the value of
+`appendColon` is:
+
+* Button
+* Image
+* Radio
+* Tab
+* YesNo
+
+

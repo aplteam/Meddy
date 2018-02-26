@@ -1,0 +1,6 @@
+ ShowFileOrUrl←{
+     name←⍵
+     wd←F.PWD
+     F.IsFile wd,'\',name:##.OS.WinExecute wd,'\',name
+     A.GoToWebPage'http://download.aplteam.com/',name
+ }

@@ -1,0 +1,16 @@
+ rc←OpenFile__(n filename cursorWas);parms;msg
+ rc←0
+ :Trap 0
+     n.Markdown.Text←A.ReadUtf8File filename
+     n.Markdown.Text←'\t'⎕R'    '⊣n.Markdown.Text  ⍝ Tabs ==> 4 spaces
+ :Else
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.style←G.EnumDialogStyles.Error
+     parms.addToCaption←'Open'
+     msg←'Sorry, this file:'filename'caused a problem:'⎕DMX.Message('RC=',⍕⎕DMX.EN)
+     #.CursorObj←0
+     n.∆globalParms parms G.Dialogs.ShowMsg msg
+     #.CursorObj←cursorWas
+     rc←1
+ :EndTrap
+⍝Done

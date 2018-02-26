@@ -1,0 +1,130 @@
+:Class FileBox
+⍝ This class implements a standard Windows "FileSelection" dialog box but accepts
+⍝ a global parameter space and makes necessary adjustments as far as possible.
+⍝
+⍝ The idea is to set the parameters and then call the `Run` method. `Run` will
+⍝ return either an empty vector (in case the "Cancel" button was pressed) or
+⍝ a text vector with a path in case the "style" property was "single" or a vector
+⍝ of vectors with path names in case "style" was "multi".
+⍝
+⍝ Instead of calling `Run` you can also call the `Create` method and then the
+⍝ `ModalWait` method but in this particular  instance this has no benefits over
+⍝ calling `Run`. For details on the parameters call `]ADOC_Browse` on `FileBox`.
+⍝
+⍝ Note that the `FileBox` control used by the `FileBox` class comes with certain
+⍝ limitations:
+⍝ * Its window cannot be centered in the main application's window.
+⍝ * No icon can be specified.
+⍝ * Neither "Posn" nor "Size" can be specified.
+⍝ * The font to be used cannot be specified.
+⍝ * The user cannot be restricted to a certain directory.
+⍝
+⍝ All in all the class lacks many of the features of the `SelectDir` class and
+⍝ therefore also the flexibility of that class. For that reason it might well
+⍝ be replaced by a `SelectFile` class one day.\\
+⍝ Author: Kai Jaeger ⋄ APL Team Ltd.
+
+    :Include ##.APLTreeUtils
+    :Include APLGuiUtils
+
+    ∇ n←{x}Create path;globalParms;parms;n;caption;∆
+    ⍝ Takes a path as right argument and optionaly a global and a specific parameter
+    ⍝ space as left argument.\\
+    ⍝ Builds up a `FileBox` control which will remain invisible until it is `⎕DQ`ed.\\
+    ⍝ Returns an `n` namepsace.
+      :Access Public Shared
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ''}'x'
+      (globalParms parms)←CreateParms GetParms x
+      n←##.APLGuiParameterSpace.Create
+      caption←globalParms.caption{0∊⍴⍺:⍵ ⋄ ⍺,' : ',⍵}parms.addToCaption
+      ∆←''
+      ∆,←⊂'Caption'caption
+      ∆,←⊂'Style'parms.style
+      ∆,←⊂'Filters'parms.filters
+      ∆,←⊂'FileMode'parms.fileMode
+      path←↑⎕NPARTS path
+      ((path='/')/path)←'\'
+      ∆,←⊂'Directory' path
+      :If 0∊⍴parms.file
+          ∆,←⊂'File'(↑,/1↓⎕NPARTS path)
+      :Else
+          ∆,←⊂'File'(↑,/1↓⎕NPARTS parms.file)
+      :EndIf
+      :If 0∊⍴parms.parent
+          n.∆Form←#.⎕NEW'FileBox'∆
+      :Else
+          n.∆Form←parms.parent.⎕NEW'FileBox'∆
+      :EndIf
+      n.∆Form.⎕DF'[FileBox]'
+      n.∆Form.onFileBoxOK←'OnSelectOkButton'
+      n.∆Form.onFileBoxCancel←'OnSelectCancelButton'
+      n.∆parms←parms
+      n.∆globalParms←globalParms
+      n.∆result←''
+      n.∆Form.n←n
+    ⍝Done
+    ∇
+
+    ∇ r←CreateParms
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings:
+    ⍝ |Name    | Meaning
+    ⍝ |-|-|
+    ⍝ | `addToCaption` | What's added to the (global) "caption" parameter. Defaults to "Select directory".|
+    ⍝ | `file`         | Default is '' | Use this to pre-define the name of the file.|
+    ⍝ | `fileMode`     | Is one of `Enums.FileModes`, "Read" being the default. |
+    ⍝ | `filters`      | Defaults to `⊂'*.*' 'All Files (*.*)'`. |
+    ⍝ | `parent`       | Specifies the owner of the form; default is `#`.|
+    ⍝ | `parmType`     | Is "FileBox".|
+    ⍝ | `style`        | One of Enums.SelectionStyles with "single" being the default. |
+      r←##.APLGuiParameterSpace.Create
+      r.addToCaption←'Select file(s)'
+      r.file←''
+      r.fileMode←##.Enums.FileModes.Read
+      r.filters←⊂'*.*' 'All files (*.*)'
+      r.parent←''
+      r.parmType←'FileBox'
+      r.style←##.Enums.SelectionStyles.single
+     ⍝Done
+    ∇
+
+    ∇ r←{x}Run path;n
+    ⍝ Constructs the control, hands over control to the user and returns the result which will be empty
+    ⍝ in case the user has pressed the "Cancel" button.\\
+    ⍝ For details see the `Create` and the `ModalWait` functions.
+      :Access Public Shared
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      n←x Create path
+      r←ModalWait n
+    ∇
+
+    ∇ r←ModalWait n;res
+    ⍝ Takes a ref pointing to a form created by this class.
+    ⍝ Returns:
+    ⍝ |Name    | Meaning
+    ⍝ |-|-|
+    ⍝ |`okFlag`  | 1 in case the "OK" button was pressed and 0 otherwise.|
+    ⍝ |`boolean` | A vector of Booleans representing the selection.<<br>>
+    ⍝              0=+/boolean holds true in case okFlag is 0.|
+      :Access Public Shared
+      ⎕DQ n.∆Form
+      r←n.∆result
+    ∇
+
+⍝⍝⍝⍝⍝ Private stuff
+
+      OnSelectOkButton←{
+          n←GetRefTo_n↑⍵
+          f←n.∆parms.style≡##.Enums.SelectionStyles.single
+          f:1⊣n.∆result←n.∆Form.Directory,n.∆Form.File
+          n.∆result←(⊂n.∆Form.Directory),¨n.∆Form.File
+          1
+      }
+
+      OnSelectCancelButton←{
+          n←GetRefTo_n↑⍵
+          n.∆result←''
+          1
+      }
+
+:EndClass

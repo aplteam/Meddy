@@ -1,0 +1,4 @@
+# fieldType
+
+Must be either `##.Enums.EditFieldTypes.numeric` or `##.Enums.EditFieldTypes.currency`.
+

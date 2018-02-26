@@ -1,0 +1,10 @@
+ {r}←ClearContent n;parms;question
+ r←⍬
+ parms←G.Dialogs.CreateParmsForNoOrYes
+ parms.addToCaption←'Overwrite'
+ question←'Are you sure that you want to whipe all the Markdown?'
+ :If 1=parms n.∆globalParms G.Dialogs.NoOrYes question
+     n.Markdown.Text←''
+     RefreshPreview n
+     n.HTML.Text←''
+ :EndIf

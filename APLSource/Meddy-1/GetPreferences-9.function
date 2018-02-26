@@ -1,0 +1,15 @@
+ parms←GetPreferences n;ind
+⍝ Returns the leading parameters: all leading lines that start with `[parm]:`
+ parms←##.MarkAPL.CreateParms
+ parms.createFullHtmlPage←n.FullHtmlDocument.State
+ parms.title←'Meddy'
+ parms.head←'<meta name="author" content="',⎕AN,'">'
+ parms.enforceEdge←1
+ parms.verbose←0
+ parms.checkFootnotes←1
+ parms.checkLinks←1
+ parms←parms InjectConfigFile n.∆Filename
+ parms.width←n.∆Prefs.Width
+ parms.screenCSS←('MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'MarkAPL_screen.css' 'BlackOnWhite_screen.css' 'MarkAPL_screen.css'
+ parms.printCSS←('MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'MarkAPL_print.css' 'BlackOnWhite_print.css' 'MarkAPL_print.css'
+⍝Done

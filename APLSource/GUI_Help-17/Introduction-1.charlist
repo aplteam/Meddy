@@ -1,0 +1,63 @@
+# Introduction
+
+This help file covers all the classes and namespaces the APLGui project consist of.
+
+## Design principles
+
+The APLGui project is based on the insight that a significant number of GUI controls needed in a
+typical commercial application can be covered by standard modules. A typical example is a function
+`YesOrNo` which asks a question and provides just two buttons: a "Yes" and a "No" button. Of
+course that can be covered by a Windows `MsgBox` but `MsgBox` has a couple of drawbacks:
+
+* The font cannot be specified (bad for APL error messages).
+* The position on the screen cannot be specified. Potentially bad with large and/or multiple monitors.
+* The size of the text that can be displayed is limited.
+* The font size cannot be specified. That might or might not be a problem, depending on the application.
+* It is modal by definition. That might be a good thing, but it can also be a bad thing.
+
+
+The APLGui project provides a function `YesOrNo` which builds up the basics of such a dialog.
+
+## The main classes
+
+`Menubar`
+: A simple way to create, maintain and dynamically change menus and menu items in a menu bar,  starting with a simple text definition.
+
+`Input`
+: This is by far the most powerful class. It allows the definition of complex GUIs via a →[*.DefMat|definition matrix] without any programming.
+
+`StdForm`
+: Creates a simple form with a couple of features.
+
+`ProcessTool`
+: Creates a list and let the user select zero, one or (if appropriate) multiple rows from it and then executes a certain action.
+
+`SelectionTool`
+: Creates a list and let the user select zero, one or (if appropriate) multiple rows from it.
+
+`OptionsTool`
+: Creates a list of options, either as check boxes or as radio boxes.
+
+`Dialogs`
+: Offers a general form with a text and one to many buttons. 
+: Offers also helpers like `YesOrNo`, `YesNoCancel`, `NoOrYes`, `AskForString`, `AskForNumber`, `ShowMsg`, `ShowLongMsg` and `DisplayButtons` 
+  based on the general object.
+
+`Notepad`
+: A -quite basic- text editor. However, it supports cut, copy and paste.
+
+`Request`
+: Offers modules for prompting the user. The modal helpers tell what  they are for: `AskForString`, `AskForNumber`, 
+  `AskForPassword` and `AskForDate`.
+
+`Busy`
+: Visualize progress to the user. Optionally a "Cancel" button can enable the user to interrupt a lengthy process.
+
+`DirSelect`
+: Allow the user to select a folder. You can specify an entrance point with or without restricting the user to it.
+
+`IE`
+: View HTML with the Internet Explorer ActiveX control.
+
+
+All main classes share basic →[*.Design_principles|design principles].

@@ -1,0 +1,17 @@
+ {r}←OnTogglePreview msg;n
+ r←0
+ n←GetRef2n↑msg
+ :If n.Right.Visible
+     n.Right.(Active Visible)←0
+     n.∆LastSplitter1Posn←n.Splitter1.Posn
+     n.∆LastSplitter2Posn←n.Splitter2.Posn
+     2 ⎕NQ n.Splitter2'EndSplit',(n.Splitter2.Posn[0]),(n.∆Form.Size[1]-5),2⍴3
+     n.Splitter2.Active←0
+     n.HidePreview.State←1
+ :Else
+     n.Right.(Active Visible)←1
+     n.Splitter2.Active←1
+     2 ⎕NQ n.Splitter1'EndSplit',(n.Splitter1.Posn[0]),(n.∆LastSplitter1Posn[1]),n.Splitter1.Size[0],3
+     2 ⎕NQ n.Splitter2'EndSplit',(n.Splitter2.Posn[0]),((n.∆Form.Size[1]-100+n.Splitter1.Posn[1])⌊n.∆LastSplitter2Posn[1]),n.Splitter2.Size[0],3
+     n.HidePreview.State←0
+ :EndIf

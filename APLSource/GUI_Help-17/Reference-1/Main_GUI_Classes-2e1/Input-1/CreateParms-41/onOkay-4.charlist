@@ -1,0 +1,17 @@
+# onOkay
+
+This callback function is executed when the user presses the "OK" button.
+
+The callback function gets the →[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.The_n_namespace|`n` namespace] 
+as right argument. No left argument is provided.
+
+The callback function is expected to return a scalar or a one-item vector or a two-item vector:
+
+1. (Mandatory) Boolean. 1 means "go ahead, it's all fine" while 0 does not allow the user to leave the Form.
+1. (Optional) Either an empty vector or a reference pointing to a control. The focus is then forced to that control.
+
+
+Note that you can access the would-be result via `n.∆result`.
+
+For how to qualify callbacks so that they will be found see →[*.Callback_functions].
+

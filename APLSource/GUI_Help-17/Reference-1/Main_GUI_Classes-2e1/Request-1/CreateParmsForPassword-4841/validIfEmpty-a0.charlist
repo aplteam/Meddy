@@ -1,0 +1,4 @@
+# validIfEmpty
+
+Boolean. The "OK" button remains inactive if the input field is empty.
+

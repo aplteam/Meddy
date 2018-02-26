@@ -1,0 +1,5 @@
+# minSize
+
+Defaults to 200 300. Use this to specify the minimum size of the resulting Form. If controls demand
+a bigger size anyway, `minSize` has no effect.
+

@@ -1,0 +1,6 @@
+ Off rc
+ :If A.IsDevelopment
+     →
+ :Else
+     ⎕OFF rc
+ :EndIf

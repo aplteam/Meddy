@@ -1,0 +1,33 @@
+ UndoRedo←{⎕ML←1                         ⍝ Derive undo/redo function.
+     ⍺←' '                               ⍝ default: commit values.
+     ' '≡⍺:⍺⍺.(redo undo←⍬(⍵ undo))      ⍝ commit of new history record
+
+     '≠'≡⍺:∇⍣(⍵≢⊃⍺⍺.undo,⊂⍵ ⍬)⊢⍵         ⍝ commit only if state ⍵ has changed.
+
+     '!'≡⍺:⍺⍺.(redo undo←⊂⍬)             ⍝ initialize history stacks.
+
+     '?'≡⍺:0{                            ⍝ size of redo and undo stacks.
+         ⍵≡⍬:⍺                           ⍝ empty: 0
+         (⍺+1)∇⊃⌽⍵                       ⍝ otherwise: 1+length of tail.
+     }¨⍺⍺.(redo undo)                    ⍝ accumulates stack size in ⍺.
+
+     '<'≡⍺:⍺⍺{                           ⍝ undo:
+         ⍬≡⍺.undo:⍵                      ⍝ no more undo: state unchanged.
+         ⍺.(redo←⍵ redo)                 ⍝ push current state on redo stack.
+         ⊃last ⍺.undo←⍺.undo             ⍝ pop undo stack.
+     }⍵
+
+     '⊃'≡⍺:⍺⍺.(undo redo){⍺≡⍬:⍵ ⋄ ⊃⍺}¨⊂⍵ ⍝ latest committed values (or ⍵)
+
+     '>'≡⍺:⍺⍺{                           ⍝ redo:
+         ⍬≡⍺.redo:⍵                      ⍝ no more redo: state unchanged.
+         ⍺.(undo←⍵ undo)                 ⍝ push current state on undo stack.
+         ⊃next ⍺.redo←⍺.redo             ⍝ pop redo stack.
+     }⍵
+
+     '↑'≡⍺:⍺⍺.undo←⍵{                    ⍝ truncate undo stack to ⍵ items.
+         ⍺=0:⍬                           ⍝ 0 items: empty stack.
+         head tail←⍵                     ⍝ first and remaining items.
+         head{⍺ ⍵}(⍺-1)∇ tail            ⍝ first cons (⍺-1) take of tail.
+     }⍺⍺.undo                            ⍝ undo stack.
+ }

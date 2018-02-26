@@ -1,0 +1,12 @@
+ SplitEmbeddedParm←{
+⍝ ⍵ is (or should be) something like ('toc' ' = 1') or ('title' '= 'My Title')
+⍝ Returns  ('toc' 1) for the first and ('title' 'My Title') for the second example.
+     ~'='∊⍵:(0⊃⍵)''
+     (name value)←'='A.Split ⍵
+     name~←' '
+     (b v)←⎕VFI value
+     ∧/b:name v
+     value←A.dlb A.dtb value
+     value←((''''≠1↑value)/''''),value,(''''≠¯1↑value)/''''
+     name value
+ }

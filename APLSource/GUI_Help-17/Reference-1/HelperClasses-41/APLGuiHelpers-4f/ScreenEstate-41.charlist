@@ -1,0 +1,14 @@
+# ScreenEstate
+
+Syntax:
+
+~~~
+r ← ScreenEstate
+~~~
+
+Returns the size of the screen that's available for an application.
+
+Keep in mind that the result returned by the function is reliable only with a single monitor or
+multiple monitors of the same size. The more multiple monitors differ in size the more useless the
+value becomes.
+

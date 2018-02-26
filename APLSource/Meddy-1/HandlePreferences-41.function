@@ -1,0 +1,6 @@
+ {r}←HandlePreferences n
+ :If ##.WinRegSimple.Read n.∆globalParms.regKey,'\Preferences\FirstFlag'
+     Preferences n
+     ##.WinRegSimple.Write(n.∆globalParms.regKey,'\Preferences\FirstFlag')0
+ :EndIf
+⍝Done

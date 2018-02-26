@@ -1,0 +1,33 @@
+# Time
+
+## Overview
+
+This offers three spinner objects for hours, minutes and seconds.
+
+Note that you can specify the time in four different formats:
+
+* Text like "12:23:45"
+* A float like 0.081234
+* An integer like 81234
+* Three integers like 8 12 34 (timestamp)
+
+
+What is returned as a result is defined by the input.
+
+If "default" is not specified then it defaults to the current time, and it becomes a timestamp in
+the result.
+
+This data type has always a label. If no label was specified in the definition matrix then the name
+is taken, with any underscores replaced by blanks.
+
+## Example
+
+~~~
+DT←#.GUI.Enums.InputDataTypes
+defMat←⍉⍪'TimeInt' 'Int' 81234 DT.Time 0 1 1
+#.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Images\DataTypes\Time.png)

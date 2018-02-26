@@ -1,0 +1,3 @@
+ {r}←HandleTabKey dummy
+ r←ReplaceSelection 4⍴' '
+⍝Done

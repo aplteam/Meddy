@@ -1,0 +1,44 @@
+ {r}←Preferences n;parms;def;DT;result;width;Width;parms2;msg;flag;Done;styleSheet;StyleSheet;SaveHtml;Warnings
+⍝ Allows the user to set the preferences
+ r←⍬
+ parms←G.Input.CreateParms
+ parms.addToCaption←'Preferences'
+ parms.tips←0 2⍴⍬
+ parms.tips⍪←'HTML'('The HTML will have the same filename but' 'with an extension .html rather than .md')
+ parms.tips⍪←'Width'('This affects only the preview.' 'You can set the width for your final' 'document with: [parm]:width=900')
+ parms.tips⍪←'StyleSheet'('Select one of two styleSheet-sheet sets:' 'MarkAPL_[screen|print].css' 'BlackOnWhite_[screen|print].css' 'Or specify your own set in the Markdown with [parm]:')
+ parms.tips⍪←'Warnings'('Show MarkAPL''s warnings, if any.' 'Note that error messages will be shown in any case.')
+ DT←G.Enums.InputDataTypes
+ def←0 7⍴⍬
+ def⍪←'Info' '' 'These settings define the defaults for a new Markdown document:'DT.Label ⍬ 1 1
+ width←(⍕¨100×5+⍳12),⊂'none'
+ parms.props←1 2⍴'Width'(⊂'SelItems'(width≡¨⊂n.∆Prefs.Width))
+ def⍪←'Width' 'Max-width for preview'(⍕¨width)DT.DropDown ⍬ 1 1
+ styleSheet←'MarkAPL' 'BlackOnWhite'
+ parms.props⍪←'StyleSheet'(⊂'SelItems'(styleSheet≡¨⊂n.∆Prefs.StyleSheet))
+ def⍪←'StyleSheet' 'Default style-sheet set'styleSheet DT.DropDown 30 1 1
+⍝ def⍪←'SaveOptionLabel' 'Together with the markdown:' ''DT.Label ⍬ 1 1
+ SaveHtml←0 1 2=n.∆Prefs.SaveHtml
+ def⍪←'HTML' 'With the markdown⋄never save HTML⋄always save HTML⋄keep asking'SaveHtml DT.Radio ⍬ 1 1
+ def⍪←'Warnings' 'Show MarkAPL''s warnings'n.∆Prefs.Warnings DT.YesNo ⍬ 1 1
+ :If ~0∊⍴result←n.∆globalParms parms G.Input.Run def
+     SaveHtml←1⊃result[result[;0]⍳⊂'HTML';]
+     Width←↑(1⊃result[result[;0]⍳⊂'Width';])/width
+     StyleSheet←↑(1⊃result[result[;0]⍳⊂'StyleSheet';])/styleSheet
+     Warnings←1⊃result[result[;0]⍳⊂'Warnings';]
+ :AndIf SaveHtml Width StyleSheet≢n.∆Prefs.(SaveHtml Width StyleSheet)
+     flag←Width StyleSheet≢n.∆Prefs.(Width StyleSheet)
+     n.∆Prefs.SaveHtml←⍸SaveHtml
+     n.∆Prefs.Width←Width
+     n.∆Prefs.StyleSheet←StyleSheet
+     n.∆Prefs.Warnings←Warnings
+     SavePrefsInRegistry n
+     :If flag
+     :AndIf ~0∊⍴n.Markdown.Text
+         parms2←G.Dialogs.CreateParmsForShowMsg
+         parms2.addToCaption←'Preference changes'
+         msg←'You might need to refresh the "Preview" (F5).'
+         n.∆globalParms parms2 G.Dialogs.ShowMsg msg
+     :EndIf
+ :EndIf
+⍝Done

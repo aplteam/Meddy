@@ -1,0 +1,24 @@
+# The result
+
+`Input.Run` will return either `⍬` (user has cancelled) or a matrix  with two columns with the
+data. The first column contains the names of the controls (same as the first column in the
+definition matrix) while the second one contains the data.
+
+What "data" actually is depends  on the type of control involved, and it might also depend on the
+type of the default data; see →[*.Data_types] for details.
+
+This is just an example:
+
+~~~
+Name   0 1 1 0
+Test1  This and that
+Test2  Something else
+Test3  Even more
+Test4  Running out of ideas
+Test5  Oh dfear oh dear
+Test6  Wondful
+~~~
+
+Note that some data types do not make it into the result. "Label", "Tab", "Button", "PlaceHolder"
+and "Image" are examples.
+

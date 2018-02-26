@@ -1,0 +1,6 @@
+ MakeUrlsAbsolute←{
+     html←⍵
+     pattern←'<pre.*</pre>' 'src="'
+     options←('Greedy' 0)('IC' 1)('Mode' 'M')
+     pattern ⎕R MakeUrlsAbsolute_⍠options⊣html
+ }

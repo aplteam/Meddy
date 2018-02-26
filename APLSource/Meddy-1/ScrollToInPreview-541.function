@@ -1,0 +1,15 @@
+ {r}←ScrollToInPreview(n row);doc;ID;element
+ r←⍬
+ doc←n.IE.IEobject.Document
+ :If row≥⍴n.HTML.∆ns.toc
+     ⍝ This may happen when a document is completely replaced by the contents of the clipboard
+     :Return
+ :EndIf
+ ID←(row,2)⊃n.HTML.∆ns.toc
+ element←doc.getElementById⊂ID
+ :Trap 2 11
+ ⍝ This method may start producing syntax/domain errors when actually everything is actually fine.
+ ⍝ Therefore we have to be trap such errors here.
+     element.scrollIntoView
+ :EndTrap
+⍝Done

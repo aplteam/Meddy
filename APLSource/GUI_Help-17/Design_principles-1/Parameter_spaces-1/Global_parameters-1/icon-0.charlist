@@ -1,0 +1,4 @@
+# icon
+
+Defaults to an empty vector. Might become an Icon (an object of type "Icon" in the WS) used by all forms.
+

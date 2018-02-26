@@ -1,0 +1,28 @@
+ carryOnFlag←CheckForChanges n;parms;msg;answer;filename;htmlFilename
+⍝ `carryOnFlag` gets 1 in case the user cancels the whole operation
+ carryOnFlag←0
+ :If 0<n.Markdown.⎕NC'∆LastSavedVersion'
+ :AndIf (,n.Markdown.∆LastSavedVersion)≢n.Markdown.Text
+     parms←G.Dialogs.CreateParmsForYesNoCancel
+     parms.addToCaption←'Close document'
+     parms.(hasStatusbar hasProgressbar)←0
+     msg←'Would you like to save the latest changes before closing the document?'
+     answer←n.∆globalParms parms G.Dialogs.YesNoCancel msg
+     :If 1=answer
+         :If 0∊⍴n.∆Filename
+             :If 0∊⍴filename←AskForSaveFilename n
+                 :Return
+             :Else
+                 UpdateFilename n filename
+             :EndIf
+         :EndIf
+         SaveText n.∆Filename n.Markdown.Text
+         :If n.∆Prefs.SaveHtml
+         :OrIf WantToSaveHtml n
+             RefreshPreview n
+             htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
+             A.WriteUtf8File htmlFilename n.HTML.Text
+         :EndIf
+     :EndIf
+     carryOnFlag←¯1=answer
+ :EndIf

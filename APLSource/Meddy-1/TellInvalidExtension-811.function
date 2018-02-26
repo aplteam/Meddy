@@ -1,0 +1,8 @@
+ {r}←TellInvalidExtension filenames;msg
+ r←⍬
+ msg←''
+ msg,←⊂'The file:'
+ msg,←filenames
+ msg,←⊂'has an invalid extension'
+ G.Dialogs.ShowMsg msg
+⍝Done

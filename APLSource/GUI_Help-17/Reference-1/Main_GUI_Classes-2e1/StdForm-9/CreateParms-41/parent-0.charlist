@@ -1,0 +1,16 @@
+[DATA]:index='parent ⋄ owner'
+
+# parent
+
+By default a form created by `StdForm` is owned by `#`. You can change this by specifying the `parent` parameter which must be a reference
+pointing to a Form.
+
+By doing so you get around the problem that otherwise a small modal dialog box might disappear behind a bigger Form that is the main form of the application. 
+The only way for the user to bring back the modal dialog is to select the associated window from the task bar. Not every user is aware of this.
+
+This is a Dyalog problem, not an APLGUI problem. The only way to get around this is to make the modal dialog (any modal dialog) a child of the main Form. 
+If the user clicks on the main Form all its children are brought to the front automatically.
+
+It solves a second problem as well: in case the main form and a dialog form like "Are you sure?" are both visible and the user then moves a windows over
+the dialog form then a click on the the main form (or the icon in the task bar representing the main form) won't bring the dialog form back into view
+as you would expect unless the dialog box is a child of the main form.

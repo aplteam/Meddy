@@ -1,0 +1,7 @@
+ flag←n WarnAboutExtension filename;extension;noOf;msg
+ extension←A.Lowercase↑¯1↑⎕NPARTS filename
+ :If flag←~(⊂extension)∊'.md' '.markdown'
+     msg←⊂'The file''s extension is neither ".md" nor ".markdown"'
+     msg,←('but rather "',extension,'"')'' 'Add anyway?'
+     flag←~n YesOrNo msg
+ :EndIf

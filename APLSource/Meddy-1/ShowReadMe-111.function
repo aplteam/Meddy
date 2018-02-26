@@ -1,0 +1,5 @@
+ ShowReadMe←{
+     n←⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\ReadMe.html'
+     1:rc←rc
+ }

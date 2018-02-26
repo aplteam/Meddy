@@ -1,0 +1,8 @@
+# The `n` namespace
+
+The n namespace contains all the usual stuff →[*.N_Namespace|as documented here].
+
+In addition to that any `Dialogs` n namespace also contains a variable `∆buttonPressed` which
+originally will hold `⍬` as value but will hold a reference pointing to one of the main form
+buttons as soon as the user presses the button.
+

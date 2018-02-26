@@ -1,0 +1,5 @@
+ GetHead←{
+     html←⍵↓⍨1+'<head.*>'⎕S 2⍠('Greedy' 0)⊣⍵
+     html↑⍨←'</head>'⎕S 2⍠('Greedy' 0)⊣html
+     html
+ }

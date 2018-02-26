@@ -1,0 +1,9 @@
+ CreatePreview←{
+     n←⍵
+     parms←G.IE.CreateParms
+     parms.onBeforeNavigate←'OnNavigate'
+     n.IE←parms G.IE.CreateIE n.SF1
+     n.IE.∆Closed←1
+     n.IE.Coord←'Pixel'
+     n
+ }

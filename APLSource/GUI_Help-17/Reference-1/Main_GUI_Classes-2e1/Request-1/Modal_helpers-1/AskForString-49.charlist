@@ -1,0 +1,21 @@
+# AskForString
+
+Syntax
+
+~~~
+(okFlag answer) ← {x} AskForString question
+~~~
+
+~~~
+parms←#.Request.CreateParmsForString
+parms.default←'Kai Jaeger'
+⎕←parms #.Request.AskForString'Enter your name:'
+~~~
+
+Note that you can specify an `okOkay` callback. This must be a monadic function returning a Boolean value.
+
+Use this to check the user's input. If you are happy with the input then return a 0, otherwise a 1.
+
+You should tell the user why his input was rejected, for example by placing an error message into
+the status bar. The test cases provide examples.
+

@@ -1,0 +1,59 @@
+# The "KeyCodes" class
+
+`KeyCodes` allows you to convert a string like "Ctrl+Shift+ALT+Home" into a two-item vector of
+integers. The first item is the modifier, the second item is the key code of the key pressed. The
+class is used, for example, by the `→[*.Menubar]` class in order to convert any hot keys in the
+menu definition to the needed keys.
+
+Note that just the alphabet and the digits and the remaining keys of a standard UK keyboard and all
+special keys like "Home", "CursorRight" and "Tab" are available.
+
+There are two shared methods available which allow you to find out what exactly is available:
+
+~~~
+      #.KeyCodes.ListKeys
+ a                   65
+ asterisk            42
+ b                   66
+ backslash           92
+ backspace            8
+ c                   67
+ comma               44
+ contextmenuhotkey   93
+....
+      #.KeyCodes.ListModifiers
+0        
+1  shift 
+2  ctrl  
+4  alt   
+~~~
+
+In order to actually use it the class must be instantiated. There is an instance method
+"GetKeyCodeFor" which takes a right argument:
+
+~~~
+      MyCodes←⎕NEW KeyCodes
+      MyCodes.GetKeyCodeFor 'A'
+65 0
+      MyCodes.GetKeyCodeFor 'PgDn'
+34 0
+      MyCodes.GetKeyCodeFor 'Ctrl+PgDn'
+34 2
+      MyCodes.GetKeyCodeFor 'Shift+Ctrl+Alt+PgDn'
+34 7
+~~~
+
+Note that the right argument is case insensitive.
+
+The modifiers can be specified in any order:
+
+~~~
+      MyCodes.GetKeyCodeFor'CTRL+shift+Alt+PgDn
+34 7
+~~~
+
+The class `KeyCodes` is, among others, used by the class "Menubar".
+
+If you want to offer, say, "German" rather than "English" then you can take `KeyCodes` as a
+template and create your own version.
+

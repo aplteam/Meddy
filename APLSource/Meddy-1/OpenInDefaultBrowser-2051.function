@@ -1,0 +1,7 @@
+ OpenInDefaultBrowser←{
+     6::0
+     0=##.FilesAndDirs.IsFile ⍵:n TellFileDoesNotExist ⍵
+     ⎕USING←'' 'System' 'System.Diagnostics,System.dll'
+     _←Process.Start,⊂⍵
+     1
+ }

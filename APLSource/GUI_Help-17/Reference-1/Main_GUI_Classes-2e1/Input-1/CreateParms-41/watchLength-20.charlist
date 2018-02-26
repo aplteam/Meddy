@@ -1,0 +1,5 @@
+# watchLength
+
+Boolean that defaults to 1. Has an effect on controls that stem from an "Edit". 1 let's display the
+current length and the max length.
+

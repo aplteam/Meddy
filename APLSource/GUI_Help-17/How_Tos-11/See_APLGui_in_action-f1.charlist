@@ -1,0 +1,22 @@
+# See APLGui in Action
+
+The zip file contains a workspace APLGuiDemo.
+
+1. Make sure this workspace lives in the same folder as the APLGui workspace.
+1. Load the workspace.
+1. Jump into the `GUI_Demo` namespace.
+
+
+This namespace contains plenty of functions that exercise all the APLGui classes.
+
+You will find several functions starting their names with `∆Run`.
+
+* The function `∆Run` runs all the demo functions.
+* The function `∆Run_This` takes a string or a vector of strings. All demo function containing those strings will be executed.
+* The `∆Run_`\* functions relate to the APLGui main classes.
+
+
+Note that there are no demo functions for neither `StdForm` nor the `Menubar` class. The reason is
+that all main classes use `StdForm` and some use `Menubar`. So, when you run the demos for, say,
+`Notepad` then you are running demos for `StdForm` and `Menubar` as well.
+

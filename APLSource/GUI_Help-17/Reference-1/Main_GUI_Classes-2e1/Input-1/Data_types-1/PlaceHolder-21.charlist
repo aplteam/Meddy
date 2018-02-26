@@ -1,0 +1,55 @@
+# PlaceHolder
+
+PlaceHolders are best explained by example:
+
+~~~
+defMat←⍉⍪'Text1a' '' '' DT.Character 5 1 1
+defMat⍪←'Text2a' '' '' DT.Character 5 1 1
+defMat⍪←'Text3a' '' '' DT.Character 5 1 1
+defMat⍪←'Text4a' '' '' DT.Character 5 1 1
+defMat⍪←'Text5a' '' '' DT.Character 5 1 1
+defMat⍪←'Text6a' '' '' DT.Character 5 1 1
+defMat⍪←'Text1b' 'Any input field' '' DT.Character 0 1 2
+defMat⍪←'Check1b' 'I read the conditions' 1 DT.YesNo 0 1 2
+defMat⍪←'Text2b' 'another field' '' DT.Character 0 1 2
+defMat⍪←'Text1c' 'Any input field' '' DT.Character 0 1 3
+list←'Nils' 'Kai' 'Wolfgang' 'Phil' 'John' 'Barack' 'Peter' 'Richard'
+defMat⍪←'Check1c' 'Recipients'list DT.YesNo 0 1 3
+defMat⍪←'Text2c' 'another field' '' DT.Character 0 1 3
+#.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Images\DataTypes\PlaceHolder_01.png)
+
+Imagine that for some reason you want the two input fields "another field" (the last control in
+both the second and third column) should go onto the same line on the →[*.Layout|`Input` layout grid].
+
+This can be achieved by adding a PlaceHolder after the "another field" control in the second
+column. For that we inject an additional line:
+
+~~~
+defMat←(8↑defMat)⍪'PlaceHolder' '' '' DT.PlaceHolder 1 1 2⍪8↓defMat
+#.GUI.Input.Run defMat
+~~~
+
+![](.\Images\DataTypes\PlaceHolder_02.png)
+
+That was a success. However, the "another field" control went down just one row in our layout grid.
+We need it to move down three rows, therefore we specify a 3 as the number of rows:
+
+~~~
+defMat[8;#.GUI.Enums.DefMatIndices.Length]←3
+#.GUI.Input.Run defMat
+~~~
+
+That gives us what we are looking for:
+
+![](.\Images\DataTypes\PlaceHolder_03.png)
+
+Note that `Input` will always create a Group for a PlaceHolder that is both invisible and inactive,
+though the group will have a height of 0 in case "Length" is set to 0.
+
+This data type does not make it into the →[*.The_result|result].
+

@@ -1,0 +1,4 @@
+# sizeable
+
+Boolean that rules whether the Form shall be resizable by the user or not. Default is 1.
+

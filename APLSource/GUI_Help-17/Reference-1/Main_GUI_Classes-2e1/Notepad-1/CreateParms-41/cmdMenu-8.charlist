@@ -1,0 +1,30 @@
+# cmdMenu
+
+## Overview
+
+Set this in order to establish an additional menu in the `Notepad` menubar.
+
+If you set this then you must follow a set of rules:
+
+* You must specifiy a vector with at least two items.
+* The first item must be a simple text vector. This will define the caption of the menu
+* For every MenuItem of this menu you must specify a two-item vector with caption and the (fully qualified) name of the callback that is supposed to handle this menu command.
+* For a separator specify a simple "-".
+* A `~` in the first position of the caption makes the menu item inactive.
+
+
+The callback must follow certain rules:
+
+1. It must expect a right argument: the "n" namespace and the caption of the menu item selected, without any hot key and the chars `&` and `~`.
+1. It must return a result although it will be ignored.
+
+
+## Example
+
+~~~
+m←⊂'Special'
+m,←⊂'First command=Ctrl+G' '#.Callbacks.OnMyHandler'
+m,←⊂'~Second command=F8' '#.Callbacks.OnMyHandler'
+m,←⊂'-'
+m,←⊂'One more cmd' '#.Callbacks.OnMyHandler'
+~~~

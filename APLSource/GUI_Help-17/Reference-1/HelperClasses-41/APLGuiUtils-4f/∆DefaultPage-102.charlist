@@ -1,0 +1,4 @@
+# APLGuiUtils
+
+The `APLGuiUtils` comprises utilities used in more than just one place in APLGui. That's why
+this class is `:Include`d in most main classes.

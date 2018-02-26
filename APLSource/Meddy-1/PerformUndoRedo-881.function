@@ -1,0 +1,7 @@
+ {r}←n PerformUndoRedo(data selText);max
+⍝ `data` is a vector with undo/redo data.
+ r←⍬
+ n.Markdown.Text←data
+ n.Markdown.SelText←selText
+ ⎕NQ n.Markdown'GotFocus'
+⍝Done

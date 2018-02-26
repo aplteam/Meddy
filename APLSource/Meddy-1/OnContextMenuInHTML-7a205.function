@@ -1,0 +1,5 @@
+ OnContextMenuInHTML←{
+     n←GetRef2n↑⍵
+     _←ProcessContextMenuOnHtml n
+     0
+ }

@@ -1,0 +1,6 @@
+ {r}←{x}AdjustPreferenceFormSize n
+⍝ Repositions the two check boxes and then resizes the Form.
+ r←⍬
+ n.HTML.Posn[0]←n.∆Vgap
+⍝ n.??.Posn[0]←n.∆Vgap+↑+⌿⊃n.HTML.(Posn Size)
+⍝Done

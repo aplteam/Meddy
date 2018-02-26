@@ -1,0 +1,15 @@
+ m←CreateContextMenuOnMarkdown n;∆
+ m←⎕NEW,⊂'Menu'
+ ∆←''
+ ∆,←⊂'Caption'('Find',TAB,'Ctrl+F')
+ ∆,←⊂'Accelerator'(70 2)
+ ∆,←⊂'Active'(~0∊⍴∊n.Markdown.Text)
+ m.Find←m.⎕NEW'MenuItem'∆
+ m.Find.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Inject parameters...',TAB,'F9')
+ m.ViewParms←m.⎕NEW'MenuItem'∆
+ m.ViewParms.onSelect←1
+
+⍝Done

@@ -1,0 +1,15 @@
+ Shutdown;parms
+ ⎕NUNTIE ⎕NNUMS
+ ⎕FUNTIE ⎕FNUMS
+ :If A.IsDevelopment
+     parms←G.Dialogs.CreateParmsForNoOrYes
+     parms.(hasProgressbar hasStatusbar)←0
+     :If parms G.Dialogs.NoOrYes'[]OFF ?!'
+         ⎕OFF
+     :Else
+         ⎕←'***'
+         →
+     :End
+ :Else
+     ⎕OFF
+ :EndIf

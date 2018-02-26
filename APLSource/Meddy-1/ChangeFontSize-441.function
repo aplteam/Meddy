@@ -1,0 +1,16 @@
+ {r}←n ChangeFontSize direction;newFontSize
+ r←⍬
+ :If 0<direction
+     newFontSize←↑(1+n.∆AllFontSizes⍳n.∆CurrentFontSize)⌽n.∆AllFontSizes
+     :If newFontSize<n.∆CurrentFontSize
+         :Return
+     :EndIf
+ :Else
+     newFontSize←↑(¯1+n.∆AllFontSizes⍳n.∆CurrentFontSize)⌽n.∆AllFontSizes
+     :If newFontSize>n.∆CurrentFontSize
+         :Return
+     :EndIf
+ :EndIf
+ n.(FontStd FontAPL).Size←newFontSize
+ n.∆CurrentFontSize←newFontSize
+⍝Done

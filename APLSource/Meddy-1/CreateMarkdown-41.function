@@ -1,0 +1,27 @@
+ CreateMarkdown←{
+     n←⍵
+     parent←n.SF
+
+     ∆←''
+     ∆,←⊂'Coord' 'Prop'
+     ∆,←⊂'Posn'(0 0)
+     ∆,←⊂'Size'(100 100)
+     ∆,←⊂'Style' 'Multi'
+     ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     ∆,←⊂'VScroll' ¯1
+     ∆,←⊂'Style' 'Multi'
+     ∆,←⊂'WantsReturn' 1
+     ∆,←⊂'FontObj'n.FontAPL
+     ∆,←⊂'TipObj'n.Tip
+     ∆,←⊂'Tip'('Enter Markdown into this area; press F5 in order to update the preview')
+     n.Markdown←parent.⎕NEW'Edit'∆
+     n.Markdown.Text←'' ⍝ Otherwise it's a matrix!
+     n.Markdown.Coord←'Pixel'
+     n.Markdown.Posn[1]+←5
+     n.Markdown.Size[1]-←5
+     n.Markdown.onContextMenu←'OnContextMenuInMarkdown'
+     n.Markdown.onKeyPress←'OnKeyPressInMarkdown'n
+     n.Markdown.onMouseUp←'OnMouseUpInMarkdown'
+
+     n
+ }

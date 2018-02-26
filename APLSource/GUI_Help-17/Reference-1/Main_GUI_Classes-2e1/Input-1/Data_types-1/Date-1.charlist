@@ -1,0 +1,35 @@
+# Date
+
+## Overview
+
+This results in a DateTimePicker control.
+
+Note that "default" can be specified in different ways:
+
+* As a text vector in international date format: '2015-12-31'
+* As an integer: 20151231
+* As a timestamp: 2015 12 31
+* Empty vector
+
+
+The length of a timestamp can be 3, 6 or 7, but only the first three are taken into account.
+
+Note that the result is returning the date selected by the user in the same format "default" was specified.
+
+If "default" was specified as an empty vector then "today" is pre-selected, and the date selected
+is returned as a text vector.
+
+This data type has always a label. If no label was specified in the definition matrix then the name
+is taken, with any underscores replaced by blanks.
+
+## Example
+
+~~~
+DT←#.GUI.Enums.InputDataTypes
+defMat←⍉⍪'DateTS' 'Date as []TS'⎕TS DT.Date 0 1 1
+#.GUI.Input.Run defMat
+~~~
+
+This results in this GUI:
+
+![](.\Images\DataTypes\Date.png)

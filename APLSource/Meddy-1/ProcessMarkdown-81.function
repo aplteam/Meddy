@@ -1,0 +1,44 @@
+ {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns
+ success←1
+ newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
+ markdown←n.Markdown.Text
+ (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown n markdown
+ :Trap 1 2 3 4 5 10 11 22
+     parms←GetPreferences n
+     parms←CompileParmsForMarkAPL n parms embeddedParms
+     :If ⎕NULL≡parms.cssURL
+         parms.cssURL←'file:///',F.PWD,'\CSS\'
+     :EndIf
+     (html ns)←parms ##.MarkAPL.Markdown2HTML⊆markdown
+     n.HTML.∆HTML←html
+     n.HTML.∆ns←ns
+     n.HideCSS.State ProcessHTML n
+     :If 0=n.IE.∆Closed
+     :AndIf 0=newFlag
+         :Trap 0
+             n.IE.IEobject.Document.body.innerHTML←1↓↑,/(⎕UCS 10),¨GetBody html
+             ⍝ Do not attempt to change the header: does not work!
+             RefreshToc n
+         :Else
+             G.IE.ShowHtml n.IE.IEobject html
+             n.IE.∆Closed←0
+         :EndTrap
+         :Trap 0
+             :If ~((⎕UCS 10)A.Split n.IE.IEobject.Document.head.innerHTML){(∧/⍺∊⍵)∧∧/⍵∊⍺}(GetHead html)  ⍝ Any change in <head>?!
+                 n.IE.IEobject.Document.head.innerHTML←1↓↑,/(⎕UCS 10),¨GetHead html
+             :EndIf
+         :Else
+             TellNeedForRestart n
+         :EndTrap
+     :Else
+         G.IE.ShowHtml n.IE.IEobject(MakeUrlsAbsolute html)
+         n←ShowToc n
+         n.IE.∆Closed←0
+     :EndIf
+     n.∆Report←ns.report
+     ReportConversionProblem n
+ :Else
+     TellAboutConversionFailure n
+     success←0
+     {}ResetAfterError⍣newFlag⊣n
+ :EndTrap

@@ -1,0 +1,36 @@
+# Gaps between controls
+
+## vGap and hGap
+
+The gaps between controls are determined by the `Vgap` (for "vertical") and the `Hgap` (for
+"horizontal") settings from either the specific parameter space or, if those are undefined (`¯1`),
+by `Vgap` and `Hgap` from the global parameter space.
+
+They are interpreted differently depending on their data type:
+
+* If a value is an integer than it is treated as pixel.
+* If it is a float it is treated as a percentage of the standard font.
+
+
+In the global parameter space the two values default to 1.4 for `Vgap` and 0.99 for `Hgap`. Since
+both are floats they are interpreted as 140% of the standard font for the vertical gaps and 99%
+for the horizontal gaps.
+
+You should not change these defaults unless you have a very good reason to do so because they
+ensure that any form created will look harmonious not matter what the font size is.
+
+In a specific parameter space they both default to `¯1` meaning that they will eventually be
+overwritten by the global settings.
+
+Normally the distance between controls is defined by these values but there are exceptions to this
+rule. A typical example is a label that belongs to an Edit control.  In such a case the vertical
+distance will be just half of the value of `Vgap`.
+
+## InitialVgap
+
+The distance between the top-most control(s) and the form border (or menu bar) is determined by
+`initialVgap`. If this is not specified it defaults to vGap but at least Enums.Globals.InitialVgapMinSize.
+
+## vGap, hGap and initialVgap in "n"
+
+All the values are copied from the parameter space(s) to the `n` namespace as `∆Vgap`, `∆Hgap` and `∆initialVgap`.

@@ -1,0 +1,24 @@
+# The `n` namespace
+
+The `n` contains all the usual stuff as →[*.N_Namespace|documented here].
+
+In addition `ProcessTool`'s `n` namespace also contains:
+
+`∆handler`
+
+The name of the function that is supposed to do the processing from within `ProcessTool` when the
+user presses the "Process" button for example.
+
+`∆origOrder`
+
+Originally this is just a vector of integers build by `⍳⍴List` or `⍳⍴Table`. This is going to be
+changed when the user performs a sort-by-column action and can therefore be used to establish the
+original order.
+
+`∆result`
+
+This will be `⍬` unless it is assigned something else within the function `∆handler` is pointing to.
+
+You can use this to return a list with all items/rows that were processed within the lifetime of
+that instance of `ProcessTool`.
+

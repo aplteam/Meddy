@@ -1,0 +1,6 @@
+ n←InitialUndoRedoStack n
+ n.∆LastSelText←(1 1)(1 1)
+ n.∆CommitUndoRedo←(⎕NS'')UndoRedo
+ '!'n.∆CommitUndoRedo 0
+ n.∆CommitUndoRedo n.Markdown.Text n.Markdown.SelText
+⍝Done

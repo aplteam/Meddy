@@ -1,0 +1,7 @@
+ r←GetFirstVisibleLine ref;EM_GETFIRSTVISIBLELINE;SendMessage
+ ⍝ Returns the first visible line
+ ⍝ `ref` must point to a multi-line Edit control.
+ EM_GETFIRSTVISIBLELINE←206
+ ⎕NA'U user32|SendMessage* U U I I'
+ r←SendMessage ref.Handle EM_GETFIRSTVISIBLELINE 0 0
+⍝Done

@@ -1,0 +1,8 @@
+ value←ReadPathFromRegistry dummy;regKey
+ regKey←n.∆globalParms.regKey,'\Preferences\Path'
+ :Trap 0
+     value←##.WinRegSimple.Read regKey
+ :Else
+     value←''
+ :EndTrap
+⍝Done

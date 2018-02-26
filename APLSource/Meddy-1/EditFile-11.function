@@ -1,0 +1,8 @@
+ {r}←EditFile n;filename;cmd;parms
+ r←⍬
+ filename←∊n.Shelf.Text
+ parms←G.Notepad.CreateParmsForFile
+ parms.caption←filename
+ parms.aplMode←1
+ {}n.∆globalParms parms G.Notepad.EditFile filename
+⍝Done

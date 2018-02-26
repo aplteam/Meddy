@@ -1,0 +1,14 @@
+ n2←CreateContextMenuForToc n
+ n2←⎕NS''
+ n2.∆menu←⎕NEW⊂'Menu'
+
+ :If 0   ⍝ Not implemented yet: Find in the TOC.
+     n2.Find←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Find...'))
+     n2.Sep1←n2.∆menu.⎕NEW⊂'Separator'
+ :EndIf
+
+ n2.ExpandAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Expand all'))
+ n2.RetractAllAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Retract all'))
+
+ {}{⍵.onSelect←1}¨'MenuItem'⎕WN n2.∆menu
+⍝Done

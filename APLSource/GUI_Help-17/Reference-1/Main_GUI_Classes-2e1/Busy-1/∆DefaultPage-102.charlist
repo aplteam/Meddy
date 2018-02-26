@@ -1,0 +1,40 @@
+# Busy
+
+## Overview
+
+The `Create` method of this class creates a Form that displays at least a progress bar.
+Optionally a message can be added to the Form and may consist of one to many lines.
+
+The optional "Abort" button allows the user to cancel a lengthy operation. To get this working
+`Busy`'s form is `⎕DQ`ed in a separate thread. That is necessary because otherwise this
+would not work.
+
+A check box "Keep on top" is added when one of the following properties is set to 1:
+
+* "onTop"
+* "showOnTop"
+
+Note that both properties default to 0.
+
+In case "onTop" is 1 the check box is ticked.
+
+Use the `SetPercent` method to manipulate the thumb of the progress bar. If you don't know
+how long the operation will last then set "auto" to 1 instead.
+
+## Closing Busy's form
+
+With `Busy` it is particularly important to call the `∆CloseForm` method to get rid of it
+because it does not only close the form, it also kills off the thread it was running in.
+
+## The "Abort" button
+
+The callback triggered by pressing the "Abort" button performs the following actions:
+
+* The variable `n.∆ABORTED` is set to 1.
+* The caption of the button changes to "Aborting...".
+* The button becomes inactive.
+
+To avoid any problems with the callback associated with the "Abort" button in an application
+that is running many or even few but very busy threads, `Create` actually runs a sub-
+function in its own thread. The "Busy" form is then `⎕DQ`ed within that thread. That should
+guarantee that the callback runs in time.

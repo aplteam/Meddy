@@ -1,0 +1,32 @@
+# Terms
+
+## Main classes:
+
+APLGui consists of quite a number of classes. The classes that create any kind of GUI object are
+called Main classes.
+
+The method `#.GUI_Configurator.GetMainClasses` lists all main classes.
+
+## Helper classes:
+
+All other (non-main) classes are referred to as _Helper classes_.  
+
+The method `#.GUI_Configurator.GetHelpClasses` lists all main classes.
+
+## Helper functions:
+
+All the main classes with the exception of the `Menubar` class offer one or more modal functions
+ready to create a GUI control, populate it and hand control over to the user. These functions are
+called _helper functions_. Every main class comes with a method `ListHelpers` which lists those
+functions, for example:
+
+~~~
+    ⍪¨#.GUI.(Dialogs Request).ListHelpers
+DisplayButtons    AskForNumber  
+NoOrYes           AskForString  
+OkOrCancel        AskForPassword              
+ShowLongMsg       AskForDate              
+ShowMsg                         
+YesNoCancel                     
+YesOrNo                         
+~~~

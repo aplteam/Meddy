@@ -1,0 +1,5 @@
+ ShowQuickIntro←{
+     n←⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\QuickIntro.html'
+     1:rc←rc
+ }

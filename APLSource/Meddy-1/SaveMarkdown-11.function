@@ -1,0 +1,20 @@
+ {r}←SaveMarkdown n;parms;htmlFilename
+ r←⍬
+ :If 0∊⍴n.∆Filename
+     n.∆HtmlFilename←CheckForMeddyConfigFile n
+     SaveMarkdownAs n
+ :Else
+     SaveText n.∆Filename n.Markdown.Text
+     n.Markdown.∆LastSavedVersion←n.Markdown.Text
+     RefreshPreview n
+     :If 1=n.∆parms.saveHtml
+     :OrIf DoYouWantToSaveHtml n
+         :If 0∊⍴n.∆HtmlFilename
+             htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
+         :Else
+             htmlFilename←n.∆HtmlFilename
+         :EndIf
+         A.WriteUtf8File htmlFilename n.HTML.∆HTML
+         n.∆HtmlFilename←htmlFilename
+     :EndIf
+ :EndIf

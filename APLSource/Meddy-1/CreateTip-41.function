@@ -1,0 +1,7 @@
+ CreateTip←{
+     n←⍵
+     ∆←''
+     ∆,←⊂'Font'n.FontTip
+     n.Tip←⎕NEW'TipField'∆
+     n
+ }

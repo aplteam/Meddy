@@ -1,0 +1,11 @@
+Meddy's no-nonsense license agreement:
+
+Meddy is FREE. You may use it in any way you like.
+
+There are just two restrictions:
+
+1. It MUST NOT be sold.
+2. One MUST NOT re-engineer the code and use it for other purposes.
+
+Kai Jaeger - APL Team Ltd
+20167-12-10

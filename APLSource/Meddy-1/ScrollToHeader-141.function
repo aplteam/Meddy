@@ -1,0 +1,5 @@
+ {r}←n ScrollToHeader ind
+ r←⍬
+ ScrollToInMarkdown n ind
+ ScrollToInPreview n ind
+⍝Done

@@ -1,0 +1,9 @@
+ GetTextSize←{
+     ⍺←#
+     txt←⍵
+     was←⍺ ⎕WG'Coord'
+     ⍺.Coord←'Pixel'
+     size←2 ⎕NQ ⍺'GetTextSize'txt
+     ⍺.Coord←was
+     size
+ }

@@ -1,0 +1,40 @@
+# onChange
+
+## Overview
+
+This event is fired for all "Edit", "Combo", "YesNo" and also "ComboEx" objects that do not have
+"style" set to "DropDown".
+
+That means that for the `Input` data types "Character", "Numeric", "Currency", "DropEdit",
+"Notepad" and "YesNo" a user-defined `onChange` callback will be executed.
+
+The callback gets a two-item vector as right argument:
+
+1. The object for which the "Change" event was generated.
+1. The →[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.The_n_namespace|`n` namespace].
+
+
+The callback must return one of:
+
+* A single Boolean. 1 permits the change, 0 rejects it.
+* A single Boolean and a text vector.
+
+
+Notes:
+
+* If the result is 0 then the focus is forced back to the control that caused the "Change" event if the result is 0.
+* The optional second item is ignored in case the Boolean is 1.
+* "msg" is shown in the status bar. Therefore it is recommended to keep it short.
+
+
+## ValidIfEmpty
+
+Note that `Input` uses always `ValidIfEmpty←1` in "Edit" fields. That has significant advantages
+but it also requires extra care when checking "Value" in a user-defined "OnChange" callback: you
+cannot rely on "Value" to be a number: it may well be empty.
+
+For that reason you should probably use `1↑n.MyNumericField.Value`.
+
+## How to qualify callbacks
+
+For how to qualify callbacks so that they will be found see →[*.Callback_functions].

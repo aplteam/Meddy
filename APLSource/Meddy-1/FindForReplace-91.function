@@ -1,0 +1,7 @@
+ {r}←FindForReplace(n nr);successFlag
+ ⍝ `n` is the main form's namespace.
+ ⍝ `nr` is the "Find and Replace" namespace.
+ r←⍬
+ successFlag←OnHandleFindInMarkdown n2
+ nr.(Replace Replace_all).Active←1
+⍝Done

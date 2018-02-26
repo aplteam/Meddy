@@ -1,0 +1,18 @@
+[DATA]:index='onClose ⋄ Prevent "Close" on StdForm ⋄ StdForm and "onClose"'
+
+# onClose
+
+By specifying a callback function you can gain control over whether a particular form is allowed to be closed at all in its current state or
+to execute certain tasks before closing it, like saving some document(s).
+
+You can either specify the callback in different ways:
+
+* A fully qualified path (text vector).
+* Just the name of a function when it lives in the namespace `StdForm.Create` will be called from.
+* A two-element vector with
+  1. A reference pointing to the hosting namespace.
+  1. A text vector with the name of the function.
+  
+The function must accept a right argument; this will be the `n` namespace of the associated form.
+
+The function **must** return a Boolean result; a 1 allows the "Close" event to be processed, a 0 prevents it.

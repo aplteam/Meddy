@@ -1,0 +1,3 @@
+ {r}←ShowPreviousHit n;next;hit
+ r←0 FindInMarkdown_ n
+⍝Done

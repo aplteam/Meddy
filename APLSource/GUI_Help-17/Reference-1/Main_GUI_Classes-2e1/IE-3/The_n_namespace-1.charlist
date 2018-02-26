@@ -1,0 +1,33 @@
+# The `n` namespace
+
+The IE class comes with its own `n` namespace.
+
+When you create an instance of the ActiveX control with:
+
+~~~
+#.GUI.IE.CreateIE containerObject
+~~~
+
+or
+
+~~~
+parms #.GUI.IE.CreateIE containerObject
+~~~
+
+then the `n` namespace is returned as the explicit result.
+
+By default that's what the namespace does contain:
+
+~~~
+IEobject  
+IEobject_ 
+∆container
+~~~
+
+However, `IEobject` is just the default name: this can be changed by setting "name" in the
+parameter space to whatever you like.
+
+`∆container` is the parent of the ActiveX control which was passed as the right argument to the
+`CreateIE` method.
+
+Note that `n.∆container` contains itself an `n` that is pointing back to the `n` namespace returned.

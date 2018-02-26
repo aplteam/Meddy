@@ -1,0 +1,7 @@
+ SetState←{
+ ⍝ ⍵[0] is item number
+ ⍝ ⍵[1] is vector of booleans representing the states of a particular item
+     rf←⍺
+     (itemNo state)←⍵
+     0⊣rf.SetItemState itemNo((32⍴2)⊥⌽state)
+ }

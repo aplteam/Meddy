@@ -1,0 +1,10 @@
+ CreateFonts←{
+     n←⍵
+     regKey←n.∆globalParms.regKey,'\FontSize'
+     size←16 ##.WinRegSimple.Read regKey
+     n.FontStd←⎕NEW'Font'(('Pname' 'Verdana')('Size'size))
+     n.FontSmall←⎕NEW'Font'(('Pname' 'Georgia')('Size' 14))
+     n.FontAPL←⎕NEW'Font'(('Pname' 'APL385 Unicode')('Size'size))
+     n.FontTip←⎕NEW'Font'(('Pname' 'Verdana')('Size' 12))
+     n
+ }

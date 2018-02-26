@@ -1,0 +1,7 @@
+# The `n` namespace
+
+The n namespace contains all the usual stuff →[*.N_Namespace|as documented here].
+
+In addition to that any `Busy` `n` namespace also contains a variable `∆ABORTED` which by default
+is 0. If the user presses the "Abort" button then this variable becomes 1 as soon as the callback runs.
+

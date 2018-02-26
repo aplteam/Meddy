@@ -1,0 +1,6 @@
+ GetBody←{
+     html←⍵↓⍨1+'<body.*>'⎕S 2⍠('Greedy' 0)⊣⍵
+     html↑⍨←'</body>'⎕S 2⍠('Greedy' 0)⊣html
+     html←MakeUrlsAbsolute html
+     html
+ }

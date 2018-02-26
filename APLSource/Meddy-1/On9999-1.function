@@ -1,0 +1,4 @@
+ n On9999 msg;was
+ n.(Row Col).Text←⍕¨1⊃n.Markdown.SelText
+ {}SaveTextForUndo n
+⍝Done

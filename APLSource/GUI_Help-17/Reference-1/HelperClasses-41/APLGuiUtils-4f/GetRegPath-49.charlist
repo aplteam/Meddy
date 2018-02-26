@@ -1,0 +1,18 @@
+# GetRegPath
+
+Syntax:
+
+~~~
+fullPath ← GetRegPath y
+~~~
+
+Two examples tell it all:
+
+~~~
+HKCU\Software\foo ←→ GetRegPath 'foo'
+~~~
+
+~~~
+HKCU\Software\foo\abc ←→ GetRegPath 'foo' 'abc'
+~~~
+

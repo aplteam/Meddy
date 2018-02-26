@@ -1,0 +1,6 @@
+# onFileOpen
+
+Callback fns called when "Open" is issued  from the menu. Note that this one comes with a default callback.
+
+For how to qualify callbacks so that they will be found see →[*.Callback_functions].
+

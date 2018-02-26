@@ -1,0 +1,14 @@
+ {r}←SaveTextForUndo n;wa;noOf
+ r←⍬
+ n.Markdown.Tip←''
+ noOf←'?'n.∆CommitUndoRedo ⎕NULL
+ {6::r←⍬ ⋄ {}'≠'n.∆CommitUndoRedo ⍵}n.Markdown.Text n.Markdown.SelText   ⍝TODO⍝  Sometimes result, sometimes not. Tell JohnS!
+ :If noOf≢'?'n.∆CommitUndoRedo ⎕NULL
+     n.∆LastSelText←n.Markdown.SelText
+     SyncWithTocAndPreview n
+     :If 6>⌊⎕WA÷1000000 ⍝ Just 5MB memory left?!
+         '↑'n.∆CommitUndoRedo noOf-⌈noOf×0.25
+     :EndIf
+ :EndIf
+
+⍝Done

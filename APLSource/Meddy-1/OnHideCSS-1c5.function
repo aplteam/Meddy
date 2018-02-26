@@ -1,0 +1,5 @@
+ OnHideCSS←{
+     n←GetRef2n↑⍵
+     _←n.HideCSS.State ProcessHTML n
+     0
+ }

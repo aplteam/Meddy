@@ -1,0 +1,8 @@
+ CloseDragAndDropSubForm←{
+     n←⍵
+     n.DragAndDrop.AcceptFiles←0
+     n.DragAndDrop.Size←0 0
+     n.DragAndDrop.Active←0
+     _←n.DragAndDrop ⎕WS'Event'('DropFiles' 0)
+     n
+ }

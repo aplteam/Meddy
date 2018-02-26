@@ -1,0 +1,10 @@
+ {r}←ToggleControlsAndCommands(n on);refresh
+⍝ Toggles certain menubar commands and controls on or off.
+⍝ Typically called after the user selected "Open", "New" or "Close" from the menubar.
+ r←⍬
+ n.(FullHtmlDocument HidePreview).(Visible Active)←on
+ n.(Toc Left Right).(Visible Active)←on
+ n.∆Menubar.(save saveAs close refresh export exportAs find nextHit replace undo redo scrollHTML view inject goto report).Active←on
+ n.∆Menubar.∆EditCommands.Active←on
+ n.HidePreview.Active←on
+⍝Done

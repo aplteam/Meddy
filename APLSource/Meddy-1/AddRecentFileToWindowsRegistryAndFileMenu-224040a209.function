@@ -1,0 +1,15 @@
+ AddRecentFileToWindowsRegistryAndFileMenu←{
+     n←⍺
+     (regKey list filename)←⍵
+     list←∪(⊂filename),list
+     max←20
+     list←max{⍵↑⍨20⌊⍴⍵}list
+     _←#.WinRegSimple.Write regKey(1↓↑,/';',¨list)
+     no←1+↑⍴list
+     list←∪{⍵↑⍨20⌊⍴⍵}(⊂filename),list
+     list←(('&',¨⍕¨1+⍳⍴list),¨⊂'. '),¨list
+     _←{0∊⍴⍵:⍬ ⋄ {6::⍬ ⋄ ⍬⊣⍵.Close}¨⍵}⎕WN n.∆Menubar.recent
+     n.∆RecentFiles←n.∆Menubar.recent{⍺.⎕NEW'MenuItem'(⊂'Caption'⍵)}¨list
+     _←{⍵.onSelect←'OnRecentFile'}¨⎕WN n.∆Menubar.recent
+     ⍬
+ }

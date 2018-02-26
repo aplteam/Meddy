@@ -1,0 +1,33 @@
+ n←CreateGui n;∆;parms
+ n.∆PushButtons←''
+ n←CreateFonts n
+ n.Icon←⎕NEW'Icon'(⊂'file' 'meddy2.ico')
+ parms←G.StdForm.CreateParms
+ parms.(fontAPL fontInput fontLabel)←n.(FontAPL FontStd FontSmall)
+ parms.icon←n.Icon
+ parms.onClose←'OnCloseMainWindow'
+ parms.hasVersionField←0
+ parms.regKey2←'MainForm'
+ parms.hasStatusbar←1
+ parms.hasProgressbar←1
+ n←n G.StdForm.Create n.∆globalParms parms
+ n.∆Form.on9999←'On9999'n
+ n←AddStatusbarFields n
+ n←CreateTip n
+ n.∆Menubar←G.Menubar.Create n.∆Form ∆Menu''(⎕NEW G.KeyCodes)
+ n.∆Menubar.∆EditCommands←n.∆Menubar.(cut copy paste selectall clear)
+ n←HandleLetsCrash n
+ {}AddRecentFilesFromWindowsRegistry n n.∆Menubar.recent
+ n←CreateToolControl n
+ n←CreateSubFormsAndSplitter n
+ n←CreateTocTab n
+ n←CreateLeftTab n
+ n←CreateRightTab n
+ n.∆globalParms.centerIn←n.∆Form
+ n.∆globalParms.mainForm←n.∆Form
+ n.∆globalParms.icon←n.Icon
+ n.∆HtmlFilename←n.∆Filename←''
+ n.(Toc Markdown HTML).onMouseWheel←⊂'OnMouseWheel'
+ n←CreateDragAndDrop n
+ 1 ⎕NQ n.∆Form'Configure',n.∆Form.Posn,(n.∆Form.Size+1 0)
+⍝Done

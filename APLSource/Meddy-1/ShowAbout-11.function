@@ -1,0 +1,17 @@
+ {r}←ShowAbout n;about;parms;appName
+ r←0
+ about←''
+ appName←'Meddy'
+ about,←⊂appName,' version ',↑{⍺,' from ',⍵}/1↓Version
+ about,←⊂appName,' is a simple Markdown editor.'
+ about,←⊂'It was developed by Kai Jaeger / APL Team Ltd'
+ about,←⊂''
+ about,←⊂'It uses MarkAPL version ',(1⊃#.MarkAPL.Version),' from ',2⊃#.MarkAPL.Version
+ about,←⊂'for converting any Markdown to HTML5.'
+ about,←⊂'For details see http://aplwiki.com/MarkAPL'
+
+ parms←G.Dialogs.CreateParmsForShowMsg
+ parms.addToCaption←'About'
+ parms.minSize←⍬ 550
+ parms n.∆globalParms G.Dialogs.ShowMsg about
+⍝Done

@@ -1,0 +1,6 @@
+ WhereIsLeanPubEncodingLine←{
+⍝ Takes markdown (⍵) and returns a vector of Booleans with a 1 only for a line start starts with `{:: encoding="`.
+⍝ At this stage we might not know about LeanPub extension so we have to bite the bullet and ignore this.
+     md←⍵
+     '{:: encoding="'{⍺∘≡¨(⍴,⍺)↑¨⍵}md
+ }

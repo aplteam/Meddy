@@ -1,0 +1,4 @@
+ OnContextMenuInToc←{
+     n←GetRef2n↑⍵
+     ContextMenuInToc n
+ }
