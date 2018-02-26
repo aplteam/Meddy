@@ -6,3 +6,7 @@ Docs/ linguist-vendored=true
 Icons/ linguist-vendored=true
 Make/ linguist-vendored=true
 Testcases/ linguist-vendored=true
+*.html/ linguist-vendored=true
+*.md/ linguist-vendored=true
+*.iss/ linguist-vendored=true
+*.dll/ linguist-vendored=true
