@@ -1,3 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-
+Dest/ linguist-vendored=true
+CSS/ linguist-vendored=true
+Docs/ linguist-vendored=true
+Icons/ linguist-vendored=true
+Make/ linguist-vendored=true
+Testcases/ linguist-vendored=true
