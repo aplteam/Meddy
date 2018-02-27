@@ -10,3 +10,4 @@ Testcases/ linguist-vendored=true
 *.md/ linguist-vendored=true
 *.iss/ linguist-vendored=true
 *.dll/ linguist-vendored=true
+
