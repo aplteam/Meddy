@@ -8,6 +8,7 @@ Icons/ linguist-vendored=true
 Make/ linguist-vendored=true
 Testcases/ linguist-vendored=true
 *.html linguist-vendored=true
+*.js linguist-vendored=true
 
 *.html/ linguist-vendored=true
 *.md/ linguist-vendored=true
