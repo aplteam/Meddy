@@ -7,11 +7,15 @@ Docs/ linguist-vendored=true
 Icons/ linguist-vendored=true
 Make/ linguist-vendored=true
 Testcases/ linguist-vendored=true
-*.html linguist-vendored=true
 *.js linguist-vendored=true
-
 *.html/ linguist-vendored=true
-*.md/ linguist-vendored=true
 *.iss/ linguist-vendored=true
-*.dll/ linguist-vendored=true
 
+*.function linguist-language=apl
+*.operator linguist-language=apl
+*.class linguist-language=apl
+*.script linguist-language=apl
+*.charstring linguist-language=apl
+*.charList linguist-language=apl
+*.dws linguist-language=apl
+*.dyapp linguist-language=apl
