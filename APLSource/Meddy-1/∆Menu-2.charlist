@@ -23,13 +23,10 @@
  ~Select all=Ctrl+A                : OnMenuCommand     {selectall}     : Select the whole document
  ~Clear                            : OnMenuCommand     {clear}         : Whipe the contents of the edit area
  -
- ~Go to line number...=Ctrl+G      : OnMenuCommand     {goto}          : Jumps to a particular line number the user will be prompted for 
- ~Find in Markdown=Ctrl+F          : OnMenuCommand     {find}          : Find string in the markdown 
- ~Previous hit=F2                  : OnMenuCommand     {previousHit}   : Show next hit (Up)
- ~Next hit=F3                      : OnMenuCommand     {nextHit}       : Show next hit (Down)
- ~Find and replace=Ctrl+R          : OnMenuCommand     {replace}       : Find and replace string in the markdown
- -
  ~Inject MarkAPL parameters...=F9  : OnMenuCommand     {inject}        : Inject [parm] into any Markdown document
+ 
+[View]
+ ~Go to line number...=Ctrl+G      : OnMenuCommand     {goto}          : Jumps to a particular line number the user will be prompted for 
  -
  ~Refresh preview=F5               : OnMenuCommand     {refresh}       : Update the preview
  ~Scroll HTML=F6                   : OnMenuCommand     {scrollHTML}    : Scrolls the HTML so that the same header is visible in both panes
@@ -38,9 +35,14 @@
  -
  Show latest report                : OnMenuCommand     {report}        : Displays the latest MarkAPL report if any
  
+[Search]
+ ~Find in Markdown=Ctrl+F          : OnMenuCommand     {find}          : Find string in the markdown 
+ ~Previous hit=F2                  : OnMenuCommand     {previousHit}   : Show next hit (Up)
+ ~Next hit=F3                      : OnMenuCommand     {nextHit}       : Show next hit (Down)
+ ~Find and replace=Ctrl+R          : OnMenuCommand     {replace}       : Find and replace string in the markdown
+ 
 [Settings]                                             {settings}
  Preferences...=F12                : OnMenuCommand     {preferences}   ; Edit your prefrences
-
 
 [Help]                                                 {help}
  Meddy's ReadMe=Ctrl+Shift+F1      : OnMenuCommand     {readme}        ; Puts Meddy's ReadMe.html on display

@@ -4,9 +4,9 @@
      parms←G.OptionsTool.CreateParms
      parms.addToCaption←'HTML'
      parms.info←'Would you like to save the HTML as well?'
-     parms.default←3⍴0
+     parms.default←4⍴0
      parms.default[n.∆parms.saveHtml]←1
-     (btn result)←n.∆globalParms parms G.OptionsTool.Run'Never' 'Always' 'Keep asking'
+     (btn result)←n.∆globalParms parms G.OptionsTool.Run'Never' 'Always' 'Yes, and keep asking' 'No, but keep asking'
  :AndIf 1=btn
      n.∆parms.saveHtml←⍸result
      flag←n.∆parms.saveHtml∊1 2

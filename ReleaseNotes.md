@@ -1,5 +1,13 @@
 # Release Notes
 
+* 1.5.1
+  * Menu restructured.
+  * Bug fixes:
+    * A new document crashed.
+    * The "Export HTML" dialog did not work as intended.
+    * Invalid embedded parameters could crash Meddy.
+    * Status bar was not always reset.
+
 * 1.5.0
   * Undo/Redo improved at the expense of memory.
   * "Export HTML" now gives three opportunities: "Save always", "Save never" and "Keep asking". Same

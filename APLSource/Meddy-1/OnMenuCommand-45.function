@@ -2,6 +2,7 @@
  r←0
  menuItem←↑msg
  n←GetRef2n menuItem
+ 0 WriteToStatusbar n''
  :Select menuItem
  :Case n.∆Menubar.quit
      ⎕NQ n.∆Form'Close'

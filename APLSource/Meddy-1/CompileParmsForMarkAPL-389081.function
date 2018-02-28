@@ -1,4 +1,4 @@
- parms←CompileParmsForMarkAPL(n parms embeddedParms);ind
+ parms←CompileParmsForMarkAPL(n parms embeddedParms);ind;name;value
 ⍝ Returns the leading parameters: all leading lines that start with `[parm]:`
  parms.createFullHtmlPage←n.FullHtmlDocument.State
  parms.title←'Meddy'
@@ -26,6 +26,10 @@
          parms.leanpubExtensions←0
      :EndIf
  :AndIf ~0∊⍴embeddedParms←(~embeddedParms[;0]∊'screenCSS' 'printCSS' 'cssURL')⌿embeddedParms
-     parms.{⍎⍺,'←',⍕⍵}/¨↓embeddedParms
+     :For name value :In ↓embeddedParms
+         :Trap 0
+             parms.{⍎⍺,'←',⍕⍵}name value
+         :EndTrap
+     :EndFor
  :EndIf
 ⍝Done

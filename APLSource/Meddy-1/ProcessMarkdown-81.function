@@ -1,4 +1,4 @@
- {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns
+ {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay
  success←1
  newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
  markdown←n.Markdown.Text
@@ -18,11 +18,15 @@
          :Trap 0
              n.IE.IEobject.Document.body.innerHTML←1↓↑,/(⎕UCS 10),¨GetBody html
              ⍝ Do not attempt to change the header: does not work!
-             RefreshToc n
+             okay←1
          :Else
              G.IE.ShowHtml n.IE.IEobject html
              n.IE.∆Closed←0
+             okay←0
          :EndTrap
+         :If okay
+             RefreshToc n
+         :EndIf
          :Trap 0
              :If ~((⎕UCS 10)A.Split n.IE.IEobject.Document.head.innerHTML){(∧/⍺∊⍵)∧∧/⍵∊⍺}(GetHead html)  ⍝ Any change in <head>?!
                  n.IE.IEobject.Document.head.innerHTML←1↓↑,/(⎕UCS 10),¨GetHead html

@@ -12,7 +12,7 @@
      parms←G.OptionsTool.CreateParms
      parms.addToCaption←'Inject parameters'
      parms.style←G.Enums.OptionsStyles.check
-     parms.info←'Which parameters do you want to embedd?'
+     parms.info←'Note that this is a MarkAPL-only feature.' 'Which parameters do you want to embedd?'
      parms.fontLabel←n.∆globalParms.fontAPL
      isNum←0=↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
      (ok bool)←n.∆globalParms parms G.OptionsTool.Run↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]

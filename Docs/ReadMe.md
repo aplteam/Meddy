@@ -158,5 +158,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 1.5.0      |
-| Last update | 2018-02-26 |
+| Version     | 1.5.1      |
+| Last update | 2018-02-28 |

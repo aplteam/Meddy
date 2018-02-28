@@ -16,7 +16,6 @@
      #.CursorObj←saveCursor
      n.(Row Col).Text←'1'
      n←CloseDragAndDropSubForm n
-     n←ShowToc n
      ⎕NQ n.Markdown'GotFocus'
  :EndIf
 ⍝Done

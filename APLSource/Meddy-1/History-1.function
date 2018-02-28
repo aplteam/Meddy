@@ -1,5 +1,9 @@
  History
-⍝ * 0.2.0
+⍝ * 1.5.1
+⍝   * A new document crashed.
+⍝   * The "Export HTML" dialog did not work as intended.
+⍝   * Invalid embedded parameters could crash Meddy.
+⍝ * 1.5.0
 ⍝   * "Export HTML" now gives three opportunities: "Save always", "Save never" and "Keep asking". Same
 ⍝     for the Preferences dialog.
 ⍝   * When a file is opened all <tab> characters are replaced by 4 spaces.
