@@ -1,4 +1,4 @@
-﻿:Class MarkAPL
+﻿⍝ ##### 3.5.0:Class MarkAPL
 ⍝ ## Overview
 ⍝ MarkAPL is a parser that converts Markdown to valid HTML5.\\
 ⍝ The Markdown can be specified in two ways:
@@ -50,7 +50,7 @@
 ⍝ If you want to create a full-blown HTML page without any files being involved you
 ⍝ can also set the `createFullHtmlPage` parameter to 1.
 ⍝ ## Misc
-⍝ |Homepage:    | <http://aplwiki.com/MarkAPL> |
+⍝ |Homepage:    | <http://github.com/aplteam/MarkAPL> |
 ⍝ |Cheat sheet: | <http://download.aplteam.com/MarkAPL_CheatSheet.html> |
 ⍝ |Reference:   | <http://download.aplteam.com/MarkAPL.html> |
 ⍝ Kai Jaeger ⋄ APL Team Ltd
@@ -61,11 +61,13 @@
     ∇ r←Version
       :Access Public Shared
       ⍝ See `History`
-      r←(Last⍕⎕THIS)'3.5.0' '2017-10-30'
+      r←(Last⍕⎕THIS)'3.5.0' '2017-10-??'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ ##### 3.?.?
+      ⍝ * Ref to home page corrected (now GitHub).
       ⍝ ##### 3.5.0
       ⍝ * Additions to syntax sugar: ==>, <== and <==> produce now proper arrows.
       ⍝ * Bug fixes:

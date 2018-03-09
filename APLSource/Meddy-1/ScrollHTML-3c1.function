@@ -3,6 +3,7 @@
      n←⍵
      ind←+/n.Toc.∆Toc[;3]≤↑↑n.Markdown.SelText
      n.Toc.SelItems[]←0
+     ind=⍴n.Toc.SelItems:r←⍬
      n.Toc.SelItems[ind]←1
      n ScrollToHeader ind
  }

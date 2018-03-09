@@ -1,4 +1,9 @@
  History
+⍝ * 1.5.2
+⍝   * Ill-defined headers could crash Meddy.
+⍝   * Invalid embedded parameters could crash Meddy.
+⍝   * License changed: is now an MIT license.
+⍝   * Sync (F6) could occasionally crash Meddy.
 ⍝ * 1.5.1
 ⍝   * A new document crashed.
 ⍝   * The "Export HTML" dialog did not work as intended.

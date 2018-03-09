@@ -5,13 +5,19 @@
      n.Toc.SelItems←⍬
      n.Toc.Visible←0
      n.Toc.Depth←⍬
+     n.Toc.∆Toc←0 4⍴⍬
  :Else
      allStates←n.Toc GetState¨⍳⍴n.Toc.Items
-     was←n.Toc.(Depth,[0.5]Items)
+     n.Toc.Depth←n.Toc.((⊃⌈/⍴¨(Depth Items))↑Depth)
+     was←n.Toc.(↑,[0.5]/Depth Items)
      n.Toc.Items←toc[;1]
      n.Toc.RealDepth←toc[;0]        ⍝ In case the user has built an invalid structure of headers we need to remember his definition
      toc[;0]←toc[;0]-(↑toc[;0])-1
-     n.Toc.Depth←0⌈¯1+1,2{(⍺+1)≥⍵:⍵ ⋄ ⍺+1}/toc[;0] ⍝ Correct an user mistakes, otherwise we get a DOMAIN ERROR.
+     :Trap 0
+         n.Toc.Depth←0⌈¯1+1,2{(⍺+1)≥⍵:⍵ ⋄ ⍺+1}/toc[;0] ⍝ Correct any user mistakes, otherwise we get a DOMAIN ERROR.
+     :Else
+         n.Toc.Depth←6⍴0    ⍝ Last resort
+     :EndTrap
      n.TocSF.(Active Visible)←1
      :If 0∊⍴allStates
          {}{2 ⎕NQ n.Toc'Expanding'⍵}¨A.Where n.Toc.Depth∊0 1

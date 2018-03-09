@@ -28,7 +28,7 @@
  :AndIf ~0∊⍴embeddedParms←(~embeddedParms[;0]∊'screenCSS' 'printCSS' 'cssURL')⌿embeddedParms
      :For name value :In ↓embeddedParms
          :Trap 0
-             parms.{⍎⍺,'←',⍕⍵}name value
+             name parms.{⍎⍺,'←',⍕⍵}value
          :EndTrap
      :EndFor
  :EndIf
