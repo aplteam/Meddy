@@ -7,7 +7,7 @@
 #define MyAppURL "http://github.com/aplteam/Meddy"
 #define MyAppIcoName "Meddy2.ico"
 #define MyBlank " "
-#define TargetDir "Dest\"
+#define TargetDir "Dist\"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
