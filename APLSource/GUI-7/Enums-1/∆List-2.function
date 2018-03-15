@@ -1,3 +1,0 @@
- r←∆List;l
- l←' '~¨⍨↓⎕NL 9
- r←⊃{(⊂⍵),⊂{⍵↓⍨##.##.APLTreeUtils.dlb 1+⍵⍳'⍝'}1⊃⎕SRC⍎⍵}¨l

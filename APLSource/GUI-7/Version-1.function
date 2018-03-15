@@ -1,4 +1,0 @@
- r←Version
- ⍝ See also `History`
- :Access Public Shared
- r←APLGuiAdmin.Version
