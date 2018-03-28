@@ -18,9 +18,11 @@
          :Trap 0
              n.IE.IEobject.Document.body.innerHTML←1↓↑,/(⎕UCS 10),¨GetBody html
              ⍝ Do not attempt to change the header: does not work!
+             n.IE.IEobject.Refresh
              okay←1
          :Else
              G.IE.ShowHtml n.IE.IEobject html
+             n.IE.IEobject.Refresh
              n.IE.∆Closed←0
              okay←0
          :EndTrap

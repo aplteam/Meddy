@@ -9,5 +9,4 @@
          '↑'n.∆CommitUndoRedo noOf-⌈noOf×0.25
      :EndIf
  :EndIf
-
 ⍝Done

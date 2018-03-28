@@ -9,6 +9,7 @@
  parms.checkLinks←1
  parms←parms InjectConfigFile n.∆Filename
  parms.width←n.∆Prefs.Width
+ parms.leanpubExtensions←n.∆Prefs.LeanpubExtensions
  :If ~0∊⍴embeddedParms←⊃embeddedParms
      :If (↑⍴embeddedParms)≠ind←embeddedParms[;0]⍳⊂'screenCSS'
          parms.screenCSS←''''~⍨1⊃embeddedParms[ind;]

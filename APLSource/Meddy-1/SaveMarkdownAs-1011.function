@@ -8,6 +8,7 @@
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
      :If DoYouWantToSaveHtml n
          RefreshPreview n
+         n.∆HtmlFilename←CheckForMeddyConfigFile n
          :If 0∊⍴n.∆HtmlFilename
              n.∆HtmlFilename←(↑,/¯1↓⎕NPARTS filename),'.html'
          :EndIf

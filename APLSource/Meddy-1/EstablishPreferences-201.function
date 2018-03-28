@@ -5,6 +5,7 @@
  n.∆Prefs.Width←900
  n.∆Prefs.StyleSheet←'MarkAPL'
  n.∆Prefs.Warnings←0
+ n.∆Prefs.LeanpubExtensions←0
  regKey←n.∆globalParms.regKey,'\Preferences\'
  :For prefName :In ' '~¨⍨↓n.∆Prefs.⎕NL 2
      :Trap 11

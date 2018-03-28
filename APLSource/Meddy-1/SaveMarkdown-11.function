@@ -1,7 +1,6 @@
  {r}←SaveMarkdown n;parms;htmlFilename
  r←⍬
  :If 0∊⍴n.∆Filename
-     n.∆HtmlFilename←CheckForMeddyConfigFile n
      SaveMarkdownAs n
  :Else
      SaveText n.∆Filename n.Markdown.Text

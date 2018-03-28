@@ -1,4 +1,7 @@
  History
+⍝ * 1.5.3
+⍝   * `leanpubExtensions` can now be set in the preferences.
+⍝   * Bug fixes: #3 and #4 fixed
 ⍝ * 1.5.2
 ⍝   * Ill-defined headers could crash Meddy.
 ⍝   * Invalid embedded parameters could crash Meddy.
@@ -8,13 +11,3 @@
 ⍝   * A new document crashed.
 ⍝   * The "Export HTML" dialog did not work as intended.
 ⍝   * Invalid embedded parameters could crash Meddy.
-⍝ * 1.5.0
-⍝   * "Export HTML" now gives three opportunities: "Save always", "Save never" and "Keep asking". Same
-⍝     for the Preferences dialog.
-⍝   * When a file is opened all <tab> characters are replaced by 4 spaces.
-⍝   * F11 (View in default browser) has been moved to F10.
-⍝   * F11 is now "Toggle full-screen mode" which is standard in all browsers and many editors.
-⍝   * F6 now syncs the Preview pane with the Markdown pane and the TOC, depending on the cursor position
-⍝     in the markdown.
-⍝   * Cursor movements don't change the Preview any more: too slow and sometimes not appreciated.
-⍝   * Size and Posn of the main form are now restored at the next start when possible.
