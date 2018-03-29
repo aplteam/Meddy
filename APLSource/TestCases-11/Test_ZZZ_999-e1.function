@@ -1,24 +1,32 @@
- R←Test_ZZZ_999(stopFlag batchFlag);⎕TRAP;rf;n;v;d;f
- ⍝ Check the "Version" function and publish.config and history.txt
+ R←Test_ZZZ_999(stopFlag batchFlag);v;n;d;xml;rf;f1;f2;⎕TRAP
+ ⍝ Check the "Version" function and publish.config.
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
- rf←##.Meddy
+ rf←#._Meddy.Meddy
 
 ⍝ First we check whether "Version" returns a valid result:
  (n v d)←rf.Version
- f←~5≤⍴v
- f∨←2≠'.'+.=v
- f∨←~∧/⎕D∊⍨v~'.'
+ f1←~5≤⍴v
+ f1∨←2≠'.'+.=v
+ f1∨←~∧/⎕D∊⍨v~'.'
 
- f∨←10≠⍴d
- f∨←d[4 7+⎕IO]∨.≠'-'
- f∨←~∧/⎕D∊⍨d~'-'
+ f1∨←10≠⍴d
+ f1∨←d[4 7+⎕IO]∨.≠'-'
+ f1∨←~∧/⎕D∊⍨d~'-'
 
- :If f
+⍝ publish.config must be in line with what "Version" returns of course:
+ xml←⎕XML'flat'#.APLTreeUtils.ReadUtf8File'publish.config'
+ f2←v≢(2+⎕IO)⊃xml[xml[;1+⎕IO]⍳⊂'version';]
+ f2∨←d≢(2+⎕IO)⊃xml[xml[;1+⎕IO]⍳⊂'date';]
+
+ :If f1
      ⎕←'Result of the "Version" function is invalid.'
  :EndIf
+ :If f2
+     ⎕←'The contents of "publish.config" is not in line with "Version".'
+ :EndIf
 
- →FailsIf f
+ →FailsIf f1∨f2
 
  R←∆OK
