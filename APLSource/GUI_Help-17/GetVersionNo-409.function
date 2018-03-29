@@ -1,4 +1,0 @@
- GetVersionNo←{
-     ns←⍵
-     1⊃##.GUI.APLGuiAdmin.Version
- }

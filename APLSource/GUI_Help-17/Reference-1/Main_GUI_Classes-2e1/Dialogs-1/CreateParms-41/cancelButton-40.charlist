@@ -1,5 +1,0 @@
-# cancelButton
-
-Specify the button that is "clicked" when user presses <escape> as an integer. Defaults to the
-second button (1). Assign `¯1` to suppress this.
-

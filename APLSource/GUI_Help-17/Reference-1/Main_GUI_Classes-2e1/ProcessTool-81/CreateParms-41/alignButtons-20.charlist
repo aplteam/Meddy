@@ -1,6 +1,0 @@
-# alignButtons
-
-Defaults to `##.Enums.Align.Left`. Can be "center" or "right" instead.
-
-Overwrites global parameter if not empty.
-

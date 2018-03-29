@@ -1,5 +1,0 @@
-# namePrefix
-
-Defaults to `''`. Use this to enforce a name prefix for the TabControl, the TabButton(s) and
-SubForm(s) created by StdForm. See `Input` for an example where this is used.
-

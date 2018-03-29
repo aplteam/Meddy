@@ -1,5 +1,0 @@
-# focus
-
-By default the focus goes to the first active field. "focus" is by default empty. You can specify
-the name or a control to change the default behaviour.
-

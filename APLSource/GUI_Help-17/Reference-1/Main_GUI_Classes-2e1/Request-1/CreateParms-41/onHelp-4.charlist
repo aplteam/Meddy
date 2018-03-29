@@ -1,7 +1,0 @@
-# onHelp
-
-Callback that will be triggerd by the "Help" button. Gets "n" namespace as right argument. Must
-return a result which will be ignored. Is not executed in case of "Cancel" and "ALT+F4"
-
-For how to qualify callbacks so that they will be found see →[*.Callback_functions].
-

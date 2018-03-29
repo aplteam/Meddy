@@ -1,6 +1,0 @@
-# initialVgap
-
-The space between the top border of the Form and the first control.
-
-Defaults to `vGap` but at least `Enums.Globals.InitialVgapMinSize`.
-

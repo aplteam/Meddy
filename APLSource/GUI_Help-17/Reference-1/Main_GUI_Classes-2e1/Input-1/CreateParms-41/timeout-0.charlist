@@ -1,7 +1,0 @@
-# timeout
-
-Integer that defaults to 0 if `testMode` is 0 but 0.1 otherwise.
-
-See →[#._APLGUI.GUI_Help.Design_principles.Testing] for details although this parameter might be useful in
-other scenarios as well.
-

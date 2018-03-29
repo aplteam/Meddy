@@ -1,5 +1,0 @@
-# focusButton
-
-Defines button getting focus. Default is the first (0). Assign `¯1` to supress this. Note that many
-of the modal helpers (like `YesOrNo`) overwrite or ignore this.
-

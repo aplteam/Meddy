@@ -1,5 +1,0 @@
- folder←∆CompileFileUrl folder
-⍝ Make sure that "folder" is fully qualified
- :If ~(':'∊folder)∨'\\'≡2⍴folder
-     folder←#.FilesAndDirs.PWD,'\Help\Images\',folder
- :EndIf

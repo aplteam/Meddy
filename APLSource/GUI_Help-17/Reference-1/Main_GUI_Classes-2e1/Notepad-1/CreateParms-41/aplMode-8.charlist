@@ -1,8 +1,0 @@
-# aplMode
-
-Boolean that defaults to 0. Setting this to 1 forces `Notepad` to...
-
-* Use the font "APL385 Unicode"
-* Support the Windows keys for Cut, Copy and Paste: Shift+Del, Ctrl+Ins and Shift+Ins.
-
-

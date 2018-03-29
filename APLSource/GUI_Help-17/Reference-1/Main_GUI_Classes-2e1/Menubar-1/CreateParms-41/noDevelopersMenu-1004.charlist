@@ -1,4 +1,0 @@
-# noDevelopersMenu
-
-Defaults to 0. Use this to suppress the Developer's menu which would appear when `debug` is 1.
-

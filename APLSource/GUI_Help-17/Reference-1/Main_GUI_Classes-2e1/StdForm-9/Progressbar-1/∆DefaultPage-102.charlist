@@ -1,3 +1,0 @@
-# Progressbar related stuff
-
-This explains what methods are available to create and manipulate a progress bar owned by the form created by `StdForm`'s constructor.

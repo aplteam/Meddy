@@ -1,8 +1,0 @@
-# alarmColor
-
-Used to paint alarming messages in the status bar. This is a three-item vector (RGB color
-definition). Can be anything but 0 0 0.
-
-By default this is 250 60 0 which is quite a "loud" red. This line is styled with this color. It
-gives you an idea of why it is called "alarmcolor".
-

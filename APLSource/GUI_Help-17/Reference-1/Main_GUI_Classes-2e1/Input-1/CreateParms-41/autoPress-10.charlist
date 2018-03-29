@@ -1,7 +1,0 @@
-# autoPress
-
-Is `¯1` after any of the `CreateParms**` functions was called.
-
-Note that this will eventually default to 0 in case
-→[#._APLGUI.GUI_Help.Reference.Main_GUI_Classes.Input.CreateParms.testMode] is 0 but 0.1 otherwise.
-

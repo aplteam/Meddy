@@ -1,4 +1,0 @@
-# debug
-
-Defaults to 0. If set to 1, a special menu useful for inspection as well as editing callbacks is added.
-

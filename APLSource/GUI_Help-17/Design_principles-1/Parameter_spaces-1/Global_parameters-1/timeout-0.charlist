@@ -1,7 +1,0 @@
-# timeout
-
-Defaults to 0. How long shall a dialog wait until the default button is pressed automatically (by a timer).
-
-Note that this variables be ignored or set depending on
-→[#._APLGUI.GUI_Help.Design_principles.Parameter_spaces.Global_parameters.testMode]. See →[*.Testing] for details.
-

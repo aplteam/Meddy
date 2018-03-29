@@ -1,4 +1,0 @@
-# fixDefaultDir
-
-Boolean that defaults to 0. That this to 1 makes it impossible for the user to change the `defaultDir`.
-

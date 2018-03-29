@@ -1,5 +1,0 @@
-# The "Input" method
-
-The `Edit` method creates a Form with a Grid and allows the user to change all columns that are not
-explicitly marked as "readonly".
-

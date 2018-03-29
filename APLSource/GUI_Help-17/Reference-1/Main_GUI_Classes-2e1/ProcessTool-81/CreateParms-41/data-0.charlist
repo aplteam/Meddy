@@ -1,9 +1,0 @@
-# data
-
-Additional data that is associated with the data presented to the user but not to be displayed.
-
-Will be kept in sync by ProcessTool in case of a sort by coloumn etc.
-
-Note that this is copied over to `n.∆data` which is kept in sync when the user chnages the sequence
-of the rows etc. Therefore from a user-defined callback you need to access `n.∆data` rather than `n.∆parms.data`.
-

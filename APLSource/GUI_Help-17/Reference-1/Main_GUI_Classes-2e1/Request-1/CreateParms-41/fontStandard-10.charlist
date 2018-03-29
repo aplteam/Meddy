@@ -1,5 +1,0 @@
-# fontStandard
-
-Font assigned to the main form. Inherited by controls that do not use any of the other fonts, like
-a statusbar.
-

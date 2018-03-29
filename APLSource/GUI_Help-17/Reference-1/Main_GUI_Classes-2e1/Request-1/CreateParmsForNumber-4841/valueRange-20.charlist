@@ -1,4 +1,0 @@
-# valueRange
-
-Two element-vector specifying a min- and max value; defaults to `0 ⍬`. Set to `⍬` or `⍬ ⍬` to disable this.
-

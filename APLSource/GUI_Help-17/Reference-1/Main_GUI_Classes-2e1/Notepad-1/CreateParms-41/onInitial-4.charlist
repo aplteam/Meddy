@@ -1,6 +1,0 @@
-# onInitial
-
-Callback fns called after the GUI became visible. Useful to display a message for example.
-
-For how to qualify callbacks so that they will be found see →[*.Callback_functions].
-

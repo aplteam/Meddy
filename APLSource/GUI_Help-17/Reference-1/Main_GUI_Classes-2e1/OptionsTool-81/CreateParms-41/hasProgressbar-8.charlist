@@ -1,4 +1,0 @@
-# hasProgressbar
-
-Boolean that decides whether the form will have a progress bar or not. Defaults to 0.
-

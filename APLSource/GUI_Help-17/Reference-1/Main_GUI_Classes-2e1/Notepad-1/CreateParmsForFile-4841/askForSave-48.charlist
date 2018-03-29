@@ -1,5 +1,0 @@
-# askForSave
-
-If this is 1 (default=0) the user is asked whether he wants to "save" the (possibly changed) text.
-Note that when hasMenuItem_Save(As) is 1 that askForSave will become 1.
-

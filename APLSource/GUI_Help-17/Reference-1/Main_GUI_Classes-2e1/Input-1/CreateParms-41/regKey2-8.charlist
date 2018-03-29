@@ -1,5 +1,0 @@
-# regKey2
-
-If the global parameters specify "regKey" then, by default, "Posn" is saved: if `regKey2` is empty
-it becomes `addToCaption`. Set this to `''` in order to suppress this default behaviour.
-

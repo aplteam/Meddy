@@ -1,5 +1,0 @@
-# regKey2
-
-By default, "Posn" and "Size" are saved under `addToCaption`; when `regKey` is set this becomes the
-key. Set this to `''` in order to suppress this default behaviour.
-

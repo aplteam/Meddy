@@ -1,4 +1,0 @@
-# minSize
-
-Defaults to `⍬ ⍬` because for the DatePicker this makes no sense: it needs to be calculated dynamically.
-

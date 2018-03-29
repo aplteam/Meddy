@@ -1,4 +1,0 @@
-# statusbarMessage
-
-Boolean that decides whether the form will have a status bar or not. Defaults to 1.
-

@@ -1,8 +1,0 @@
-# Callback functions
-
-How callback functions may be specified so that they can be found by `APLGui`
-→[*.Callback_functions|was explained elsewhere].
-
-Any callback can access the currently entered data by accessing `∆Result` in the
-`n` namespace. `∆Result` has the same format as the result returnd by `Run`.
-See "→[*.The_result]" for details.

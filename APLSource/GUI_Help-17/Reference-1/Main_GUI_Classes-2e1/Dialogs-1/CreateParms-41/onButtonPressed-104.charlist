@@ -1,7 +1,0 @@
-# onButtonPressed
-
-Callback executed after the user pressed any button. Use this in tailor made adaptions to collect
-input on `n.∆results`.
-
-For how to qualify callbacks so that they will be found see →[*.Callback_functions].
-

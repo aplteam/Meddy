@@ -1,6 +1,0 @@
-# Table
-
-The `Table` class offers mainly a stand-alone table editor for SQL-like tables via the `Edit` method.
-
-However, it also contains a `Browse` method for viewing tables and a method `CreateGrid` that can be
-used to insert a grid into any Form or SubForm.

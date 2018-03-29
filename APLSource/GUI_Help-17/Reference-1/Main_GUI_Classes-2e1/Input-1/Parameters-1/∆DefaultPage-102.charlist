@@ -1,5 +1,0 @@
-# Parameters
-
-In general all parameters are documented within the classes they belong to, and `Input` is no different.
-However, some of `Input`'s parameters are quite complex and cannot be explained with just a couple of
-words. Those - rare - properties are discussed here.

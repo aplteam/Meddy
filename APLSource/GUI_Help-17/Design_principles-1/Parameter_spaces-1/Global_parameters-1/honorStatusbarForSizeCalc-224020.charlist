@@ -1,5 +1,0 @@
-# honorStatusbarForSizeCalc
-
-Boolean that defaults to 1. Take the status bar (incl. a progress bar) into account when
-calculating the size of a form.
-
