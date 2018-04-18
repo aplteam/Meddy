@@ -16,7 +16,8 @@
      :If 0=n.IE.∆Closed
      :AndIf 0=newFlag
          :Trap 0
-             ⍝ n.IE.IEobject.Refresh ⍝ This would update any images but the next line would stop working!
+             ⍝ Do not use the `Refresh` method here - won't work! Or rather, it works
+             ⍝ but the next line has then no effect any more, and it won't recover!
              n.IE.IEobject.Document.body.innerHTML←1↓↑,/(⎕UCS 10),¨GetBody html
              ⍝ Do not attempt to change the header: does not work!
              okay←1

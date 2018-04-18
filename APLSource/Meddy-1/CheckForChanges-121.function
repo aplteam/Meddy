@@ -17,8 +17,8 @@
              :EndIf
          :EndIf
          SaveText n.∆Filename n.Markdown.Text
-         :If n.∆Prefs.SaveHtml
-         :OrIf WantToSaveHtml n
+         :If 1=n.∆parms.saveHtml
+         :OrIf n WantToSaveHtml⍣(↑2=n.∆parms.saveHtml)⊣0
              RefreshPreview n
              htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
              A.WriteUtf8File htmlFilename n.HTML.Text

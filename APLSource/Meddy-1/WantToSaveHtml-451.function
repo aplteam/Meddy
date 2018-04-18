@@ -1,0 +1,5 @@
+ r←n WantToSaveHtml dummy;parms
+ parms←##.GUI.Dialogs.CreateParmsForYesOrNo
+ parms.addToCaption←'HTML'
+ r←parms n.∆globalParms ##.GUI.Dialogs.YesOrNo'Save HTML?'
+⍝Done
