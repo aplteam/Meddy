@@ -1,10 +1,10 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "1.6.2"
+#define MyAppVersion "1.6.3.2"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
-#define MyAppURL "http://github.com/aplteam/Meddy"
+#define MyAppURL "https://github.com/aplteam/Meddy"
 #define MyAppIcoName "Meddy2.ico"
 #define MyBlank " "
 #define TargetDir "Dist\"

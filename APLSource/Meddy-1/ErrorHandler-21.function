@@ -1,0 +1,6 @@
+ {r}←ErrorHandler errParms;⎕TRAP;filename
+⍝ This function will be called as "custom error handler" in case of a crash.
+ ⎕TRAP←0 'S'
+ filename←SaveMarkdownInCaseOfCrash errParms
+ r←filename TellThereWasAnError errParms
+⍝Done

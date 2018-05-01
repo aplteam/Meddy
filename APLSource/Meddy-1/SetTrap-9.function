@@ -5,9 +5,9 @@
  :EndIf
  #.ErrParms←#.HandleError.CreateParms
  :If 3=⎕NC'#.Meddy.TellThereWasAnError'
-     #.ErrParms.customFns←'#.Meddy.TellThereWasAnError'
+     #.ErrParms.customFns←'#.Meddy.ErrorHandler'
  :ElseIf 3=⎕NC'#._Meddy.Meddy.TellThereWasAnError'
-     #.ErrParms.customFns←'#._Meddy.Meddy.TellThereWasAnError'
+     #.ErrParms.customFns←'#._Meddy.Meddy.ErrorHandler'
  :Else
      . ⍝ Huuh?!
  :EndIf

@@ -1,4 +1,8 @@
  History
+⍝ * 1.6.3
+⍝   * In case of a crash Meddy now attempts to save the Markdown alog the crash files.
+⍝   * Meddy now displays proper information in "Details" as well as the Task Manager when running.
+⍝   * Bug fix: in case of a crash the component file was  created but not written to.
 ⍝ * 1.6.2
 ⍝   * Under certain circumstances an attempt to save an HTML file crashed.
 ⍝ * 1.6.1

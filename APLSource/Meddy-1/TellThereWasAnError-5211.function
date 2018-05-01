@@ -1,8 +1,12 @@
- {r}←TellThereWasAnError ErrorParmsName;msg;⎕TRAP
+ {r}←filename TellThereWasAnError ErrorParmsName;msg;⎕TRAP
  r←⍬
  ⎕TRAP←0 'S'
  msg←⊂ErrorParmsName.AppName,' has crashed'
- msg,←'' 'Please send a bug report to kai@aplteam.com'
- msg,←''('You find crash related files at ',ErrorParmsName.errorFolder)
+ msg,←'' 'Please send a bug report to kai@aplteam.com.'
+ msg,←'' 'You find crash related files at:'
+ msg,←⊂F.NormalizePath ErrorParmsName.errorFolder
+ :If ~0∊⍴filename
+     msg,←'Meddy has saved the latest version of the Markdown in that folder; see:'filename
+ :EndIf
  G.Dialogs.ShowMsg msg
 ⍝Done
