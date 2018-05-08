@@ -66,6 +66,8 @@
      ToggleFullscreenMode n
  :Case n.∆Menubar.scrollHTML
      ScrollHTML n
+ :Case n.∆Menubar.relnotes
+     ShowReleaseNotes n
  :Else
      :If menuItem∊n.∆Menubar.(cut copy paste)
          SendKeystroke n menuItem

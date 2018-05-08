@@ -46,6 +46,7 @@
 
 [Help]                                                 {help}
  Meddy's ReadMe=Ctrl+Shift+F1      : OnMenuCommand     {readme}        ; Puts Meddy's ReadMe.html on display
+ Meddy's Release Notes             : OnMenuCommand     {relnotes}      ; Puts Meddy's file ReleaseNotes.html on display
  -
  Quick intro into MarkAPL          : OnMenuCommand     {intro}         ; Basic knowledge about MarkAPL, Meddy's Markdown converter
  MarkAPL's cheat cheet=F1          : OnMenuCommand     {cheat}         ; Open MarkAPL's cheat sheet

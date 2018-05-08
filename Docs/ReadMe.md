@@ -100,8 +100,11 @@ Converting to and saving as HTML file
 
 By default when a Markdown file is saved by Meddy there is also an HTML file saved as a sibling with the same name but the extension `.html` rather than `.md`. You can change this in two ways:
 
-* In the preferences you can tell Meddy that it should always ask whether such an HTML file shall be saved or not.
-* If you don't want the HTML file to be saved as a sibling of the Markdown file then you can add a file `.Meddy` to the folder where the Markdown lives.
+* In the preferences you can tell Meddy that it should...
+  * always save an HTML file.
+  * never save an HTML file.
+  * always ask whether such an HTML file shall be saved or not.
+* If you don't want the HTML file to be saved as a sibling of the Markdown file then you can add a file `.Meddy` to the folder where the Markdown lives. In that case Meddy knows that you want to save an HTML file and ignores the prefrences.
 
   This file may contain a line like this:
 
@@ -158,5 +161,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 1.5.1      |
-| Last update | 2018-02-28 |
+| Version     | 1.6.3      |
+| Last update | 2018-05-07 |

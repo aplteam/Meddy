@@ -93,8 +93,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </div>
 <p>By default when a Markdown file is saved by Meddy there is also an HTML file saved as a sibling with the same name but the extension <code>.html</code> rather than <code>.md</code>. You can change this in two ways:</p>
 <ul>
-<li>In the preferences you can tell Meddy that it should always ask whether such an HTML file shall be saved or not.</li>
-<li>If you don't want the HTML file to be saved as a sibling of the Markdown file then you can add a file <code>.Meddy</code> to the folder where the Markdown lives.
+<li>In the preferences you can tell Meddy that it should…
+<ul>
+<li>always save an HTML file.</li>
+<li>never save an HTML file.</li>
+<li>always ask whether such an HTML file shall be saved or not.</li>
+</ul></li>
+<li>If you don't want the HTML file to be saved as a sibling of the Markdown file then you can add a file <code>.Meddy</code> to the folder where the Markdown lives. In that case Meddy knows that you want to save an HTML file and ignores the prefrences.
 <p>This file may contain a line like this:</p>
 <pre><code>outputPath = '..\'</code></pre>
 <p>This lets Meddy save the HTML file in the parent folder of the folder the Markdown file came from.</p>
@@ -146,11 +151,11 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </tr>
 <tr>
 <td>Version</td>
-<td>1.5.1</td>
+<td>1.6.3</td>
 </tr>
 <tr>
 <td>Last update</td>
-<td>2018-02-28</td>
+<td>2018-05-07</td>
 </tr>
 </tbody>
 </table>

@@ -1,24 +1,9 @@
  History
 ⍝ * 1.6.3
-⍝   * In case of a crash Meddy now attempts to save the Markdown alog the crash files.
+⍝   * In case of a crash Meddy now attempts to save the Markdown along the crash files.
+⍝   * The installer now installs a new version correctly even if an older version of Meddy
+⍝     is already installed.
+⍝   * In case Meddy finds a file .Meddy as a sibling of the Markdown file it will now
+⍝     **always** save an HTML file.
 ⍝   * Meddy now displays proper information in "Details" as well as the Task Manager when running.
-⍝   * Bug fix: in case of a crash the component file was  created but not written to.
-⍝ * 1.6.2
-⍝   * Under certain circumstances an attempt to save an HTML file crashed.
-⍝ * 1.6.1
-⍝   * Bug fix for #3 rolled back. See issue #5 for an explanation.
-⍝ * 1.6.0
-⍝   * LeanPub extension can now be set in the preferences dialog.
-⍝   * Bug fixes; see #3 and #4.
-⍝ * 1.5.3
-⍝   * `leanpubExtensions` can now be set in the preferences.
-⍝   * Bug fixes: #3 and #4 fixed
-⍝ * 1.5.2
-⍝   * Ill-defined headers could crash Meddy.
-⍝   * Invalid embedded parameters could crash Meddy.
-⍝   * License changed: is now an MIT license.
-⍝   * Sync (F6) could occasionally crash Meddy.
-⍝ * 1.5.1
-⍝   * A new document crashed.
-⍝   * The "Export HTML" dialog did not work as intended.
-⍝   * Invalid embedded parameters could crash Meddy.
+⍝   * Bug fix: in case of a crash the component file was  created but not written to the disk.
