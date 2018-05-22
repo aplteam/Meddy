@@ -13,45 +13,102 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <meta name="author" content="kai">
 </head>
 <body>
+<nav id="main_nav_no_collapse">
+<div class="toc-container">
+<h3>Table of contents</h3>
+<ul>
+<li><a href="#164">1.6.4</a></li>
+<li><a href="#163">1.6.3</a></li>
+<li><a href="#162">1.6.2</a></li>
+<li><a href="#161">1.6.1</a></li>
+<li><a href="#160">1.6.0</a></li>
+<li><a href="#153">1.5.3</a></li>
+<li><a href="#152">1.5.2</a></li>
+<li><a href="#151">1.5.1</a></li>
+<li><a href="#150">1.5.0</a></li>
+<li><a href="#142">1.4.2</a></li>
+<li><a href="#141">1.4.1</a></li>
+<li><a href="#140">1.4.0</a></li>
+<li><a href="#130">1.3.0</a></li>
+<li><a href="#120">1.2.0</a>
+</ul>
+</div>
+</nav>
 <div class="h_tag">
 <a href="#Meddy-Release-Notes" id="Meddy-Release-Notes" class="autoheader_anchor">
 <h1>Meddy Release Notes</h1>
 </a>
 </div>
+<div class="h_tag">
+<a href="#164" id="164" class="autoheader_anchor">
+<h2>1.6.4</h2>
+</a>
+</div>
 <ul>
-<li>1.6.3
+<li>In case Meddy runs out of memory it attempts to cut down the undo stack but that crashed.</li>
+<li>“ReleaseNotes.html” were not found when selected in the Help menu.</li>
+</ul>
+<div class="h_tag">
+<a href="#163" id="163" class="autoheader_anchor">
+<h2>1.6.3</h2>
+</a>
+</div>
 <ul>
 <li>In case of a crash Meddy now attempts to save the Markdown along the crash files.</li>
 <li>In case Meddy finds a file <code>.Meddy</code> as a sibling of the Markdown file it will now <strong>always</strong> save an HTML file.</li>
 <li>Meddy now displays proper information in “Details” as well as the Task Manager when running.</li>
 <li>Bug fix: in case of a crash the component file was  created but not written to the disk.</li>
-</ul></li>
-<li>1.6.2
+</ul>
+<div class="h_tag">
+<a href="#162" id="162" class="autoheader_anchor">
+<h2>1.6.2</h2>
+</a>
+</div>
 <ul>
 <li>Under certain circumstances an attempt to save an HTML file crashed.</li>
-</ul></li>
-<li>1.6.1
+</ul>
+<div class="h_tag">
+<a href="#161" id="161" class="autoheader_anchor">
+<h2>1.6.1</h2>
+</a>
+</div>
 <ul>
 <li>Bug fix for #3 rolled back. See issue #5 for an explanation.</li>
-</ul></li>
-<li>1.6.0
+</ul>
+<div class="h_tag">
+<a href="#160" id="160" class="autoheader_anchor">
+<h2>1.6.0</h2>
+</a>
+</div>
 <ul>
 <li>LeanPub extension can now be set in the preferences dialog.</li>
 <li>Bug fixes; see #3 and #4.</li>
-</ul></li>
-<li>1.5.3
+</ul>
+<div class="h_tag">
+<a href="#153" id="153" class="autoheader_anchor">
+<h2>1.5.3</h2>
+</a>
+</div>
 <ul>
 <li><code>leanpubExtensions</code> can now be set in the preferences.</li>
 <li>Bug fixes: #3 and #4 fixed</li>
-</ul></li>
-<li>1.5.2
+</ul>
+<div class="h_tag">
+<a href="#152" id="152" class="autoheader_anchor">
+<h2>1.5.2</h2>
+</a>
+</div>
 <ul>
 <li>Ill-defined headers could crash Meddy.</li>
 <li>Invalid embedded parameters could crash Meddy.</li>
 <li>License changed: is now an MIT license.</li>
 <li>Sync (F6) could occasionally crash Meddy.</li>
-</ul></li>
-<li>1.5.1
+</ul>
+<div class="h_tag">
+<a href="#151" id="151" class="autoheader_anchor">
+<h2>1.5.1</h2>
+</a>
+</div>
 <ul>
 <li>Menu restructured.</li>
 <li>Bug fixes:
@@ -61,8 +118,12 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>Invalid embedded parameters could crash Meddy.</li>
 <li>Status bar was not always reset.</li>
 </ul></li>
-</ul></li>
-<li>1.5.0
+</ul>
+<div class="h_tag">
+<a href="#150" id="150" class="autoheader_anchor">
+<h2>1.5.0</h2>
+</a>
+</div>
 <ul>
 <li>Undo/Redo improved at the expense of memory.</li>
 <li>“Export HTML” now gives three opportunities: “Save always”, “Save never” and “Keep asking”. Same for the Preferences dialog.</li>
@@ -72,8 +133,12 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>F6 now syncs the Preview pane with the Markdown pane and the TOC, depending on the cursor position in the markdown.</li>
 <li>Cursor movements don't change the Preview any more: too slow and sometimes not appreciated.</li>
 <li>Size and Posn of the main form are now restored at the next start when possible.</li>
-</ul></li>
-<li>1.4.2
+</ul>
+<div class="h_tag">
+<a href="#142" id="142" class="autoheader_anchor">
+<h2>1.4.2</h2>
+</a>
+</div>
 <ul>
 <li>The screen style sheets got improved.</li>
 <li>Updating the TOC got smarter: expanded branches remain expanded after Ctrl+S as well as F5.</li>
@@ -88,8 +153,14 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>Pressing &lt;escape&gt; in the “Replace” form crashed Meddy.</li>
 <li>KeyPress events were handled slowly due to a bug in the Undo/Redo code.</li>
 </ul></li>
-</ul></li>
-<li>1.4.1 Bug fixes
+</ul>
+<div class="h_tag">
+<a href="#141" id="141" class="autoheader_anchor">
+<h2>1.4.1</h2>
+</a>
+</div>
+<ul>
+<li>Bug fixes
 <ul>
 <li>After loading a file F5 lead to “There is no HTML file yet” even if there is one.</li>
 <li>View in default browser did not work in case the filename carried one or more blanks.</li>
@@ -102,7 +173,12 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>The TreeView (TOC) did not use an APL font yet a header might well carry APL chars.</li>
 <li>Neither “Find” nor “Replace” used “APL385 Unicode” as font.</li>
 </ul></li>
-<li>1.4.0
+</ul>
+<div class="h_tag">
+<a href="#140" id="140" class="autoheader_anchor">
+<h2>1.4.0</h2>
+</a>
+</div>
 <ul>
 <li>New command “Go to line” in the “Edit” menu.</li>
 <li>New command “Show last report” in the “Edit” menu.</li>
@@ -113,8 +189,12 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>With LeanPub extensions active and embedded into the markdown a click on the TOC did not necessarily work as expected.</li>
 <li>Embedded parameters got formatted, but not perfectly.</li>
 </ul></li>
-</ul></li>
-<li>1.3.0
+</ul>
+<div class="h_tag">
+<a href="#130" id="130" class="autoheader_anchor">
+<h2>1.3.0</h2>
+</a>
+</div>
 <ul>
 <li>New preference <code>LeanPub</code> introduced. If this is 1 (default is 0) then all the LeanPub extensions like <code>A&gt; </code>, <code>I&gt; </code>, <code>W&gt; </code> etc. are supported.</li>
 <li>New version of MarkAPL with important bug fixes.</li>
@@ -126,55 +206,46 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>“View in default browser” always complained about a missing HTML file, no matter whether is was missing or not.</li>
 <li>“Replace” without the RegEx option ticked always deleted the text that was to be replaced.</li>
 </ul></li>
-</ul></li>
-<li>1.2.0
+</ul>
+<div class="h_tag">
+<a href="#120" id="120" class="autoheader_anchor">
+<h2>1.2.0</h2>
+</a>
+</div>
 <ul>
 <li>“Replace” implemented.</li>
 <li>“Search” now offers “Ignore code blocks and/or inline code”.</li>
 <li>New command line option <code>-folder</code> introduced. Use this to specify a folder Meddy should look into in case an “Open file” command is issued.</li>
 <li>Bug fixes
 <ul>
-<li>In case MarkAPL crashes when attempting to convert the Markdown to HTML the error is trapped now in order to avoid any loss of data.</li>
+<li>In case MarkAPL crashes when attempting to convert the Markdown to HTML the error is trapped now in order to avoid any loss of data. ## 1.1.1</li>
 </ul></li>
-</ul></li>
-<li>1.1.1
-<ul>
 <li>Bug fixes:
 <ul>
 <li>Sync of Markdown with Preview and TOC stopped working.</li>
-<li>Cursor keys did not work propery in the TOC.</li>
+<li>Cursor keys did not work propery in the TOC. ## 1.1.1</li>
 </ul></li>
-</ul></li>
-<li>1.1.1
-<ul>
 <li>Bug fixes:
 <ul>
 <li>The screen position of a new instance works now as expected.</li>
 <li>KeyPress handler sped up.</li>
 <li>Undo on the current paragraph was not re-doable.</li>
-<li>Undo and Redo now get the cursor position right.</li>
+<li>Undo and Redo now get the cursor position right. ## 1.1.0</li>
 </ul></li>
-</ul></li>
-<li>1.1.0
-<ul>
-<li>Meddy now honours a file <code>.Meddy</code> that lives in the folder a Markdown file was loaded from. This can be used to specify a different output folder for the HTML file, if any.</li>
-</ul></li>
-<li>1.0.1
-<ul>
+<li>Meddy now honours a file <code>.Meddy</code> that lives in the folder a Markdown file was loaded from. This can be used to specify a different output folder for the HTML file, if any. ## 1.0.1</li>
 <li>Version 1.0.0 did not open markdown files with a double-click in Windows Explorer.</li>
 <li>“Close”, “New” etc. are now supported.</li>
 <li>Confirmation for saving HTML now defaults to “No”.</li>
 <li>“Width” for preview can now be defined in preferences.</li>
-<li>Additional CSS files (“Classic” theme) added.</li>
+<li>Additional CSS files (“Classic” theme) added.
+<ul>
 <li>Bug fixes:
 <ul>
 <li>Undo did not always work as expected.</li>
 <li>&lt;Tab&gt; key now inserts 4 blanks at the current cursor position.</li>
-<li>Keys that do not actually produce a key deleted the character to the left of the cursor.</li>
+<li>Keys that do not actually produce a key deleted the character to the left of the cursor. ## 1.0.0</li>
 </ul></li>
 </ul></li>
-<li>1.0.0
-<ul>
 <li>“Open”, “New”  and “RecenFiles” start a new instance of Meddy now.</li>
 <li>F2=“Previous hit” implemented.</li>
 <li>The main GUI now allows to drag a single file onto the Markdown area as long as no document is opened/created.</li>
@@ -187,7 +258,6 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>Statusbar background colour problem fixed.</li>
 <li>“Save as” now looks into the folder the document came from.</li>
 <li>Links to external URLs weren';t handled correctly.</li>
-</ul></li>
 </ul></li>
 </ul>
 </body>

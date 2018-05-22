@@ -6,7 +6,7 @@
  :If noOf≢'?'n.∆CommitUndoRedo ⎕NULL
      n.∆LastSelText←n.Markdown.SelText
      :If 6>⌊⎕WA÷1000000 ⍝ Just 5MB memory left?!
-         '↑'n.∆CommitUndoRedo noOf-⌈noOf×0.25
+         ⎕←⍴'↑'n.∆CommitUndoRedo 1⊃noOf-⌈noOf×0.25
      :EndIf
  :EndIf
 ⍝Done
