@@ -1,7 +1,14 @@
-[parm]:toc = 2 2
+[parm]:toc            = 2 2
+[parm]:collapsibleTOC = 1
+
 
 
 # Meddy Release Notes
+
+## 1.6.5
+* Fixed bugs:
+  * Selecting "HTML Export" from the "File" menu crashed Meddy. This was due to a missing CSS file.
+  * Closing an empty unchanged new document sometimes led to the question whether it should be saved.
 
 ## 1.6.4
 * In case Meddy runs out of memory it attempts to cut down the undo stack but that crashed.

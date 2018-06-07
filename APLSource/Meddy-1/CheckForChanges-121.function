@@ -2,7 +2,7 @@
 ⍝ `carryOnFlag` gets 1 in case the user cancels the whole operation
  carryOnFlag←0
  :If 0<n.Markdown.⎕NC'∆LastSavedVersion'
- :AndIf (,n.Markdown.∆LastSavedVersion)≢n.Markdown.Text
+ :AndIf (∊n.Markdown.∆LastSavedVersion)≢∊n.Markdown.Text
      parms←G.Dialogs.CreateParmsForYesNoCancel
      parms.addToCaption←'Close document'
      parms.(hasStatusbar hasProgressbar)←0

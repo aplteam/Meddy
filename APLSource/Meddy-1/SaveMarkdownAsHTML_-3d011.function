@@ -2,6 +2,8 @@
  parms←##.MarkAPL.CreateParms
  parms.verbose←0
  parms.createFullHtmlPage←n.FullHtmlDocument.State
+ parms.screenCSS,⍨←'CSS/'
+ parms.printCSS,⍨←'CSS/'
  #.CursorObj←1
  (html ns)←parms ##.MarkAPL.Markdown2HTML,n.Markdown.Text
  #.CursorObj←0
