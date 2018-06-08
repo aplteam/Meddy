@@ -4,5 +4,6 @@
      msg←'Sorry, this file does not exist:' ''filename
      parms←G.Dialogs.CreateParmsForShowMsg
      parms.addToCaption←'Open file'
+     parms.parent←n.∆Form
      n.∆globalParms parms G.Dialogs.ShowMsg msg
  }

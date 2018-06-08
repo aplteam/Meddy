@@ -2,6 +2,7 @@
  r←⍬
  parms←G.Dialogs.CreateParmsForShowMsg
  parms.addToCaption←'View HTML in default browser'
+ parms.parent←n.∆Form
  msg←'The Markdown and the HTML are not in sync right now.' 'First save the Markdown then try again.'
  n.∆globalParms parms G.Dialogs.ShowMsg msg
 ⍝Done

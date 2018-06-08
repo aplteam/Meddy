@@ -22,6 +22,6 @@
      :EndIf
  :Else
      r←¯1
-     TellRegExError ⍬
+     TellRegExError n
  :EndTrap
 ⍝Done

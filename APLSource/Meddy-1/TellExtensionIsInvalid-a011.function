@@ -3,5 +3,6 @@
      msg←'Please make sure that the file extension is one of:' '  .md' '  .markdown'
      parms←G.Dialogs.CreateParmsForShowMsg
      parms.addToCaption←'Save Markdown file'
+     parms.parent←n.∆Form
      n.∆globalParms parms G.Dialogs.ShowMsg msg
  }

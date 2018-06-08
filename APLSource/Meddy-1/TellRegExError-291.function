@@ -1,9 +1,10 @@
- {r}←TellRegExError dummy;parms;msg
+ {r}←TellRegExError n;parms;msg
  r←⍬
  parms←G.Dialogs.CreateParmsForShowMsg
  parms.addToCaption←'RegEx error'
- parms.style←G.EnumDialogStyles.Error
+ parms.style←G.Enums.DialogStyles.Error
  parms.(hasProgressbar hasStatusbar)←0
+ parms.parent←n.∆Form
  msg←⊂'Sorry, but the regular expression caused an error:'
  msg,←''⎕DMX.Message
  {}n.∆globalParms parms G.Dialogs.ShowMsg msg

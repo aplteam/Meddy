@@ -5,6 +5,7 @@
  parms.onInitial←'AdjustFindFormSize'
  parms.onOkay←'OnHandleFindInMarkdown'
  parms.okBtnCaption←'Find'
+ parms.parent←n.∆Form
  DT←G.Enums.InputDataTypes
  def←0 7⍴⍬
  def⍪←'&Search_for' ''n.∆Find.SearchFor DT.Character 40 1 1

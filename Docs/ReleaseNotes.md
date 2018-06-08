@@ -5,6 +5,11 @@
 
 # Meddy Release Notes
 
+## 1.6.6
+* Bug fixes:
+  * Meddy crashed in case an invalid RegEx was entered.
+  * Some sub dialogs were not children of the main form but should. (Find, Replace,...)
+
 ## 1.6.5
 * Fixed bugs:
   * Selecting "HTML Export" from the "File" menu crashed Meddy. This was due to a missing CSS file.

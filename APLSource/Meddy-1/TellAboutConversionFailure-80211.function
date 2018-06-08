@@ -1,8 +1,9 @@
- {r}←TellAboutConversionFailure n;parms;msg
+ {r}←TellAboutConversionFailure n;msg;parms
  r←⍬
  #.CursorObj←0
  parms←G.Dialogs.CreateParmsForShowMsg
  parms.addToCaption←'Conversion error'
+ parms.parent←n.∆Form
  msg←'Converting the markdown into HTML failed.' '',⊂↑⎕DMX.DM
  n.∆globalParms parms G.Dialogs.ShowMsg msg
 ⍝Done
