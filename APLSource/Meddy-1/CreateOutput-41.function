@@ -12,6 +12,7 @@
      ∆,←⊂'VScroll' ¯1
      ∆,←⊂'Style' 'Multi'
      ∆,←⊂'FontObj'n.FontStd
+     ∆,←⊂'Border' 0
      n.HTML←parent.⎕NEW'Edit'∆
      n.HTML.Text←'' ⍝ Otherwise it's a matrix
      n.HTML.Coord←'Pixel'

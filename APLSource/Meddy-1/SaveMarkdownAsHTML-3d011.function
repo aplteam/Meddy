@@ -14,5 +14,8 @@
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0∊⍴⍵:'.html' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
      SaveMarkdownAsHTML_ n filename
      n.∆HtmlFilename←filename
+     :If ~askFlag
+         WriteToStatusbar n('HTML saved: ',filename)
+     :EndIf
  :EndIf
 ⍝Done

@@ -8,6 +8,7 @@
      ∆,←⊂'Posn'(0 0)
      ∆,←⊂'Size'(100 100)
      ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+     ∆,←⊂'Border' 0
      n.SF←parent.⎕NEW⊂'SubForm'
 
      n.SF.Coord←'Pixel'

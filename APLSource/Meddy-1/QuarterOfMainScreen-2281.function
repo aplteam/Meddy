@@ -1,0 +1,3 @@
+ r←QuarterOfMainScreen
+ 'f'⎕WC'Form'('Coord' 'Pixel')('Visible' 0)
+ r←f.Size

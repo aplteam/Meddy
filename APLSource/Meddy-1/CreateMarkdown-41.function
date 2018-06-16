@@ -14,11 +14,12 @@
      ∆,←⊂'FontObj'n.FontAPL
      ∆,←⊂'TipObj'n.Tip
      ∆,←⊂'Tip'('Enter Markdown into this area; press F5 in order to update the preview')
+     ∆,←⊂'Border' 0
      n.Markdown←parent.⎕NEW'Edit'∆
      n.Markdown.Text←'' ⍝ Otherwise it's a matrix!
      n.Markdown.Coord←'Pixel'
-     n.Markdown.Posn[1]+←5
-     n.Markdown.Size[1]-←5
+     n.Markdown.Posn[1]←n.Markdown.Posn[1]+5
+     n.Markdown.Size[1]←10⌈n.Markdown.Size[1]-5
      n.Markdown.onContextMenu←'OnContextMenuInMarkdown'
      n.Markdown.onKeyPress←'OnKeyPressInMarkdown'n
      n.Markdown.onMouseUp←'OnMouseUpInMarkdown'

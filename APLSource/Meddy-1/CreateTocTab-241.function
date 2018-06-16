@@ -9,6 +9,8 @@
      ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
      ∆,←⊂'FontObj'n.FontAPL
      ∆,←⊂'FullRowSelect' 1
+     ∆,←⊂'EdgeStyle' 'None'
+     ∆,←⊂'Border' 0
      n.Toc←parent.⎕NEW'TreeView'∆
      n.Toc.onItemUp←'OnHeaderSelected'
      n.Toc.onKeyPress←'OnKeyPressInTOC'

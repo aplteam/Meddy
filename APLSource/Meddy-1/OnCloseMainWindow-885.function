@@ -1,9 +1,9 @@
  flag←OnCloseMainWindow n;what;q
  flag←CheckForChanges n
  :If ~flag
-     {}SaveSplitterPosn n
+⍝     {}SaveSplitterPosn n
      {}SaveFontSize n
-     {}SavePosnAndSize n
+⍝     {}SavePosnAndSize n
  :EndIf
  UnloadWebBrowserControl ⍬
  flag←~flag
