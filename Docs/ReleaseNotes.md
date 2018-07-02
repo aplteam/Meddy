@@ -7,6 +7,11 @@
 # Meddy Release Notes
 
 
+* 1.6.8
+
+  * New version of MarkAPL integrated.
+  * Bug fixe: a new version of MarkAPL put into the dedicated folders made Meddy crash.    
+  
 * 1.6.7
 
   * Bug fixes:
