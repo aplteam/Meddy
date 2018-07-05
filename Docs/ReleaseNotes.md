@@ -3,17 +3,17 @@
 [parm]:numberHeaders  = 0
 
 
-
-# Meddy Release Notes
-
+Meddy Release Notes
+===================
 
 * 1.6.8
+  * Just a new version of MarkAPL. No other changes.
 
+* 1.6.8
   * New version of MarkAPL integrated.
   * Bug fixe: a new version of MarkAPL put into the dedicated folders made Meddy crash.    
   
 * 1.6.7
-
   * Bug fixes:
     * On some machines (very rare) some Registry keys were reported as not defined although they were.
       Meddy now takes default values in case the Registry fails to cooperate.
