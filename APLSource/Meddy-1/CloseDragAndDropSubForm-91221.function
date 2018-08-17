@@ -1,5 +1,6 @@
  CloseDragAndDropSubForm←{
      n←⍵
+     6::n
      n.DragAndDrop.AcceptFiles←0
      n.DragAndDrop.Size←0 0
      n.DragAndDrop.Active←0

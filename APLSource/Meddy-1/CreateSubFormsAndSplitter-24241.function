@@ -10,23 +10,13 @@
 
  ∆←''
  ∆,←⊂'Coord' 'Prop'
- ∆,←⊂'Size'(100 40)
+ ∆,←⊂'Size'(100 80)
  ∆,←⊂'Posn'(0 21)
- ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
- n.Left←n.∆Form.⎕NEW'SubForm'∆
-
- ∆←''
- ∆,←⊂'Coord' 'Prop'
- ∆,←⊂'Size'(100 40)
- ∆,←⊂'Posn'(0 61)
- ∆,←⊂'Attach'('Top' 'Right' 'Bottom' 'Right')
- n.Right←n.∆Form.⎕NEW'SubForm'∆
-
- n.(TocSF Left Right).(Active Visible)←flag
+ n.LeftAndRight←n.∆Form.⎕NEW'SubForm'∆
 
  ∆←''
  ∆,←⊂'SplitObj1'n.TocSF
- ∆,←⊂'SplitObj2'n.Right
+ ∆,←⊂'SplitObj2'n.LeftAndRight
  ∆,←⊂'Align' 'Left'
  ∆,←⊂'Visible' 0
  ∆,←⊂'BCol'(3⍴160)
@@ -37,14 +27,28 @@
  n.Splitter1.Size←⍬ 5
 
  ∆←''
+ ∆,←⊂'Coord' 'Prop'
+ ∆,←⊂'Size'(100 40)
+ ∆,←⊂'Posn'(0 0)
+ n.Left←n.LeftAndRight.⎕NEW'SubForm'∆
+
+ ∆←''
+ ∆,←⊂'Coord' 'Prop'
+ ∆,←⊂'Size'(100 50)
+ ∆,←⊂'Posn'(0 51)
+ n.Right←n.LeftAndRight.⎕NEW'SubForm'∆
+
+ n.(TocSF Left Right).(Active Visible)←flag
+
+ ∆←''
  ∆,←⊂'SplitObj1'n.Left
  ∆,←⊂'SplitObj2'n.Right
- ∆,←⊂'Align' 'Right'
+ ∆,←⊂'Align' 'None'
  ∆,←⊂'Visible' 0
  ∆,←⊂'BCol'n.Splitter1.BCol
- n.Splitter2←n.∆Form.⎕NEW'Splitter'∆
+ n.Splitter2←n.LeftAndRight.⎕NEW'Splitter'∆
  n.Splitter2.Coord←'Prop'
- n.Splitter2.Posn[1]←60
+ n.Splitter2.Posn[1]←50
  n.Splitter2.Coord←'Pixel'
  n.Splitter2.Size←⍬ 5
 

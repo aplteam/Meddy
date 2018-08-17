@@ -12,7 +12,12 @@
  parms.hasProgressbar←1
  parms.size←QuarterOfMainScreen
  n←n G.StdForm.Create n.∆globalParms parms
+  ⍝TODO⍝
+ n.∆Form.Posn←45 20
+ n.∆Form.Size-←0 80
+  ⍝TODO⍝
  n.∆Form.on9999←'On9999'n
+⍝⍝ n.∆Form.onConfigure←'OnConfigure'   ⍝ For debugging purposes only
  n←AddStatusbarFields n
  n←CreateTip n
  n.∆Menubar←G.Menubar.Create n.∆Form ∆Menu''(⎕NEW G.KeyCodes)

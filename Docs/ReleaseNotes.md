@@ -6,7 +6,12 @@
 Meddy Release Notes
 ===================
 
-* 1.6.8
+* 1.6.10
+  * Operating the second Splitter sometimes caused Meddy to crash.
+  * The second splitter now behaves more appropriately.
+  * `History` now just prints `]notepad <filename>` to the session.
+
+* 1.6.9
   * Just a new version of MarkAPL. No other changes.
 
 * 1.6.8
