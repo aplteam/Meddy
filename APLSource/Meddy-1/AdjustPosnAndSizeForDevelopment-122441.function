@@ -1,0 +1,5 @@
+ {r}←AdjustPosnAndSizeForDevelopment n
+ r←⍬
+ n.∆Form.Posn←55 25
+ n.∆Form.Size-←0 70
+⍝Done

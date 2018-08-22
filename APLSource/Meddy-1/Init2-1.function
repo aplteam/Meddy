@@ -1,4 +1,4 @@
- n←{changeFlag}Init2 n;msg;parms
+ n←{changeFlag}Init2 n;msg;parms;buffer
 ⍝ These are the statements that need to run again in case the INI file gets changed while the app is running.
 ⍝ Therefore they are separated in this function which is called early in `Run-Init` and again later in case
 ⍝ of a change.
@@ -11,5 +11,12 @@
      parms G.Dialogs.ShowMsg msg
      Off 1
  :EndIf
- n.∆INI←GetIniFile ⍬
+ n.∆INI←GetIniFile'app.ini'
+
+ n.∆SpecialChars←⍬
+ :If F.IsFile'specialchars.ini'
+     buffer←GetIniFile'specialchars.ini'
+ :AndIf buffer.Exist'Chars'
+     n.∆SpecialChars←buffer.Get'Chars'⍬
+ :EndIf
 ⍝Done

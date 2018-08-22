@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "1.6.9.42"
+#define MyAppVersion "1.7.0.61"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -68,6 +68,7 @@ Source: "{#MyAppExeName}"; DestDir: "{app}";
 Source: "ReadMe.html"; DestDir: "{app}";
 Source: "Meddy2.ico"; DestDir: "{app}";
 Source: "app.ini.remove_me"; DestDir: "{app}"; DestName:"app.ini"; Flags: onlyifdoesntexist;
+Source: "specialchars.ini.remove_me"; DestDir: "{app}"; DestName:"specialchars.ini"; Flags: onlyifdoesntexist;
 Source: {#MyAppIcoName}; DestDir: "{app}";
 Source: "C:\Windows\Fonts\apl385.ttf"; DestDir: "{fonts}"; FontInstall: "APL385 Unicode"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "ReleaseNotes.html"; DestDir: "{app}";

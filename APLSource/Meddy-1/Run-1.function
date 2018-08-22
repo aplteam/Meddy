@@ -5,7 +5,7 @@
  EnableCONTINUE_workspaces ⍬
  'This application requires to run under Dyalog''s 32 bit version'⎕SIGNAL 11/⍨∨/'-64'⍷↑#.APLVersion
  'This application requires to run under at least Dyalog 16.0'⎕SIGNAL 11/⍨16>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'#.APLTreeUtils.Split ⍵)÷1 10}1⊃#.APLVersion
- ⍝AllowRide_ 4599 1
+⍝⍝ AllowRide_ 4599 1
  {}2035⌶'ScaledPixel'
  #.⎕SHADOW'ErrParms'
  ⎕TRAP←#.HandleError.SetTrap ⍬

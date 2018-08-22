@@ -1,0 +1,9 @@
+ OnSpecialCharacter←{
+     n←⍺
+     rowCol←⍵[6 7]
+     1≠rowCol⌷n.SpecialChars.CellTypes:0
+     char←rowCol⌷n.SpecialChars.Values
+     _←2 ⎕NQ n.∆n.Markdown'KeyPress'char
+     _←⎕NQ n.∆n.Markdown'GotFocus'
+     0
+ }

@@ -1,0 +1,20 @@
+ {r}←CreateSpecialCharGUI n;n2;∆
+ r←⍬
+ n2←⎕NS''
+ ∆←''
+ ∆,←⊂'Posn'(n.∆Form.Posn+¯8 70)
+ ∆,←⊂'Coord' 'Pixel'
+ ∆,←⊂'Caption'('Meddy: special chars')
+ n2.∆Form←n.∆Form.⎕NEW'Form'∆
+ n2.∆Form.onClose←'OnCloseSpecialChars'
+ n2.∆Font←n2.∆Form.⎕NEW'Font'(⊂('PName' 'APL385 Unicode'))
+ n2.∆Font.Size←⌊0.75×n2.∆Font.Size
+ n2.∆Form.FontObj←n2.∆Font
+ n2←CreateSpecialCharGrid n n2
+ n2.∆Form.Size[0]←n2.SpecialChars.Size[0]
+ n2.∆Form.Size[1]←+/n2.SpecialChars.CellWidths
+ n2.∆n←n
+ n2.(∆Form SpecialChars).onKeyPress←⊂'OnKeyPressInSpecialChar'
+ n.∆SpecialCharsForm←n2.∆Form
+ n.∆n2←n2
+⍝Done

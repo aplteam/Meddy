@@ -6,10 +6,21 @@
 Meddy Release Notes
 ===================
 
-* 1.6.10
-  * Operating the second Splitter sometimes caused Meddy to crash.
-  * The second splitter now behaves more appropriately.
-  * `History` now just prints `]notepad <filename>` to the session.
+* 1.7.0
+  * Meddy now checks for an (optional) INI files `specialchars.ini`. If it does exist
+    it is assigned to `n.∆SpecialChars` which is otherwise `⍬`. See the `ReadMe.md` for
+	details.
+	
+	The special characters defined in that INI file can then be accessed via the newly introduced
+	menu command _Edit > Insert special character_.
+	
+	This is a neccessary measure against Dyalog's "Edit" control being oblivious towards any
+	Alt+{Num} key combination, meaning that one **cannot** enter any Unicode characters. Once 
+	Dyalog starts supporting this (if ever) we can get rid of this.	
+  * Bug fixes
+    * Operating the second Splitter sometimes caused Meddy to crash.
+    * The second splitter now behaves more appropriately.
+    * `History` now just prints `]notepad <filename>` to the session.
 
 * 1.6.9
   * Just a new version of MarkAPL. No other changes.

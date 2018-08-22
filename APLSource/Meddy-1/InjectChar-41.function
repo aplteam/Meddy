@@ -1,0 +1,6 @@
+ {r}←InjectChar n;n2
+ r←⍬
+ :If n.∆SpecialCharsForm≡⍬
+     {}CreateSpecialCharGUI&n
+ :EndIf
+⍝Done

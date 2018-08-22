@@ -121,6 +121,29 @@ By default when a Markdown file is saved by Meddy there is also an HTML file sav
   ~~~
 
 
+The (optional) INI file "specialchars.ini"
+------------------------------------------
+
+This INI file may or may not exist. By default it does exist and looks like this:
+
+```
+[CHARS]
+Umlaute        = ''
+Umlaute        ,= 'äöü'
+Umlaute        ,= 'ÄÖÜ'
+Umlaute        ,= 'ß'
+
+Currency    = ''
+Currency    ,= '$£€¥'
+```
+
+If there is such an INI file and it carries meaningful contents then a menu command "Inject special char" becomes available.
+
+When this menu command is selected all special characters are put on view, and the user may inject any of them into the markdown document at the cursor position by simply clicking at them.
+
+This is a --- possibly temporary --- measure necessary because Dyalog's "Edit" control do not allow entering Unicode symbols by pressing <Alt> with a certain numeric code.
+
+
 Update MarkAPL
 -------------
 
@@ -161,5 +184,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 1.6.9      |
+| Version     | 1.7.0      |
 | Last update | 2018-08-17 |

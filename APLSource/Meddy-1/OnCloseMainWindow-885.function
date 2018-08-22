@@ -6,5 +6,8 @@
 ⍝     {}SavePosnAndSize n
  :EndIf
  UnloadWebBrowserControl ⍬
+ :If n.∆SpecialCharsForm≢⍬
+     {}{0::⍬ ⋄ 2 ⎕NQ ⍵'Close'}n.∆SpecialCharsForm
+ :EndIf
  flag←~flag
 ⍝Done

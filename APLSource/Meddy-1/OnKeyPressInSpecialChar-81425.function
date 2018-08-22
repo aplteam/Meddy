@@ -1,0 +1,9 @@
+ OnKeyPressInSpecialChar←{
+     (rf key)←⍵[0 2]
+     flag←~(⊂key)∊'EP' 'F28'
+     flag∧←⍵[3 4 5]≢0 115 4
+     flag:0     ⍝ Ignore all but Alt+F4, Ctrl+F4 and Escape'
+     _←{0::⍬ ⋄ 2 ⎕NQ ⍵'Close'}rf
+     _←{0::⍬ ⋄ 2 ⎕NQ ⍵'Close'}rf.##
+     0
+ }

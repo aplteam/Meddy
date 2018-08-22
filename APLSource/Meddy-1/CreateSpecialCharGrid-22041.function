@@ -1,0 +1,18 @@
+ {n}←CreateSpecialCharGrid(parent n);∆
+ ∆←''
+ ∆,←⊂'Posn'(0 0)
+ ∆,←⊂'Values'(⍉⍪↑,/(⊂¨(↑↓⍉parent.∆SpecialChars),¨':'),¨{↑,/⍵}¨1⊃↓⍉parent.∆SpecialChars)
+ ∆,←⊂'TitleHeight' 0
+ ∆,←⊂'RowTitles' ''
+ ∆,←⊂'VScroll' 0
+ ∆,←⊂'HScroll' 0
+ ∆,←⊂'BCol'((0)(3⍴200))
+ ∆,←⊂'Attach'(4⍴'Top' 'Left')
+ n.SpecialChars←n.∆Form.⎕NEW'Grid'∆
+ {}{n.SpecialChars.SetColSize ⍵ ¯3}¨⍳1+1⊃⍴n.SpecialChars.Values    ⍝TODO⍝ one day 1+ can be removed (<01545>)
+ n.SpecialChars.SetColSize ¯1 0                     ⍝  We don't want a row title
+ n.SpecialChars.Size[0]←n.∆Form.FontObj.Size+6
+ n.SpecialChars.CellTypes←,[-0.5]{∊⍵⍴¨(⍴⍵)⍴2 1}∊1,¨⍴¨∊¨parent.∆SpecialChars[;1]
+ n.SpecialChars.onCellUp←'OnSpecialCharacter'n
+ parent.∆SpecialCharsForm←n.∆Form
+⍝Done

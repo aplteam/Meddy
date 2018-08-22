@@ -12,16 +12,16 @@
  parms.hasProgressbar←1
  parms.size←QuarterOfMainScreen
  n←n G.StdForm.Create n.∆globalParms parms
-  ⍝TODO⍝
- n.∆Form.Posn←45 20
- n.∆Form.Size-←0 80
-  ⍝TODO⍝
  n.∆Form.on9999←'On9999'n
 ⍝⍝ n.∆Form.onConfigure←'OnConfigure'   ⍝ For debugging purposes only
  n←AddStatusbarFields n
  n←CreateTip n
+⍝⍝ AdjustPosnAndSizeForDevelopment n
  n.∆Menubar←G.Menubar.Create n.∆Form ∆Menu''(⎕NEW G.KeyCodes)
  n.∆Menubar.∆EditCommands←n.∆Menubar.(cut copy paste selectall clear)
+ :If n.∆SpecialChars≡⍬
+     2 ⎕NQ n.∆Menubar.injectChar'Close'
+ :EndIf
  n←HandleLetsCrash n
  {}AddRecentFilesFromWindowsRegistry n n.∆Menubar.recent
  n←CreateToolControl n
@@ -35,5 +35,6 @@
  n.∆HtmlFilename←n.∆Filename←''
  n.(Toc Markdown HTML).onMouseWheel←⊂'OnMouseWheel'
  n←CreateDragAndDrop n
+ n.∆SpecialCharsForm←⍬
  1 ⎕NQ n.∆Form'Configure',n.∆Form.Posn,(n.∆Form.Size+1 0)
 ⍝Done

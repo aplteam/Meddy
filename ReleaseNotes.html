@@ -33,11 +33,17 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </a>
 </div>
 <ul>
-<li>1.6.10
+<li>1.7.0
+<ul>
+<li>Meddy now checks for an (optional) INI files <code>specialchars.ini</code>. If it does exist it is assigned to <code>n.∆SpecialChars</code> which is otherwise <code>⍬</code>. See the <code>ReadMe.md</code> for details.
+<p>The special characters defined in that INI file can then be accessed via the newly introduced     menu command <em>Edit &gt; Insert special character</em>.</p>
+<p>This is a neccessary measure against Dyalog's “Edit” control being oblivious towards any     Alt+{Num} key combination, meaning that one <strong>cannot</strong> enter any Unicode characters. Once     Dyalog starts supporting this we can get rid of this.</p></li>
+<li>Bug fixes
 <ul>
 <li>Operating the second Splitter sometimes caused Meddy to crash.</li>
 <li>The second splitter now behaves more appropriately.</li>
 <li><code>History</code> now just prints <code>]notepad &lt;filename&gt;</code> to the session.</li>
+</ul></li>
 </ul></li>
 <li>1.6.9
 <ul>

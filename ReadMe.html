@@ -107,8 +107,25 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <pre><code>outputPath = 'C:\My_HTML'</code></pre></li>
 </ul>
 <div class="h_tag">
+<a href="#The--INI-file-specialcharsini" id="The--INI-file-specialcharsini" class="autoheader_anchor">
+<h2>6. The (optional) INI file “specialchars.ini”</h2>
+</a>
+</div>
+<p>This INI file may or may not exist. By default it does exist and looks like this:</p>
+<pre><code>[CHARS]
+Umlaute        = ''
+Umlaute        ,= 'äöü'
+Umlaute        ,= 'ÄÖÜ'
+Umlaute        ,= 'ß'
+
+Currency    = ''
+Currency    ,= '$£€¥'</code></pre>
+<p>If there is such an INI file and it carries meaningful contents then a menu command “Inject special char” becomes available.</p>
+<p>When this menu command is selected all special characters are put on view, and the user may inject any of them into the markdown document at the cursor position by simply clicking at them.</p>
+<p>This is a — possibly temporary — measure necessary because Dyalog's “Edit” control do not allow entering Unicode symbols by pressing &lt;Alt&gt; with a certain numeric code.</p>
+<div class="h_tag">
 <a href="#Update-MarkAPL" id="Update-MarkAPL" class="autoheader_anchor">
-<h2>6. Update MarkAPL</h2>
+<h2>7. Update MarkAPL</h2>
 </a>
 </div>
 <p>Meddy comes with a particular version of <code>MarkAPL.dyalog</code>.</p>
@@ -121,7 +138,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>You can find out which version of MarkAPL Meddy is currently using via the “About” command from the “Help” menu.</p>
 <div class="h_tag">
 <a href="#Bugs" id="Bugs" class="autoheader_anchor">
-<h2>7. Bugs</h2>
+<h2>8. Bugs</h2>
 </a>
 </div>
 <p>Send a bug report to <a href="mailto:kai@aplteam.com" class="mailto_link">kai@aplteam.com</a>. Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious (it might well be for you but not necessarily for somebody else).</p>
@@ -132,13 +149,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </ul>
 <div class="h_tag">
 <a href="#Feature-requests" id="Feature-requests" class="autoheader_anchor">
-<h2>8. Feature requests</h2>
+<h2>9. Feature requests</h2>
 </a>
 </div>
 <p>Send an email to <a href="mailto:kai@aplteam.com" class="mailto_link">kai@aplteam.com</a> to voice your opinion.</p>
 <div class="h_tag">
 <a href="#Misc" id="Misc" class="autoheader_anchor">
-<h2>9. Misc</h2>
+<h2>10. Misc</h2>
 </a>
 </div>
 <p>Meddy is free software. It may be distributed freely but must not be sold. Also, the code of the application must not be re-engineered and/or used for other purposes.</p>
@@ -151,7 +168,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </tr>
 <tr>
 <td>Version</td>
-<td>1.6.9</td>
+<td>1.7.0</td>
 </tr>
 <tr>
 <td>Last update</td>

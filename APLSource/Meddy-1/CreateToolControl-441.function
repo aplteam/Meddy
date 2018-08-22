@@ -1,7 +1,6 @@
  n←CreateToolControl n;∆;properSizes
  n.ToolControl←n.∆Form.⎕NEW⊂'ToolBar'
  n.ToolControl.Posn←5 5
-
  ∆←''
  ∆,←⊂'Style' 'Check'
  ∆,←⊂'Caption' 'Produce full HTML &document'

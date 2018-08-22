@@ -1,0 +1,6 @@
+ CloseSpecialCharsGui←{
+     n←⍵
+     _←{0::⍬ ⋄ ⍬⊣⍵.Close}n.∆SpecialCharsForm
+     n.∆SpecialCharsForm←⍬
+     1:r←⍬
+ }

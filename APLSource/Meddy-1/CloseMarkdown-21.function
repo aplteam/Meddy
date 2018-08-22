@@ -1,6 +1,7 @@
  {r}←CloseMarkdown n
  r←⍬
  :If 0=CheckForChanges n
+     CloseSpecialCharsGui n
      ToggleControlsAndCommands n 0
      :If 0≠n.⎕NC'∆LastSplitter1Posn'
      :AndIf ~0∊⍴n.∆LastSplitter1Posn
