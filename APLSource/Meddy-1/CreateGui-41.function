@@ -16,7 +16,9 @@
 ⍝⍝ n.∆Form.onConfigure←'OnConfigure'   ⍝ For debugging purposes only
  n←AddStatusbarFields n
  n←CreateTip n
-⍝⍝ AdjustPosnAndSizeForDevelopment n
+ :If 1
+     AdjustPosnAndSizeForDevelopment n
+ :EndIf
  n.∆Menubar←G.Menubar.Create n.∆Form ∆Menu''(⎕NEW G.KeyCodes)
  n.∆Menubar.∆EditCommands←n.∆Menubar.(cut copy paste selectall clear)
  :If n.∆SpecialChars≡⍬
@@ -24,6 +26,7 @@
  :EndIf
  n←HandleLetsCrash n
  {}AddRecentFilesFromWindowsRegistry n n.∆Menubar.recent
+ n←CreateSpecialCharGrid n
  n←CreateToolControl n
  n←CreateSubFormsAndSplitter n
  n←CreateTocTab n

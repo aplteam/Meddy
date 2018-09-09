@@ -1,0 +1,9 @@
+ OnInjectSpecialChars(n menuitem)
+ :If 0=n.⎕NC'∆SpecialCharsForm'
+     n.∆SpecialCharsForm←⍬
+ :EndIf
+ :If 0=n.⎕NC'∆SpecialChars'
+     n.∆SpecialChars←n.∆Form.##.n.∆SpecialChars
+ :EndIf
+ {}InjectChar n
+⍝Done

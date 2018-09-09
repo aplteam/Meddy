@@ -1,0 +1,6 @@
+ OnSpecialCharacterInFindOfFindAndReplace←{
+     n←⍺
+     rowCol←⍵[6 7]
+     InjectSpecialChar n xx rowCol
+     0
+ }

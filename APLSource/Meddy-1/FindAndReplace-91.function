@@ -8,6 +8,8 @@
  parms.onPushButton←'OnPushButtonInFindAndReplace'
  parms.fontInput←⎕NEW'Font'(('PName' 'APL385 Unicode')('Size' 18))
  parms.parent←n.∆Form
+ parms.menubar←∆Menu_Replace
+ parms.selTextStyle←G.Enums.SelTextStyles.Restore
  tip←''
  tip,←⊂'"All" really means "all" here:'
  tip,←⊂'The position of the cursor is ignored'

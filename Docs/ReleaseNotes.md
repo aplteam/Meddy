@@ -6,17 +6,21 @@
 Meddy Release Notes
 ===================
 
-* 1.7.0
+## 1.7.0
   * Meddy now checks for an (optional) INI files `specialchars.ini`. If it does exist
     it is assigned to `n.∆SpecialChars` which is otherwise `⍬`. See the `ReadMe.md` for
-	details.
-	
-	The special characters defined in that INI file can then be accessed via the newly introduced
-	menu command _Edit > Insert special character_.
-	
-	This is a neccessary measure against Dyalog's "Edit" control being oblivious towards any
-	Alt+{Num} key combination, meaning that one **cannot** enter any Unicode characters. Once 
-	Dyalog starts supporting this (if ever) we can get rid of this.	
+    details.
+    
+    The special characters defined in that INI file can then be accessed via the newly     introduced grid that is located right underneath the menubar.
+    
+    The "Find" and the "Find and Replace" dialogs got enhanced similarly.
+    
+    This is a neccessary measure against Dyalog's "Edit" control being oblivious towards 
+    any Alt+{Num} key combination, meaning that one **cannot** enter any Unicode         characters via these key combinations.
+
+    Once Dyalog starts supporting this we can get rid of this.However, this is for technical reasons
+    quite unlikely.
+    
   * Bug fixes
     * Operating the second Splitter sometimes caused Meddy to crash.
     * The second splitter now behaves more appropriately.
@@ -31,9 +35,9 @@ Meddy Release Notes
   
 * 1.6.7
   * Bug fixes:
-    * On some machines (very rare) some Registry keys were reported as not defined although they were.
+    * On some machines (very rare) some Registry keys were reported as not defined              although they were.
       Meddy now takes default values in case the Registry fails to cooperate.
-    * Context menu command "Save as" on the "HTML" tab did just the same as the "Save" command.
+    * Context menu command "Save as" on the "HTML" tab did just the same as the "Save"          command.
   * GUI improved: the splitters are now more prominent.    
 
 * 1.6.6

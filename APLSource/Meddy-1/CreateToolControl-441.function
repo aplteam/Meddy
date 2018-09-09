@@ -1,6 +1,6 @@
  n←CreateToolControl n;∆;properSizes
  n.ToolControl←n.∆Form.⎕NEW⊂'ToolBar'
- n.ToolControl.Posn←5 5
+ n.ToolControl.Posn←1+n.SpecialChars.Size[0]
  ∆←''
  ∆,←⊂'Style' 'Check'
  ∆,←⊂'Caption' 'Produce full HTML &document'
@@ -9,7 +9,7 @@
  ∆,←⊂'Active' 0
  n.FullHtmlDocument←n.ToolControl.⎕NEW'Button'∆
  n.FullHtmlDocument.TipObj←n.Tip
- n.FullHtmlDocument.Tip←'If this not checked then an' 'HTML snippet is generated'
+ n.FullHtmlDocument.Tip←'If this not ticked then an' 'HTML snippet is generated'
  n.FullHtmlDocument.onSelect←'OnToggleFullHtmlDocument'
 
  ∆←''

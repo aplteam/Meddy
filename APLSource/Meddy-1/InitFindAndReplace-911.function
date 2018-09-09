@@ -1,5 +1,6 @@
  {r}←InitFindAndReplace n
  r←⍬
+ CreateGridForSpecialCharsInFindAndReplace n
  AdjustFindAndReplaceFormSize n
  n.Close.Cancel←1
 ⍝Done

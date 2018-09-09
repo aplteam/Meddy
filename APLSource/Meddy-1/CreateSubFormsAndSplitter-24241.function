@@ -53,7 +53,7 @@
  n.Splitter2.Size←⍬ 5
 
  n.(TocSF Left Right).Coord←⊂'Pixel'
- n.TocSF.Posn[0]+←3+↑n.ToolControl.Size
+ n.TocSF.Posn[0]+←3+↑+⌿⊃n.ToolControl.(Posn Size)
  n.Left.Posn[0]+←n.TocSF.Posn[0]
  n.Right.Posn[0]←n.Left.Posn[0]
  n.Splitter1.Size[1]←3

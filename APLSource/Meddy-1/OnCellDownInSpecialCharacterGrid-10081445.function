@@ -1,0 +1,5 @@
+ OnCellDownInSpecialCharacterGrid←{
+     n←GetRef2n↑⍵
+     ⎕NULL≡n.∆LastFocusWas←2 ⎕NQ #'GetFocusObj':.
+     1
+ }

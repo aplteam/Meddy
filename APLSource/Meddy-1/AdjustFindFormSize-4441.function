@@ -1,10 +1,16 @@
  {r}←{x}AdjustFindFormSize n
-⍝ Repositions the two check boxes and then resizes the Form.
+⍝ Add grid for special chars and repositions the two check boxes and then resizes the Form.
  r←⍬
+ CreateGridForSpecialCharsInFindAndReplace n
  n.Regular_expression.Posn[0]←n.∆Vgap+↑+⌿⊃n.Search_for.(Posn Size)
  n.Case_sensitive.Posn[0]←n.∆Vgap+↑+⌿⊃n.Regular_expression.(Posn Size)
  n.IgnoreInlineCode.Posn[0]←n.∆Vgap+↑+⌿⊃n.Case_sensitive.(Posn Size)
  n.IgnoreCodeBlock.Posn[0]←n.∆Vgap+↑+⌿⊃n.IgnoreInlineCode.(Posn Size)
  n.Direction.Posn[0]←n.∆Vgap+↑+⌿⊃n.Search_for.(Posn Size)
  n.Direction.Posn[1]←(1⊃+⌿⊃n.Search_for.(Posn Size))-n.Direction.Size[1]
+ n.Regular_expression.Posn[0]←n.∆Vgap+0⊃+⌿⊃n.Search_for.(Posn Size)
+ n.Case_sensitive.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.Regular_expression.(Posn Size)
+ n.IgnoreInlineCode.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.Case_sensitive.(Posn Size)
+ n.IgnoreCodeBlock.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.IgnoreInlineCode.(Posn Size)
+ n.∆LastFocusWas←n.Search_for
 ⍝Done

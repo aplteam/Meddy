@@ -1,9 +1,22 @@
- OnSpecialCharacter←{
-     n←⍺
-     rowCol←⍵[6 7]
-     1≠rowCol⌷n.SpecialChars.CellTypes:0
+ r←n OnSpecialCharacter msg;rowCol;char
+ r←0
+ rowCol←msg[6 7]
+ :If 1=rowCol⌷n.SpecialChars.CellTypes
      char←rowCol⌷n.SpecialChars.Values
-     _←2 ⎕NQ n.∆n.Markdown'KeyPress'char
-     _←⎕NQ n.∆n.Markdown'GotFocus'
-     0
- }
+ :Else
+     :Return
+ :EndIf
+ :If 0=n.⎕NC'Search_for'                    ⍝ Markdown?!
+     ⎕NQ n.Markdown'KeyPress'char
+     {}⎕NQ n.Markdown'GotFocus'
+ :Else
+     :If 0=n.⎕NC'Replace_with'              ⍝ "Search" dialog?!
+         →(~n.∆LastFocusWas∊n.Search_for)/0                     ⍝ Only when we are in either "Search for"!
+     :Else                                  ⍝ It's the "Find & Replace" dialog
+         →(~n.∆LastFocusWas∊n.(Search_for Replace_with))/0      ⍝ Only when we are in either "Search for" or "Replace with"!
+     :EndIf
+     n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
+     ⎕NQ n.∆LastFocusWas'KeyPress'char
+     {}⎕NQ n.∆LastFocusWas'GotFocus'
+ :EndIf
+⍝Done

@@ -10,4 +10,8 @@
  n.Replace.Posn[1]←⊃n.Find_next.Posn[1]
  n.Replace_all.Posn←(n.∆Vgap+↑+⌿⊃n.Replace.(Posn Size)),n.Replace.Posn[1]
  n.Close.Posn←(n.∆Vgap+↑+⌿⊃n.Replace_all.(Posn Size)),n.Replace_all.Posn[1]
+ n.Regular_expression.Posn[0]←n.∆Vgap+0⊃+⌿⊃n.Replace_with.(Posn Size)
+ n.Case_sensitive.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.Regular_expression.(Posn Size)
+ n.IgnoreInlineCode.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.Case_sensitive.(Posn Size)
+ n.IgnoreCodeBlock.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.IgnoreInlineCode.(Posn Size)
 ⍝Done
