@@ -11,7 +11,7 @@
      ref←⎕NS''
      ref.##.APLTreeUtils←#.APLTreeUtils
      ref.⎕FIX body
-     :If ∨/(⎕UCS 1⊃ref.MarkAPL.Version)>⎕UCS 1⊃##.MarkAPL.Version
+     :If 1 0≡⍋1⊃¨ref.MarkAPL.Version ##.MarkAPL.Version
          #.⎕FIX body
      :ElseIf ∨/(⎕UCS 1⊃ref.MarkAPL.Version)<⎕UCS 1⊃##.MarkAPL.Version
          parms←G.Dialogs.CreateParmsForNoOrYes
@@ -19,7 +19,15 @@
          msg←⊂'Meddy comes with version ',(1⊃##.MarkAPL.Version),' of MarkPL.'
          msg,←'The folder:'path('contains version ',(1⊃ref.MarkAPL.Version),' of MarkAPL')
          msg,←'' 'Would you really like to load the older version?!'
-     :AndIf n.∆globalParms parms ##.GUI.Dialogs.NoOrYes msg
-         #.⎕FIX body
+         :If n.∆globalParms parms ##.GUI.Dialogs.NoOrYes msg
+             #.⎕FIX body
+         :Else
+             parms←G.Dialogs.CreateParmsForYesOrNo
+             parms.addToCaption←'MarkAPL'
+             msg←⊂'Would you like to delete the older version?'
+             :If n.∆globalParms parms ##.GUI.Dialogs.YesOrNo msg
+                 F.DeleteFile filename
+             :EndIf
+         :EndIf
      :EndIf
  :EndIf

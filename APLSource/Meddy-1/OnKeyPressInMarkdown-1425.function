@@ -21,8 +21,10 @@
          r←4=msg[5]  ⍝ "Alt" key?!
      :EndIf
      n.StatusField1.Text←''
-     :If 4≠5⊃msg                    ⍝ Ony when no ALT key is pressed
-         :Trap 0 ⋄ ⎕NQ hasFocus'GotFocus' ⋄ :EndTrap
-         ⎕NQ n.∆Form 9999           ⍝ Sets Row and Col in Statusbar, preserve data for undo/redo
-     :EndIf
  :EndIf
+ :If 3=⍴msg
+ :OrIf 4≠5⊃msg                    ⍝ Ony when no ALT key is pressed
+     :Trap 0 ⋄ ⎕NQ hasFocus'GotFocus' ⋄ :EndTrap
+     ⎕NQ n.∆Form 9999           ⍝ Sets Row and Col in Statusbar, preserve data for undo/redo
+ :EndIf
+⍝Done
