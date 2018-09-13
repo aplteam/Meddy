@@ -6,6 +6,9 @@
 Meddy Release Notes
 ===================
 
+## 1.7.1
+   * Bug fix: 1.7.0 was build with Dyalog 16.0 but uses features supported only in 17.0. Mea culpa.
+
 ## 1.7.0
   * Meddy now checks for an (optional) INI files `specialchars.ini`. If it does exist
     it is honoured. See the `ReadMe.md` for details.
