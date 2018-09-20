@@ -21,6 +21,7 @@
          r←4=msg[5]  ⍝ "Alt" key?!
      :EndIf
      n.StatusField1.Text←''
+     n.StatusField1.BCol←0
  :EndIf
  :If 3=⍴msg
  :OrIf 4≠5⊃msg                    ⍝ Ony when no ALT key is pressed

@@ -1,6 +1,6 @@
- success←OnHandleFindInMarkdown n2;searchFor;direction
+ r←OnHandleFindInMarkdown n2;searchFor;direction
 ⍝ Called by the "Find" dialog in case the user presses "Find"'
- success←0
+ r←1
  :If ~0∊⍴searchFor←n2.Search_for.Text
      n.∆Find.SearchFor←searchFor
      n.∆Find.Case←n2.Case_sensitive.State
@@ -8,9 +8,9 @@
      n.∆Find.IgnoreInlineCode←n2.IgnoreInlineCode.State
      n.∆Find.IgnoreCodeBlocks←n2.IgnoreCodeBlock.State
      direction←0 1≡n2.(Direction_00 Direction_01).State
-     :If success←direction FindInMarkdown_ n
+     :If n2 FindInMarkdown_ n direction
          n.∆Menubar.previousHit.Active←1
      :Else
-         n2.StatusField1.Text←'No hit'
+         r←0  ⍝ No hit!
      :EndIf
  :EndIf

@@ -1,0 +1,14 @@
+ OnInitialPreferences n;groupMembers;size;startPoint;gap
+⍝ Polish the design
+
+ ⍝ I. The group
+ groupMembers←⎕WN n.HTML
+ size←↑groupMembers[0].Size
+ groupMembers{⍺.Posn[0]←⍵}¨¯2++\(⍴groupMembers)⍴↑size
+ n.HTML.Size[0]←5+↑+⌿⊃(↑¯1↑groupMembers).(Posn Size)
+
+ ⍝ II. The checkboxes
+ gap←⌈n.∆globalParms.fontStandard.Size×parms.vGap
+ startPoint←gap+↑+⌿⊃n.HTML.(Posn Size)
+ n.(Warnings LeanPub).Posn←(startPoint+0,¯1↓+\↑¨n.(Warnings LeanPub).Size),¨1⊃¨n.(Warnings LeanPub).Posn
+⍝Done

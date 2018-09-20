@@ -58,8 +58,6 @@
      ShowQuickIntro n
  :Case n.∆Menubar.injectParms
      InjectParameters n
- :Case n.∆Menubar.injectChar
-     InjectChar n
  :Case n.∆Menubar.goto
      GoToLineNo n
  :Case n.∆Menubar.report

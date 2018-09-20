@@ -59,6 +59,14 @@ You can navigate through a document in three ways:
 No matter how you navigate, the three views are always kept in sync.
 
 
+
+Requirements
+------------
+
+Meddy requires the .NET framework for some functionality. If it is not available and the functionality triggered then Meddy will quit with error code 106.
+
+Note that this concerns just the "Show..." commands in the "Help" menu; all the other functionality works without .NET.
+
 CSS Style sheets
 ----------------
 

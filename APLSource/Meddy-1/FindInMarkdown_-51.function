@@ -1,5 +1,6 @@
- {success}←direction FindInMarkdown_ n;regExMetaChars;bool;hits;item;hit;searchFor
-⍝ direction=1: Down; direction=0: Ip
+ {success}←{n2}FindInMarkdown_(n direction);regExMetaChars;bool;hits;item;hit;searchFor
+⍝ direction=1: Down; direction=0: Up
+⍝ n=main form; n2=Search form
  success←0
  searchFor←n.∆Find.SearchFor
  :If 0=n.∆Find.IsRegEx
@@ -15,6 +16,9 @@
      :If 0∊⍴∊hits
          n.StatusField1.Text←''
          n.∆globalParms.alarmColor G.Input.WriteToStatusbar n'Not found'
+         :If 9=⎕NC'n2'
+             n.∆globalParms.alarmColor G.Input.WriteToStatusbar n2'Not found'
+         :EndIf
      :Else
          :If direction
              bool←hits>GetCandidatesFromHits 1⊃n.Markdown.SelText

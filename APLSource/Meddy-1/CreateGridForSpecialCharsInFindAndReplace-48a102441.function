@@ -3,4 +3,5 @@
  n.∆SpecialChars←n.∆Form.##.n.∆SpecialChars
  n←CreateSpecialCharGrid n
  n._SubForm.Posn[0]←n.SpecialChars.Size[0]+3  ⍝ Make room for the Grid
+ n._SubForm.Size[0]-←n.SpecialChars.Size[0]+3
 ⍝Done

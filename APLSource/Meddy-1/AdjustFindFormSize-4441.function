@@ -13,4 +13,7 @@
  n.IgnoreInlineCode.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.Case_sensitive.(Posn Size)
  n.IgnoreCodeBlock.Posn[0]←(⌊n.∆Vgap÷2)+0⊃+⌿⊃n.IgnoreInlineCode.(Posn Size)
  n.∆LastFocusWas←n.Search_for
+ :If 0<≢n.Search_for.Text
+     ≢n.Search_for.SelText←1,1+≢n.Search_for.Text
+ :EndIf
 ⍝Done

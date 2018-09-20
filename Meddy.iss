@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "1.7.1.73"
+#define MyAppVersion "1.7.2.110"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -29,7 +29,7 @@ OutputBaseFilename="SetUp_{#MyAppName}"
 Compression=lzma
 SolidCompression=yes
 SetupIconFile={#MyAppIcoName}
-UninstallDisplayIcon={app}\{#MyAppIcoName}
+;UninstallDisplayIcon={app}\{#MyAppIcoName}
 
 
 [Languages]
@@ -53,16 +53,16 @@ Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
 
 [Files]
 ; Source: "MarkAPL.dyalog"; DestDir: "{commonappdata}\{#MyAppName}";
-Source: "MarkAPL.html"; DestDir: "{app}";
-Source: "MarkAPL_CheatSheet.html"; DestDir: "{app}";
-Source: "LeanPubExtensions.html"; DestDir: "{app}";
-Source: "QuickIntro.html"; DestDir: "{app}";
-Source: "Styles.html"; DestDir: "{app}";
+Source: "Docs/MarkAPLDocs/MarkAPL.html"; DestDir: "{app}";
+Source: "Docs/MarkAPLDocs/MarkAPL_CheatSheet.html"; DestDir: "{app}";
+Source: "Docs/MarkAPLDocs/LeanPubExtensions.html"; DestDir: "{app}";
+Source: "Docs/MarkAPLDocs/QuickIntro.html"; DestDir: "{app}";
+Source: "Docs/MarkAPLDocs/Styles.html"; DestDir: "{app}";
 Source: "CSS/MarkAPL_print.css"; DestDir: "{app}/CSS";
 Source: "CSS/MarkAPL_screen.css"; DestDir: "{app}/CSS";
 Source: "CSS/BlackOnWhite_print.css"; DestDir: "{app}/CSS";
 Source: "CSS/BlackOnWhite_screen.css"; DestDir: "{app}/CSS";
-Source: "bridge160_unicode.dll"; DestDir: "{app}";
+Source: "bridge170_unicode.dll"; DestDir: "{app}";
 Source: "dyalognet.dll"; DestDir: "{app}";
 Source: "{#MyAppExeName}"; DestDir: "{app}";
 Source: "ReadMe.html"; DestDir: "{app}";

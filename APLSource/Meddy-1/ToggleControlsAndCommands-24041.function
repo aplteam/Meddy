@@ -5,7 +5,7 @@
  n.(FullHtmlDocument HidePreview).(Visible Active)←on
  n.(Toc Left Right).(Visible Active)←on
  n.(Splitter1 Splitter2).Visible←1
- n.∆Menubar.(save saveAs close refresh export exportAs find nextHit replace undo redo scrollHTML view injectParms injectChar goto report).Active←on
+ n.∆Menubar.(save saveAs close refresh export exportAs find nextHit replace undo redo scrollHTML view injectParms goto report).Active←on
  n.∆Menubar.∆EditCommands.Active←on
  n.HidePreview.Active←on
 ⍝Done

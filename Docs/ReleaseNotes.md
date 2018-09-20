@@ -6,6 +6,11 @@
 Meddy Release Notes
 ===================
 
+## 1.7.2
+   * None of the documents in the "Help" menu was shown since 1.7.0 because some DLLs also
+     needed to be updated to 17.0 as well.
+   * The "Find" as well as the "Find & Replace" dialogs got improved.
+   * The "Preferences" dialog got beautified.
 ## 1.7.1
    * Bug fix: 1.7.0 was build with Dyalog 16.0 but uses features supported only in 17.0. Mea culpa.
 

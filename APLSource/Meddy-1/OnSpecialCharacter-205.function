@@ -11,12 +11,22 @@
      {}⎕NQ n.Markdown'GotFocus'
  :Else
      :If 0=n.⎕NC'Replace_with'              ⍝ "Search" dialog?!
-         →(~n.∆LastFocusWas∊n.Search_for)/0                     ⍝ Only when we are in either "Search for"!
+         →(~n.∆LastFocusWas∊n.Search_for)/0                     ⍝ Only when we are in "Search for"!
      :Else                                  ⍝ It's the "Find & Replace" dialog
          →(~n.∆LastFocusWas∊n.(Search_for Replace_with))/0      ⍝ Only when we are in either "Search for" or "Replace with"!
      :EndIf
-     n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
-     ⎕NQ n.∆LastFocusWas'KeyPress'char
-     {}⎕NQ n.∆LastFocusWas'GotFocus'
+     :If 1=⍴∪n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
+         n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
+⍝     :Else
+⍝         n.∆LastFocusWas.SelText←2⍴n.∆LastFocusWas.∆LastSelText[0]
+     :EndIf
+     2 ⎕NQ n.∆LastFocusWas'KeyPress'char
+     :If 1=⍴∪n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
+         n.∆LastFocusWas.SelText←n.∆LastFocusWas.SelText+1
+     :Else
+         n.∆LastFocusWas.SelText←1+2⍴n.∆LastFocusWas.∆LastSelText[0]
+     :EndIf
+     n.∆LastFocusWas.∆LastSelText←n.∆LastFocusWas.SelText
+     {}2 ⎕NQ n.∆LastFocusWas'GotFocus'
  :EndIf
 ⍝Done

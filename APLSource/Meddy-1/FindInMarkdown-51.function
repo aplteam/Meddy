@@ -16,5 +16,4 @@
  def⍪←'IgnoreCodeBlock' 'Ignore code &blocks'n.∆Find.IgnoreCodeBlocks DT.YesNo ⍬ 1 1
  def⍪←'Direction' 'Direction⋄&Up⋄&Down'(0 1)DT.Radio ⍬ 1 1
  result←n.∆globalParms parms G.Input.Run def
- 0 WriteToStatusbar n''
 ⍝Done

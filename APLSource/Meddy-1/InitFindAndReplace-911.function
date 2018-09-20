@@ -3,4 +3,7 @@
  CreateGridForSpecialCharsInFindAndReplace n
  AdjustFindAndReplaceFormSize n
  n.Close.Cancel←1
+ :If 0<≢n.Search_for.Text
+     n.Search_for.SelText←1,1+≢n.Search_for.Text
+ :EndIf
 ⍝Done

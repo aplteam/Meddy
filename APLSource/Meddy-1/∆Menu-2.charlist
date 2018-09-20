@@ -23,7 +23,6 @@
  ~Select all=Ctrl+A                : OnMenuCommand     {selectall}     : Select the whole document
  ~Clear                            : OnMenuCommand     {clear}         : Whipe the contents of the edit area
  -
- ~Inject special character...=F8   : OnMenuCommand     {injectChar}    : Inject special character like an Umlaut
  ~Inject MarkAPL parameters...=F9  : OnMenuCommand     {injectParms}   : Inject [parm] into any Markdown document
  
 [View]

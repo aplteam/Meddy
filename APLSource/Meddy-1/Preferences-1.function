@@ -9,7 +9,7 @@
  parms.tips⍪←'StyleSheet'('Select one of two styleSheet-sheet sets:' 'MarkAPL_[screen|print].css' 'BlackOnWhite_[screen|print].css' 'Or specify your own set in the Markdown with [parm]:')
  parms.tips⍪←'Warnings'('Show MarkAPL''s warnings, if any.' 'Note that error messages will be shown in any case.')
  parms.tips⍪←'LeanPub'('See https://github.com/aplteam/MarkAPL' 'for details regarding LeanPub extensions.')
- ⍝TODO⍝ parms.tips⍪←'PortNo' 'Port number used by Meddy''s built-in server.'  ⍝⍝⍝⍝⍝ When we support push
+ ⍝TODO⍝ parms.tips⍪←'PortNo' 'Port number used by Meddy''s built-in server.'  ⍝⍝⍝⍝⍝ When we support push, if ever
  DT←G.Enums.InputDataTypes
  def←0 7⍴⍬
  def⍪←'Info' '' 'These settings define the defaults for a new Markdown document:'DT.Label ⍬ 1 1
@@ -18,6 +18,7 @@
  def⍪←'Width' 'Max-width for preview'(⍕¨width)DT.DropDown ⍬ 1 1
  styleSheet←'MarkAPL' 'BlackOnWhite'
  parms.props⍪←'StyleSheet'(⊂'SelItems'(styleSheet≡¨⊂n.∆Prefs.StyleSheet))
+ parms.onInitial←'OnInitialPreferences'
  def⍪←'StyleSheet' 'Default style-sheet set'styleSheet DT.DropDown 30 1 1
 ⍝ def⍪←'SaveOptionLabel' 'Together with the markdown:' ''DT.Label ⍬ 1 1
  SaveHtml←0 1 2=n.∆Prefs.SaveHtml
