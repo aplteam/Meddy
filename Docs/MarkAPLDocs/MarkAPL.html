@@ -836,17 +836,25 @@ header
 <h4>3.1.9. HTML blocks</h4>
 </a>
 </div>
-<p>Please note that there are three different HTML blocks:</p>
+<p>It is perfectly legal to have HTML blocks in a Markdown document, but be aware that this is way more complex a topic than it seems to be at first glance.</p>
+<p>For details refer to <a href="http://spec.commonmark.org/0.24/#html-blocks" class="external_link" title="Common mark on HTML blocks" target="_blank">Common mark on HTML blocks</a>.</p>
+<p>Please note that there are four different HTML blocks:</p>
 <ul>
 <li><code>&lt;script&gt;</code> and <code>&lt;style&gt;</code>
 <p>They are special because they cannot be nested.</p></li>
 <li><code>&lt;pre&gt;</code>
 <p>This one preserves white space. The special features of <code>&lt;pre&gt;</code> blocks are discussed in detail at <a href="#Code-the--tag" class="bookmark_link">Code: the <code>&lt;pre&gt;</code> tag</a>.</p></li>
+<li><code>&lt;!--</code>
+<p>An HTML comment. Note that HTML comments <em>make it into the final document</em>, although they are only visible via the “View page source” context menu command.</p></li>
 <li>Everything else.</li>
 </ul>
-<p>All HTML blocks but <code>&lt;pre&gt;</code>, <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> <strong>must</strong> be surrounded by blank lines excepts when an HTML block is placed at the top of a document.</p>
-<p>It is perfectly legal to have HTML blocks in a Markdown document, but be aware that this is way more complex a topic than it seemes to be at first glance.</p>
-<p>For details refer to <a href="http://spec.commonmark.org/0.24/#html-blocks" class="external_link" title="Common mark on HTML blocks" target="_blank">Common mark on HTML blocks</a>.</p>
+<p>All HTML blocks but <code>&lt;pre&gt;</code>, <code>&lt;script&gt;</code>, HTML comments and <code>&lt;style&gt;</code> <strong>must</strong> be surrounded by blank lines except when an HTML block is placed at the top of a document or ends at the bottom of the document.</p>
+<p>An HTML comment must have a blank line before the opening tag (<code>&lt;!--</code>) but no empty line is required after the closing tag. For that reason</p>
+<pre><code># Overview
+
+&lt;!-- This is a comment --&gt; will be ignored
+This is a paragraph</code></pre>
+<p>is a prefectly legal markdown document with an HTML comment. However, note that “will be ignored” will <em>not</em> make it into the final document.</p>
 <p>The most important syntax is when you want to have an opening tag like a <code>&lt;div&gt;</code> and a corresponding <code>&lt;/div&gt;</code> around some Markdown stuff. For simplicity let's assume that it is just a paragraph with a single word: “foo” in bold.</p>
 <p>An HTML block must always start with either <code>&lt;</code> or <code>&lt;/</code>:</p>
 <pre><code># Example demonstrating HTML blocks
@@ -2825,8 +2833,8 @@ This is a paragraph with curlies at the end: \{\}.
 </div>
 <p>Before reporting a bug please check carefully your Markdown. More often than not mistakes in the Markdown are causing the problem.</p>
 <p>If you cannot work out why it goes wrong report it to me – see the previous topic for how to report a problem.</p>
-<p>This document refers to version 4.4.5 of <strong><em>MarkAPL</em></strong>.</p>
-<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2018-09-13</p>
+<p>This document refers to version 4.4.7 of <strong><em>MarkAPL</em></strong>.</p>
+<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2018-09-25</p>
 <div id="external_link_report" class="print_only">
 <hr>
 <p><strong>Link report</strong></p>
