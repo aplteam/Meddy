@@ -1,8 +1,5 @@
  n←Init n;msg;parms
- (F A)←#.(FilesAndDirs APLTreeUtils)
- G←##.GUI
- G.APLTreeUtils←A
- G.FilesAndDirs←F
+ EstablishRefs ⍬
  :If A.IsDevelopment
      F.PolishCurrentDir
  :Else

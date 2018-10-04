@@ -2,7 +2,7 @@
  ⍝ Returns both the markdown with the embedded parms and the embedded parms as such.
  ⍝ Ignores comment lines between any lines that carry `[parm]:` and also
  ⍝ the LeanPub definition of the encoding (`{:: encoding="`).
-     (n markdown)←⍵
+     markdown←⍵
      bool←~WhereIsLeanPubEncodingLine markdown
      0=+/isParm←bool\∧\'['=↑¨bool/markdown:markdown''
      embeddedParms←isParm/markdown

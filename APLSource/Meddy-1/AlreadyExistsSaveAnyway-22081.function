@@ -1,0 +1,6 @@
+ r←n AlreadyExistsSaveAnyway filename;parms
+ r←0
+ parms←G.Dialogs.CreateParmsForYesOrNo
+ parms.addToCaption←'Overwrite file'
+ r←n.∆globalParms parms G.Dialogs.YesOrNo'There is already a file:' ''filename'' 'Overwrite?!'
+⍝Done

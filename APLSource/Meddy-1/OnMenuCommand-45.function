@@ -26,6 +26,8 @@
      SaveMarkdownAs n
  :Case n.∆Menubar.new
      CreateNewDocument n
+ :Case n.∆Menubar.newPresentation
+     CreateNewPresentation n
  :Case n.∆Menubar.close
      CloseMarkdown n
  :Case n.∆Menubar.export
@@ -56,6 +58,8 @@
      ShowAboutStyleSheets n
  :Case n.∆Menubar.intro
      ShowQuickIntro n
+ :Case n.∆Menubar.expression
+     InjectMarkdownExpression n
  :Case n.∆Menubar.injectParms
      InjectParameters n
  :Case n.∆Menubar.goto
@@ -68,6 +72,8 @@
      ScrollHTML n
  :Case n.∆Menubar.relnotes
      ShowReleaseNotes n
+ :Case n.∆Menubar.presentations
+     ShowAboutPresentations n
  :Else
      :If menuItem∊n.∆Menubar.(cut copy paste)
          SendKeystroke n menuItem

@@ -1,6 +1,7 @@
  {r}←InjectParameters n;parms;ps;list;bool;markdown;noOf;buff;alreadyDefined;isNum;ok;comments;list2;isLeanpubEncoding
  r←⍬
  ps←#.MarkAPL.CreateParms
+ ps.presentation←0
  list←ps.∆List[;0]
  list~←'inputFilename' 'outputFilename' 'compileFunctions' 'debug' 'homeFolder' 'verbose' ⍝ These parameters should not be embedded by the user
  :If 0<noOf←+/∧\'['=↑¨,n.Markdown.Text
@@ -12,7 +13,7 @@
      parms←G.OptionsTool.CreateParms
      parms.addToCaption←'Inject parameters'
      parms.style←G.Enums.OptionsStyles.check
-     parms.info←'Note that this is a MarkAPL-only feature.' 'Which parameters do you want to embedd?'
+     parms.info←'Embedded parmaters are a MarkAPL-only feature! Select parameters to embedd:'
      parms.fontLabel←n.∆globalParms.fontAPL
      isNum←0=↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
      (ok bool)←n.∆globalParms parms G.OptionsTool.Run↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]

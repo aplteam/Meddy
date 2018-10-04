@@ -1,5 +1,5 @@
  SplitEmbeddedParm←{
-⍝ ⍵ is (or should be) something like ('toc' ' = 1') or ('title' '= 'My Title')
+⍝ ⍵ is (or should be) something like ('toc=1') or ('title=''My Title'' ; comment )
 ⍝ Returns  ('toc' 1) for the first and ('title' 'My Title') for the second example.
      0∊⍴⍵:'' ''
      ~'='∊⍵:(0⊃⍵)''

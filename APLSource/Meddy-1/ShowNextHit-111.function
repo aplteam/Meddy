@@ -1,3 +1,4 @@
  {r}←ShowNextHit n;next;hit
  r←FindInMarkdown_ n 1
+ SyncWithTocAndPreview n
 ⍝Done

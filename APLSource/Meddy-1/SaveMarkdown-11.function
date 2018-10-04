@@ -1,6 +1,6 @@
  {r}←SaveMarkdown n;parms;htmlFilename
  r←⍬
- :If 0∊⍴n.∆Filename
+ :If 0∊≢n.∆Filename
      SaveMarkdownAs n
  :Else
      SaveText n.∆Filename n.Markdown.Text
@@ -13,7 +13,11 @@
          :Else
              htmlFilename←n.∆HtmlFilename
          :EndIf
-         A.WriteUtf8File htmlFilename n.HTML.∆HTML
          n.∆HtmlFilename←htmlFilename
+         :If IsPresentation n
+             SaveMarkdownAsPresentation n n.∆HtmlFilename
+         :Else
+             A.WriteUtf8File htmlFilename n.HTML.∆HTML
+         :EndIf
      :EndIf
  :EndIf

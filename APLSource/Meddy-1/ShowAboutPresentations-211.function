@@ -1,0 +1,5 @@
+ ShowAboutPresentations←{
+     n←⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\Presentations.html'
+     1:rc←rc
+ }

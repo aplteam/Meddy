@@ -1,0 +1,16 @@
+ {r}←SaveMarkdownAsPresentation(n filename);parms;html;msg
+ #.CursorObj←1
+ html←ProcessMarkdownAsPresentation n
+ #.CursorObj←0
+ :If ~0∊⍴n.∆Report
+     parms←G.Dialogs.CreateParmsForShowLongMsg
+     parms.addToCaption←'Report'
+     parms.buttons←'Yes' 'No'
+     msg←'There have been problems or warnings, see below.' 'Continue saving the Presentation anyway?'(30⍴'-')
+     msg,←n.∆Report
+     :If 0≠⊣n.∆globalParms parms G.Dialogs.ShowLongMsg msg
+         :Return
+     :EndIf
+ :EndIf
+ SaveText filename html
+⍝Done

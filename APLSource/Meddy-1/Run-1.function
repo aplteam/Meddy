@@ -11,8 +11,8 @@
  ⎕TRAP←#.HandleError.SetTrap ⍬
  n←##.GUI.RefNamespace.Create'Meddy'
  n←Init n
- AllowRide n
  ⎕TRAP←(n.∆INI.Get'Config:trap')SetTrap n
+ AllowRide n
  n.∆Path←ReadPathFromRegistry ⍬
  n←CreateGui n
  HandleCommandLineParms n

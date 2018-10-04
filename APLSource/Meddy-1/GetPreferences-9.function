@@ -1,5 +1,5 @@
  parms←GetPreferences n;ind
-⍝ Returns the leading parameters: all leading lines that start with `[parm]:`
+⍝ Returns the default parameters plus what's defined in the config, if there is any.
  parms←##.MarkAPL.CreateParms
  parms.createFullHtmlPage←n.FullHtmlDocument.State
  parms.title←'Meddy'

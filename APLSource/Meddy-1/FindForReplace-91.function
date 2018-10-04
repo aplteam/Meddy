@@ -3,5 +3,6 @@
  ⍝ `nr` is the "Find and Replace" namespace.
  r←⍬
  successFlag←OnHandleFindInMarkdown n2
+ {}SyncWithTocAndPreview⍣successFlag⊣n
  nr.(Replace Replace_all).Active←1
 ⍝Done

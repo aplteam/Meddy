@@ -1,0 +1,20 @@
+ success←CheckParameter(name value)
+⍝ ⍵ is a vector of lenght two like
+⍝ ('flag' 1)
+⍝ ('name' 'Kai Jaeger')
+⍝ For parameters that are expected to be numeric or text or Booleans this function
+⍝ performs a check. If the parameter does not pass a 0 is returned, other a 1.
+
+⍝ I. Numeric values
+ :If (⊂name)∊'bookmarkLink' 'createFullHtmlPage' 'lineNumberOffset' 'toc' 'width' 'numberHeaders'
+     success←↑0=1↑0⍴∊value
+ ⍝ II. Flags
+ :ElseIf (⊂name)∊'bookmarkMayStartWithDigit' 'checkFootnotes' 'checkLinks' 'collapsibleTOC' 'compileFunctions' 'compressCSS' 'debug' 'div_h_tag' 'enforceEdge' 'ignoreEmbeddedParms' 'leanpubExtensions' 'linkToCSS' 'markdownStrict' 'noCSS' 'reportLinks' 'smoothScrolling' 'subTocs' 'syntaxSugar' 'verbose' 'presentation'
+     success←↑(1=≢value)∧value∊0 1
+⍝ III. Text
+ :ElseIf (⊂name)∊'charset' 'cssURL' 'footnotesCaption' 'head' 'homeFolder' 'imageURL' 'inputFilename' 'lang' 'leanpubIconsUrl' 'outputFilename' 'printCSS' 'reportLinksCaption' 'screenCSS' 'title' 'tocCaption'
+     success←↑(' '=1↑0⍴∊value)
+ :Else
+     6 ⎕SIGNAL⍨'Unknown name: "',(⍕,name),'"'
+ :EndIf
+⍝Done

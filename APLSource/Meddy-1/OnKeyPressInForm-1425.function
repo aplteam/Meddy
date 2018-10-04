@@ -1,0 +1,14 @@
+ OnKeyPressInForm←{
+     68 7≢⍵[4 5]:1
+     0=n.∆INI.Exist'Ride:Port':0
+     parms←G.Dialogs.CreateParmsForYesOrNo
+     parms.addToCaption←'Giving a Ride'
+     parms.parent←n.∆Form
+     msg←⊂'Do you really want to prepare Meddy for a Ride?'
+     msg,←⊂'Click "Yes" only if you really know what you are doing!'
+     msg,←⊂''
+     msg,←⊂'(Meddy will listen on port ',(⍕n.∆INI.Get'Ride:Port'),' for Ride)'
+     0=n.∆globalParms parms G.Dialogs.YesOrNo msg:0
+     _←AllowRide_(n.∆INI.Get'Ride:Port')0
+     0
+ }

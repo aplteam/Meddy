@@ -3,6 +3,10 @@
  filename←AskForSaveFilename n
  :If ~0∊⍴filename
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0∊⍴⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
+     :If F.IsFile filename
+     :AndIf 0=n AlreadyExistsSaveAnyway filename
+         :Return
+     :EndIf
      UpdateFilename n filename
      SaveText n.∆Filename(n.Markdown.Text)
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
@@ -12,7 +16,11 @@
          :If 0∊⍴n.∆HtmlFilename
              n.∆HtmlFilename←(↑,/¯1↓⎕NPARTS filename),'.html'
          :EndIf
-         A.WriteUtf8File n.∆HtmlFilename n.HTML.Text
+         :If IsPresentation n
+             SaveMarkdownAsPresentation n n.∆HtmlFilename
+         :Else
+             A.WriteUtf8File n.∆HtmlFilename n.HTML.Text
+         :EndIf
      :EndIf
      n.∆Menubar.(save close).Active←1
      n.∆Menubar.save.Active←1

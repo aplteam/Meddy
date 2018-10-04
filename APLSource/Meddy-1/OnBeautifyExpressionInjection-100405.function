@@ -1,0 +1,5 @@
+ OnBeautifyExpressionInjection←{
+     n2←⍵
+     n2.Expressions.Posn[0]←(⌊0.5+n.∆parms.fontLabel.Size×n.∆parms.vGap)+↑+⌿⊃n2.Info.(Posn Size)
+     ⍬
+ }

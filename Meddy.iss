@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "1.7.2.113"
+#define MyAppVersion "1.8.0.135"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -25,7 +25,7 @@ DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 AllowNoIcons=yes
 ;OutputDir={src}\{#TargetDir}
 OutputDir={#TargetDir}
-OutputBaseFilename="SetUp_{#MyAppName}"
+OutputBaseFilename="SetUp_{#MyAppName}_{#MyAppVersion}"
 Compression=lzma
 SolidCompression=yes
 SetupIconFile={#MyAppIcoName}
@@ -62,9 +62,15 @@ Source: "CSS/MarkAPL_print.css"; DestDir: "{app}/CSS";
 Source: "CSS/MarkAPL_screen.css"; DestDir: "{app}/CSS";
 Source: "CSS/BlackOnWhite_print.css"; DestDir: "{app}/CSS";
 Source: "CSS/BlackOnWhite_screen.css"; DestDir: "{app}/CSS";
-Source: "bridge170_unicode.dll"; DestDir: "{app}";
-Source: "dyalognet.dll"; DestDir: "{app}";
-Source: "{#MyAppExeName}"; DestDir: "{app}";
+Source: "CSS/PresentAPL_Blue.css"; DestDir: "{app}/CSS";
+Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS"; 
+
+; ----- .NET is not needed  by Meddy any more: -----
+; Source: "bridge170_unicode.dll"; DestDir: "{app}";
+; Source: "dyalognet.dll"; DestDir: "{app}"     
+; --------------------------------------------------
+
+Source: "{#MyAppExeName}"; DestDir: "{app}"
 Source: "ReadMe.html"; DestDir: "{app}";
 Source: "Meddy2.ico"; DestDir: "{app}";
 Source: "app.ini.remove_me"; DestDir: "{app}"; DestName:"app.ini"; Flags: onlyifdoesntexist;
@@ -76,9 +82,9 @@ Source: "LICENSE"; DestDir: "{app}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 
-; ----------- During beta phase only:
+; ----- During beta phase only: --------
 ;Source: "Conga*.dll"; DestDir: "{app}";
-; -----------
+; -------- (For a Ride!) ---------------
 
 [Icons]
 Name: "{group}\Start Meddy"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}\";  IconFilename: "{app}\{#MyAppIcoName}" 
@@ -88,6 +94,9 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 Filename: "{app}\ReadMe.html"; Description: "View the README file"; Flags: postinstall shellexec skipifsilent
 Filename: "{app}\{#MyAppExeName}"; Description: "Launch Meddy"; Flags: postinstall skipifsilent nowait
 
+; Strangely sometimes (rarely) this seems to be required in order to be able to Ride into Meddy:
+; Filename: "netsh"; Description:"Give Meddy network access";  Parameters: "advfirewall firewall add rule dir=in program=""{{DefaultDirName}}\Meddy.exe"" action=allow"; Flags: postinstall nowait runhidden unchecked
+; I've seen this once in a VM.
 
 [Tasks]
 Name: "DefaultApp"; Description: "Make Meddy the default application for any markdown (*.md) files";

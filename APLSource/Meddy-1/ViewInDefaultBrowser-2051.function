@@ -1,21 +1,34 @@
- {r}←ViewInDefaultBrowser n;parms;msg;n2;htmlFilename
+ {r}←ViewInDefaultBrowser n;parms;msg;n2;htmlFilename;html
  r←⍬
  :If 0∊⍴n.∆HtmlFilename
-     htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
+     :If ~0∊≢n.∆Filename
+         htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
+     :Else
+         htmlFilename←''
+     :EndIf
  :Else
      htmlFilename←n.∆HtmlFilename
  :EndIf
- :If 0=F.IsFile htmlFilename
-     htmlFilename←F.GetTempFilename''
-     F.DeleteFile htmlFilename
-     htmlFilename←(↑,/¯1↓⎕NPARTS htmlFilename),'.html'
-     RefreshPreview n
-     A.WriteUtf8File htmlFilename n.HTML.Text
+ :If 0∊≢htmlFilename
+     TellHtmlNeedsSavingFirst n
  :Else
-     :If n.Markdown.∆LastSavedVersion≢n.Markdown.Text
-         TellHtmlIsNotUpToDate n
-         :Return
+     :If 0=F.IsFile htmlFilename
+         htmlFilename←F.GetTempFilename''
+         F.DeleteFile htmlFilename
+         htmlFilename←(↑,/¯1↓⎕NPARTS htmlFilename),'.html'
+         :If IsPresentation n
+             html←ProcessMarkdownAsPresentation n
+             A.WriteUtf8File htmlFilename html
+         :Else
+             RefreshPreview n
+             A.WriteUtf8File htmlFilename n.HTML.Text
+         :EndIf
+     :Else
+         :If n.Markdown.∆LastSavedVersion≢n.Markdown.Text
+             TellHtmlIsNotUpToDate n
+             :Return
+         :EndIf
      :EndIf
+     ##.OS.WinExecute'"',htmlFilename,'"'
  :EndIf
- ##.OS.WinExecute'"',htmlFilename,'"'
 ⍝Done

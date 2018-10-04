@@ -1,0 +1,15 @@
+ success←AllParmsAreOkay(n parms);this;report
+ report←''
+ :For this :In parms
+     :Trap 6
+         :If 0=CheckParameter this
+             report,←⊂'Invalid: "',(↑this),'"'
+         :EndIf
+     :Else
+         report,←⊂⎕DMX.EM
+     :EndTrap
+ :EndFor
+ :If ~success←0∊≢report
+     {}n TellInvalidParameter report
+ :EndIf
+⍝Done

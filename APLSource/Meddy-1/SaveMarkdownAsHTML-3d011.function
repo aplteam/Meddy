@@ -12,7 +12,11 @@
  :EndIf
  :If ~0∊⍴filename
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0∊⍴⍵:'.html' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
-     SaveMarkdownAsHTML_ n filename
+     :If IsPresentation n
+         SaveMarkdownAsPresentation n filename
+     :Else
+         SaveMarkdownAsHTML_ n filename
+     :EndIf
      n.∆HtmlFilename←filename
      :If ~askFlag
          WriteToStatusbar n('HTML saved: ',filename)

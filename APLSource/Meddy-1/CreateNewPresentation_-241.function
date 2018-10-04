@@ -1,0 +1,12 @@
+ {r}←CreateNewPresentation_ n
+ r←⍬
+ {}ToggleControlsAndCommands n 1
+ {}2 ⎕NQ n.TabBtn1'Select'
+ {}⎕NQ n.Markdown'GotFocus'
+ n.Markdown.∆LastSavedVersion←''
+ n←InitialUndoRedoStack n
+ n.(Row Col).Text←'1'
+ n.∆parms.saveHtml←n.∆Prefs.SaveHtml
+ n.Markdown.Text←GetPresentationTemplate
+ {}1 RefreshPreview n
+⍝Done

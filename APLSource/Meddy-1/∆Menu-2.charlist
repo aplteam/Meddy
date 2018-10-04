@@ -1,58 +1,61 @@
 [&File]                                                {file}
- New...=Ctrl+N                     : OnMenuCommand     {new}           : Create a new document
- Open...=Ctrl+O                    : OnMenuCommand     {open}          : Presents an "Open File" box to the user
- ~Save=Ctrl+S                      : OnMenuCommand     {save}          : Save the current document
- ~Save as...=Ctrl+Shift+S          : OnMenuCommand     {saveAs}        : Save current document under a different name
+ New...=Ctrl+N                     : OnMenuCommand     {new}            : Create a new document
+ New presentation...=Ctrl+Shift+N  : OnMenuCommand     {newPresentation}: Create a new presentation
+ Open...=Ctrl+O                    : OnMenuCommand     {open}           : Presents an "Open File" box to the user
+ ~Save=Ctrl+S                      : OnMenuCommand     {save}           : Save the current document
+ ~Save as...=Ctrl+Shift+S          : OnMenuCommand     {saveAs}         : Save current document under a different name
+ -                                                                      
+ ~Export HTML=Ctrl+E               : OnMenuCommand     {export}         : Export (save) as HTML
+ ~Export HTML as...=Ctrl+Shift+E   : OnMenuCommand     {exportAs}       : Export (save) as HTML under a different name
  -
- ~Export HTML=Ctrl+E               : OnMenuCommand     {export}        : Export (save) as HTML
- ~Export HTML as...=Ctrl+Shift+E   : OnMenuCommand     {exportAs}      : Export (save) as HTML under a different name
+ ~Close=Ctrl+W                     : OnMenuCommand     {close}          : Close the current document
  -
- ~Close=Ctrl+W                     : OnMenuCommand     {close}         : Close the current document                               see "AboutClose"
+ [&Recent files]                   : OnMenuCommand     {recent}         : List the last 20 files
  -
- [&Recent files]                   : OnMenuCommand     {recent}        : List the last 20 files
- -
- Quit=Alt+F4                       : →                 {quit}          ; Close the program
+ Quit=Alt+F4                       : →                 {quit}           ; Close the program
 
 [Edit]
- ~Undo=Ctrl+Z                      : OnMenuCommand     {undo}          : Undo the latest action
- ~Redo=Ctrl+Y                      : OnMenuCommand     {redo}          : Redo the latest undo
+ ~Undo=Ctrl+Z                      : OnMenuCommand     {undo}           : Undo the latest action
+ ~Redo=Ctrl+Y                      : OnMenuCommand     {redo}           : Redo the latest undo
  -
- ~Cut=Ctrl+X                       : OnMenuCommand     {cut}           : Cut current selection and put it on the clipboard
- ~Copy=Ctrl+C                      : OnMenuCommand     {copy}          : Copy current selection to the clipboard
- ~Paste=Ctrl+V                     : OnMenuCommand     {paste}         : Paste clipboard at current cursor position
- ~Select all=Ctrl+A                : OnMenuCommand     {selectall}     : Select the whole document
- ~Clear                            : OnMenuCommand     {clear}         : Whipe the contents of the edit area
- -
- ~Inject MarkAPL parameters...=F9  : OnMenuCommand     {injectParms}   : Inject [parm] into any Markdown document
+ ~Cut=Ctrl+X                       : OnMenuCommand     {cut}            : Cut current selection and put it on the clipboard
+ ~Copy=Ctrl+C                      : OnMenuCommand     {copy}           : Copy current selection to the clipboard
+ ~Paste=Ctrl+V                     : OnMenuCommand     {paste}          : Paste clipboard at current cursor position
+ ~Select all=Ctrl+A                : OnMenuCommand     {selectall}      : Select the whole document
+ ~Clear                            : OnMenuCommand     {clear}          : Whipe the contents of the edit area
+ -                                                    
+ ~Inject MarkAPL expressions...=F8 : OnMenuCommand     {expression}     ; Injection an expressions like a link or an image
+ ~Inject MarkAPL parameters...=F9  : OnMenuCommand     {injectParms}    : Inject [parm] into any Markdown document
  
 [View]
- ~Go to line number...=Ctrl+G      : OnMenuCommand     {goto}          : Jumps to a particular line number the user will be prompted for 
+ ~Go to line number...=Ctrl+G      : OnMenuCommand     {goto}           : Jumps to a particular line number the user will be prompted for 
  -
- ~Refresh preview=F5               : OnMenuCommand     {refresh}       : Update the preview
- ~Scroll HTML=F6                   : OnMenuCommand     {scrollHTML}    : Scrolls the HTML so that the same header is visible in both panes
- ~View HTML in default browser=F10 : OnMenuCommand     {view}          : View the HTML file in the default browser
- Toggle full-screen mode=F11       : OnMenuCommand     {fullscreen}    : Toggle full-screen mode like any browser
+ ~Refresh preview=F5               : OnMenuCommand     {refresh}        : Update the preview
+ ~Scroll HTML=F6                   : OnMenuCommand     {scrollHTML}     : Scrolls the HTML so that the same header is visible in both panes
+ ~View HTML in default browser=F10 : OnMenuCommand     {view}           : View the HTML file in the default browser
+ Toggle full-screen mode=F11       : OnMenuCommand     {fullscreen}     : Toggle full-screen mode like any browser
  -
- Show latest report                : OnMenuCommand     {report}        : Displays the latest MarkAPL report if any
+ Show latest report                : OnMenuCommand     {report}         : Displays the latest MarkAPL report if any
  
 [Search]
- ~Find in Markdown=Ctrl+F          : OnMenuCommand     {find}          : Find string in the markdown 
- ~Previous hit=F2                  : OnMenuCommand     {previousHit}   : Show next hit (Up)
- ~Next hit=F3                      : OnMenuCommand     {nextHit}       : Show next hit (Down)
- ~Find and replace=Ctrl+R          : OnMenuCommand     {replace}       : Find and replace string in the markdown
+ ~Find in Markdown=Ctrl+F          : OnMenuCommand     {find}           : Find string in the markdown 
+ ~Previous hit=F2                  : OnMenuCommand     {previousHit}    : Show next hit (Up)
+ ~Next hit=F3                      : OnMenuCommand     {nextHit}        : Show next hit (Down)
+ ~Find and replace=Ctrl+R          : OnMenuCommand     {replace}        : Find and replace string in the markdown
  
 [Settings]                                             {settings}
- Preferences...=F12                : OnMenuCommand     {preferences}   ; Edit your prefrences
+ Preferences...=F12                : OnMenuCommand     {preferences}    ; Edit your prefrences
 
 [Help]                                                 {help}
- Meddy's ReadMe=Ctrl+Shift+F1      : OnMenuCommand     {readme}        ; Puts Meddy's ReadMe.html on display
- Meddy's Release Notes             : OnMenuCommand     {relnotes}      ; Puts Meddy's file ReleaseNotes.html on display
+ Meddy's ReadMe=Ctrl+Shift+F1      : OnMenuCommand     {readme}         ; Puts Meddy's ReadMe.html on display
+ Meddy's Release Notes             : OnMenuCommand     {relnotes}       ; Puts Meddy's file ReleaseNotes.html on display
  -
- Quick intro into MarkAPL          : OnMenuCommand     {intro}         ; Basic knowledge about MarkAPL, Meddy's Markdown converter
- MarkAPL's cheat cheet=F1          : OnMenuCommand     {cheat}         ; Open MarkAPL's cheat sheet
- MarkAPL's reference=Ctrl+F1       : OnMenuCommand     {reference}     ; Opens MarkAPL's reference manual
- About LeanPub extensions          : OnMenuCommand     {leanpub}       ; Learn what the LeanPub extensions are.
- About Style Sheets                : OnMenuCommand     {styles}        ; Learn all about CSS styles sheet's used by Meddy
+ Quick intro into MarkAPL          : OnMenuCommand     {intro}          ; Basic knowledge about MarkAPL, Meddy's Markdown converter
+ MarkAPL's cheat cheet=F1          : OnMenuCommand     {cheat}          ; Open MarkAPL's cheat sheet
+ MarkAPL's reference=Ctrl+F1       : OnMenuCommand     {reference}      ; Opens MarkAPL's reference manual
+ About LeanPub extensions          : OnMenuCommand     {leanpub}        ; Learn what the LeanPub extensions are.
+ About Style Sheets                : OnMenuCommand     {styles}         ; Learn all about CSS styles sheet's used by Meddy
+ About presentations               : OnMenuCommand     {presentations}  : How can markdown be transformed into a presentation?
  -
- About...                          : OnMenuCommand     {about}         ; Provides information about Meddy
+ About...                          : OnMenuCommand     {about}          ; Provides information about Meddy
 

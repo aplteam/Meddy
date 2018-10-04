@@ -1,0 +1,6 @@
+ PressKeysNow←{
+     n←⍺
+     text←⍵
+     r←{2 ⎕NQ n.Markdown'KeyPress'⍵}¨text
+     1:r←r
+ }

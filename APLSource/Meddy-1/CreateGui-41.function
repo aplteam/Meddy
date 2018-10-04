@@ -40,4 +40,5 @@
  n←CreateDragAndDrop n
  n.∆SpecialCharsForm←⍬
  1 ⎕NQ n.∆Form'Configure',n.∆Form.Posn,(n.∆Form.Size+1 0)
+ n.∆Form.onKeyPress←'OnKeyPressInForm'
 ⍝Done

@@ -1,0 +1,30 @@
+ html←{newFlag}ProcessMarkdownAsPresentation n;markdown;embeddedParms;parms;okay;ns
+ newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
+ markdown←n.Markdown.Text
+ (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
+ :If AllParmsAreOkay n embeddedParms
+     :Trap 1 2 3 4 5 10 11 22
+         parms←##.PresentAPL.CreateParms
+         parms.head←'<meta name="author" content="',⎕AN,'">'
+         :If ~0∊≢embeddedParms
+             parms.{⍎⍺,'←',⍕⍵}/¨embeddedParms
+         :EndIf
+         :If 0<parms.⎕NC'screenCSS'
+             parms.css←parms.screenCSS
+         :EndIf
+         :If 0∊≢parms.cssURL
+             parms.cssURL←'CSS\'
+         :EndIf
+         parms.toc←0
+         parms.verbose←0
+         (html ns)←##.PresentAPL.MakePresentationFromMarkdown(⊆markdown)parms
+         n.HTML.∆HTML←html
+         n.HTML.∆ns←ns
+         n.HideCSS.State ProcessHTML n
+         n.∆Report←ns.report
+         ReportConversionProblem n
+     :Else
+         TellAboutConversionFailure n
+         {}ResetAfterError⍣newFlag⊣n
+     :EndTrap
+ :EndIf

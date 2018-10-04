@@ -1,0 +1,28 @@
+ text←GetTextToBeInjectedAsBookMark n;parms;success;bool;bool2;depth;items;buff;parms2;linkText
+ text←''
+ parms←G.SelectionTool.CreateParms
+ parms.addToCaption←'Bookmark links'
+ parms.info←'Select the header you want to link to:'
+ :If IsPresentation n
+     bool←n.Toc.Depth=1
+     (depth items)←bool∘/¨n.Toc.(Depth Items)
+     buff←((2×depth-1)⍴¨' '),¨items
+ :Else
+     bool←n.Toc.Depth>0
+     (depth items)←bool∘/¨n.Toc.(Depth Items)
+     buff←((2×depth-1)⍴¨' '),¨items
+ :EndIf
+ (success bool2)←n.∆globalParms parms G.SelectionTool.Run buff
+ :If success
+     parms2←G.Request.CreateParmsForString
+     parms2.addToCaption←'Link text'
+     parms2.default←↑bool2/bool/n.Toc.Items
+     (success linkText)←n.∆globalParms parms2 G.Request.AskForString'Please specify the link text:'
+ :AndIf success
+     :If linkText≢parms2.default
+         text←'[',parms2.default,'](# "',linkText,'" {style="font-size:xx-large;"})'
+     :Else
+         text←'[',linkText,'](# {style="font-size:xx-large;"})'
+     :EndIf
+ :EndIf
+⍝Done

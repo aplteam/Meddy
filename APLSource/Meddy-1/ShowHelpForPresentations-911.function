@@ -1,0 +1,5 @@
+ ShowHelpForPresentations←{
+     n←⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\PresentAPL.html'
+     1:rc←rc
+ }

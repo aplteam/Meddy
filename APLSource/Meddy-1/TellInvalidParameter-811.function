@@ -1,0 +1,7 @@
+ TellInvalidParameter←{
+     n←⍺
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.addToCaption←'Embedded parameters'
+     parms.parent←n.∆Form
+     n.∆globalParms parms G.Dialogs.ShowMsg ⍵
+ }

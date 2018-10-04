@@ -6,6 +6,16 @@
 Meddy Release Notes
 ===================
 
+## 1.8.0
+   * A markdown document can be marked as "Presentation" by adding the parameter:
+    
+     `[parm]:presentation=1`
+
+     The markdown is then expected to follow the rules set out by PresentAPL, and it is when saved converted into a stand-alone HTML page that can be used as a presentation in any modern browser.
+   * The context menu now comes with standard "Cut", "Copy" and "Paste" commands.
+   * For displaying the HTML pages listed in the "Help" menu a .NET call was used. This was changegd so that Meddy does not need the .NET-related DLLs anymore, and it does not need .NET itself either.
+   * In case of "Save as..." Meddy did not check whether such a file already existed, and therefore did not ask whether the user wants to overwrite it or not.
+
 ## 1.7.2
    * None of the documents in the "Help" menu was shown since 1.7.0 because some DLLs also
      needed to be updated to 17.0 as well.
