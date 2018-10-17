@@ -21,7 +21,7 @@ Meddy Release Notes
 
      It is
 
-     `<https://aplwiki.com {style="color: red;"}>
+     `<https://aplwiki.com {style="color: red;"}>`
 
      Similarly special attributes need to go betwen the `()` of image and link definitions.
 
