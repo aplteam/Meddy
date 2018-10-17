@@ -69,7 +69,7 @@
  :Case n.∆Menubar.fullscreen
      ToggleFullscreenMode n
  :Case n.∆Menubar.scrollHTML
-     ScrollHTML n
+     {}ScrollHTML n
  :Case n.∆Menubar.relnotes
      ShowReleaseNotes n
  :Case n.∆Menubar.presentations

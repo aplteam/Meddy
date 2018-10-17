@@ -32,13 +32,22 @@
  m.Find.onSelect←1
 
  ∆←''
- ∆,←⊂'Caption'('Inject parameters...',TAB,'F9')
- m.ViewParms←m.⎕NEW'MenuItem'∆
- m.ViewParms.onSelect←1
+ ∆,←⊂'Caption'('Find and Replace',TAB,'Ctrl+R')
+ ∆,←⊂'Accelerator'(82 2)
+ ∆,←⊂'Active'(~0∊⍴∊n.Markdown.Text)
+ m.FindAndReplace←m.⎕NEW'MenuItem'∆
+ m.FindAndReplace.onSelect←1
+
+ m.Sep2←m.⎕NEW⊂'Separator'
 
  ∆←''
  ∆,←⊂'Caption'('Inject markdown expression...',TAB,'F8')
  m.InjectExpression←m.⎕NEW'MenuItem'∆
  m.InjectExpression.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Inject parameters...',TAB,'F9')
+ m.ViewParms←m.⎕NEW'MenuItem'∆
+ m.ViewParms.onSelect←1
 
 ⍝Done

@@ -14,9 +14,9 @@ Purpose
 
 **_Meddy_** is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is refer to <https://github.com/aplteam/MarkAPL> for details.
 
-Meddy's main advantage is not its features, its the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are MarkAPL specific.
+Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are MarkAPL specific.
 
-The application was created with Dyalog 16.0 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
+The application was created with Dyalog 17.0 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
 
 
 Usage
@@ -27,7 +27,7 @@ You can start Meddy like any other Windows application and then use the menu com
 You can also start it from the command line with one of these statements in order to open a specific file or create a new document:
 
 ~~~
-      Meddy.exe -file="{pathToMarkdownFile.md}
+      Meddy.exe -file="{/path/To/MarkdownFile.md}
       Meddy.exe -new
 ~~~
 
@@ -35,10 +35,16 @@ There are three panes available in the main GUI:
 
 * The left pane shows a tree view that represents all headers in the document and therefore acts as a table of contents. You can use this to navigate through the document.
 
-  Note that when an item is shown in bold then you have a problem in the header hierarchy like a header of level 3 following a header of level 1: that's illegal.
+  Note that when an item in the tree view is shown in bold then you have a problem in the header hierarchy like a header of level 3 following a header of level 1: that's illegal.
+
 * The center pane is where the Markdown can be edited.
+
 * The right pane is two-fold:
+
   * On the "Preview" tab it shows a preview of how the HTML5 generated from the markdown will look like. For this the latest Microsoft engine is used. If available that is Edge.
+
+    Note that for technical reasons the preview will show presentations as a single HTML page. Use the "View HTML in default browser" menu command to run the presentation.
+
   * On the "HTML" tab it shows the HTML generated from the markdown.
 
     By ticking the "Hide CSS" check box you can prevent the CSS --- which is a single compressed line --- from blurring your HTML. Of course the CSS is not removed from the HTML, it's just not shown.
@@ -63,14 +69,12 @@ No matter how you navigate, the three views are always kept in sync.
 Requirements
 ------------
 
-Meddy requires the .NET framework for some functionality. If it is not available and the functionality triggered then Meddy will quit with error code 106.
-
-Note that this concerns just the "Show..." commands in the "Help" menu; all the other functionality works without .NET.
+Up to version 1.7.0 Meddy required the .NET framework for some functionality. This is not the case from version 1.8.0
 
 CSS Style sheets
 ----------------
 
-By default Meddy uses the "MarkAPL" style sheet for the preview. You can switch to "BlackOnWhite" either from the "Preferences" menu (= for all documents you are going to save) or by embedding a parameter into each document explicitly defining the set of style sheets to be used.
+By default Meddy uses the "MarkAPL" style sheet for the preview. You can switch to "BlackOnWhite" either from the "Preferences" menu (= for all documents you are going to save) or by embedding a parameter into each document explicitly defining the style sheet to be used.
 
 The CSS defined in the style sheet is by default compressed and injected into the resulting HTML page. That makes the HTML fully independent from anything, at least as long as you do not, say, embedd images.
 
@@ -94,11 +98,11 @@ Note that for more detailed information there is a document "Styles.html" availa
 LeanPub extensions
 ------------------
 
-Leanpub (<https://leanpub.com/>) is a publishing platform for books. They've established a number of enhancements to Markdown that allow an author to add asides, info boxes and more, but also to highlight lines in the code, for examples for emphasizing lines that had been changed or added compared with a previous version. The extension might well be of interest even if you are not planning to use LeanPub's services.
+Leanpub (<https://leanpub.com/>) is a publishing platform for books. They've established a number of enhancements to Markdown that allow an author to add asides, info boxes and more, but also to highlight lines in the code, for example for emphasizing lines that had been changed or added compared with a previous version. The extensions might well be of interest to you even if you are not planning to use LeanPub's services.
 
 There is a document "LeanPubExtensions.html" available in the Meddy install directory that documents these extensions. The document can be viewed from the "Help" menu.
 
-Note that the two sets of style sheets that are coming with Meddy (MarkAPL_*.css and BlackOnWhite_*.css) both carry mark-up for the LeabPub extensions.
+Note that the two sets of style sheets that are coming with Meddy (_MarkAPL*.css and BlackOnWhite_*.css) both carry mark-up for the LeabPub extensions.
 
 Note that `cssURL` should either be a URL or specify the CSS folder relative to where the HTML page will be saved.
 
@@ -112,7 +116,7 @@ By default when a Markdown file is saved by Meddy there is also an HTML file sav
   * always save an HTML file.
   * never save an HTML file.
   * always ask whether such an HTML file shall be saved or not.
-* If you don't want the HTML file to be saved as a sibling of the Markdown file then you can add a file `.Meddy` to the folder where the Markdown lives. In that case Meddy knows that you want to save an HTML file and ignores the preferences.
+* If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.Meddy` to the folder where the Markdown file lives. In that case Meddy knows that you want to save an HTML file and ignores the preferences.
 
   This file may contain a line like this:
 
@@ -143,13 +147,16 @@ Umlaute        ,= 'ß'
 
 Currency    = ''
 Currency    ,= '$£€¥'
+
+Misc        = ''
+Misc        ,= '«»' 
 ```
 
 If there is such an INI file and it carries meaningful contents then a menu command "Inject special char" becomes available.
 
 When this menu command is selected all special characters are put on view, and the user may inject any of them into the markdown document at the cursor position by simply clicking at them.
 
-This is a --- possibly temporary --- measure necessary because Dyalog's "Edit" control do not allow entering Unicode symbols by pressing <Alt> with a certain numeric code.
+This is a --- possibly temporary --- measure necessary because Dyalog's "Edit" control does not allow entering Unicode symbols by pressing <Alt> with a certain numeric code.
 
 
 Update MarkAPL
@@ -170,7 +177,7 @@ You can find out  which version of MarkAPL Meddy is currently using via the "Abo
 Bugs
 ----
 
-Send a bug report to <mailto:kai@aplteam.com>. Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious (it might well be for you but not necessarily for somebody else).
+Send a bug report to <mailto:kai@aplteam.com>. Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious (it might well be to you but not necessarily for somebody else).
 
 * Attach the files created as a result of the crash; crash files are written to:
 
@@ -192,5 +199,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 1.7.0      |
-| Last update | 2018-08-17 |
+| Version     | 1.8.0      |
+| Last update | 2018-10-14 |

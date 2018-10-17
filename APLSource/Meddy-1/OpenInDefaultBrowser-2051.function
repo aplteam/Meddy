@@ -1,6 +1,6 @@
  OpenInDefaultBrowser←{
      filename←⍵
      0=##.FilesAndDirs.IsFile ⍵:n TellFileDoesNotExist filename
-     _←A.GoToWebPage filename
+     _←A.GoToWebPage'"',(filename~'"'),'"'
      1:r←0
  }

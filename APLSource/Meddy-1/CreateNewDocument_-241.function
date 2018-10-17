@@ -8,4 +8,5 @@
  n.(Row Col).Text←'1'
  n.∆parms.saveHtml←n.∆Prefs.SaveHtml
  {}1 RefreshPreview n
+ n←CloseDragAndDropSubForm n
 ⍝Done

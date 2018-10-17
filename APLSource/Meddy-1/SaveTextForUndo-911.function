@@ -5,8 +5,8 @@
  {6::r←⍬ ⋄ {}'≠'n.∆CommitUndoRedo ⍵}n.Markdown.Text n.Markdown.SelText   ⍝TODO⍝  Sometimes result, sometimes not. Tell JohnS!
  :If noOf≢'?'n.∆CommitUndoRedo ⎕NULL
      n.∆LastSelText←n.Markdown.SelText
-     :If 6>⌊⎕WA÷1000000 ⍝ Just 5MB memory left?!
-         ⎕←⍴'↑'n.∆CommitUndoRedo 1⊃noOf-⌈noOf×0.25
+     :If 6>⌊(2000⌶0)÷1000000 ⍝ Just 5MB memory left?!   ⍝ 2000⌶0 is a quick ⎕WA - no garbage collection
+         {}'↑'n.∆CommitUndoRedo 1⊃noOf-⌈noOf×0.25
      :EndIf
  :EndIf
 ⍝Done

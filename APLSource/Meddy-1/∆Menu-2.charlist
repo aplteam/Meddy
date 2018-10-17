@@ -31,7 +31,7 @@
  ~Go to line number...=Ctrl+G      : OnMenuCommand     {goto}           : Jumps to a particular line number the user will be prompted for 
  -
  ~Refresh preview=F5               : OnMenuCommand     {refresh}        : Update the preview
- ~Scroll HTML=F6                   : OnMenuCommand     {scrollHTML}     : Scrolls the HTML so that the same header is visible in both panes
+ ~Scroll HTML=F6                   : OnMenuCommand     {scrollHTML}     : Scrolls to next header after current cursor pos and syncs TOC/preview
  ~View HTML in default browser=F10 : OnMenuCommand     {view}           : View the HTML file in the default browser
  Toggle full-screen mode=F11       : OnMenuCommand     {fullscreen}     : Toggle full-screen mode like any browser
  -

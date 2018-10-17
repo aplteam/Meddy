@@ -6,8 +6,9 @@
      bool←~WhereIsLeanPubEncodingLine markdown
      0=+/isParm←bool\∧\'['=↑¨bool/markdown:markdown''
      embeddedParms←isParm/markdown
-     pattern←'(^\s{0,3}\[parm]:\s{0}verbose\s{0,}=).*$'
-     embeddedParms←pattern ⎕R('\10\n')⍠('Greedy' 0)('IC' 0)⊣embeddedParms
+     pattern←'(^\s{0,3}\[parm]:\s{0}\b.*\b\s{0,}=).*$'
+     ind←pattern ⎕S 2⍠('Greedy' 0)('IC' 1)⊣embeddedParms
+     0=≢embeddedParms←embeddedParms[ind]:markdown''
      embeddedParms←(⍴'[parm]:')↓¨embeddedParms
      embeddedParms←SplitEmbeddedParm¨embeddedParms
      ((~bool∧~isParm)/markdown)←⊂''

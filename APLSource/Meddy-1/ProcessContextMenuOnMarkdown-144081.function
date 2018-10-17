@@ -7,6 +7,8 @@
      :Select menuItem
      :Case contextMenu.Find
          FindInMarkdown n
+     :Case contextMenu.FindAndReplace
+         FindAndReplace n
      :Case contextMenu.ViewParms
          InjectParameters n
      :Case contextMenu.InjectExpression

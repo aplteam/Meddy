@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "1.8.0.135"
+#define MyAppVersion "2.0.0.154"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -53,11 +53,12 @@ Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
 
 [Files]
 ; Source: "MarkAPL.dyalog"; DestDir: "{commonappdata}\{#MyAppName}";
-Source: "Docs/MarkAPLDocs/MarkAPL.html"; DestDir: "{app}";
-Source: "Docs/MarkAPLDocs/MarkAPL_CheatSheet.html"; DestDir: "{app}";
-Source: "Docs/MarkAPLDocs/LeanPubExtensions.html"; DestDir: "{app}";
-Source: "Docs/MarkAPLDocs/QuickIntro.html"; DestDir: "{app}";
-Source: "Docs/MarkAPLDocs/Styles.html"; DestDir: "{app}";
+Source: "MarkAPL.html"; DestDir: "{app}";
+Source: "MarkAPL_CheatSheet.html"; DestDir: "{app}";
+Source: "LeanPubExtensions.html"; DestDir: "{app}";
+Source: "QuickIntro.html"; DestDir: "{app}";
+Source: "Styles.html"; DestDir: "{app}";
+Source: "Presentations.html"; DestDir: "{app}";
 Source: "CSS/MarkAPL_print.css"; DestDir: "{app}/CSS";
 Source: "CSS/MarkAPL_screen.css"; DestDir: "{app}/CSS";
 Source: "CSS/BlackOnWhite_print.css"; DestDir: "{app}/CSS";
@@ -92,6 +93,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 
 [Run]
 Filename: "{app}\ReadMe.html"; Description: "View the README file"; Flags: postinstall shellexec skipifsilent
+Filename: "{app}\ReleaseNotes.html"; Description: "View the release notes"; Flags: postinstall shellexec skipifsilent
 Filename: "{app}\{#MyAppExeName}"; Description: "Launch Meddy"; Flags: postinstall skipifsilent nowait
 
 ; Strangely sometimes (rarely) this seems to be required in order to be able to Ride into Meddy:

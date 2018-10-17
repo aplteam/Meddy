@@ -6,15 +6,57 @@
 Meddy Release Notes
 ===================
 
-## 1.8.0
-   * A markdown document can be marked as "Presentation" by adding the parameter:
-    
-     `[parm]:presentation=1`
+## 2.0.0
 
-     The markdown is then expected to follow the rules set out by PresentAPL, and it is when saved converted into a stand-alone HTML page that can be used as a presentation in any modern browser.
-   * The context menu now comes with standard "Cut", "Copy" and "Paste" commands.
-   * For displaying the HTML pages listed in the "Help" menu a .NET call was used. This was changegd so that Meddy does not need the .NET-related DLLs anymore, and it does not need .NET itself either.
+| Note that this version might break existing markdown files of yours! |{style="color: red; font-size:larger;"}
+|Check the first topic of the release notes!|
+
+ * Meddy 2.0.0 comes with a new version of MarkAPL (5.0.0) which potentially **might break** your markdown files:
+
+   The syntax for adding special attributes to images and links was inconsistent and got changed.
+
+   * In general the special attributes (that's the stuff between `{}`) need to go _into_ the definition. For example, for an auto-link rather than having
+
+     `<https://aplwiki.com>{style="color: red;"}`
+
+     It is
+
+     `<https://aplwiki.com {style="color: red;"}>
+
+     Similarly special attributes need to go betwen the `()` of image and link definitions.
+
+     This is incompatibel with MarkdownExtra, the original inventor of the idea and syntax, but makes much more sense because you don't have to worry about escaping any `{}` charcters that are supposed to appear in the document.
+
+
+ * More complex expressions like links or images can now be embedded via the context menu, giving you a template with the correct syntax.
+
+ * A markdown document can be declared as being a pesentation by adding the parameter:
+    
+   `[parm]:presentation=1`
+
+   The markdown is then expected to follow the rules set out by PresentAPL, and it is when saved converted into a stand-alone HTML page that can be used as a presentation in any modern browser. For details see <https://github.com/aplteam/PresentAPL>.
+
+   Because a specific syntax is required for a presentation a template is put on display in case the user selects "New presentation" from the "File" menu.
+
+ * The context menu now comes with standard "Cut", "Copy" and "Paste" commands.
+
+ * For displaying the HTML pages listed in the "Help" menu a .NET call was used. This was changegd so that Meddy does not need the .NET-related DLLs anymore, and it does not need .NET itself either.
+
+ * Bug fixes:
+
    * In case of "Save as..." Meddy did not check whether such a file already existed, and therefore did not ask whether the user wants to overwrite it or not.
+
+   * The "Preferences" dialog could behave strangely on multi-monitor systems.
+
+   * When the "Preferences" dialog was open, a click on the main form or Meddy's icon in the task bar did not bring the Preferences dialog to the front.
+
+   * After a "Find" or a "Find & Replace" operation the TOC and markdown were not syncronized.
+
+   * After an "Undo" or a "Redo" operation the TOC and markdown were not syncronized.
+
+   * With large documents Meddy became sluggish when keys were pressed. 
+
+   * Creating a new markdown file "(File > New") from an existing instance let to strange behaviour.
 
 ## 1.7.2
    * None of the documents in the "Help" menu was shown since 1.7.0 because some DLLs also

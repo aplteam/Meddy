@@ -3,10 +3,18 @@
  :If 0∊⍴∊n.HTML.Text
      CreateNewDocument_ n
  :Else
+     :If A.IsDevelopment
+         ⎕LX←'#._Meddy.Meddy.Run ⍬'
+         0 ⎕SAVE ⎕WSID
+     :EndIf
      cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+     cmd,←A.IsDevelopment/'"',F.PWD,'\',⎕WSID,'.dws" '
      cmd,←'-new '
      cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
-     cmd,←A.IsDevelopment/'"',⎕WSID,'" '
+     :If A.IsDevelopment
+     :AndIf 0
+         cmd,←' -x'
+     :EndIf
      ##.WinSys.ShellExecute cmd
  :EndIf
  n←CloseDragAndDropSubForm n

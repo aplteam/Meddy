@@ -1,4 +1,4 @@
-/* MarkAPL's default scree CSS version 2.1 from 2017-11-30 */
+/* MarkAPL's default scree CSS version 2.5 from 2018-10-17 */
 
 /* Note that there are some variables embedded as comments which will be replaced
    by MarkAPL. The names are embraced by "<<", so for a variable "foo" it is
@@ -467,6 +467,8 @@ body  {
     max-width: 900px; /* <<maxwidth>> */
     padding: 0.83em;
     color: #292929;    
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 h1, h2, h3, h4, h5, h6 {
     color: #404040;
@@ -583,6 +585,7 @@ pre {
     display: block;
     font-family: APLFont, monospace;
     font-weight: 400;
+    white-space: pre-wrap;
 }
 pre > code {
     line-height: 1.2;
@@ -592,6 +595,7 @@ pre > code {
     background-color: inherit;
     color: inherit;
     font-weight: inherit;
+    white-space: pre-wrap;
 }
 a code {
     padding: 0;
@@ -859,7 +863,9 @@ div.leanpub p {
     display:block;
     padding: 0.44em 0 0 0;
 }
-
 div.leanpub > div {
     margin-left: 2.27em;  /* margin (20px) plus width of icon (21px) */
+}
+.print_only {
+    display: none;
 }

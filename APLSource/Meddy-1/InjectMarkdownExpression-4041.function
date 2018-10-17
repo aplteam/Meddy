@@ -3,6 +3,7 @@
  parms←G.Input.CreateParms
  parms.addToCaption←'Expressions'
  parms.onInitial←'OnBeautifyExpressionInjection'
+ parms.parent←n.∆Form
  def←0 7⍴⍬
  caption←'What kind of expression would you like to inject at the cursor position?'
  def⍪←'Info' ''caption G.Enums.InputDataTypes.Label ⍬ 0 1
@@ -15,19 +16,19 @@
      2 ⎕NQ n.Markdown'KeyPress' 'CT'
      :Select ↑⍸1⊃result[0;]
      :Case 0 ⍝ Image by URL
-         text←'![Alt text](https://www.dyalog.com/uploads/images/General/dyaloglogo.png "My title"){style="height:70px; width:100px;"}'
+         text←'![Alt text](https://www.dyalog.com/uploads/images/General/dyaloglogo.png "My title" {style="height:70px; width:100px;"})'
      :Case 1 ⍝ Link by filename
-         text←'![Meddy''s icon](file:///./Meddy.ico "Icon representing Meddy"){style="height:70px; width:100px;"}'
+         text←'![Alt text](file:///./Meddy.ico "Icon representing Meddy" {style="height:70px; width:100px;"})'
      :Case 2 ⍝ Footnote
          text←'[^unique_id]  --- Move this to the bottom: [^unique_id]: My footnote'
      :Case 3 ⍝ Abbreviation
-         text←'*[abbreviation]: Explenation, URL, whatever.'
+         text←'*[abbreviation]: Explanation, URL, whatever.'
      :Case 4 ⍝ Definition list
          text←'Term to be explained',CR,CR,': First line',CR,CR,': Second line'  ⍝ NOT supported yet: '{syle="font-size:xx-large;}'
      :Case 5 ⍝ Link by URL
-         text←'[MarkAPL](https://github.com/aplteam/MarkAPL "Link to MarkAPL on GitHub"){style="font-size:xx-large;"}'
+         text←'[MarkAPL](https://github.com/aplteam/MarkAPL "Link to MarkAPL on GitHub" {style="color: red;"})'
      :Case 6 ⍝ Simplified link by URL
-         text←'<https://github.com/aplteam/MarkAPL>{style="font-size:xx-large;"}'
+         text←'<https://github.com/aplteam/MarkAPL {style="color: red;"}>'
      :Case 7 ⍝ Bookmark link
          text←GetTextToBeInjectedAsBookMark n
      :Else

@@ -1,4 +1,4 @@
-/* MarkAPL's default screen CSS version 2.2 from 2017-12-23 */
+/* MarkAPL's default screen CSS version 2.5 from 2018-10-17 */
 
 /* Note that there are some variables embedded as comments which will be replaced
    by MarkAPL. The names are embraced by "<<", so for a variable "foo" it is
@@ -196,7 +196,7 @@ sub {
 }
 
 sup {
-  top: -0.5em;
+  top: -0.4em;
 }
 
 /* Embedded content
@@ -468,6 +468,8 @@ body  {
     max-width: 900px; /* <<maxwidth>> */
     padding: 0.83em;
     color: #505050;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 h1, h2, h3, h4, h5, h6 {
     padding-left: 0;
@@ -575,6 +577,7 @@ pre {
     border: 1px Silver solid;
     display: block;
     font-family: APLFont, monospace;
+    white-space: pre-wrap;
 }
 pre > code {
     line-height: 1.2;
@@ -583,6 +586,7 @@ pre > code {
     margin: 0;
     background-color: inherit;
     color: inherit;
+    white-space: pre-wrap;
 }
 a code {
     padding: 0;
@@ -603,7 +607,7 @@ code {
     font-family: APLFont, monospace;
     background-color: #e7e7e7;
     color: Black;
-    font-weight: 800;
+    font-weight: 400;
     line-height: 1.2;
     font-size: 0.88em;
     margin: 0;
@@ -872,4 +876,8 @@ div.leanpub_A p, div.leanpub p {
 }
 div.leanpub > div {
     margin-left: 2.27em;  /* margin (20) plus width of icon (21) */
+}
+
+.print_only {
+    display: none;
 }
