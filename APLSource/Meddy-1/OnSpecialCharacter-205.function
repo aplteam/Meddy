@@ -7,7 +7,7 @@
      :Return
  :EndIf
  :If 0=n.⎕NC'Search_for'                    ⍝ Markdown?!
-     ⎕NQ n.Markdown'KeyPress'char
+     2 ⎕NQ n.Markdown'KeyPress'char
      {}⎕NQ n.Markdown'GotFocus'
  :Else
      :If 0=n.⎕NC'Replace_with'              ⍝ "Search" dialog?!

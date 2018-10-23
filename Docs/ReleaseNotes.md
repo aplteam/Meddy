@@ -6,6 +6,13 @@
 Meddy Release Notes
 ===================
 
+## 2.0.1
+ * Bug fixes:
+   * In case there is already a Markdown document opened, selecting "New presentation" from the "File" menu opened an empty new document rather than a new presentation.
+   * In case a second document is opened the screen flickered (GUI gets created in the center first, then moved to the neighbourhood of the first window).
+   * After a click onto a special character the cursor disapeared.
+   * Problem with "Hide right pane". #10
+
 ## 2.0.0
 
 | Note that this version might break existing markdown files of yours! |{style="color: red; font-size:larger;"}

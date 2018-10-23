@@ -8,5 +8,6 @@
  n.(Row Col).Text←'1'
  n.∆parms.saveHtml←n.∆Prefs.SaveHtml
  n.Markdown.Text←GetPresentationTemplate
+ n←CloseDragAndDropSubForm n
  {}1 RefreshPreview n
 ⍝Done

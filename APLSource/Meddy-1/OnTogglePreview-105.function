@@ -5,7 +5,10 @@
      n.Right.(Active Visible)←0
      n.∆LastSplitter1Posn←n.Splitter1.Posn
      n.∆LastSplitter2Posn←n.Splitter2.Posn
-     2 ⎕NQ n.Splitter2'EndSplit',(n.Splitter2.Posn[0]),(n.∆Form.Size[1]-5),2⍴3
+    ⍝2 ⎕NQ n.Splitter2'EndSplit',(n.Splitter2.Posn[0]),(n.∆Form.Size[1]-5),2⍴3
+     ⎕←(n.Splitter2.Posn[0]),(n.∆Form.Size[1]-5),2⍴3
+     2 ⎕NQ n.Splitter2'EndSplit'(n.Splitter2.Posn[0]),(n.LeftAndRight.Size[1]-5),2⍴3
+     n.LeftAndRight.Size
      n.Splitter2.Active←0
      n.HidePreview.State←1
  :Else

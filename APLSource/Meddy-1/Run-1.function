@@ -16,6 +16,7 @@
  n.∆Path←ReadPathFromRegistry ⍬
  n←CreateGui n
  HandleCommandLineParms n
+ n.∆Form.Visible←1
  2 ⎕NQ #'Flush'
  ⎕DL 0.1
  GetMarkAPLScriptIntoWS n

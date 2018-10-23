@@ -5,6 +5,7 @@
  :Else
      cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
      cmd,←'-new '
+     cmd,←'-presentation '
      cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
      cmd,←A.IsDevelopment/'"',⎕WSID,'" '
      ##.WinSys.ShellExecute cmd
