@@ -4,5 +4,9 @@ Meddy is a Markdown editor. It uses the [MarkAPL class](http://github.com/apltea
 
 This is a Windows-only GUI application written in Dyalog APL 17.0 Unicode 32-bit which is available as a stand-alone EXE. 
 
-Naturally Meddy is the only editor that supports all MarkAPL features.
+![](meddy_screenshot.png)
 
+* Support all MarkAPL features; for details see <https://github.com/aplteam/MarkAPL>
+* Allows navigating via the TreeView representing all headers
+* Powerful search and replace functionality
+* Allows injecting complex Markdown expressions via the context menu
