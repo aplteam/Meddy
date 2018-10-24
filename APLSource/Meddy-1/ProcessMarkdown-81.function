@@ -1,10 +1,12 @@
- {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay
+ {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay;E
  success←1
  newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
  markdown←n.Markdown.Text
  (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
  :If AllParmsAreOkay n embeddedParms
-     :Trap 1 2 3 4 5 10 11 22
+     E←##.EventCodes
+    ⍝:Trap 1 2 3 4 5 10 11 22
+     :Trap E.(WS_FULL SYNTAX_ERROR INDEX_ERROR RANK_ERROR LENGTH_ERROR LIMIT_ERROR DOMAIN_ERROR FILE_NAME_ERROR)
          parms←GetPreferences n
          parms←CompileParmsForMarkAPL n parms embeddedParms
          :If ⎕NULL≡parms.cssURL
