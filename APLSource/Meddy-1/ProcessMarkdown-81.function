@@ -4,9 +4,8 @@
  markdown←n.Markdown.Text
  (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
  :If AllParmsAreOkay n embeddedParms
-     E←##.EventCodes
     ⍝:Trap 1 2 3 4 5 10 11 22
-     :Trap E.(WS_FULL SYNTAX_ERROR INDEX_ERROR RANK_ERROR LENGTH_ERROR LIMIT_ERROR DOMAIN_ERROR FILE_NAME_ERROR)
+     :Trap ##.EventCodes.(WS_FULL SYNTAX_ERROR INDEX_ERROR RANK_ERROR LENGTH_ERROR LIMIT_ERROR DOMAIN_ERROR FILE_NAME_ERROR)
          parms←GetPreferences n
          parms←CompileParmsForMarkAPL n parms embeddedParms
          :If ⎕NULL≡parms.cssURL
