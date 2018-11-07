@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.0.1.161"
+#define MyAppVersion "2.0.1.162"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
