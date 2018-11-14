@@ -6,6 +6,12 @@
 Meddy Release Notes
 ===================
 
+## 2.1.0
+
+* The menu command "Scroll HTML" was renamed to "Jump to next header" and the function key moved from F6 to F7.
+* A new menu command "Jump to previous header" with F6 as assigned function key has been introduced.
+* "About" improved: the links are now active.
+
 ## 2.0.1
  * Bug fixes:
    * In case there is already a Markdown document opened, selecting "New presentation" from the "File" menu opened an empty new document rather than a new presentation.

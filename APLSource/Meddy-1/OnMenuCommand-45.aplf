@@ -68,8 +68,10 @@
      ReportConversionProblem n
  :Case n.∆Menubar.fullscreen
      ToggleFullscreenMode n
- :Case n.∆Menubar.scrollHTML
-     {}ScrollHTML n
+ :Case n.∆Menubar.prevHeader
+     {}JumpToPreviousHeader n
+ :Case n.∆Menubar.nextHeader
+     {}JumpToNextHeader n
  :Case n.∆Menubar.relnotes
      ShowReleaseNotes n
  :Case n.∆Menubar.presentations

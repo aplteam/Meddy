@@ -1,4 +1,4 @@
- ScrollHTML←{
+ JumpToNextHeader←{
 ⍝ Scroll the HTML so that the current header is shown.
      n←⍵
      0=≢n.Toc.∆Toc:0
