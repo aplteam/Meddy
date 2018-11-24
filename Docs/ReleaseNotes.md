@@ -6,6 +6,11 @@
 Meddy Release Notes
 ===================
 
+## 2.1.1
+ * Bug fixes: 
+   * Meddy crashed when an attempt to save either the markdown or the HTML failed, for example because the target folder had vanished. It now reports an error and keeps going.
+   * An error message regarding invalid extensions was ill-formatted.
+
 ## 2.1.0
 
 * The menu command "Scroll HTML" was renamed to "Jump to next header" and the function key moved from F6 to F7.

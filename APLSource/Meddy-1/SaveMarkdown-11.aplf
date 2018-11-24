@@ -17,7 +17,7 @@
          :If IsPresentation n
              SaveMarkdownAsPresentation n n.∆HtmlFilename
          :Else
-             A.WriteUtf8File htmlFilename n.HTML.∆HTML
+             SaveText htmlFilename n.HTML.∆HTML
          :EndIf
      :EndIf
  :EndIf

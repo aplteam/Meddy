@@ -1,3 +1,7 @@
  {r}←SaveText(filename text);buff
  buff←{↓⍣(↑2=⍴⍴⍵)⊣⍵}text
- r←A.WriteUtf8File filename buff
+ :Trap ##.EventCodes.(FILE_ACCESS_ERROR FILE_DAMAGED FILE_NAME_ERROR FILE_SYSTEM_NO_SPACE FILE_TIE_ERROR FILE_TIE_QUOTA_USED_UP FILE_TIED)
+     r←A.WriteUtf8File filename buff
+ :Else
+     TellFileSaveError filename
+ :EndTrap

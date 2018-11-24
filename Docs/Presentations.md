@@ -2,11 +2,13 @@
 
 ## Overview
 
-Meddy is able to interpret a markdown file as the source for a presentation. 
+Meddy is able to create an HTML file that acts like a presentation in any modern browser. All that's needed is an embedded parameter: `[parm]:presentation=1`.
 
-All that's needed is an embedded parameter: `[parm]:presentation=1`.
+Unfortunately Meddy cannot view the HTML as a presentation in its own "Preview" window for technical reasons. Instead the HTML is shown in "Print" mode. However, by pressing F10 one can get around this easily, asking the default browser for doing that job.
 
-This enables you to generate a presentation with very little effort by following a simple and small set of rules.
+This feature enables you to generate a presentation with very little effort by following a simple and small set of rules.
+
+The resulting HTML file is stand-alone except when you embed images of any kind.
 
 You can use all the stuff supported by MarkAPL: paragraphs, lists, code blocks, tables, images, blockquotes, horizontal rulers, in-line markup (bold, italic, APL code, deleted…) and more.
 

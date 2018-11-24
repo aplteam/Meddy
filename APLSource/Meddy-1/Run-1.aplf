@@ -1,5 +1,6 @@
  {r}Run dummy;n;⎕ML;⎕IO;A;F;⎕TRAP
 ⍝ Main function
+
  r←⍬
  ⎕IO←0 ⋄ ⎕ML←3
  EnableCONTINUE_workspaces ⍬

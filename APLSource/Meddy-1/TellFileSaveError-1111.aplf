@@ -1,0 +1,8 @@
+ {r}←TellFileSaveError filenames;msg
+ r←⍬
+ msg←''
+ msg,←⊂'Unable to save this file:'
+ msg,←⊂filenames
+ msg,←⊂'Error msg: ',##.EventCodes.GetName ⎕DMX.EN
+ G.Dialogs.ShowMsg msg
+⍝Done

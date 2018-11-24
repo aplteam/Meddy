@@ -2,7 +2,7 @@
  r←⍬
  msg←''
  msg,←⊂'The file:'
- msg,←filenames
+ msg,←⊂filenames
  msg,←⊂'has an invalid extension'
  G.Dialogs.ShowMsg msg
 ⍝Done
