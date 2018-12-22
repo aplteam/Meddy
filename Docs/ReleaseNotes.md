@@ -6,10 +6,18 @@
 Meddy Release Notes
 ===================
 
+## 2.1.2
+* New command added to the "Help" menu: "Check for update".
+
+  As a side effect of this new feature Meddy needs .NET again.
+
 ## 2.1.1
- * Bug fixes: 
-   * Meddy crashed when an attempt to save either the markdown or the HTML failed, for example because the target folder had vanished. It now reports an error and keeps going.
-   * An error message regarding invalid extensions was ill-formatted.
+* Bug fixes: 
+  * Meddy crashed when an attempt to save either the markdown or the HTML failed, for example because the target folder had vanished. It now reports an error and keeps going.
+  * An error message regarding invalid extensions was ill-formatted.
+  * In case opening a file failed (for example because of a Unicode problem) then in the attempt to tell the user Meddy crashed.
+  * Executing the "Show latest report" crashed Meddy when there was nothing to report (yet).
+  * Both the "About" and the "Preferences" dialog boxes offered an "Edit" menu when they should not.
 
 ## 2.1.0
 

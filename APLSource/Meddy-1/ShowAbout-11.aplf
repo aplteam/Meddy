@@ -19,5 +19,6 @@
  parms←G.Input.CreateParms
  parms.addToCaption←'About'
  parms.minSize←⍬ 550
+ parms.menubar←''
  parms n.∆globalParms G.Input.Run defMat
 ⍝Done

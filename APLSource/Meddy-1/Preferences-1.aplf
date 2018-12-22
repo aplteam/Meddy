@@ -10,6 +10,7 @@
  parms.tips⍪←'Warnings'('Show MarkAPL''s warnings, if any.' 'Note that error messages will be shown in any case.')
  parms.tips⍪←'LeanPub'('See https://github.com/aplteam/MarkAPL' 'for details regarding LeanPub extensions.')
  parms.parent←n.∆Form
+ parms.menubar←''
  ⍝TODO⍝ parms.tips⍪←'PortNo' 'Port number used by Meddy''s built-in server.'  ⍝⍝⍝⍝⍝ When we support push, if ever
  DT←G.Enums.InputDataTypes
  def←0 7⍴⍬

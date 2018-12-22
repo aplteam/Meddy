@@ -1,16 +1,20 @@
  {r}←ReportConversionProblem n;parms;msg;report
  r←⍬
- report←n.∆Report
- :If 0=n.∆Prefs.Warnings
-     report/⍨←'Warning:'{⍺∘≢¨(⍴⍺)↑¨⍵}report
- :EndIf
- :If ~0∊⍴report
-     #.CursorObj←0
-     parms←G.Dialogs.CreateParmsForShowLongMsg
-     parms.addToCaption←'Warnings & error msg'
-     parms.buttons←,⊂'OK'
-     msg←'Markdown-to-HTML warnings and error messages'
-     msg←msg((⍴msg)⍴'=')
-     msg,←report
-     n.∆globalParms parms G.Dialogs.ShowLongMsg msg
+ :If 0=n.⎕NC'∆Report'
+     TellNothingToReport n
+ :Else
+     report←n.∆Report
+     :If 0=n.∆Prefs.Warnings
+         report/⍨←'Warning:'{⍺∘≢¨(⍴⍺)↑¨⍵}report
+     :EndIf
+     :If ~0∊⍴report
+         #.CursorObj←0
+         parms←G.Dialogs.CreateParmsForShowLongMsg
+         parms.addToCaption←'Warnings & error msg'
+         parms.buttons←,⊂'OK'
+         msg←'Markdown-to-HTML warnings and error messages'
+         msg←msg((⍴msg)⍴'=')
+         msg,←report
+         n.∆globalParms parms G.Dialogs.ShowLongMsg msg
+     :EndIf
  :EndIf

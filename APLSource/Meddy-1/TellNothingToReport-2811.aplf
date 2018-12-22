@@ -1,0 +1,9 @@
+ {r}←TellNothingToReport n;msg;parms
+ r←⍬
+ #.CursorObj←0
+ parms←G.Dialogs.CreateParmsForShowMsg
+ parms.addToCaption←'Latest Report'
+ parms.parent←n.∆Form
+ msg←'Sorry but there is nothing to report (yet).'
+ n.∆globalParms parms G.Dialogs.ShowMsg msg
+⍝Done

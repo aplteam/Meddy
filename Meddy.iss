@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.1.1.166"
+#define MyAppVersion "2.1.2.172"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -66,10 +66,8 @@ Source: "CSS/BlackOnWhite_screen.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Blue.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS"; 
 
-; ----- .NET is not needed  by Meddy any more: -----
-; Source: "bridge170_unicode.dll"; DestDir: "{app}";
-; Source: "dyalognet.dll"; DestDir: "{app}"     
-; --------------------------------------------------
+Source: "bridge170_unicode.dll"; DestDir: "{app}";
+Source: "dyalognet.dll"; DestDir: "{app}"     
 
 Source: "{#MyAppExeName}"; DestDir: "{app}"
 Source: "ReadMe.html"; DestDir: "{app}";

@@ -1,0 +1,9 @@
+ TellErrorWhileCheckingForBetterVersion←{
+     n←⍵
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.parent←⍵.∆Form
+     parms.style←G.Enums.DialogStyles.Error
+     msg←'Unable to check GitHub for a better version - an error has ocurred!'
+     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     ⍬
+ }

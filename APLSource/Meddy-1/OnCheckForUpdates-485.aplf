@@ -1,0 +1,12 @@
+ OnCheckForUpdates←{
+     n←GetRef2n↑⍵
+     (gitVersion msg url)←CheckForNewVersion'api.github.com/repos/aplteam/meddy/releases/latest'(1⊃Version)
+     ∨/'Error'⍷msg:0⊣TellErrorWhileCheckingForBetterVersion n
+     0=≢gitVersion:0⊣TellMeddyIsUp2Date n
+     msg←'There is a better version available on GitHub: ',gitVersion
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.parent←n.∆Form
+     parms.style←G.Enums.DialogStyles.Info
+     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     0
+ }
