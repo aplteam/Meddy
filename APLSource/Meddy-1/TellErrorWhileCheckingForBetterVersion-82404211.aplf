@@ -4,6 +4,7 @@
      parms.parent←⍵.∆Form
      parms.style←G.Enums.DialogStyles.Error
      msg←'Unable to check GitHub for a better version - an error has ocurred!'
+     #.CursorObj←0
      _←n.∆globalParms parms G.Dialogs.ShowMsg msg
      ⍬
  }

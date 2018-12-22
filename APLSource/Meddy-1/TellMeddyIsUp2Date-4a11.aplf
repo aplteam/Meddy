@@ -4,6 +4,7 @@
      parms.parent←n.∆Form
      parms.style←G.Enums.DialogStyles.Info
      msg←'Meddy is up to date.'
+     #.CursorObj←0
      _←n.∆globalParms parms G.Dialogs.ShowMsg msg
      ⍬
  }

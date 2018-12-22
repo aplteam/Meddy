@@ -10,7 +10,7 @@
      gitPath←'https://',⎕IO⊃⍵
      version←(1+⎕IO)⊃⍵
      msg←'Version Status: '
-     0::⍬(msg,'Error Checking')''
+     0::⍬((msg,'Error Checking')({⍵↓⍨2+⍵⍳':'}{⍵↑⍨1⍳⍨⎕TC[1 2]⍷⍵}⍕⎕EXCEPTION))''
      fixVersion←{100 100 1000⊥⍵}
      currentVersion←fixVersion 3↑(⎕IO+1)⊃'.'⎕VFI version
      ⎕USING←'System.Net,system.dll' 'System.IO' 'System.Text'

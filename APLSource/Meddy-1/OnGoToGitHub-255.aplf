@@ -1,0 +1,4 @@
+ OnGoToGitHub←{
+     url←'https://github.com/aplteam/Meddy'
+     A.GoToWebPage url
+ }

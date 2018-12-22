@@ -1,4 +1,5 @@
  OnCheckForUpdates←{
+     #.CursorObj←1
      n←GetRef2n↑⍵
      (gitVersion msg url)←CheckForNewVersion'api.github.com/repos/aplteam/meddy/releases/latest'(1⊃Version)
      ∨/'Error'⍷msg:0⊣TellErrorWhileCheckingForBetterVersion n
@@ -7,6 +8,7 @@
      parms←G.Dialogs.CreateParmsForShowMsg
      parms.parent←n.∆Form
      parms.style←G.Enums.DialogStyles.Info
+     #.CursorObj←0
      _←n.∆globalParms parms G.Dialogs.ShowMsg msg
      0
  }

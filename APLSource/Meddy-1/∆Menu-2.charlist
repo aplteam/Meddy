@@ -52,7 +52,9 @@
 [Help]                                                 {help}
  Meddy's ReadMe=Ctrl+Shift+F1      : OnMenuCommand     {readme}         ; Puts Meddy's ReadMe.html on display
  Meddy's Release Notes             : OnMenuCommand     {relnotes}       ; Puts Meddy's file ReleaseNotes.html on display
+ -
  Check for updates                 : OnCheckForUpdates {updates}        ; Asks the GitHub server for latest version and checks
+ Show Meddy on GitHub              : OnGoToGitHub      {github}         ; Opens Meddy's "home page" on GitHub in the default browser
  -
  Quick intro into MarkAPL          : OnMenuCommand     {intro}          ; Basic info about MarkAPL, the Markdown converter used by Meddy
  MarkAPL's cheat cheet=F1          : OnMenuCommand     {cheat}          ; Open MarkAPL's cheat sheet

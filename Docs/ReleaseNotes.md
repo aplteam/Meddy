@@ -7,6 +7,7 @@ Meddy Release Notes
 ===================
 
 ## 2.1.2
+* New command added to the "Help" menu: "Show Meddy on GitHub".
 * New command added to the "Help" menu: "Check for update".
 
   As a side effect of this new feature Meddy needs .NET again.
