@@ -72,8 +72,6 @@
      {}JumpToPreviousHeader n
  :Case n.∆Menubar.nextHeader
      {}JumpToNextHeader n
- :Case n.∆Menubar.relnotes
-     ShowReleaseNotes n
  :Case n.∆Menubar.presentations
      ShowAboutPresentations n
  :Else

@@ -1,5 +1,0 @@
- ShowReleaseNotes←{
-     n←⍵
-     rc←n OpenInDefaultBrowser F.PWD,'\ReleaseNotes.html'
-     1:rc←rc
- }

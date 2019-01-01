@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.1.2.174"
+#define MyAppVersion "2.2.0.182"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -76,7 +76,6 @@ Source: "app.ini.remove_me"; DestDir: "{app}"; DestName:"app.ini"; Flags: onlyif
 Source: "specialchars.ini.remove_me"; DestDir: "{app}"; DestName:"specialchars.ini"; Flags: onlyifdoesntexist;
 Source: {#MyAppIcoName}; DestDir: "{app}";
 Source: "C:\Windows\Fonts\apl385.ttf"; DestDir: "{fonts}"; FontInstall: "APL385 Unicode"; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "ReleaseNotes.html"; DestDir: "{app}";
 Source: "LICENSE"; DestDir: "{app}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -91,7 +90,6 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 
 [Run]
 Filename: "{app}\ReadMe.html"; Description: "View the README file"; Flags: postinstall shellexec skipifsilent
-Filename: "{app}\ReleaseNotes.html"; Description: "View the release notes"; Flags: postinstall shellexec skipifsilent
 Filename: "{app}\{#MyAppExeName}"; Description: "Launch Meddy"; Flags: postinstall skipifsilent nowait
 
 ; Strangely sometimes (rarely) this seems to be required in order to be able to Ride into Meddy:

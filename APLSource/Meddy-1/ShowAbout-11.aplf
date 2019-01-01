@@ -20,5 +20,6 @@
  parms.addToCaption←'About'
  parms.minSize←⍬ 550
  parms.menubar←''
- parms n.∆globalParms G.Input.Run defMat
+ parms.cancelBtnCaption←0
+ {}parms n.∆globalParms G.Input.Run defMat
 ⍝Done

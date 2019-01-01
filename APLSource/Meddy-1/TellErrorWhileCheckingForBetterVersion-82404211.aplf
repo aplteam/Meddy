@@ -1,9 +1,12 @@
  TellErrorWhileCheckingForBetterVersion←{
-     n←⍵
+     n←⍺
+     errMsg←⍵
      parms←G.Dialogs.CreateParmsForShowMsg
-     parms.parent←⍵.∆Form
+     parms.parent←n.∆Form
      parms.style←G.Enums.DialogStyles.Error
-     msg←'Unable to check GitHub for a better version - an error has ocurred!'
+     msg←⊂'Unable to check GitHub for a better version - an error has ocurred:'
+     msg,←1↑(⎕UCS 13 10)A.Split errMsg
+     msg,←'' 'Please check your Internet connection.'
      #.CursorObj←0
      _←n.∆globalParms parms G.Dialogs.ShowMsg msg
      ⍬

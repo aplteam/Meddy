@@ -1,14 +1,17 @@
  OnCheckForUpdates←{
      #.CursorObj←1
      n←GetRef2n↑⍵
-     (gitVersion msg url)←CheckForNewVersion'api.github.com/repos/aplteam/meddy/releases/latest'(1⊃Version)
-     ∨/'Error'⍷msg:0⊣TellErrorWhileCheckingForBetterVersion n
-     0=≢gitVersion:0⊣TellMeddyIsUp2Date n
-     msg←'There is a better version available on GitHub: ',gitVersion
-     parms←G.Dialogs.CreateParmsForShowMsg
+     myGitAPI←⎕NEW ##.GitHubAPIv3(,⊂'aplteam')
+     (rc more ns)←myGitAPI.GetLatestRelease'Meddy'
+     0≠rc:0⊣n TellErrorWhileCheckingForBetterVersion more
+     gitVersion←##.GitHubAPIv3.CastTagname2Number ns.tag_name
+     gitVersion≤⌊##.GitHubAPIv3.CastTagname2Number 1⊃Version:0⊣TellMeddyIsUp2Date n
+     msg←⊂'There is a better version available on GitHub: ',1↓ns.tag_name
+     msg,←'' 'Would you like to download the new version?'
+     parms←G.Dialogs.CreateParmsForYesOrNo
      parms.parent←n.∆Form
-     parms.style←G.Enums.DialogStyles.Info
      #.CursorObj←0
-     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     0=n.∆globalParms parms G.Dialogs.YesOrNo msg:0
+     _←A.GoToWebPage ns.zipball_url
      0
  }

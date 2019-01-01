@@ -1,0 +1,7 @@
+# Meddy
+       
+* For developing Meddy interactively run the function `#._Meddy.r`
+
+* For changing the menu edit the variable `#._Meddy.Meddy.∆Menu`
+
+* For running the test cases run `#._Meddy.TestCases.RunDebug 0`
