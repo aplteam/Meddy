@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.2.0.182"
+#define MyAppVersion "2.2.0.201"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -69,7 +69,7 @@ Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS";
 Source: "bridge170_unicode.dll"; DestDir: "{app}";
 Source: "dyalognet.dll"; DestDir: "{app}"     
 
-Source: "{#MyAppExeName}"; DestDir: "{app}"
+Source: "Dist\{#MyAppExeName}"; DestDir: "{app}"
 Source: "ReadMe.html"; DestDir: "{app}";
 Source: "Meddy2.ico"; DestDir: "{app}";
 Source: "app.ini.remove_me"; DestDir: "{app}"; DestName:"app.ini"; Flags: onlyifdoesntexist;

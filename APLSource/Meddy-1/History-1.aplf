@@ -1,6 +1,9 @@
  History
-⍝ * New command added to the "Help" menu: "Check for update".\\
-⍝   As a side effect of this new feature Meddy needs .NET again.
-⍝ * ...
+⍝ * 2.x.x
+⍝   * "ReadMe.html" contained wrong information.
+⍝   * Internal improvements (error diagnosis)
+⍝ * 2.2.0
+⍝   * New command added to the "Help" menu: "Check for update".\\
+⍝     As a side effect of this new feature Meddy needs .NET again.
 ⍝\\
 ⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

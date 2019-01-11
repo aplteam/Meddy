@@ -5,6 +5,7 @@
 [parm]:title='Meddy ReadMe'
 
 
+
 Read me
 =======
 
@@ -14,7 +15,7 @@ Purpose
 
 **_Meddy_** is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is refer to <https://github.com/aplteam/MarkAPL> for details.
 
-Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are MarkAPL specific.
+Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are specific to MarkAPL.
 
 The application was created with Dyalog 17.0 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
 
@@ -69,7 +70,7 @@ No matter how you navigate, the three views are always kept in sync.
 Requirements
 ------------
 
-Up to version 1.7.0 Meddy required the .NET framework for some functionality. This is not the case from version 1.8.0
+Meddy requires the .NET framework to be available.
 
 CSS Style sheets
 ----------------
@@ -152,11 +153,11 @@ Misc        = ''
 Misc        ,= '«»' 
 ```
 
-If there is such an INI file and it carries meaningful contents then a menu command "Inject special char" becomes available.
+If there is such an INI file then a bar with those characters is displayed right under the menu bar.
 
-When this menu command is selected all special characters are put on view, and the user may inject any of them into the markdown document at the cursor position by simply clicking at them.
+The user may inject any of them into the markdown document at the cursor position by simply clicking at them.
 
-This is a --- possibly temporary --- measure necessary because Dyalog's "Edit" control does not allow entering Unicode symbols by pressing <Alt> with a certain numeric code.
+This is a necessary measure because Dyalog's "Edit" control does not allow entering Unicode symbols by pressing <Alt> with a certain numeric code.
 
 
 Update MarkAPL
@@ -177,7 +178,7 @@ You can find out  which version of MarkAPL Meddy is currently using via the "Abo
 Bugs
 ----
 
-Send a bug report to <mailto:kai@aplteam.com>. Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious (it might well be to you but not necessarily for somebody else).
+Send a bug report to <mailto:kai@aplteam.com>. Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious (it might well be for you but not necessarily for somebody else).
 
 * Attach the files created as a result of the crash; crash files are written to:
 
@@ -200,4 +201,4 @@ Meddy was written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
 | Version     | 1.8.0      |
-| Last update | 2018-10-14 |
+| Last update | 2019-01-10 |
