@@ -1,0 +1,7 @@
+ text←GetDataFromMarkdown(n row);T;noOf;ind;line
+ T←n.Toc
+ noOf←1+row{+/∧\(⍺⊃⍵)<(⍺+1)↓⍵}T.Depth
+ ind←(1⊃¨n.HTML.∆ns.toc)⍳T.Items[row]
+ line←¯1+ind⊃n.HTML.∆ns.headerLineNos
+ text←line↓(¯1+¯1↑(1+noOf)↑ind↓n.HTML.∆ns.headerLineNos)↑n.Markdown.Text
+⍝Done

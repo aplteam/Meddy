@@ -1,0 +1,12 @@
+ r←CheckClipboardData;cl
+⍝ Returns 1 in case the data on the clipboard's `array` property might be nested Markdown, otherwise 0
+ cl←⎕NEW⊂'Clipboard'
+ r←0
+ :If 0≠≢cl.Array
+     :If 2=|≡cl.Array
+         r←(,⊂,' ')≡,∪{1↑0⍴⍵}¨cl.Array
+     :Else
+         r←(⎕DR cl.Array)∊80 82
+     :EndIf
+ :EndIf
+⍝Done

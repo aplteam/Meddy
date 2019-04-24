@@ -1,0 +1,8 @@
+ TellIncompatibleClipboard←{
+     n←⍵
+     msg←'The clipboard does not contain data that can be interpreted as Markdown'
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.addToCaption←'View Clipbaord'
+     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     1:r←⍬
+ }

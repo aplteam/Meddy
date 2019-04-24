@@ -1,4 +1,4 @@
- {r}←SaveMarkdown n;parms;htmlFilename
+ {r}←SaveMarkdown n;parms;htmlFilename;flag;embeddedParms;bool;saveHTML
  r←⍬
  :If 0∊≢n.∆Filename
      SaveMarkdownAs n
@@ -6,8 +6,29 @@
      SaveText n.∆Filename n.Markdown.Text
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
      RefreshPreview n
-     :If 1=n.∆parms.saveHtml
-     :OrIf DoYouWantToSaveHtml n
+     embeddedParms←↑GetEmbeddedParms n.Markdown.Text
+     :If 0<+/bool←embeddedParms{((⍴⍵)↑¨⍺)≡¨⊂⍵}'[parm]:saveHTML'
+         saveHTML←(↑¯1↑⍸bool)⊃embeddedParms
+         saveHTML←{↑(//)⎕VFI ⍵↓⍨1+⍵⍳'='}saveHTML
+         :If ~saveHTML∊¯1 0 1 2
+             saveHTML←⍬
+         :EndIf
+     :Else
+         saveHTML←⍬
+     :EndIf
+     :If (,saveHTML)≡,¯1      ⍝ ¯1 means "undefined"
+     :OrIf saveHTML≡⍬
+         :If 0=flag←1=n.∆parms.saveHtml
+             flag←DoYouWantToSaveHtml n
+         :EndIf
+     :Else
+         :If 2=saveHTML
+             flag←saveHTML DoYouWantToSaveHtml n
+         :Else
+             flag←saveHTML
+         :EndIf
+     :EndIf
+     :If flag
          :If 0∊⍴n.∆HtmlFilename
              htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
          :Else
@@ -17,7 +38,7 @@
          :If IsPresentation n
              SaveMarkdownAsPresentation n n.∆HtmlFilename
          :Else
-             SaveText htmlFilename n.HTML.∆HTML
+             1 SaveText htmlFilename n.HTML.∆HTML
          :EndIf
      :EndIf
  :EndIf

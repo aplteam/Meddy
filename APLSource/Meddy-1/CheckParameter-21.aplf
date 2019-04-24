@@ -6,7 +6,7 @@
 ⍝ performs a check. If the parameter does not pass a 0 is returned, other a 1.
 
 ⍝ I. Numeric values
- :If (⊂name)∊'bookmarkLink' 'createFullHtmlPage' 'lineNumberOffset' 'toc' 'width' 'numberHeaders'
+ :If (⊂name)∊'bookmarkLink' 'createFullHtmlPage' 'lineNumberOffset' 'toc' 'width' 'numberHeaders' 'saveHTML'
      success←↑0=1↑0⍴∊value
  ⍝ II. Flags
  :ElseIf (⊂name)∊'bookmarkMayStartWithDigit' 'checkFootnotes' 'checkLinks' 'collapsibleTOC' 'compileFunctions' 'compressCSS' 'debug' 'div_h_tag' 'enforceEdge' 'ignoreEmbeddedParms' 'leanpubExtensions' 'linkToCSS' 'markdownStrict' 'noCSS' 'reportLinks' 'smoothScrolling' 'subTocs' 'syntaxSugar' 'verbose' 'presentation'

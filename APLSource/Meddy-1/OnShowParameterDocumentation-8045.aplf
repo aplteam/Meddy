@@ -1,0 +1,5 @@
+ OnShowParameterDocumentation←{
+     n←GetRef2n 0⊃,⍵
+     rc←n OpenInDefaultBrowser F.PWD,'\MarkAPL.html#Parameters'
+     0
+ }

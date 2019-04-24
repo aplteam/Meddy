@@ -1,4 +1,4 @@
- {r}←InjectParameters n;parms;ps;list;bool;markdown;noOf;buff;alreadyDefined;isNum;ok;comments;list2;isLeanpubEncoding
+ {r}←InjectParameters n;parms;ps;list;bool;markdown;noOf;buff;alreadyDefined;isNum;ok;comments;list2;isLeanpubEncoding;n2
  r←⍬
  ps←#.MarkAPL.CreateParms
  ps.presentation←0
@@ -16,7 +16,12 @@
      parms.info←'Embedded parmaters are a MarkAPL-only feature! Select parameters to embedd:'
      parms.fontLabel←n.∆globalParms.fontAPL
      isNum←0=↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
-     (ok bool)←n.∆globalParms parms G.OptionsTool.Run↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
+     n2←n.∆globalParms parms G.OptionsTool.Create↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
+     n2.menubar.help←n2.menubar.edit.##.⎕NEW'Menu'(⊂'Caption' '&Help')
+     n2.menubar.showDoc←n2.menubar.help.⎕NEW'MenuItem'(⊂'Caption' 'View parameter documentation')
+     n2.menubar.showDoc.onSelect←'OnShowParameterDocumentation'
+     (ok bool)←G.OptionsTool.ModalWait n2
+⍝⍝     (ok bool)←n.∆globalParms parms G.OptionsTool.Run↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
      :If ok
          :Trap 0
          ⍝ We don't check `bool` because the user might just want to reformat the list of parameters

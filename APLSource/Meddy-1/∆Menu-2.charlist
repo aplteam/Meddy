@@ -38,7 +38,8 @@
  ~View HTML in default browser=F10 : OnMenuCommand     {view}           : View the HTML file in your default browser
  Toggle full-screen mode=F11       : OnMenuCommand     {fullscreen}     : Toggle full-screen mode
  -
- Show latest report                : OnMenuCommand     {report}         : Displays the latest MarkAPL report, if there is any (warnings, error messages...)
+ Show latest report...             : OnMenuCommand     {report}         : Displays the latest MarkAPL report, if there is any (warnings, error messages...)
+ View clipboard...                 : OnMenuCommand     {viewClipboard}  : Displays the contents of the clipboard, in case it is possibly Markdown
  
 [Search]
  ~Find in Markdown=Ctrl+F          : OnMenuCommand     {find}           : Find string in the markdown 

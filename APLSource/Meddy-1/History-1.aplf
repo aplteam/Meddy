@@ -1,9 +1,12 @@
  History
-⍝ * 2.x.x
-⍝   * "ReadMe.html" contained wrong information.
+⍝ * 2.3.0
+⍝   * Cut and copy now work TOC's context menu.
+⍝   * The "View" menu now has a "View clipboard..." command.
+⍝   * Parameter `[parm]saveHTML=0|1|2` is now honoured by Meddy.
+⍝   * Bug fixes:
+⍝     * "Check for updates" might have crashed. This was caused by a bug in `GitHubAPIv3` which got fixed with 0.3.0
+⍝     * Incorporating MarkAPL 5.0.2 or later could crash Meddy
+⍝     * "ReadMe.html" contained wrong information.
 ⍝   * Internal improvements (error diagnosis)
-⍝ * 2.2.0
-⍝   * New command added to the "Help" menu: "Check for update".\\
-⍝     As a side effect of this new feature Meddy needs .NET again.
 ⍝\\
 ⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

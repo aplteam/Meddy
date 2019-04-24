@@ -1,0 +1,14 @@
+ {r}←CutFromTree_(n row);T;noOf;ind;line;text;cl;top;bottom
+ r←⍬
+ T←n.Toc
+ noOf←1+row{+/∧\(⍺⊃⍵)<(⍺+1)↓⍵}T.Depth
+ ind←(1⊃¨n.HTML.∆ns.toc)⍳T.Items[row]
+ line←¯1+ind⊃n.HTML.∆ns.headerLineNos
+ cl←⎕NEW⊂'Clipboard'
+ cl.Array←line↓(¯1+¯1↑(1+noOf)↑ind↓n.HTML.∆ns.headerLineNos)↑n.Markdown.Text
+ top←(line-1)↑n.Markdown.Text
+ bottom←(¯1+¯1+¯1↑(1+noOf)↑ind↓n.HTML.∆ns.headerLineNos)↓n.Markdown.Text
+ n.Markdown.Text←top,bottom
+ RefreshPreview n
+ WriteToStatusbar n'Text removed from Markdown and copied to the clipboard'
+⍝Done

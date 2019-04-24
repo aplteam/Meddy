@@ -74,6 +74,8 @@
      {}JumpToNextHeader n
  :Case n.∆Menubar.presentations
      ShowAboutPresentations n
+ :Case n.∆Menubar.viewClipboard
+     ViewClipboard n
  :Else
      :If menuItem∊n.∆Menubar.(cut copy paste)
          SendKeystroke n menuItem

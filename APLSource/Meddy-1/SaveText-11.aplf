@@ -1,7 +1,11 @@
- {r}←SaveText(filename text);buff
+ {r}←{statusbarFlag}SaveText(filename text);buff
+ statusbarFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'statusbarFlag'
  buff←{↓⍣(↑2=⍴⍴⍵)⊣⍵}text
  :Trap ##.EventCodes.(FILE_ACCESS_ERROR FILE_DAMAGED FILE_NAME_ERROR FILE_SYSTEM_NO_SPACE FILE_TIE_ERROR FILE_TIE_QUOTA_USED_UP FILE_TIED)
      r←A.WriteUtf8File filename buff
+     :If statusbarFlag
+         0 WriteToStatusbar n('Saved at ',A.FormatDateTime ⎕TS)
+     :EndIf
  :Else
      TellFileSaveError filename
  :EndTrap

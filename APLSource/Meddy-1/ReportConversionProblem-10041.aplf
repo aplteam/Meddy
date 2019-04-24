@@ -15,6 +15,7 @@
          msg←'Markdown-to-HTML warnings and error messages'
          msg←msg((⍴msg)⍴'=')
          msg,←report
+         n.∆Form.CursorObj←0
          n.∆globalParms parms G.Dialogs.ShowLongMsg msg
      :EndIf
  :EndIf

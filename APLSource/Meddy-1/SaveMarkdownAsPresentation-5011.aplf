@@ -12,5 +12,5 @@
          :Return
      :EndIf
  :EndIf
- SaveText filename html
+ 1 SaveText filename html
 ⍝Done

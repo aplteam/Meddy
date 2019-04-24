@@ -1,0 +1,22 @@
+ {r}←CopyFromTree n;msg;parms;row;noOfChildren;D
+ r←⍬
+ D←##.GUI.Dialogs
+ :If 0<+/n.Toc.SelItems         ⍝ Yes, we've seen this!
+     row←n.Toc.SelItems⍳1
+     msg←''
+     msg,←⊂'Are your sure that you want to copy all the text belonging to the header:'
+     msg,←⊂'  <',(row⊃n.Toc.Items),'>'
+     noOfChildren←{+/∧\(↑⍵)<1↓⍵}row↓n.Toc.Depth
+     :If 1=noOfChildren
+         msg,←⊂'including one child from the text?'
+     :ElseIf 1<noOfChildren
+         msg,←⊂'including ',(⍕noOfChildren),' children from the text?'
+     :Else
+         msg,←⊂'from the text?'
+     :EndIf
+     parms←D.CreateParmsForYesOrNo
+     parms.addToCaption←'Copy'
+ :AndIf n.∆globalParms parms D.YesOrNo msg
+     CopyFromTree_ n row
+ :EndIf
+⍝Done

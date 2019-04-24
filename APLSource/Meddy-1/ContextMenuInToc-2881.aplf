@@ -3,8 +3,6 @@
  cm←CreateContextMenuForToc n
  :If ~0∊⍴res←⎕DQ cm.∆menu
      :Select ↑res
-⍝     :Case cm.Find
-         ⍝ Not implemented yet
      :Case cm.ExpandAll
          n.Toc.Visible←0
          row←n.Toc.SelItems⍳1
@@ -24,5 +22,9 @@
          n.Toc.SelItems←(⍴n.Toc.SelItems)↑1
          ⎕NQ n.Toc'ItemUp' 0 0 0
          n.Toc.Visible←1
+     :Case cm.Cut
+         CutFromTree n
+     :Case cm.Copy
+         CopyFromTree n
      :EndSelect
  :EndIf

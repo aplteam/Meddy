@@ -191,7 +191,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li><strong><em>MarkAPL</em></strong> parameters can be embedded into a document - see <a href="#Embedding-parameters-with" class="bookmark_link">embedded parameters</a> for details.</li>
 <li>LeanPub extensions
 <p>With version 3.6 <strong><em>MarkAPL</em></strong> recognizes and processes the so-called LeanPub extension which are discussed in a separate document. These extensions allow the author to inject asides and messages: errors, warnings, tips and more.</p>
-<p>The CSS style sheet sets <strong><em>MarkAPL</em></strong> is coming with contains rules for these extensions, but this can of course be changed to your liking by using a tailor made style sheet set that matches your needs.</p>
+<p>The set of CSS style sheets <strong><em>MarkAPL</em></strong> is coming with contain rules for these extensions, but this can of course be changed to your liking by using a tailor made style sheets that match your needs.</p>
 <p>Note that there is a separate document available that discusses style sheets in detail.</p></li>
 </ul>
 <div class="h_tag">
@@ -1939,15 +1939,16 @@ This is a paragraph with curlies at the end: \{\}.
 <li><a href="#printCSS" class="bookmark_link">3.3.28. printCSS</a></li>
 <li><a href="#reportLinks" class="bookmark_link">3.3.29. reportLinks</a></li>
 <li><a href="#reportLinksCaption" class="bookmark_link">3.3.30. reportLinksCaption</a></li>
-<li><a href="#screenCSS" class="bookmark_link">3.3.31. screenCSS</a></li>
-<li><a href="#showHide" class="bookmark_link">3.3.32. showHide</a></li>
-<li><a href="#subTocs" class="bookmark_link">3.3.33. subTocs</a></li>
-<li><a href="#syntaxSugar" class="bookmark_link">3.3.34. syntaxSugar</a></li>
-<li><a href="#title" class="bookmark_link">3.3.35. title</a></li>
-<li><a href="#toc" class="bookmark_link">3.3.36. toc (table of contents)</a></li>
-<li><a href="#tocCaption" class="bookmark_link">3.3.37. tocCaption</a></li>
-<li><a href="#verbose" class="bookmark_link">3.3.38. verbose</a></li>
-<li><a href="#width" class="bookmark_link">3.3.39. width</a></li>
+<li><a href="#saveHTML" class="bookmark_link">3.3.31. saveHTML</a></li>
+<li><a href="#screenCSS" class="bookmark_link">3.3.32. screenCSS</a></li>
+<li><a href="#showHide" class="bookmark_link">3.3.33. showHide</a></li>
+<li><a href="#subTocs" class="bookmark_link">3.3.34. subTocs</a></li>
+<li><a href="#syntaxSugar" class="bookmark_link">3.3.35. syntaxSugar</a></li>
+<li><a href="#title" class="bookmark_link">3.3.36. title</a></li>
+<li><a href="#toc" class="bookmark_link">3.3.37. toc (table of contents)</a></li>
+<li><a href="#tocCaption" class="bookmark_link">3.3.38. tocCaption</a></li>
+<li><a href="#verbose" class="bookmark_link">3.3.39. verbose</a></li>
+<li><a href="#width" class="bookmark_link">3.3.40. width</a></li>
 </ul>
 </nav>
 <p>This document lists <em>all</em> parameters available (read: honoured by <strong><em>Mark_APL</em></strong>). However, you cannot set all of them with the <code>[parm]:&lt;name&gt;=&lt;value&gt;</code> technqiue: some of them can only be specified programmatically.</p>
@@ -2219,23 +2220,63 @@ This is a paragraph with curlies at the end: \{\}.
 </div>
 <p>String that defaults to “Link report:”. This is placed above the list of all links (see <code>reportLinks</code>).</p>
 <div class="h_tag">
+<a href="#saveHTML" id="saveHTML" class="autoheader_anchor">
+<h4>3.3.31. saveHTML</h4>
+</a>
+</div>
+<p>Note that this parameter is special insofar as it is not a MarkAPL but a Meddy parameter, meaning that MarkAPL just ignored it.</p>
+<p>However, the Markdown editor <a href="https://github.com/aplteam/Meddy" class="external_link" title="Link to Meddy on GitHub">Meddy</a> would take it into account if the value is <strong>not</strong> <code>¯1</code>.</p>
+<p>These are the possible values:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Value</th>
+<th style="text-align: left;"> Action </th>
+<th style="text-align: left;"> Comment </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><code>¯1</code></td>
+<td>Meddy ignores the parameter</td>
+<td>(default)</td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>1</code></td>
+<td>Save HTML whenever the markdown is saved</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>0</code></td>
+<td><strong>Do not</strong> save HTML</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>2</code></td>
+<td>Ask user whether the HTML should be saved or not</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>If specified this parameter overwrites the user's preferences.</p>
+<div class="h_tag">
 <a href="#screenCSS" id="screenCSS" class="autoheader_anchor">
-<h4>3.3.31. screenCSS</h4>
+<h4>3.3.32. screenCSS</h4>
 </a>
 </div>
 <p>The name of the CSS file (or several CSS files separated by commata) for the screen. Defaults to <code>MarkAPL_screen.css</code>. If this is empty no CSS for viewing purposes is included or linked to.</p>
 <div class="h_tag">
 <a href="#showHide" id="showHide" class="autoheader_anchor">
-<h4>3.3.32. showHide</h4>
+<h4>3.3.33. showHide</h4>
 </a>
 </div>
 <p><del>This is ignored in case <code>collapsibleTOC</code> is 0. It defaults to “Show;Hide”. The <code>;</code> acts as a separator. If <code>collapsibleTOC</code> is 1 then the header of the TOC is compiled initially from <code>tocHeader</code> followed by <code> (</code> and “Show”. After that <code>)</code> is added.</del></p>
 <p><del>When the user clicks on this “Show” (left to the <code>;</code>) is replaced by “Hide” (right to <code>;</code>) in the TOC header.</del></p>
 <p><del>Note that this parameter has an effect only when the CSS is injected. Linked-to CSS must be prepared properly.</del></p>
-<p>With version 4.3 this parameter is ignored. Instead of text triangles (<code>▼</code> and <code>▲</code>) are used mimiking combo boxes. Note that this change requires a change in the CSS as well.</p>
+<p>With version 4.3 this parameter is ignored. Instead of text triangles (<code>▼</code> and <code>▲</code>) are used mimicking combo boxes. Note that this change requires a change in the CSS as well.</p>
 <div class="h_tag">
 <a href="#subTocs" id="subTocs" class="autoheader_anchor">
-<h4>3.3.33. subTocs</h4>
+<h4>3.3.34. subTocs</h4>
 </a>
 </div>
 <p>Boolean that defaults to 1. If you want to suppress sub TOCs no matter whether there are any included in the Markdown or not then set this to 0.</p>
@@ -2248,7 +2289,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>Note that in case <a href="#toc" class="bookmark_link">toc</a> is 0 then no sub topics are inserted, no matter what the actually setting of <code>subTocs</code> is.</p>
 <div class="h_tag">
 <a href="#syntaxSugar" id="syntaxSugar" class="autoheader_anchor">
-<h4>3.3.34. syntaxSugar</h4>
+<h4>3.3.35. syntaxSugar</h4>
 </a>
 </div>
 <p>Boolean that defaults to 1. Settings this to 0 if you don't want <strong><em>MarkAPL</em></strong> carry out the operations that are associated with syntactical sugar. That means not exchanging…</p>
@@ -2265,14 +2306,14 @@ This is a paragraph with curlies at the end: \{\}.
 <p>Note that prior to version 3.4 this was called <a href="#markdownStrict" class="bookmark_link"><code>markdownStrict</code></a>.</p>
 <div class="h_tag">
 <a href="#title" id="title" class="autoheader_anchor">
-<h4>3.3.35. title</h4>
+<h4>3.3.36. title</h4>
 </a>
 </div>
 <p>In case the document has exactly one level-1 header then <code>title</code> defaults to this header. Otherwise it defaults to “MarkAPL”.</p>
 <p>Defines the <code>&lt;title&gt;</code> tag in the <code>&lt;head&gt;</code> section of the resulting HTML page.</p>
 <div class="h_tag">
 <a href="#toc" id="toc" class="autoheader_anchor">
-<h4>3.3.36. toc (table of contents)</h4>
+<h4>3.3.37. toc (table of contents)</h4>
 </a>
 </div>
 <p>An integer or integer vector that defaults to 0, meaning that no table of contents is injected into a document created by <strong><em>MarkAPL</em></strong>.</p>
@@ -2291,21 +2332,21 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#tocCaption" id="tocCaption" class="autoheader_anchor">
-<h4>3.3.37. tocCaption</h4>
+<h4>3.3.38. tocCaption</h4>
 </a>
 </div>
 <p>Defaults to “Table of contents”. Set this to any character vector you want to appear as header of the TOC. <code>tocCaption</code> will be ignored in case <code>toc</code> is 0.</p>
 <p>Note that this parameter has an effect only when the CSS is injected. Linked CSS must be prepared accordingly.</p>
 <div class="h_tag">
 <a href="#verbose" id="verbose" class="autoheader_anchor">
-<h4>3.3.38. verbose</h4>
+<h4>3.3.39. verbose</h4>
 </a>
 </div>
 <p>This parameter is of interest on for APL programmers.</p>
 <p>Boolean that defaults to <code>debug</code>. If this is 1 then the <code>Process</code> method will print the contents off <code>ns.report</code> to the session.</p>
 <div class="h_tag">
 <a href="#width" id="width" class="autoheader_anchor">
-<h4>3.3.39. width</h4>
+<h4>3.3.40. width</h4>
 </a>
 </div>
 <p>This defaults to <code>900px</code>. You can specify this either as a character vector or a numeric value. However, a numeric value always becomes <code>px</code> while a character value allows you to specify a different value, for example <code>80em</code>.</p>
@@ -2352,8 +2393,8 @@ This is a paragraph with curlies at the end: \{\}.
 <h2>5. Version information</h2>
 </a>
 </div>
-<p>This document refers to version 5.0.1 of <strong><em>MarkAPL</em></strong>.</p>
-<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2018-11-06</p>
+<p>This document refers to version 5.1.0 of <strong><em>MarkAPL</em></strong>.</p>
+<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2019-04-24</p>
 <div id="external_link_report" class="print_only">
 <hr>
 <p><strong>Link report</strong></p>
@@ -2366,6 +2407,7 @@ This is a paragraph with curlies at the end: \{\}.
 <li><a href="http://spec.commonmark.org/0.24/#html-blocks" class="external_link">http://spec.commonmark.org/0.24/#html-blocks</a>: <br>Common mark on HTML blocks</li>
 <li><a href="https://aplwiki.com" class="external_link">https://aplwiki.com</a></li>
 <li><a href="https://github.com/aplteam/PresentAPL" class="external_link">https://github.com/aplteam/PresentAPL</a></li>
+<li><a href="https://github.com/aplteam/Meddy" class="external_link">https://github.com/aplteam/Meddy</a>: <br>Meddy</li>
 </ul>
 </div>
 <div id="footnotes_div">

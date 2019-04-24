@@ -9,7 +9,7 @@
  :If F.Exists filename
      body←A.ReadUtf8File filename
      ref←⎕NS''
-     ref.##.APLTreeUtils←#.APLTreeUtils
+     ref.##.APLTreeUtils←ref.APLTreeUtils←#.APLTreeUtils
      ref.⎕FIX body
      :If 1 0≡⍋1⊃¨ref.MarkAPL.Version ##.MarkAPL.Version
          #.⎕FIX body

@@ -3,7 +3,7 @@
 [parm]:printCSS='BlackOnWhite_print.css'
 [parm]:screenCSS='BlackOnWhite_screen.css'
 [parm]:title='Meddy ReadMe'
-
+[parm]:saveHTML=0
 
 
 Read me
@@ -72,6 +72,7 @@ Requirements
 
 Meddy requires the .NET framework to be available.
 
+
 CSS Style sheets
 ----------------
 
@@ -93,7 +94,11 @@ This can be achieved by setting these parameters:
 
 Note that you can specify more than one CSS file: separate them with commata. In case of conflicts the last one wins.
 
-Note that for more detailed information there is a document "Styles.html" available. The document can be viewed from the "Help" menu.
+Notes:
+
+* There is more information available in the document "Styles.html". The document can be viewed from the "Help" menu.
+
+⍝ * You can also specify one or more CSS files via the (optional) [INI file command line parameter](#meddy_config).
 
 
 LeanPub extensions
@@ -111,13 +116,21 @@ Note that `cssURL` should either be a URL or specify the CSS folder relative to 
 Converting to and saving as HTML file
 -------------------------------------
 
-By default when a Markdown file is saved by Meddy there is also an HTML file saved as a sibling with the same name but the extension `.html` rather than `.md`. You can change this in two ways:
+When a Markdown file is saved by Meddy then by default there is also an HTML file saved as a sibling with the same name but the extension `.html` rather than `.md`. You can change this in several ways:
 
 * In the preferences you can tell Meddy that it should...
   * always save an HTML file.
   * never save an HTML file.
   * always ask whether such an HTML file shall be saved or not.
-* If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.Meddy` to the folder where the Markdown file lives. In that case Meddy knows that you want to save an HTML file and ignores the preferences.
+
+  However, changing the preferences only takes effect after the current document, if any, is re-opened.
+* You can embded `saveHTML` as a parameter and specify it as...
+  * 0 for **not** saving an HTML file
+  * 1 for saving an HTML file
+  * 2 for asking the user what to do
+
+  This takes precedence over the preferences.
+* If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.meddy` to the folder where the Markdown file lives. In that case Meddy knows that you want to save an HTML file and ignores the preferences as well as any embedded `saveHTML` parameter.
 
   This file may contain a line like this:
 
@@ -132,6 +145,15 @@ By default when a Markdown file is saved by Meddy there is also an HTML file sav
   ~~~
   outputPath = 'C:\My_HTML'
   ~~~
+
+⍝The (optional) INI file "meddy_config.ini" {#meddy_config} 
+⍝----------------------------------------------------------
+⍝
+⍝In case you want Meddy to act inspecific ways, for example...
+⍝
+⍝* always (or never) save HTML files 
+⍝* set a specific working directory
+⍝* specify one or more taylor-made CSS files
 
 
 The (optional) INI file "specialchars.ini"
@@ -183,7 +205,7 @@ Send a bug report to <mailto:kai@aplteam.com>. Describe what you did, what you e
 * Attach the files created as a result of the crash; crash files are written to:
 
   `"C:\Users\{UserID}\AppData\Local\Meddy\Errors"`
-* Add the input file if possible.
+* Add the input file if possible. If that is not possible (usually for security / data protection reasons) add the block that is not processed as expected _plus a couple of lines above and underneath_.
 
 
 Feature requests
@@ -200,5 +222,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 1.8.0      |
-| Last update | 2019-01-10 |
+| Version     | 2.3.0      |
+| Last update | 2019-04-24 |

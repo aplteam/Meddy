@@ -14,18 +14,24 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </head>
 <body>
 <div class="h_tag">
+<a href="#Quick-introduction-to-MarkAPL" id="Quick-introduction-to-MarkAPL" class="autoheader_anchor">
 <h1>Quick introduction to MarkAPL</h1>
+</a>
 </div>
 <p>By now you probably know that MarkAPL converts Markdown to HTML.</p>
 <p>All you need is the class <code>MarkAPL</code> and the namespace script <code>APLTreeUtils</code>.</p>
 <div class="h_tag">
+<a href="#Quick-start" id="Quick-start" class="autoheader_anchor">
 <h2>Quick start</h2>
+</a>
 </div>
 <p>Let's assume you have some Markdown:</p>
 <pre><code>      MyMarkdown←'# MarkAPL' 'All about **_MarkAPL_**'</code></pre>
 <p>There are two possible scenarios:</p>
 <div class="h_tag">
+<a href="#Convert-some-Markdown-into-HTML" id="Convert-some-Markdown-into-HTML" class="autoheader_anchor">
 <h3>Convert some Markdown into HTML</h3>
+</a>
 </div>
 <p>All you need to do is to call the <code>Markdown2HTML</code> method:</p>
 <pre><code>      (html ns)←MarkAPL.Markdown2HTML MyMarkdown
@@ -38,7 +44,9 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>Embedd the parameters you need to be different from the defaults into your Markdown . The next but one topic explains how to do that.</li>
 </ul>
 <div class="h_tag">
+<a href="#Create-a-fully-fledged-HTML-page-with-a-parameter-space" id="Create-a-fully-fledged-HTML-page-with-a-parameter-space" class="autoheader_anchor">
 <h3>Create a fully fledged HTML page with a parameter space</h3>
+</a>
 </div>
 <p>In order to make <strong><em>MarkAPL</em></strong> create a complete HTML page you can either specify <code>outputFilename</code> or set the <code>createFullHtmlPage</code> flag to 1:</p>
 <pre><code>      parms←MarkAPL.CreateParms
@@ -51,7 +59,9 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
  &lt;meta charset="utf-8"&gt;</code></pre>
 <p>Setting <code>outputFilename</code> has the additional benefit of writing the HTML to that file.</p>
 <div class="h_tag">
+<a href="#Create-a-fully-fledged-HTML-page-with-embedded-parameters" id="Create-a-fully-fledged-HTML-page-with-embedded-parameters" class="autoheader_anchor">
 <h3>Create a fully fledged HTML page with embedded parameters</h3>
+</a>
 </div>
 <p>In order to make <strong><em>MarkAPL</em></strong> create a complete HTML page you can <em>embed</em> either <code>outputFilename</code> or <code>createFullHtmlPage</code> into the markdown:</p>
 <pre><code>      (html ns)←MarkAPL.Markdown2HTML (⊂'[parm]:createFullHtmlPage=1'),MyMarkdown
@@ -61,7 +71,9 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
  &lt;head&gt;
  &lt;meta charset="utf-8"&gt;</code></pre>
 <div class="h_tag">
+<a href="#Documentation" id="Documentation" class="autoheader_anchor">
 <h2>Documentation</h2>
+</a>
 </div>
 <p>Call <code>MarkAPL.Help 0</code> in order to view the cheat sheet.</p>
 <p>Call <code>MarkAPL.Reference 0</code> in order to view the comprehensive documentation.</p>
@@ -71,12 +83,16 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
       parms.homeFolder←'C:\WhereMarkdown2HTML_lives'
       parms MarkAPL.Help 0</code></pre>
 <div class="h_tag">
+<a href="#The-workspace" id="The-workspace" class="autoheader_anchor">
 <h2>The workspace</h2>
+</a>
 </div>
 <p>The workspace contains not only the two scripts <code>APlTreeUtils</code> and <code>MarkAPL</code> but also the test suite. To run them execute <code>#._Meddy.TestCases.Run</code>.</p>
 <p>For further information regarding the test suite consult the script <code>#.Tester</code> in the workspace.</p>
 <div class="h_tag">
+<a href="#Misc" id="Misc" class="autoheader_anchor">
 <h2>Misc</h2>
+</a>
 </div>
 <p>Please send comments, suggestions and bug reports to kai@aplteam.com.</p>
 <p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2016-02-17</p>

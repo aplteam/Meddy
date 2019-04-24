@@ -1,0 +1,8 @@
+ {r}←ViewClipboard n
+ r←⍬
+ :If CheckClipboardData
+     ViewClipboard_ n
+ :Else
+     TellIncompatibleClipboard n
+ :EndIf
+⍝Done

@@ -1,0 +1,7 @@
+ {r}←CopyFromTree_(n row);msg;cl
+ r←⍬
+ 'cl'⎕WC'Clipboard'
+ cl.Array←GetDataFromMarkdown n row
+ msg←'Data copied to the clipboard (',{(⍕⍵),' line',((⍵>1)/'s'),')'}≢cl.Array
+ WriteToStatusbar n msg
+⍝Done
