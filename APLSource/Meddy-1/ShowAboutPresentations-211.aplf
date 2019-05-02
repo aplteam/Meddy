@@ -1,5 +1,7 @@
  ShowAboutPresentations←{
      n←⍵
-     rc←n OpenInDefaultBrowser F.PWD,'\Presentations.html'
+     filename←F.PWD,'\Presentations.html'
+     0=F.IsFile filename:n TellFileDoesNotExist filename
+     rc←n OpenInDefaultBrowser filename
      1:rc←rc
  }

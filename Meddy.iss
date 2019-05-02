@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.3.0.223"
+#define MyAppVersion "2.3.1.225"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -23,7 +23,6 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf32}\{#MyAppPublisher}\{#MyAppName}
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 AllowNoIcons=yes
-;OutputDir={src}\{#TargetDir}
 OutputDir={#TargetDir}
 OutputBaseFilename="SetUp_{#MyAppName}_{#MyAppVersion}"
 Compression=lzma

@@ -1,5 +1,7 @@
  ShowMarkAPL_Reference←{
      n←⍵
-     rc←n OpenInDefaultBrowser F.PWD,'\MarkAPL.html'
+     filename←F.PWD,'\MarkAPL.html'
+     0=F.IsFile filename:n TellFileDoesNotExist filename
+     rc←n OpenInDefaultBrowser filename
      1:rc←rc
  }

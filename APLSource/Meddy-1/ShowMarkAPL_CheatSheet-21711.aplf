@@ -1,5 +1,7 @@
  ShowMarkAPL_CheatSheet←{
      n←⍵
-     rc←n OpenInDefaultBrowser F.PWD,'\MarkAPL_CheatSheet.html'
+     filename←F.PWD,'\MarkAPL_CheatSheet.html'
+     0=F.IsFile filename:n TellFileDoesNotExist filename
+     rc←n OpenInDefaultBrowser filename
      1:rc←rc
  }

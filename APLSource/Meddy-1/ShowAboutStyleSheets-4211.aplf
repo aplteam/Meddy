@@ -1,5 +1,7 @@
  ShowAboutStyleSheets←{
      n←⍵
-     rc←n OpenInDefaultBrowser F.PWD,'\Styles.html'
+     filename←F.PWD,'\Styles.html'
+     0=F.IsFile filename:n TellFileDoesNotExist filename
+     rc←n OpenInDefaultBrowser filename
      1:rc←rc
  }
