@@ -1,0 +1,8 @@
+ menu←n CheckMenu menu;bool
+ :If n.∆INI.Exist'CONFIG:noRecentFiles'
+ :AndIf n.∆INI.Get'CONFIG:noRecentFiles'
+ :AndIf 0<+/bool←∨/¨'[&Recent files]'∘⍷¨menu
+     menu←(~bool)/menu
+     menu←(~1 1⍷(⊃2↑¨menu)∧.=' -')/menu  ⍝ Avoid two separators in a row
+ :EndIf
+⍝Done

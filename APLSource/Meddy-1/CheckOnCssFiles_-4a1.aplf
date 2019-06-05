@@ -1,0 +1,16 @@
+ parms←CheckOnCssFiles_(n parms name);buff;cssFilename
+ cssFilename←parms.⍎name
+ :If 0<≢cssFilename
+     :If 0=≢cssFilename←↑cssFilename n.∆INI.Get'CONFIG:',name
+         ⍎'parms.',name,'←''',cssFilename,''''
+         :Return
+     :EndIf
+     cssFilename←{~','∊⍵:⊂⍵ ⋄ ','A.Split ⍵}cssFilename
+ :AndIf 0=+/F.IsFile cssFilename
+ :AndIf n.∆INI.Exist'CONFIG:workdir'
+ :AndIf 0<≢buff←⊃n.∆INI.Get'CONFIG:workdir'
+     cssFilename←buff∘,¨cssFilename
+     cssFilename←↑{⍺,',',⍵}/cssFilename
+     ⍎'parms.',name,'←''',cssFilename,''''
+ :EndIf
+⍝Done

@@ -1,6 +1,9 @@
- {r}←SavePath n;regKey
+ {r}←{savePathInReg}SavePath n;regKey
  r←⍬
- :If ~0∊⍴n.∆Path
+ savePathInReg←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'savePathInReg'
+ :If savePathInReg
+ :AndIf 0≠≢n.∆Path
+ :AndIf 0=n.∆INI.Exist'Config:workDir'
      regKey←n.∆globalParms.regKey,'\Preferences\Path'
      ##.WinRegSimple.Write regKey n.∆Path
  :EndIf

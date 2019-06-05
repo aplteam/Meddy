@@ -63,18 +63,14 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </ul>
 <p>No matter how you navigate, the three views are always kept in sync.</p>
 <div class="h_tag">
-<a href="#Requirements" id="Requirements" class="autoheader_anchor">
-<h2>3. Requirements</h2>
-</a>
-</div>
-<p>Meddy requires the .NET framework to be available.</p>
-<div class="h_tag">
 <a href="#CSS-Style-sheets" id="CSS-Style-sheets" class="autoheader_anchor">
-<h2>4. CSS Style sheets</h2>
+<h2>3. CSS Style sheets</h2>
 </a>
 </div>
-<p>By default Meddy uses the “MarkAPL” style sheet for the preview. You can switch to “BlackOnWhite” either from the “Preferences” menu (= for all documents you are going to save) or by embedding a parameter into each document explicitly defining the style sheet to be used.</p>
-<p>The CSS defined in the style sheet is by default compressed and injected into the resulting HTML page. That makes the HTML fully independent from anything, at least as long as you do not, say, embedd images.</p>
+<p>By default Meddy uses the “MarkAPL” style sheet for the preview. You can switch to “BlackOnWhite” via the “Preferences” menu (= for all documents you are going to save). These two style sheets are the default style sheets MarkAPL is coming with.</p>
+<p>However, changing the preferences only takes effect after the current document, if any, is re-opened.</p>
+<p>You can also embed a parameter into each document explicitly defining the style sheet to be used. This is the recommended way to use your own taylor-made CSS.</p>
+<p>The CSS defined in the style sheet is by default compressed and injected into the resulting HTML page. That makes the HTML fully independent from anything, at least as long as you do not, say, embed images.</p>
 <p>Instead of creating a stand-alone HTML page you might want to create one that links to one or more style sheets, for example in order to create a book-like website. In order to make that possible you have to tell Meddy where to save the resulting HTML page, and which style sheets to use.</p>
 <p>This can be achieved by setting these parameters:</p>
 <pre><code>[parm]:cssUrl='CSS/'
@@ -87,18 +83,20 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <ul>
 <li>There is more information available in the document “Styles.html”. The document can be viewed from the “Help” menu.</li>
 </ul>
+<ul>
+<li>The two sets of style sheets that are coming with Meddy (<em>MarkAPL<em>.css and BlackOnWhite</em></em>.css) both carry mark-up for the LeanPub extensions.</li>
+<li><code>cssURL</code> should either be a URL or specify the CSS folder relative to where the HTML page will be saved.</li>
+</ul>
 <div class="h_tag">
 <a href="#LeanPub-extensions" id="LeanPub-extensions" class="autoheader_anchor">
-<h2>5. LeanPub extensions</h2>
+<h2>4. LeanPub extensions</h2>
 </a>
 </div>
-<p>Leanpub (<a href="https://leanpub.com/" class="external_link">https://leanpub.com/</a>) is a publishing platform for books. They've established a number of enhancements to Markdown that allow an author to add asides, info boxes and more, but also to highlight lines in the code, for example for emphasizing lines that had been changed or added compared with a previous version. The extensions might well be of interest to you even if you are not planning to use LeanPub's services.</p>
+<p>LeanPub (<a href="https://leanpub.com/" class="external_link">https://leanpub.com/</a>) is a publishing platform for books. They've established a number of enhancements to Markdown that allow an author to add asides, info boxes and more, but also to highlight lines in the code, for example for emphasizing lines that have been changed or added compared with a previous version. The extensions might well be of interest to you even if you are not planning to use LeanPub's services.</p>
 <p>There is a document “LeanPubExtensions.html” available in the Meddy install directory that documents these extensions. The document can be viewed from the “Help” menu.</p>
-<p>Note that the two sets of style sheets that are coming with Meddy (<em>MarkAPL<em>.css and BlackOnWhite</em></em>.css) both carry mark-up for the LeabPub extensions.</p>
-<p>Note that <code>cssURL</code> should either be a URL or specify the CSS folder relative to where the HTML page will be saved.</p>
 <div class="h_tag">
 <a href="#Converting-to-and-saving-as-HTML-file" id="Converting-to-and-saving-as-HTML-file" class="autoheader_anchor">
-<h2>6. Converting to and saving as HTML file</h2>
+<h2>5. Converting to and saving as HTML file</h2>
 </a>
 </div>
 <p>When a Markdown file is saved by Meddy then by default there is also an HTML file saved as a sibling with the same name but the extension <code>.html</code> rather than <code>.md</code>. You can change this in several ways:</p>
@@ -108,25 +106,71 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <li>always save an HTML file.</li>
 <li>never save an HTML file.</li>
 <li>always ask whether such an HTML file shall be saved or not.</li>
-</ul>
-<p>However, changing the preferences only takes effect after the current document, if any, is re-opened.</p></li>
-<li>You can embded <code>saveHTML</code> as a parameter and specify it as…
-<ul>
-<li>0 for <strong>not</strong> saving an HTML file</li>
-<li>1 for saving an HTML file</li>
-<li>2 for asking the user what to do</li>
-</ul>
-<p>This takes precedence over the preferences.</p></li>
-<li>If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file <code>.meddy</code> to the folder where the Markdown file lives. In that case Meddy knows that you want to save an HTML file and ignores the preferences as well as any embedded <code>saveHTML</code> parameter.
+</ul></li>
+<li>If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file <code>.meddy</code> to the folder where the Markdown file lives.
+<p>In that case Meddy knows that you want to save an HTML file and ignores the preferences as well as any embedded <code>saveHTML</code> parameter.</p>
 <p>This file may contain a line like this:</p>
 <pre><code>outputPath = '..\'</code></pre>
 <p>This lets Meddy save the HTML file in the parent folder of the folder the Markdown file came from.</p>
 <p>Instead you can of course also specify an absolute path:</p>
 <pre><code>outputPath = 'C:\My_HTML'</code></pre></li>
 </ul>
+<p>Note that Meddy's behaviour can also be influenced by setting a parameter <code>saveHTML</code> in an INI file, see there for details.</p>
+<p>You can also embded <code>saveHTML</code> as a parameter and specify it as…</p>
+<ul>
+<li>0 for <strong>not</strong> saving an HTML file</li>
+<li>1 for saving an HTML file</li>
+<li>2 for asking the user what to do</li>
+</ul>
+<div class="h_tag">
+<a href="#INI-Files" id="INI-Files" class="autoheader_anchor">
+<h2>6. INI Files</h2>
+</a>
+</div>
+<div class="h_tag">
+<a href="#appini" id="appini" class="autoheader_anchor">
+<h3>6.1. app.ini</h3>
+</a>
+</div>
+<p>Meddy relies on the INI file <code>app.ini</code>: if that cannot be found then Meddy cannot run.</p>
+<div class="h_tag">
+<a href="#User-defined-INI-file" id="User-defined-INI-file" class="autoheader_anchor">
+<h3>6.2. User-defined INI file</h3>
+</a>
+</div>
+<p>There is an INI file available that documents the options available via a user-defined INI file. It's name is <code>user.ini.optional</code>, meaning that it is not identified and used by Meddy.</p>
+<p>In order to make Meddy process — and honour — it, remove the <code>.optional</code> part from it.</p>
+<p>In case you wonder about those parameters: picture a situation were you want use Meddy as an editor for certain Markdown files that are part of a particular application. In such a scenario you might wan to…</p>
+<ul>
+<li>enforce a specific working directory</li>
+<li>disallow the user to enter the “Preferences” dialog (because those would be ignored anyway)</li>
+<li>disallow (or enforce) saving an HTML file when the Markdown is saved</li>
+<li>specify particular CSS files</li>
+<li>enable LeanPub extension (they are disabled by default)</li>
+<li>enforce that any conversion errors provided by MarkAPL are shown to the user</li>
+</ul>
+<p>Therefore the INI file would most likely go into another's application folder rather than stay as <code>special.ini</code> in the Meddy installation folder.</p>
+<p>If such parameters are defined (no matter where) then they take precedence over anything else but command line parameters if any.</p>
+<div class="h_tag">
+<a href="#Specify-user-defined-INI-file-via-the-command-line" id="Specify-user-defined-INI-file-via-the-command-line" class="autoheader_anchor">
+<h4>6.2.1. Specify user-defined INI file via the command line</h4>
+</a>
+</div>
+<p>In cases when the user- or application specific INI file cannot live in Meddy's installation directory you need a way to tell Meddy which INI file to use along with <code>app.ini</code>. This can be achieved by specifying <code>-ini="path/to/ini"</code> on the command line.</p>
+<div class="h_tag">
+<a href="#The-workdir-parameter" id="The-workdir-parameter" class="autoheader_anchor">
+<h4>6.2.2. The <code>workdir</code> parameter</h4>
+</a>
+</div>
+<p>In a user-defined INI file one might specify the parameter <code>workdir</code>. That might well be a path, but since the user-defined INI file is likely to be the folder (or at least parent folder) that is going to be the working directory you can simply specify something like this:</p>
+<pre><code>workdir = `[INI]`      ⍝ Same as the INI file
+workdir = `[INI]/docs` ⍝ Sub folder docs\ of the folder the INI file lives in</code></pre>
+<p>This way you can make sure that even when the INI file is moved around Meddy will adapt.</p>
+<p>Note however that Meddy will not actually change the working directory (otherwise it would not “see” its own icon file etc.) but it will make sure that when the user, say, presses Ctrl+O it will “look” into what was specified as <code>workdir</code>.</p>
+<p>Note that you can influence the working directory also via a command line option by specifying <code>-dir="path/to/workdir"</code>; see <a href="#Command-line-parameters" class="bookmark_link">Command line parameters</a>.</p>
 <div class="h_tag">
 <a href="#The--INI-file-specialcharsini" id="The--INI-file-specialcharsini" class="autoheader_anchor">
-<h2>7. The (optional) INI file “specialchars.ini”</h2>
+<h3>6.3. The (optional) INI file “specialchars.ini”</h3>
 </a>
 </div>
 <p>This INI file may or may not exist. By default it does exist and looks like this:</p>
@@ -145,6 +189,25 @@ Misc        ,= '«»'</code></pre>
 <p>The user may inject any of them into the markdown document at the cursor position by simply clicking at them.</p>
 <p>This is a necessary measure because Dyalog's “Edit” control does not allow entering Unicode symbols by pressing &lt;Alt&gt; with a certain numeric code.</p>
 <div class="h_tag">
+<a href="#Command-line-parameters" id="Command-line-parameters" class="autoheader_anchor">
+<h2>7. Command line parameters</h2>
+</a>
+</div>
+<p>You can set a number of command line parameters:</p>
+<dl>
+<dt><code>-file=</code></dt>
+<dd><p>Use this to specify a Markdown file. Meddy will open that file straight away'</p></dd>
+<dt><code>-new</code></dt>
+<dd><p>This makes Meddy create a new (empty) Markdown file on start-up'</p></dd>
+<dt><code>-ini=</code></dt>
+<dd><p>Use this in order to specify a <a href="#User-defined-INI-file" class="bookmark_link">User defined INI file</a> '</p></dd>
+<dt><code>-dir=</code></dt>
+<dd><p class="first_dd">Use this to specify a directory that will become Meddy's working directory'</p></dd>
+<dd><p>If specified this takes precedence over any <code>workdir</code> settings in an INI file.</p></dd>
+<dt><code>-posn=</code></dt>
+<dd><p>Use this in order to specify <code>Posn</code> for Meddy's main GUI window '</p></dd>
+</dl>
+<div class="h_tag">
 <a href="#Update-MarkAPL" id="Update-MarkAPL" class="autoheader_anchor">
 <h2>8. Update MarkAPL</h2>
 </a>
@@ -158,29 +221,44 @@ Misc        ,= '«»'</code></pre>
 <p>This mechanism allows you to easily update MarkAPL without re-installing Meddy but also to go back to an older version if you want to.</p>
 <p>You can find out which version of MarkAPL Meddy is currently using via the “About” command from the “Help” menu.</p>
 <div class="h_tag">
-<a href="#Bugs" id="Bugs" class="autoheader_anchor">
-<h2>9. Bugs</h2>
+<a href="#Add-user-help" id="Add-user-help" class="autoheader_anchor">
+<h2>9. Add user help</h2>
 </a>
 </div>
-<p>Send a bug report to <a href="mailto:kai@aplteam.com" class="mailto_link">kai@aplteam.com</a>. Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious (it might well be for you but not necessarily for somebody else).</p>
+<p>You can add one (literally!) additional file to the help file by adding a <code>[HELP]</code> section with two entries <code>title</code> and <code>file</code> to it.</p>
+<p>Example:</p>
+<pre><code>[Help]
+title  = 'Special help'
+file    = 'C:\SpecialHelp.html'</code></pre>
+<p>This would add a menu item “Special help” to the “Help” menu. When selected the file <code>C:\SpecialHelp.html</code> would be displayed in your default browser.</p>
+<p>Usually this would go into a <a href="#User-defined-INI-file" class="bookmark_link">User-defined INI file</a> rather then <code>app.ini</code>.</p>
+<div class="h_tag">
+<a href="#Bugs" id="Bugs" class="autoheader_anchor">
+<h2>10. Bugs</h2>
+</a>
+</div>
 <ul>
+<li>Check whether it has already been reported on <a href="https://github.com/aplteam/Meddy/issues" class="external_link">Meddy's issue list</a></li>
+<li>If not open a new issue and flag it as a bug report.</li>
+<li>Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious: it might well be for you but not necessarily for somebody else.</li>
 <li>Attach the files created as a result of the crash; crash files are written to:
 <p><code>"C:\Users\{UserID}\AppData\Local\Meddy\Errors"</code></p></li>
-<li>Add the input file if possible. If that is not possible (usually for security / data protection reasons) add the block that is not processed as expected <em>plus a couple of lines above and underneath</em>.</li>
+<li>Add the input file if possible.
+<p>If that is not possible (usually for security / data protection reasons) add the block that is not processed as expected <em>plus a couple of lines above and underneath</em>.</p></li>
 </ul>
 <div class="h_tag">
 <a href="#Feature-requests" id="Feature-requests" class="autoheader_anchor">
-<h2>10. Feature requests</h2>
+<h2>11. Feature requests</h2>
 </a>
 </div>
-<p>Send an email to <a href="mailto:kai@aplteam.com" class="mailto_link">kai@aplteam.com</a> to voice your opinion.</p>
+<p>Open an issue on GitHub, explain your idea and mark it as “enhancement”.</p>
 <div class="h_tag">
 <a href="#Misc" id="Misc" class="autoheader_anchor">
-<h2>11. Misc</h2>
+<h2>12. Misc</h2>
 </a>
 </div>
 <p>Meddy is free software. It may be distributed freely but must not be sold. Also, the code of the application must not be re-engineered and/or used for other purposes.</p>
-<p>Meddy was written by Kai Jaeger — <a href="https://aplteam/github.io" class="external_link">APL Team Ltd</a></p>
+<p>Meddy was originally written by Kai Jaeger — <a href="https://aplteam/github.io" class="external_link">APL Team Ltd</a></p>
 <table>
 <tbody>
 <tr>
@@ -189,11 +267,11 @@ Misc        ,= '«»'</code></pre>
 </tr>
 <tr>
 <td>Version</td>
-<td>2.3.0</td>
+<td>2.4.0</td>
 </tr>
 <tr>
 <td>Last update</td>
-<td>2019-04-24</td>
+<td>2019-06-05</td>
 </tr>
 </tbody>
 </table>

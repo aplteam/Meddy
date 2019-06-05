@@ -66,19 +66,16 @@ You can navigate through a document in three ways:
 No matter how you navigate, the three views are always kept in sync.
 
 
-
-Requirements
-------------
-
-Meddy requires the .NET framework to be available.
-
-
 CSS Style sheets
 ----------------
 
-By default Meddy uses the "MarkAPL" style sheet for the preview. You can switch to "BlackOnWhite" either from the "Preferences" menu (= for all documents you are going to save) or by embedding a parameter into each document explicitly defining the style sheet to be used.
+By default Meddy uses the "MarkAPL" style sheet for the preview. You can switch to "BlackOnWhite" via the "Preferences" menu (= for all documents you are going to save). These two style sheets are the default style sheets MarkAPL is coming with.
 
-The CSS defined in the style sheet is by default compressed and injected into the resulting HTML page. That makes the HTML fully independent from anything, at least as long as you do not, say, embedd images.
+However, changing the preferences only takes effect after the current document, if any, is re-opened.
+
+You can also embed a parameter into each document explicitly defining the style sheet to be used. This is the recommended way to use your own taylor-made CSS.
+
+The CSS defined in the style sheet is by default compressed and injected into the resulting HTML page. That makes the HTML fully independent from anything, at least as long as you do not, say, embed images.
 
 Instead of creating a stand-alone HTML page you might want to create one that links to one or more style sheets, for example in order to create a book-like website. In order to make that possible you have to tell Meddy where to save the resulting HTML page, and which style sheets to use.
 
@@ -100,17 +97,17 @@ Notes:
 
 ⍝ * You can also specify one or more CSS files via the (optional) [INI file command line parameter](#meddy_config).
 
+* The two sets of style sheets that are coming with Meddy (_MarkAPL*.css and BlackOnWhite_*.css) both carry mark-up for the LeanPub extensions.
+
+* `cssURL` should either be a URL or specify the CSS folder relative to where the HTML page will be saved.
+
 
 LeanPub extensions
 ------------------
 
-Leanpub (<https://leanpub.com/>) is a publishing platform for books. They've established a number of enhancements to Markdown that allow an author to add asides, info boxes and more, but also to highlight lines in the code, for example for emphasizing lines that had been changed or added compared with a previous version. The extensions might well be of interest to you even if you are not planning to use LeanPub's services.
+LeanPub (<https://leanpub.com/>) is a publishing platform for books. They've established a number of enhancements to Markdown that allow an author to add asides, info boxes and more, but also to highlight lines in the code, for example for emphasizing lines that have been changed or added compared with a previous version. The extensions might well be of interest to you even if you are not planning to use LeanPub's services.
 
 There is a document "LeanPubExtensions.html" available in the Meddy install directory that documents these extensions. The document can be viewed from the "Help" menu.
-
-Note that the two sets of style sheets that are coming with Meddy (_MarkAPL*.css and BlackOnWhite_*.css) both carry mark-up for the LeabPub extensions.
-
-Note that `cssURL` should either be a URL or specify the CSS folder relative to where the HTML page will be saved.
 
 
 Converting to and saving as HTML file
@@ -122,15 +119,9 @@ When a Markdown file is saved by Meddy then by default there is also an HTML fil
   * always save an HTML file.
   * never save an HTML file.
   * always ask whether such an HTML file shall be saved or not.
+* If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.meddy` to the folder where the Markdown file lives. 
 
-  However, changing the preferences only takes effect after the current document, if any, is re-opened.
-* You can embded `saveHTML` as a parameter and specify it as...
-  * 0 for **not** saving an HTML file
-  * 1 for saving an HTML file
-  * 2 for asking the user what to do
-
-  This takes precedence over the preferences.
-* If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.meddy` to the folder where the Markdown file lives. In that case Meddy knows that you want to save an HTML file and ignores the preferences as well as any embedded `saveHTML` parameter.
+  In that case Meddy knows that you want to save an HTML file and ignores the preferences as well as any embedded `saveHTML` parameter.
 
   This file may contain a line like this:
 
@@ -155,9 +146,63 @@ When a Markdown file is saved by Meddy then by default there is also an HTML fil
 ⍝* set a specific working directory
 ⍝* specify one or more taylor-made CSS files
 
+Note that Meddy's behaviour can also be influenced by setting a parameter `saveHTML` in an INI file, see there for details.
 
-The (optional) INI file "specialchars.ini"
-------------------------------------------
+You can also embded `saveHTML` as a parameter and specify it as...
+* 0 for **not** saving an HTML file
+* 1 for saving an HTML file
+* 2 for asking the user what to do
+
+
+
+INI Files
+---------
+
+### app.ini
+
+Meddy relies on the INI file `app.ini`: if that cannot be found then Meddy cannot run.
+
+
+### User-defined INI file
+
+There is an INI file available that documents the options available via a user-defined INI file. It's name is `user.ini.optional`, meaning that it is not identified and used by Meddy.
+
+In order to make Meddy process --- and honour --- it, remove the `.optional` part from it.
+
+In case you wonder about those parameters: picture a situation were you want use Meddy as an editor for certain Markdown files that are part of a particular application. In such a scenario you might wan to...
+
+* enforce a specific working directory
+* disallow the user to enter the "Preferences" dialog (because those would be ignored anyway)
+* disallow (or enforce) saving an HTML file when the Markdown is saved
+* specify particular CSS files
+* enable LeanPub extension (they are disabled by default)
+* enforce that any conversion errors provided by MarkAPL are shown to the user
+
+Therefore the INI file would most likely go into another's application folder rather than stay as `special.ini` in the Meddy installation folder.
+
+If such parameters are defined (no matter where) then they take precedence over anything else but command line parameters if any.
+
+#### Specify user-defined INI file via the command line
+
+In cases when the user- or application specific INI file cannot live in Meddy's installation directory you need a way to tell Meddy which INI file to use along with `app.ini`. This can be achieved by specifying `-ini="path/to/ini"` on the command line.
+
+#### The `workdir` parameter
+
+In a user-defined INI file one might specify the parameter `workdir`. That might well be a path, but since the user-defined INI file is likely to be the folder (or at least parent folder) that is going to be the working directory you can simply specify something like this:
+
+```
+workdir = `[INI]`      ⍝ Same as the INI file
+workdir = `[INI]/docs` ⍝ Sub folder docs\ of the folder the INI file lives in
+```
+
+This way you can make sure that even when the INI file is moved around Meddy will adapt.
+
+Note however that Meddy will not actually change the working directory (otherwise it would not "see" its own icon file etc.) but it will make sure that when the user, say, presses Ctrl+O it will "look" into what was specified as `workdir`.
+
+Note that you can influence the working directory also via a command line option by specifying `-dir="path/to/workdir"`; see [Command line parameters](#).
+
+
+### The (optional) INI file "specialchars.ini"
 
 This INI file may or may not exist. By default it does exist and looks like this:
 
@@ -182,6 +227,34 @@ The user may inject any of them into the markdown document at the cursor positio
 This is a necessary measure because Dyalog's "Edit" control does not allow entering Unicode symbols by pressing <Alt> with a certain numeric code.
 
 
+Command line parameters
+-----------------------
+
+You can set a number of command line parameters:
+
+`-file=`
+
+: Use this to specify a Markdown file. Meddy will open that file straight away' 
+
+`-new`
+
+: This makes Meddy create a new (empty) Markdown file on start-up'
+
+`-ini=`
+
+: Use this in order to specify a [User defined INI file](#) '
+
+`-dir=`
+
+: Use this to specify a directory that will become Meddy's working directory'
+
+: If specified this takes precedence over any `workdir` settings in an INI file.
+
+`-posn=`
+
+: Use this in order to specify `Posn` for Meddy's main GUI window '
+
+
 Update MarkAPL
 -------------
 
@@ -197,21 +270,45 @@ This mechanism allows you to easily update MarkAPL without re-installing Meddy b
 You can find out  which version of MarkAPL Meddy is currently using via the "About" command from the "Help" menu.
 
 
+Add user help
+-------------
+
+You can add one (literally!) additional file to the help file by adding a `[HELP]` section with two entries `title` and `file` to it.
+
+Example:
+
+```
+[Help]
+title  = 'Special help'
+file    = 'C:\SpecialHelp.html'
+```
+
+This would add a menu item "Special help" to the "Help" menu. When selected the file `C:\SpecialHelp.html` would be displayed in your default browser.
+
+Usually this would go into a [User-defined INI file](#) rather then `app.ini`.
+
+
 Bugs
 ----
 
-Send a bug report to <mailto:kai@aplteam.com>. Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious (it might well be for you but not necessarily for somebody else).
+* Check whether it has already been reported on [Meddy's issue list](https://github.com/aplteam/Meddy/issues)
+
+* If not open a new issue and flag it as a bug report. 
+
+* Describe what you did, what you expected to happen and what actually happened. Don't assume that anything of this is obvious: it might well be for you but not necessarily for somebody else.
 
 * Attach the files created as a result of the crash; crash files are written to:
 
   `"C:\Users\{UserID}\AppData\Local\Meddy\Errors"`
-* Add the input file if possible. If that is not possible (usually for security / data protection reasons) add the block that is not processed as expected _plus a couple of lines above and underneath_.
+* Add the input file if possible. 
+
+  If that is not possible (usually for security / data protection reasons) add the block that is not processed as expected _plus a couple of lines above and underneath_.
 
 
 Feature requests
 ---------------
 
-Send an email to <mailto:kai@aplteam.com> to voice your opinion.
+Open an issue on GitHub, explain your idea and mark it as "enhancement". 
 
 
 Misc
@@ -219,8 +316,8 @@ Misc
 
 Meddy is free software. It may be distributed freely but must not be sold. Also, the code of the application must not be re-engineered and/or used for other purposes.
 
-Meddy was written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
+Meddy was originally written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 2.3.0      |
-| Last update | 2019-04-24 |
+| Version     | 2.4.0      |
+| Last update | 2019-06-05 |

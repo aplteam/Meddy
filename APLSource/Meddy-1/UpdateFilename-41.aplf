@@ -1,6 +1,8 @@
  {r}←UpdateFilename(n fullPath)
  r←⍬
- n.∆Path←↑⎕NPARTS fullPath
  n.∆Filename←fullPath
  n.∆Form.Caption←n.∆globalParms.caption,' - ',n.∆Filename
+ :If 0=n.∆INI.Exist'Config:workDir'
+     n.∆Path←↑⎕NPARTS fullPath
+ :EndIf
 ⍝Done

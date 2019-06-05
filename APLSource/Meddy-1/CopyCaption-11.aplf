@@ -1,0 +1,16 @@
+ {r}←CopyCaption n;ind;row;cl;buff
+⍝ Copies the real header that is currently selected in the TOC.
+⍝ Useful for compiling a bookmark link.
+ r←⍬
+ :If 1=+/n.Toc.SelItems
+     ind←n.Toc.SelItems⍳1
+     row←¯1+3⊃n.Toc.∆Toc[ind;]
+     cl←⎕NEW⊂'Clipboard'
+     :If '#'=1⍴row⊃n.Markdown.Text
+         cl.Text←{⍵↓⍨1++/∧\'#'=⍵}row⊃n.Markdown.Text
+     :Else
+         buff←(+/∧\~(⊃↑¨row↓n.Markdown.Text)∊'-=')↑row↓n.Markdown.Text
+         cl.Text←1↓↑,/' ',¨buff
+     :EndIf
+ :EndIf
+ ⍝Done

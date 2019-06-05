@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.3.1.225"
+#define MyAppVersion "2.4.0.261"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -65,10 +65,11 @@ Source: "CSS/BlackOnWhite_screen.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Blue.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS"; 
 
-Source: "bridge170_unicode.dll"; DestDir: "{app}";
-Source: "dyalognet.dll"; DestDir: "{app}"     
+; The Conga DLLs are needed for "Check for updates"
+Source: "conga30ssl32.dll"; DestDir: "{app}";
+Source: "conga30_32.dll"; DestDir: "{app}";
 
-Source: "Dist\{#MyAppExeName}"; DestDir: "{app}"
+Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
 Source: "ReadMe.html"; DestDir: "{app}";
 Source: "Meddy2.ico"; DestDir: "{app}";
 Source: "app.ini.remove_me"; DestDir: "{app}"; DestName:"app.ini"; Flags: onlyifdoesntexist;

@@ -1,13 +1,15 @@
- {r}←ReportConversionProblem n;parms;msg;report
+ {r}←ReportConversionProblem n;parms;msg;report;⎕TRAP
  r←⍬
  :If 0=n.⎕NC'∆Report'
      TellNothingToReport n
  :Else
      report←n.∆Report
+     ⎕TRAP←0 'S'
      :If 0=n.∆Prefs.Warnings
+     :OrIf n.∆INI{~⍺.Exist ⍵:0 ⋄ ↑⍺.Get ⍵}'CONFIG:warnings'
          report/⍨←'Warning:'{⍺∘≢¨(⍴⍺)↑¨⍵}report
      :EndIf
-     :If ~0∊⍴report
+     :If 0≠≢report
          #.CursorObj←0
          parms←G.Dialogs.CreateParmsForShowLongMsg
          parms.addToCaption←'Warnings & error msg'

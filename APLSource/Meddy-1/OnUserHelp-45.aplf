@@ -1,0 +1,7 @@
+ OnUserHelp←{
+     n←GetRef2n↑,⍵
+     filename←'expand'F.NormalizePath↑n.∆INI.Get'Help:file'
+     0=F.IsFile filename:0⊣n TellFileDoesNotExist filename
+     rc←n OpenInDefaultBrowser filename
+     0
+ }

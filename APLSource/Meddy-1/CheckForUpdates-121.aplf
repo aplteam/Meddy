@@ -1,0 +1,29 @@
+ {r}←CheckForUpdates n;mco;tag;gitVersion;thisVersion;rc;msg;dmx
+ r←⍬
+ mco←⎕NEW ##.Check4Updates(,⊂'Meddy')     ⍝ My Check4Updates Object
+ :Trap 0
+     tag←mco.GetLatestTag
+ :Else
+     n TellErrorWhileCheckingForBetterVersion↑⎕DMX.DM
+     :Return
+ :EndTrap
+ gitVersion←⌊##.GitHubAPIv3.CastTagname2Number tag
+ thisVersion←⌊##.GitHubAPIv3.CastTagname2Number 1⊃Version
+ :If gitVersion≤thisVersion
+     TellMeddyIsUp2Date n
+ :Else
+     msg←⊂'There is a better version available on GitHub: ',tag~'v'
+     msg,←'' 'Would you like to download this version?'
+     :If n YesOrNo msg
+         :Trap 0
+             rc←mco.GetExe tag
+         :Else
+             dmx←⎕DMX
+             n TellErrorWhileCheckingForBetterVersion{0=≢⍵:'' ⋄ ↑⍵}dmx.DM
+             :Return
+         :EndTrap
+         :If rc
+             n TellErrorWhileCheckingForBetterVersion''
+         :EndIf
+     :EndIf
+ :EndIf

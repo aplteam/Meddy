@@ -1,0 +1,13 @@
+ TellFileNotFound←{
+     ⍺←''
+     (n msg)←⍵
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.parent←{6::'' ⋄ n.∆Form}⍬
+     parms.style←G.Enums.DialogStyles.Info
+     parms.addToCaption←n.∆globalParms.caption{((0=≢⍺)/'Meddy: '),⍵}'File not found'
+     was←#.CursorObj
+     #.CursorObj←0
+     _←n.∆globalParms parms G.Dialogs.ShowMsg(⊂'Not found:'),(A.Nest msg),A.Nest ⍺
+     #.CursorObj←was
+     ⍬
+ }

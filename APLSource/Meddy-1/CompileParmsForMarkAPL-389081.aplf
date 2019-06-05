@@ -10,7 +10,8 @@
  parms←parms InjectConfigFile n.∆Filename
  parms.width←n.∆Prefs.Width
  parms.leanpubExtensions←n.∆Prefs.LeanpubExtensions
- :If ~0∊⍴embeddedParms←⊃embeddedParms
+ parms.leanpubExtensions←parms.leanpubExtensions n.∆INI.Get'CONFIG:leanpubExtensions'
+ :If 0≠≢embeddedParms←⊃embeddedParms
      :If (↑⍴embeddedParms)≠ind←embeddedParms[;0]⍳⊂'screenCSS'
          parms.screenCSS←''''~⍨1⊃embeddedParms[ind;]
      :EndIf
@@ -26,7 +27,7 @@
      :If ¯1≡parms.leanpubExtensions
          parms.leanpubExtensions←0
      :EndIf
- :AndIf ~0∊⍴embeddedParms←(~embeddedParms[;0]∊'screenCSS' 'printCSS' 'cssURL')⌿embeddedParms
+ :AndIf 0≠≢embeddedParms←(~embeddedParms[;0]∊'screenCSS' 'printCSS' 'cssURL')⌿embeddedParms
      :For name value :In ↓embeddedParms
          :Trap 0
              name parms.{⍎⍺,'←',⍕⍵}value

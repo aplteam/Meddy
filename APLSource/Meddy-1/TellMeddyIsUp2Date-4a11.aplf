@@ -6,5 +6,5 @@
      msg←'Meddy is up to date.'
      #.CursorObj←0
      _←n.∆globalParms parms G.Dialogs.ShowMsg msg
-     ⍬
+     1:shy←⍬
  }

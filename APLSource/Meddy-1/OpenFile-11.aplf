@@ -4,9 +4,7 @@
  parms.addToCaption←'Select Markdown file'
  parms.filters←('*.md' 'Markdown files')('*.txt' 'Text files')('*.*' 'All files')
  parms.style←G.Enums.SelectionStyles.single
- :If 0∊⍴workdir←{'-dir='∘{0=+/b←⍺∘≡¨(⍴⍺)↑¨⍵:'' ⋄ (⍴⍺)↓⍵⊃⍨b⍳1}⍵}⊣2 ⎕NQ'#' 'GetCommandLineArgs'
-     workdir←n.∆Path
- :EndIf
+ workdir←n.∆Path
  :If ~0∊⍴filename←n.∆globalParms parms G.FileBox.Run workdir,'\'
      :If 0∊⍴∊n.HTML.Text
          OpenFile_ n filename

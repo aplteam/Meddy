@@ -1,0 +1,4 @@
+ parms←n CheckOnCssFiles parms
+ parms←CheckOnCssFiles_ n parms'screenCSS'
+ parms←CheckOnCssFiles_ n parms'printCSS'
+⍝Done

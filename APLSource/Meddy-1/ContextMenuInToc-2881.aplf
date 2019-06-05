@@ -26,5 +26,7 @@
          CutFromTree n
      :Case cm.Copy
          CopyFromTree n
+     :Case cm.CopyBookmarkLink
+         CopyCaption n
      :EndSelect
  :EndIf

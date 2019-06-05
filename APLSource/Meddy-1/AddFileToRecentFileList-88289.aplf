@@ -2,5 +2,7 @@
  r←⍬
  regKey←n.∆globalParms.regKey,'\RecentFiles'
  list←GetListOfRecentFilesFromWindowsRegistry regKey
- {}n AddRecentFileToWindowsRegistryAndFileMenu regKey list filename
+ :If 9=n.∆Menubar.⎕NC'recent'
+     {}n AddRecentFileToWindowsRegistryAndFileMenu regKey list filename
+ :EndIf
 ⍝Done

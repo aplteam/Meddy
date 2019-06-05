@@ -7,6 +7,8 @@
      :Trap ##.EventCodes.(WS_FULL SYNTAX_ERROR INDEX_ERROR RANK_ERROR LENGTH_ERROR LIMIT_ERROR DOMAIN_ERROR FILE_NAME_ERROR)
          parms←GetPreferences n
          parms←CompileParmsForMarkAPL n parms embeddedParms
+         parms←n CheckOnCssFiles parms
+         parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
          :If ⎕NULL≡parms.cssURL
              parms.cssURL←'file:///',F.PWD,'\CSS\'
          :EndIf

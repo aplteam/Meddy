@@ -1,4 +1,4 @@
- {r}←ShowAbout n;about;parms;appName;defMat
+ {r}←ShowAbout n;about;parms;appName;defMat;inis
  r←0
  appName←'Meddy'
 
@@ -12,6 +12,12 @@
  about,←''
  about,←'⋄It uses MarkAPL version ',(1⊃#.MarkAPL.Version),' from ',2⊃#.MarkAPL.Version
  about,←'⋄for converting any Markdown to HTML5.'
+ inis←';'A.Split n.∆INI.IniFilename
+ :If ⍬≢n.∆SpecialChars
+     inis,←⊂'"',('expand'F.NormalizePath'specialchars.ini'),'"'
+ :EndIf
+ about,←'⋄INI file',((1<≢inis)/'s'),':'
+ about,←{1=≡⍵:'⋄',⍵ ⋄ ⊃,/'⋄',¨⍵}inis
  about,←'⋄For details see:'
  about,←'⋄<https://github.com/aplteam/MarkAPL>'
  defMat⍪←'About' ''about ##.GUI.Enums.InputDataTypes.Label ⍬ 1 1

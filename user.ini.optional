@@ -1,0 +1,11 @@
+﻿[CONFIG]
+allowPreferences   = 0      ; You can prevent the "Preferences..." menu item to be available to the user by setting this to 0.
+                            ; You might do this in case you set "saveHTML", "*CSS" and 
+saveHTML           = ¯1     ; Undefined. Can be 0 (nope), 1 (yes) or 2 (ask user).
+screenCSS          = ''     ; If specified the path to the screen CSS.
+printCSS           = ''     ; If specified the path to the print CSS.
+cssURL             = ''     ; Specify the folder or URL where screenCSS and printCSS live.
+leanpubExtensions  = 0      ; 1=Support the LeanPub extensions.
+warnings           = 1      ; 0=suppress MarkAPL warnings when a Markdown2HTML conversions detects something worth mentioning.
+noRecentFiles      = 1      ; 1 = we don't want a menu item "Recent files" on the "File" menu.
+;workdir           = '[INI]'; If this is active the folder this Ini file lives in will also become Meddy's working directory.

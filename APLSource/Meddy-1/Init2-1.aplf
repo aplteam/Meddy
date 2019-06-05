@@ -1,7 +1,6 @@
- n←{changeFlag}Init2 n;msg;parms;buffer
-⍝ These are the statements that need to run again in case the INI file gets changed while the app is running.
-⍝ Therefore they are separated in this function which is called early in `Run-Init` and again later in case
-⍝ of a change.
+ n←{changeFlag}Init2 n;bool;buffer;folder;iniFilesNames;msg;parms;specialINI;workdir
+⍝ There are statements that need to run again in case the INI file(s) get changed while Meddy is running.
+⍝ Therefore they are separated into this fn which is called early in `Run-Init` and again later in case of a change.
  :If ~F.IsFile'app.ini'
      msg←⊂'Could not find INI file "app.ini".'
      msg,←⊂'The program cannot be started.'
@@ -11,7 +10,19 @@
      parms G.Dialogs.ShowMsg msg
      Off 1
  :EndIf
- n.∆INI←GetIniFile'app.ini'
+ n.∆INI←n.∆IniFilenam GetIniFile'app.ini'
+
+⍝ In case [INI] is specified as "workDir" (or part of it) this string is replaced by the folder the INI file lives in
+ :If 0<≢n.∆IniFilenam
+ :AndIf n.∆INI.Exist'CONFIG:workdir'
+     workdir←↑n.∆INI.Get'CONFIG:workdir'
+ :AndIf ∨/bool←'[INI]'⍷workdir
+     iniFilesNames←';'A.Split n.∆INI.IniFilename
+     iniFilesNames←↑(~∨/¨'app.ini'∘⍷¨iniFilesNames)/iniFilesNames ⍝ Remove main INI file
+     folder←↑⎕NPARTS iniFilesNames~'"'
+     workdir←{(-⍵)⌽folder,(≢'[INI]')↓⍵⌽workdir}bool⍳1
+     workdir n.∆INI.Put'CONFIG:workDir'
+ :EndIf
 
  n.∆SpecialChars←⍬
  :If F.IsFile'specialchars.ini'

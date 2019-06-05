@@ -1,7 +1,7 @@
  {r}←SaveMarkdownAs n;parms;filename
  r←⍬
  filename←AskForSaveFilename n
- :If ~0∊⍴filename
+ :If 0≠≢filename
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0∊⍴⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
      :If F.IsFile filename
      :AndIf 0=n AlreadyExistsSaveAnyway filename
@@ -13,7 +13,7 @@
      :If DoYouWantToSaveHtml n
          RefreshPreview n
          n.∆HtmlFilename←CheckForMeddyConfigFile n
-         :If 0∊⍴n.∆HtmlFilename
+         :If 0=≢n.∆HtmlFilename
              n.∆HtmlFilename←(↑,/¯1↓⎕NPARTS filename),'.html'
          :EndIf
          :If IsPresentation n

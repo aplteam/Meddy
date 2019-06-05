@@ -1,35 +1,28 @@
- {r}Run filename;n;⎕ML;⎕IO;A;F;⎕TRAP;APLVersion
+ {r}←{iniFile}Run filename;n;⎕ML;⎕IO;A;F;⎕TRAP;APLVersion;flag;savePathInReg
 ⍝ Main function
-⍝ Usually `filename` is empty but it can be the name of a markdown file. If
-⍝ it is then that file it loaded straight away.
+⍝ Usually `filename` is empty but it can be the name of a markdown file.
+⍝ If it is then that file it loaded straight away.
+⍝ `iniFile` is only to be used for test cases/development.
+⍝ It allows to simulate a command line  parameter -ini={filename}
  r←⍬
  ⎕IO←0 ⋄ ⎕ML←3
  EnableCONTINUE_workspaces ⍬
  APLVersion←# ⎕WG'APLVersion'
  'This application requires to run under Dyalog''s 32 bit version'⎕SIGNAL 11/⍨∨/'-64'⍷↑APLVersion
  'This application requires to run under at least Dyalog 17.0'⎕SIGNAL 11/⍨16>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'#.APLTreeUtils.Split ⍵)÷1 10}1⊃APLVersion
- :If 0
-     AllowRide_ 4599 1
- :EndIf
- {}2035⌶'ScaledPixel'
+ {}AllowRide_⍣0⊣4599 1
  #.⎕SHADOW'ErrParms'
  ⎕TRAP←#.HandleError.SetTrap ⍬
  n←##.GUI.RefNamespace.Create'Meddy'
+ n.∆IniFilenam←{0<⎕NC ⍵:⍎⍵ ⋄ {0=≢⍵:⍵ ⋄ ↑⍵}'-ini='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'}'iniFile'
  n←Init n
  ⎕TRAP←(n.∆INI.Get'Config:trap')SetTrap n
  AllowRide n
- n.∆Path←ReadPathFromRegistry ⍬
  n←CreateGui n
  GetMarkAPLScriptIntoWS n
- :If 0=≢filename
-     HandleCommandLineParms n
- :Else
-     :If ##.FilesAndDirs.Exists filename
-         OpenFile_ n filename
-     :Else
-         {}n TellFileDoesNotExist filename
-     :EndIf
- :EndIf
+ flag←HandleCommandLineParms n
+ savePathInReg←HandlePath flag n
+ flag ProcessFilename filename
  n.∆Form.Visible←1
  n.∆Form.CursorObj←0
  2 ⎕NQ #'Flush'
@@ -37,6 +30,6 @@
  WarnOnDragAndDrop n
  HandlePreferences n
  DQ n.∆Form
- SavePath n
+ savePathInReg SavePath n
  Shutdown
 ⍝Done

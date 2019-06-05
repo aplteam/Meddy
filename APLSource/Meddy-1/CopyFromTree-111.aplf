@@ -4,15 +4,15 @@
  :If 0<+/n.Toc.SelItems         ⍝ Yes, we've seen this!
      row←n.Toc.SelItems⍳1
      msg←''
-     msg,←⊂'Are your sure that you want to copy all the text belonging to the header:'
+     msg,←⊂'Are your sure that you want to copy all the Markdown belonging to the header:'
      msg,←⊂'  <',(row⊃n.Toc.Items),'>'
      noOfChildren←{+/∧\(↑⍵)<1↓⍵}row↓n.Toc.Depth
      :If 1=noOfChildren
-         msg,←⊂'including one child from the text?'
+         msg,←⊂'including one child from the Markdown?'
      :ElseIf 1<noOfChildren
-         msg,←⊂'including ',(⍕noOfChildren),' children from the text?'
+         msg,←⊂'including ',(⍕noOfChildren),' children?'
      :Else
-         msg,←⊂'from the text?'
+         msg,←⊂'?'
      :EndIf
      parms←D.CreateParmsForYesOrNo
      parms.addToCaption←'Copy'

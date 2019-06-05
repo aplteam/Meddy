@@ -1,0 +1,10 @@
+ {r}←n TellCommunicationWithGitHubFailed name;parms;msg
+ r←⍬
+ parms←G.Dialogs.CreateParmsForShowMsg
+ parms.parent←n.∆Form
+ parms.style←G.Enums.DialogStyles.Info
+ msg←⊂'The attempt to communicate with GitHub in order to check for a new version of ',name,' failed.'
+ msg,←'' 'Please try again later.'
+ #.CursorObj←0
+ {}n.∆globalParms parms G.Dialogs.ShowMsg msg
+⍝Done

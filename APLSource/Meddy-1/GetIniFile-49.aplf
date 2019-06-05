@@ -1,3 +1,20 @@
- GetIniFile←{
-     ⎕NEW #.IniFiles(,⊂⍵)
- }
+ instance←{ini2}GetIniFile ini1;bool
+ ini1←'"',('expand'F.NormalizePath ini1~'"'),'"'
+ :If 0=⎕NC'ini2'
+ :OrIf 0=≢ini2
+     :If F.IsFile ini1~'"'
+         instance←⎕NEW #.IniFiles(,⊂ini1)
+     :Else
+         'Meddy cannot continue!'TellFileNotFound n ini1
+         Off 0
+     :EndIf
+ :Else
+     ini2←{0=≢⍵:⍵ ⋄ '"',('expand'F.NormalizePath ⍵~'"'),'"'}ini2
+     :If 0∊bool←F.IsFile ini1 ini2~¨'"'
+         'Meddy cannot continue!'TellFileNotFound n((~bool)/ini1 ini2)
+         Off 0
+     :Else
+         instance←⎕NEW #.IniFiles(,⊂ini1 ini2)
+     :EndIf
+ :EndIf
+ ⍝Done

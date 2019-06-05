@@ -1,7 +1,15 @@
  History
-⍝ * 2.3.1
+⍝ * 2.4.0
+⍝   * New menu item "Copy caption" added to the TOC's context menu.
+⍝   * In case no INI file can be found an error message is displayed.
+⍝   * Command line parameters introduced. See ReadMe.html for details.
+⍝   * The "About" dialog box now lists all INI files with their full names.
 ⍝   * Bug fixes
 ⍝     * In case any of the files offered via the "Help" menu is (for whatever reason)
 ⍝       not available, an error message with the full filename is provided.
+⍝     * When the path contained a space none of the documents offered via the "Help" menu was accessible
+⍝     * For clarification the context menu items for "Cut" and "Copy" in the TOC's context menu were
+⍝       renamed to "Cut Markdown" and "Copy Markdown".
+⍝     * "Check for updates" failed to download the installer EXE. It does now.
 ⍝\\
 ⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

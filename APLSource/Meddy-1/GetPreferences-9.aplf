@@ -1,5 +1,6 @@
  parms←GetPreferences n;ind
 ⍝ Returns the default parameters plus what's defined in the config, if there is any.
+⍝ However, any settings in the INI file take precedence.
  parms←##.MarkAPL.CreateParms
  parms.createFullHtmlPage←n.FullHtmlDocument.State
  parms.title←'Meddy'
