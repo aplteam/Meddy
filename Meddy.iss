@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.5.0.277"
+#define MyAppVersion "2.5.0.279"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -69,6 +69,10 @@ Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS";
 ; The Conga DLLs are needed for "Check for updates"
 Source: "conga31ssl32.dll"; DestDir: "{app}";
 Source: "conga31_32.dll"; DestDir: "{app}";
+
+; These files are needed for the "Check for updates" command via .NET:
+Source: "bridge170_unicode.dll"; DestDir: "{app}";
+Source: "dyalognet.dll"; DestDir: "{app}"     
 
 Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
 Source: "ReadMe.html"; DestDir: "{app}";
