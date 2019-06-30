@@ -54,7 +54,7 @@ These pieces of information can then be referenced within any slide. An example 
 
 ## Handouts
 
-There is a special syntax available for adding information to a slide that is not visible on the slide as such in display mode such but will become visible in print mode. See the keyboard shortcut "P" for toggling into "Print" mode.
+There is a special syntax available for adding information to a slide that is not visible on the slide as such in display mode such but will become visible in print mode. When a presentation is running then you can toggle between "print" and "screen" mode with the keyboard shortcut "p".
 
 Information that should be visible only on the handouts needs to be embraced by a <div> with the class "handout" assigned to it:
 
@@ -68,7 +68,7 @@ This **para** shows in "Print" mode only.
 Some other para.
 ```
 
-The blank line above and below the <div> is necessary so that is identified as an HTML block rather than accepted verbatim.
+The blank line above and below the <div> is necessary: only then is it identified as an HTML block rather than beeing taken verbatim.
 
 Note however that the paragraph would not be interpreted as markdown. This means that `**para**` is not converted into bold but survives as it reads.
 
@@ -76,7 +76,6 @@ However, it is easy to overcome this by defining **two** HTML block as shown her
 
 ```
 Some para.
-
 
 <div class="handout">
 
@@ -101,14 +100,16 @@ The following keys are used to control a presentation:
 |Cursor-left  |    Hide current item
 |M            | Toggle mouse navigation (default=off)
 |S            | Toggle status bar visibility
-|P            | Toggles “Print” mode 
+|P            | Toggle “Print” mode 
 
 Notes:
 
 * All elements are always incremental; that means that by pressing <CursorRight> just one element at a time is revealed.
 
   If you don't want this just press either <PgDn> or <Enter> - this shows a whole slide at once.
-Misc
+
+## Misc
+ 
 * The bottom-left corner shows an arrow as long as not all items on a slide are revealed.
 
 * In "Print" mode all slides are combined into a single printable document. In this mode <div>s with the class "handout" assigned to them will become visible as well.

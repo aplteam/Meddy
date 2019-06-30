@@ -1,29 +1,30 @@
- {r}←CheckForUpdates n;mco;tag;gitVersion;thisVersion;rc;msg;dmx
+ {r}←CheckForUpdates n;tag;msg;dmx;api;flag;url
  r←⍬
- mco←⎕NEW ##.Check4Updates(,⊂'Meddy')     ⍝ My Check4Updates Object
+ api←⎕NEW ##.GitHubAPIv3(,⊂'aplteam')
  :Trap 0
-     tag←mco.GetLatestTag
+     tag←api.GetLatestTag'Meddy'
  :Else
      n TellErrorWhileCheckingForBetterVersion↑⎕DMX.DM
      :Return
  :EndTrap
- gitVersion←⌊##.GitHubAPIv3.CastTagname2Number tag
- thisVersion←⌊##.GitHubAPIv3.CastTagname2Number 1⊃Version
- :If gitVersion≤thisVersion
+ flag←api.CheckForUpdate'Meddy'(1⊃Version)
+ :If ~flag
      TellMeddyIsUp2Date n
  :Else
-     msg←⊂'There is a better version available on GitHub: ',tag~'v'
+     msg←⊂'There is a better version available on GitHub.'
      msg,←'' 'Would you like to download this version?'
      :If n YesOrNo msg
          :Trap 0
-             rc←mco.GetExe tag
+             url←api.GetRelease'Meddy' 'EXE'
          :Else
              dmx←⎕DMX
              n TellErrorWhileCheckingForBetterVersion{0=≢⍵:'' ⋄ ↑⍵}dmx.DM
              :Return
          :EndTrap
-         :If rc
+         :If 0=≢url
              n TellErrorWhileCheckingForBetterVersion''
+         :Else
+             ##.APLTreeUtils.GoToWebPage url
          :EndIf
      :EndIf
  :EndIf

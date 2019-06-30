@@ -8,9 +8,13 @@
          parms←GetPreferences n
          parms←CompileParmsForMarkAPL n parms embeddedParms
          parms←n CheckOnCssFiles parms
-         parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
-         :If ⎕NULL≡parms.cssURL
-             parms.cssURL←'file:///',F.PWD,'\CSS\'
+         :If 0=F.IsFile parms.screenCSS
+             parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
+             :If ⎕NULL≡parms.cssURL
+                 parms.cssURL←'file:///',F.PWD,'\CSS\'
+             :EndIf
+         :Else
+             parms.cssURL←''
          :EndIf
          (html ns)←parms ##.MarkAPL.Markdown2HTML⊆markdown
          n.HTML.∆HTML←html

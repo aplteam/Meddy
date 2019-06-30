@@ -13,5 +13,6 @@
      n.Splitter2.Active←1
      2 ⎕NQ n.Splitter1'EndSplit',(n.Splitter1.Posn[0]),(n.∆LastSplitter1Posn[1]),n.Splitter1.Size[0],3
      2 ⎕NQ n.Splitter2'EndSplit',(n.Splitter2.Posn[0]),((n.∆Form.Size[1]-100+n.Splitter1.Posn[1])⌊n.∆LastSplitter2Posn[1]),n.Splitter2.Size[0],3
+     n.Splitter2.Posn⌈←5
      n.HidePreview.State←0
  :EndIf

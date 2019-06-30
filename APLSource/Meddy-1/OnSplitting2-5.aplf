@@ -1,0 +1,5 @@
+ OnSplitting2←{
+     n←GetRef2n↑,⍵
+     n.StatusField1.Text←'Split at ',(⍕0.1×⌊0.5+1000×n.Splitter2.Posn[1]÷n.LeftAndRight.Size[1]),'%'
+     1
+ }

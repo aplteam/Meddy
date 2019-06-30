@@ -1,0 +1,6 @@
+ OnEndSplitter2←{
+     n←GetRef2n↑,⍵
+     n.StatusField1.Text←n.Statusbar.∆Field1
+     n.Statusbar.∆Field1←''
+     1
+ }

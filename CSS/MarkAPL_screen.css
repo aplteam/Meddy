@@ -1,4 +1,4 @@
-/* MarkAPL's default scree CSS version 2.5 from 2018-10-17 */
+/* MarkAPL's default scree CSS version 2.6 from 2019-01-23 */
 
 /* Note that there are some variables embedded as comments which will be replaced
    by MarkAPL. The names are embraced by "<<", so for a variable "foo" it is
@@ -95,6 +95,7 @@ hr {
  */
 
 pre {
+
   font-family: monospace, monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
@@ -466,7 +467,7 @@ body  {
     line-height: 1.4;
     max-width: 900px; /* <<maxwidth>> */
     padding: 0.83em;
-    color: #292929;    
+    color: #292929;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -584,7 +585,7 @@ pre {
     border: 1px Silver dashed;
     display: block;
     font-family: APLFont, monospace;
-    font-weight: 400;
+    font-weight: normal;
     white-space: pre-wrap;
 }
 pre > code {
@@ -793,6 +794,18 @@ div#footnotes_div ol {
 
 .no_display {display:none;}
 .red {color: red;}
+.center {
+    text-align: center;     /* for inline elements */
+    margin: 0 auto;         /* for Block elements */
+}
+.left {
+    text-align: left;     /* for inline elements */
+    margin-right: 0 auto;   /* for Block elements */
+}
+.right {
+    text-align: right;     /* for inline elements */
+    margin-left: 0 auto;   /* for Block elements */
+}
 
 img {
     margin-top: 0.55em;

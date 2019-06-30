@@ -73,7 +73,7 @@ By default Meddy uses the "MarkAPL" style sheet for the preview. You can switch 
 
 However, changing the preferences only takes effect after the current document, if any, is re-opened.
 
-You can also embed a parameter into each document explicitly defining the style sheet to be used. This is the recommended way to use your own taylor-made CSS.
+You can also embed a parameter into any markdown document explicitly defining the style sheet to be used. This is the recommended way to use your own taylor-made CSS.
 
 The CSS defined in the style sheet is by default compressed and injected into the resulting HTML page. That makes the HTML fully independent from anything, at least as long as you do not, say, embed images.
 
@@ -169,18 +169,18 @@ There is an INI file available that documents the options available via a user-d
 
 In order to make Meddy process --- and honour --- it, remove the `.optional` part from it.
 
-In case you wonder about those parameters: picture a situation were you want use Meddy as an editor for certain Markdown files that are part of a particular application. In such a scenario you might wan to...
+In case you wonder about those parameters: picture a situation were you want use Meddy as an editor for certain Markdown files that are part of a particular application. In such a scenario you might want to...
 
-* enforce a specific working directory
-* disallow the user to enter the "Preferences" dialog (because those would be ignored anyway)
-* disallow (or enforce) saving an HTML file when the Markdown is saved
-* specify particular CSS files
-* enable LeanPub extension (they are disabled by default)
-* enforce that any conversion errors provided by MarkAPL are shown to the user
+* enforce a specific working directory.
+* disallow the user to enter the "Preferences" dialog (because those would be ignored anyway).
+* disallow (or enforce) saving an HTML file when the Markdown is saved.
+* specify particular CSS files.
+* enable LeanPub extension (they are disabled by default).
+* enforce that any conversion errors provided by MarkAPL are shown to the user; by default theu are not.
 
-Therefore the INI file would most likely go into another's application folder rather than stay as `special.ini` in the Meddy installation folder.
+Therefore the INI file would most likely go into another's application folder rather than stay (like `special.ini`) in the Meddy installation folder.
 
-If such parameters are defined (no matter where) then they take precedence over anything else but command line parameters if any.
+If such parameters are defined (no matter where) then they take precedence over anything else but command line parameters.
 
 #### Specify user-defined INI file via the command line
 
@@ -188,7 +188,7 @@ In cases when the user- or application specific INI file cannot live in Meddy's 
 
 #### The `workdir` parameter
 
-In a user-defined INI file one might specify the parameter `workdir`. That might well be a path, but since the user-defined INI file is likely to be the folder (or at least parent folder) that is going to be the working directory you can simply specify something like this:
+In a user-defined INI file one might specify the parameter `workdir`. That might well be a path, but since the user-defined INI file is likely to be in the folder (or at least parent folder) that is going to be the working directory you can simply specify something like this:
 
 ```
 workdir = `[INI]`      ⍝ Same as the INI file
@@ -246,13 +246,15 @@ You can set a number of command line parameters:
 
 `-dir=`
 
-: Use this to specify a directory that will become Meddy's working directory'
+: Use this to specify a directory that will become Meddy's working directory'.
 
 : If specified this takes precedence over any `workdir` settings in an INI file.
 
 `-posn=`
 
 : Use this in order to specify `Posn` for Meddy's main GUI window '
+
+Note that in case a parameter is specified both in a user INI file and on the command line the latter one wins.
 
 
 Update MarkAPL

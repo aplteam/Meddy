@@ -1,38 +1,28 @@
- {r}←HandleCommandLineParms n;filename;msg;parms;folder;buff
+ {r}←HandleCommandLineParms n;buff;filename;folder;msg;parms;path
 ⍝ This function checks the command line and, if anything valid is specified, takes it into account.\\
 ⍝ Anything spcified on the command line takes precedende.\\
-⍝ The function returns 1 in case a filename was specified on the command line, otherwise 0.
+⍝ The function returns 1 in case a filename was specified on the command line, otherwise 0.\\
+⍝ Note that some parameters (like "-posn=") are taken into account earlier.\\
  r←0
- :If 0≠≢buff←'-posn='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
-     n.∆Form.Posn←↑(//)⎕VFI↑buff
- :EndIf
  :If 0=≢buff←'-dir='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
      n.∆Path←''
  :Else
      n.∆Path←↑buff
  :EndIf
 
- ⍝ --- We don''t support those as of yet, and we won't if we help it ---
- :If 0
-     :If 0=≢buff←A.Lowercase'-screencss='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
-         n.∆ScreenCSS←''
-     :Else
-         n.∆ScreenCSS←↑buff
-     :EndIf
-     :If 0=≢buff←A.Lowercase'-printcss='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
-         n.∆PrintCSS←''
-     :Else
-         n.∆PrintCSS←↑buff
-     :EndIf
- :EndIf
- ⍝ ---------------------------------------------------------------------
-
  :If 0≠≢buff←'-file='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
      r←1
      :If ##.FilesAndDirs.Exists filename←↑¯1↑buff
          OpenFile_ n filename
      :Else
-         {}n TellFileDoesNotExist filename
+         :If n.∆INI.Exist'Config:WorkDir'
+         :AndIf 0<≢path←↑n.∆INI.Get'Config:WorkDir'
+         :AndIf F.IsFile path,filename
+             filename←path,filename
+             OpenFile_ n filename
+         :Else
+             {}n TellFileDoesNotExist filename
+         :EndIf
      :EndIf
  :ElseIf ∨/'-new'∘≡¨2 ⎕NQ #'GetCommandLineArgs'
      CreateNewDocument_ n

@@ -7,7 +7,6 @@
      :If parms G.Dialogs.NoOrYes'[]OFF ?!'
          ⎕OFF
      :Else
-         .
          ⎕←'***'
          →
      :End

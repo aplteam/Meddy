@@ -22,7 +22,15 @@
  m.paste←m.⎕NEW'MenuItem'∆
  m.paste.onSelect←1
 
- m.Sep1←m.⎕NEW⊂'Separator'
+ m.Sep10←m.⎕NEW⊂'Separator'
+
+ ∆←''
+ ∆,←⊂'Caption'('Split at 50%',TAB,'F2')
+ ∆,←⊂'Active'(~0∊⍴∊n.Markdown.Text)
+ m.SplitAt50←m.⎕NEW'MenuItem'∆
+ m.SplitAt50.onSelect←1
+
+ m.Sep20←m.⎕NEW⊂'Separator'
 
  ∆←''
  ∆,←⊂'Caption'('Find',TAB,'Ctrl+F')
@@ -38,7 +46,7 @@
  m.FindAndReplace←m.⎕NEW'MenuItem'∆
  m.FindAndReplace.onSelect←1
 
- m.Sep2←m.⎕NEW⊂'Separator'
+ m.Sep30←m.⎕NEW⊂'Separator'
 
  ∆←''
  ∆,←⊂'Caption'('Inject markdown expression...',TAB,'F8')

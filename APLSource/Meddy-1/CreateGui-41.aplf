@@ -1,4 +1,4 @@
- n←CreateGui n;∆;parms
+ n←CreateGui n;∆;parms;buff
  n.∆PushButtons←''
  n←CreateFonts n
  n.Icon←⎕NEW'Icon'(⊂'file' 'meddy2.ico')
@@ -8,11 +8,13 @@
  parms.icon←n.Icon
  parms.onClose←'OnCloseMainWindow'
  parms.hasVersionField←0
-⍝ parms.regKey2←'MainForm'
  parms.hasStatusbar←1
  parms.hasProgressbar←1
  parms.size←QuarterOfMainScreen
  n←n G.StdForm.Create n.∆globalParms parms
+ :If 0≠≢buff←'-posn='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
+     n.∆Form.Posn←(30 0)+↑(//)⎕VFI↑buff  ⍝ 30 for the menubar
+ :EndIf
  2 ⎕NQ #'Flush'
  n.∆Form.on9999←'On9999'n
  n.∆Form.CursorObj←1

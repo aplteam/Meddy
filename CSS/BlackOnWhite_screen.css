@@ -807,6 +807,18 @@ div#footnotes_div ol {
 
 .no_display {display:none;}
 .red {color: red;}
+.center {
+    text-align: center;     /* for inline elements */
+    margin: 0 auto;         /* for Block elements */
+}
+.left {
+    text-align: left;     /* for inline elements */
+    margin-right: 0 auto;   /* for Block elements */
+}
+.right {
+    text-align: right;     /* for inline elements */
+    margin-left: 0 auto;   /* for Block elements */
+}
 
 img {
     margin-top: 0.55em;

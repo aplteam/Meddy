@@ -1,6 +1,6 @@
  AddRecentFilesFromWindowsRegistry←{
      (n recent)←⍵
-     regKey←n.∆globalParms.regKey,'\RecentFiles'
+     regKey←n.∆globalParms.userRegKey,'\RecentFiles'
      list←∪{11::'' ⋄ ∪';'A.Split ##.WinRegSimple.Read ⍵}regKey
      0∊⍴list:⍬
      0∊⍴list←(F.IsFile list)/list:⍬

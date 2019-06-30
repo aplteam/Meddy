@@ -1,6 +1,6 @@
  {r}←SavePrefsInRegistry n;regKey;prefName;value
  r←⍬
- regKey←n.∆globalParms.regKey,'\Preferences\'
+ regKey←n.∆globalParms.userRegKey,'\Preferences\'
  :For prefName :In ' '~¨⍨↓n.∆Prefs.⎕NL 2
      value←n.∆Prefs.⍎prefName
      ##.WinRegSimple.Write(regKey,prefName)value  ⍝ If this crashes you are probably running Dyalog-64 rather than 32 bit!

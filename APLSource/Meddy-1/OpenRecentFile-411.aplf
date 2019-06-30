@@ -6,7 +6,7 @@
      parms.addToCaption←'Open recent file'
      tell←'The file:'('  ',filename)'does not exist.' '' 'Remove from recent files?'
      :If n.∆globalParms parms G.Dialogs.YesOrNo tell
-         regKey←n.∆globalParms.regKey,'\RecentFiles'
+         regKey←n.∆globalParms.userRegKey,'\RecentFiles'
          list←';'A.Split #.WinRegSimple.Read regKey
          list←((A.Lowercase list)≢¨⊂A.Lowercase filename)/list
          #.WinRegSimple.Write regKey(↑{⍺,';',⍵}/list)

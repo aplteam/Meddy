@@ -7,7 +7,7 @@
  n.∆Prefs.Warnings←0
  n.∆Prefs.LeanpubExtensions←0
 ⍝ n.∆Prefs.PortNo←4711           ⍝ For Meddy's built-in server, if we ever support "Push"
- regKey←n.∆globalParms.regKey,'\Preferences\'
+ regKey←n.∆globalParms.userRegKey,'\Preferences\'
  :For prefName :In ' '~¨⍨↓n.∆Prefs.⎕NL 2
      :Trap 11
          value←##.WinRegSimple.Read regKey,prefName

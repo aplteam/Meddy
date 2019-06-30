@@ -1,15 +1,16 @@
  History
-⍝ * 2.4.0
-⍝   * New menu item "Copy caption" added to the TOC's context menu.
-⍝   * In case no INI file can be found an error message is displayed.
-⍝   * Command line parameters introduced. See ReadMe.html for details.
-⍝   * The "About" dialog box now lists all INI files with their full names.
+⍝ * 2.5.0
+⍝   * Uses version 6.0.0 of MarkAPL. As the increase of the major number suggests that means MarkAPL comes
+⍝     with a potentially breaking change. See <https://github.com/aplteam/MarkAPL> for details.
+⍝     Both the "Edit" menu and the Markdown's context menu now carry a "Split at 50%" menu comand with
+⍝     an assigned shortcut (F2).
+⍝   * While moving the splitter between the Markdown pane and the Preview pane a percentage is displayed in
+⍝     the status bar.
 ⍝   * Bug fixes
-⍝     * In case any of the files offered via the "Help" menu is (for whatever reason)
-⍝       not available, an error message with the full filename is provided.
-⍝     * When the path contained a space none of the documents offered via the "Help" menu was accessible
-⍝     * For clarification the context menu items for "Cut" and "Copy" in the TOC's context menu were
-⍝       renamed to "Cut Markdown" and "Copy Markdown".
-⍝     * "Check for updates" failed to download the installer EXE. It does now.
+⍝     * "User preferences" and "Recent files" have not been saved on a per-user basis so far.
+⍝     * Specifying `cssURL` caused problems with -ini=
+⍝     * Statusfields "Row" and "Col" survived closing a document.
+⍝     * Hiding the "Preview" and then making the main window very small might result in an invisible
+⍝       "Preview" after unhiding it.\\
 ⍝\\
 ⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

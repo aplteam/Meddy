@@ -24,6 +24,8 @@
  ~Select all=Ctrl+A                : OnMenuCommand     {selectall}      : Select the whole document
  ~Clear                            : OnMenuCommand     {clear}          : Whipe the contents off the edit area
  -                                                    
+ ~Split at 50%=F2                  : OnMenuCommand     {spliAt50}       : Split the right pane at 50% for the Markdown and the Preview
+ -
  ~Inject MarkAPL expressions...=F8 : OnMenuCommand     {expression}     ; Inject an expression like, for example, a link or an image
  ~Inject MarkAPL parameters...=F9  : OnMenuCommand     {injectParms}    : Inject [parm] into the document
  

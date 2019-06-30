@@ -16,6 +16,7 @@
      n.Toc.Items←''
      {}2 ⎕NQ n.∆Form'GotFocus'
      n.∆Form.Caption←n.∆globalParms.caption
+     {⍵.(Text Caption)←⊂''}¨'StatusField'⎕WN n.Statusbar
      n.∆HtmlFilename←n.∆Filename←''
      ResetMarkdownAndPreview n
      n.∆Hits←⍬

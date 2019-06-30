@@ -4,7 +4,7 @@
  :If savePathInReg
  :AndIf 0≠≢n.∆Path
  :AndIf 0=n.∆INI.Exist'Config:workDir'
-     regKey←n.∆globalParms.regKey,'\Preferences\Path'
+     regKey←n.∆globalParms.userRegKey,'\Preferences\Path'
      ##.WinRegSimple.Write regKey n.∆Path
  :EndIf
 ⍝Done

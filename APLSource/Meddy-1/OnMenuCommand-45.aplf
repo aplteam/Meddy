@@ -76,6 +76,8 @@
      ShowAboutPresentations n
  :Case n.∆Menubar.viewClipboard
      ViewClipboard n
+ :Case n.∆Menubar.spliAt50
+     n.Splitter2.Posn[1]←⌈n.LeftAndRight.Size[1]÷2
  :Else
      :If menuItem∊n.∆Menubar.(cut copy paste)
          SendKeystroke n menuItem

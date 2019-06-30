@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.4.0.261"
+#define MyAppVersion "2.5.0.277"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -35,17 +35,18 @@ SetupIconFile={#MyAppIcoName}
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License";
 
 [Registry]
+; Globals
 Root: HKLM32; Subkey: "Software\{#MyAppPublisher}"; Flags: uninsdeletekeyifempty
 Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; Flags: uninsdeletekey
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "RecentFiles"; ValueData: ""; Flags: uninsdeletekey
 Root: HKCR;   Subkey: ".md"; ValueType: string; ValueName: ""; ValueData: "markdownfile"; Flags: uninsdeletevalue; Tasks: DefaultApp
 Root: HKCR;   Subkey: "markdownfile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletevalue; Tasks: DefaultApp
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter1Posn"; ValueData: ""; Flags: uninsdeletekey
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter2Posn"; ValueData: ""; Flags: uninsdeletekey
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: dword; ValueName: "FontSize"; ValueData: 17; Flags: uninsdeletekey
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "RecentFiles"; ValueData: ""; Flags: uninsdeletekey
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "FirstFlag"; ValueData: 1; Flags: uninsdeletekey
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "SaveHTML"; ValueData: 1; Flags: uninsdeletekey
+;User-specific 
+Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter1Posn"; ValueData: ""; Flags: uninsdeletekey
+Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter2Posn"; ValueData: ""; Flags: uninsdeletekey
+Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: dword; ValueName: "FontSize"; ValueData: 17; Flags: uninsdeletekey
+Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "RecentFiles"; ValueData: ""; Flags: uninsdeletekey
+Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "FirstFlag"; ValueData: 1; Flags: uninsdeletekey
+Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "SaveHTML"; ValueData: 1; Flags: uninsdeletekey
 
 [Dirs]
 Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
@@ -66,8 +67,8 @@ Source: "CSS/PresentAPL_Blue.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS"; 
 
 ; The Conga DLLs are needed for "Check for updates"
-Source: "conga30ssl32.dll"; DestDir: "{app}";
-Source: "conga30_32.dll"; DestDir: "{app}";
+Source: "conga31ssl32.dll"; DestDir: "{app}";
+Source: "conga31_32.dll"; DestDir: "{app}";
 
 Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
 Source: "ReadMe.html"; DestDir: "{app}";
