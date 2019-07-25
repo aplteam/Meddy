@@ -24,7 +24,7 @@
  def⍪←'StyleSheet' 'Default style-sheet set'styleSheet DT.DropDown 30 1 1
 ⍝ def⍪←'SaveOptionLabel' 'Together with the markdown:' ''DT.Label ⍬ 1 1
  SaveHtml←0 1 2=n.∆Prefs.SaveHtml
- def⍪←'HTML' 'With the markdown⋄never save HTML⋄always save HTML⋄keep asking'SaveHtml DT.Radio ⍬ 1 1
+ def⍪←'HTML' 'Save HTML with markdown⋄never⋄always⋄keep asking'SaveHtml DT.Radio ⍬ 1 1
  def⍪←'Warnings' 'Show MarkAPL''s warnings'n.∆Prefs.Warnings DT.YesNo ⍬ 1 1
  def⍪←'LeanPub' 'Support LeanPub e&xtensions'n.∆Prefs.LeanpubExtensions DT.YesNo ⍬ 1 1
  ⍝TODO⍝ def⍪←'PortNo' 'Port number'n.∆Prefs.PortNo DT.Numeric 5 1 1    ⍝⍝⍝⍝⍝ When we support push

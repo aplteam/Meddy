@@ -1,5 +1,5 @@
- {r}←SaveMarkdownAs n;parms;filename
- r←⍬
+ {saveHTML}←SaveMarkdownAs n;parms;filename
+ saveHTML←¯1
  filename←AskForSaveFilename n
  :If 0≠≢filename
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0∊⍴⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
@@ -10,7 +10,9 @@
      UpdateFilename n filename
      SaveText n.∆Filename(n.Markdown.Text)
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
-     :If DoYouWantToSaveHtml n
+     saveHTML←DoYouWantToSaveHtml n
+     n.∆parms.firstFlag←0
+     :If saveHTML∊1 2
          RefreshPreview n
          n.∆HtmlFilename←CheckForMeddyConfigFile n
          :If 0=≢n.∆HtmlFilename
@@ -25,5 +27,7 @@
      n.∆Menubar.(save close).Active←1
      n.∆Menubar.save.Active←1
      {}n AddFileToRecentFileList n.∆Filename
+ :Else
+     saveHTML←⍬
  :EndIf
 ⍝Done

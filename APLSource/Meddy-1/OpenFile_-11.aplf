@@ -6,7 +6,8 @@
      UpdateFilename n filename
      n.∆HtmlFilename←CheckForMeddyConfigFile n
      n.∆parms.saveHtml←n.∆Prefs.SaveHtml
-     n.∆parms.saveHtml←n.∆parms.saveHtml n.∆INI.Get'CONFIG:saveHTML'
+     n.∆parms.firstFlag←~n.∆INI.Exist'CONFIG:saveHTML'
+     n.∆parms.saveHtml←↑n.∆parms.saveHtml n.∆INI.Get'CONFIG:saveHTML'
      n←InitialUndoRedoStack n
  :AndIf success←1 RefreshPreview n
      1 ⎕NQ n.TabBtn1'Select'
@@ -15,6 +16,7 @@
      {}n AddFileToRecentFileList n.∆Filename
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
      #.CursorObj←saveCursor
+     n.(Row Col).Caption←'Row:' 'Col:'
      n.(Row Col).Text←'1'
      n←CloseDragAndDropSubForm n
      ⎕NQ n.Markdown'GotFocus'

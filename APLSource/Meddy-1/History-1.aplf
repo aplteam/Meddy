@@ -1,4 +1,7 @@
  History
+⍝ * 2.5.1
+⍝   * Bug fixes:
+⍝     * When a new document was created the information regarding the cursor position lacked "Row:" and "Col:".
 ⍝ * 2.5.0
 ⍝   * Uses version 6.0.0 of MarkAPL. As the increase of the major number suggests that means MarkAPL comes
 ⍝     with a potentially breaking change. See <https://github.com/aplteam/MarkAPL> for details.

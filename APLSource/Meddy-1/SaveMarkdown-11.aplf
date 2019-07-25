@@ -2,7 +2,7 @@
  r←⍬
  saveHTML←¯1
  :If 0∊≢n.∆Filename
-     SaveMarkdownAs n
+     saveHTML←SaveMarkdownAs n
  :Else
      SaveText n.∆Filename n.Markdown.Text
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
@@ -19,17 +19,20 @@
          'Invalid command line parameter: "saveHTML"'⎕SIGNAL 11/⍨1≠≢saveHTML
          'Invalid command line parameter: "saveHTML"'⎕SIGNAL 11/⍨~saveHTML∊0 1 2
      :Else
-         saveHTML←⍬
+         saveHTML←n.∆parms.saveHtml
      :EndIf
  :EndIf
- :If (,¯1)≡,saveHTML                        ⍝ ¯1 means "undefined"
- :OrIf ⍬≡saveHTML
-     flag←DoYouWantToSaveHtml n
+ :If (⍬≢saveHTML)∧(,¯1)≡,saveHTML              ⍝ ¯1 means "undefined", ⍬ means the user has not saved the markdown
+ :OrIf n.∆parms.firstFlag
+     n.∆parms.firstFlag←0
+     saveHTML←DoYouWantToSaveHtml n
+     flag←saveHTML∊1 2
  :Else
-     :If 2=saveHTML
-         flag←saveHTML DoYouWantToSaveHtml n
+     :If saveHTML∊2 3
+         saveHTML←saveHTML DoYouWantToSaveHtml n
+         flag←saveHTML∊1 2
      :Else
-         flag←saveHTML
+         flag←saveHTML∊1 2
      :EndIf
  :EndIf
 

@@ -8,8 +8,10 @@
      {}⎕NQ n.Markdown'GotFocus'
      n.Markdown.∆LastSavedVersion←''
      n←InitialUndoRedoStack n
+     n.(Row Col).Caption←'Row:' 'Col:'
      n.(Row Col).Text←'1'
      n.∆parms.saveHtml←n.∆Prefs.SaveHtml
+     n.∆parms.firstFlag←1
      n←CloseDragAndDropSubForm n
  :EndIf
  {}1 RefreshPreview n
