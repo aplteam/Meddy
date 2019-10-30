@@ -1,0 +1,20 @@
+ History
+⍝ * 2.6.0
+⍝   * Context menu command "Find in TOC" introduced to the table-of-contents.
+⍝   * The "Inject parameters..." dialog got improved.
+⍝   * New version of MarkAPL integrated. Watch out for potentially breaking changes!
+⍝   * Bug fixes:
+⍝     * Meddy did not honour a file `.meddy` anymore.
+⍝     * Drag-and-drop did not work.
+⍝     * Clicking on a line in the TOC gets more and more out of sync with the markdown
+⍝       once the user adds or removes lines from the markdown.
+⍝     * The TOC was _always_ updated in case any of the headers carried a `"`.
+⍝     * "Save as..." had a problem with whether to save the HTML version or not.
+⍝     * Meddy created plenty of files in the TEMP folder. Now cleans up when closed.
+⍝     * A click on a node in the TOC made the Preview change. It should only expand/collapse
+⍝       the TOC tree.
+⍝     * The commands "Jump to next/previous" did not work as expected in two scenarios:
+⍝       * When a new header was introduced but no "Refresh" command issues
+⍝       * When a header contained characters that qualify as RegEx meta characters
+⍝\\
+⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

@@ -1,0 +1,21 @@
+ {r}←ProcessContextMenuOnHtml n;m;∆;res;filename;cl;contextMenu
+ r←⍬
+ contextMenu←CreateContextMenuOnHTML n
+ res←DQ contextMenu
+ :If ~0=≢res
+     :Select ↑res
+     :Case contextMenu.CopyAll
+         :If ≡/n.HTML.SelText
+             cl←⎕NEW,⊂'Clipboard'
+             cl.Text←n.HTML.Text
+         :Else
+             1 ⎕NQ n.HTML'KeyPress' 'CP'
+         :EndIf
+     :Case contextMenu.Save
+         WarnAboutCSS n
+         SaveMarkdownAsHTML n
+     :Case contextMenu.SaveAs
+         WarnAboutCSS n
+         'ASK'SaveMarkdownAsHTML n
+     :EndSelect
+ :EndIf

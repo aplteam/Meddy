@@ -1,0 +1,15 @@
+ {r}←ResetAfterError n
+ r←⍬
+ ToggleControlsAndCommands n 0
+ n.HidePreview.State←0
+ n.Toc.Depth←⍬
+ n.Toc.Items←''
+ n.∆Form.Caption←n.∆globalParms.caption
+ n.∆HtmlFilename←n.∆Filename←''
+ ResetMarkdownAndPreview n
+ n.∆Hits←⍬
+ n.∆LastSelText←(1 1)(1 1)
+ n.Markdown.⎕EX'∆LastSavedVersion'
+ 0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
+ '↑'n.∆CommitUndoRedo 0  ⍝ Clear
+⍝Done

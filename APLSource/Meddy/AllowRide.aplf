@@ -1,0 +1,12 @@
+ {r}←AllowRide n;rc;port;wait
+ r←⍬
+ :If 0=IsConnectedToRide ⍬
+     :If n.∆INI.Exist'Ride' 'Allow'
+     :AndIf n.∆INI.Exist'Ride' 'Port'
+     :AndIf ↑n.∆INI.Get'Ride' 'Allow'
+         port←↑n.∆INI.Get'Ride' 'Port'
+         wait←{0=n.∆INI.Exist'Ride' 'Wait':0 ⋄ ↑n.∆INI.Get'Ride' 'Wait'}⍬
+         r←wait AllowRide_ port
+     :EndIf
+ :EndIf
+⍝Done

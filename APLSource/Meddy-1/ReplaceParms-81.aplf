@@ -1,7 +1,0 @@
- ReplaceParms←{
-⍝ Replaces the `[parm]` parameters in `document` by `parms`
-     .
-     md←⍵
-     0=noOf←+/∧\'['=↑¨md:''
-     '[parm]:'{⍵/⍨⍺∘≡¨(⍴⍺)↑¨⍵}noOf↑md
- }

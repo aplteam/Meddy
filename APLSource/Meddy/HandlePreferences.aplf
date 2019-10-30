@@ -1,0 +1,12 @@
+ {r}←HandlePreferences n;flag
+ r←⍬
+ :Trap 11
+     flag←##.WinRegSimple.Read n.∆globalParms.regKey,'\Preferences\FirstFlag'
+ :Else
+     flag←'Unable to open registry key'{⍺≡(≢⍺)↑⍵}↑⎕DM
+ :EndTrap
+ :If flag
+     Preferences n
+     ##.WinRegSimple.Write(n.∆globalParms.regKey,'\Preferences\FirstFlag')0
+ :EndIf
+⍝Done

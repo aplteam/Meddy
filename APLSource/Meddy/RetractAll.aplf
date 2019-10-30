@@ -1,0 +1,6 @@
+ {r}←RetractAll n
+ r←⍬
+ {}n.Toc{2 ⎕NQ ⍺'Retracting'⍵}¨⍳≢n.Toc.Items
+ n.Toc.SelItems←(≢n.Toc.SelItems)↑1
+ ⎕NQ n.Toc'ItemUp' 0 0 0
+⍝Done

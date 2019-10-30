@@ -1,0 +1,15 @@
+ n2←CreateContextMenuForToc n
+ n2←⎕NS''
+ n2.∆menu←⎕NEW⊂'Menu'
+
+ n2.ExpandAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Expand first three levels'))
+ n2.RetractAllAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Retract all'))
+ n2.Sep5←n2.∆menu.⎕NEW⊂'Separator'
+ n2.Cut←n2.∆menu.⎕NEW'MenuItem'(('Caption' 'Cut Markdown...')('Active'(0<+/n.Toc.SelItems)))
+ n2.Copy←n2.∆menu.⎕NEW'MenuItem'(('Caption' 'Copy Markdown...')('Active'(0<+/n.Toc.SelItems)))
+ n2.Sep10←n2.∆menu.⎕NEW⊂'Separator'
+ n2.CopyBookmarkLink←n2.∆menu.⎕NEW'MenuItem'(('Caption' 'Copy caption')('Active'(0<+/n.Toc.SelItems)))
+ n2.FindInToc←n2.∆menu.⎕NEW'MenuItem'(('Caption' 'Find in TOC...')('Active'(0<≢n.Toc.SelItems)))
+
+ {}{⍵.onSelect←1}¨'MenuItem'⎕WN n2.∆menu
+⍝Done

@@ -1,0 +1,27 @@
+ R←Test_Parms_009(stopFlag batchFlag);⎕TRAP;md;n;parms;md2
+⍝ Has a LeanPub encoding directive before some embedded parameters with blank lines and comments.
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ md←''
+ md,←⊂'{:: encoding="utf-8" /}'
+ md,←⊂'[parm]:saveHTML = 1'
+ md,←⊂''
+ md,←⊂'⍝'
+ md,←⊂'[parm]:toc = 2'
+ md,←⊂'⍝'
+ md,←⊂'[parm]:title = ''Title'''
+ md,←⊂''
+ md,←⊂'[parm]:width = 1200'
+ md,←⊂''
+ md,←⊂''
+ md,←⊂'[parm]:madeUp = ''Firlefaz]Latest'
+ md,←⊂'⍝'
+ md,←⊂'A paragraph.'
+ (md2 parms)←##.Meddy.GetEmbeddedParmsAndRemoveFromMarkdown md
+ →PassesIf 4=≢parms
+ →PassesIf 1=+/'[parm]'⍷∊md2
+
+ R←∆OK
+⍝Done

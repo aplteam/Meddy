@@ -1,0 +1,33 @@
+ {r}←{waitFlag}AllowRide_ port;rc
+⍝ If `port` is empty or 0 no action is taken. If it is a positiv integer it is interpreted as the port number
+⍝ Ride might connect to.\\
+⍝ The optional left argument defaults to 1 menaing that the function will loop in order to give the user the
+⍝ opportunity to issue an interrupt in order to take control.
+ r←⍬
+ waitFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'waitFlag'
+ :If ((,0)≢,port)∧0<≢port
+ :AndIf 0=IsConnectedToRide ⍬
+     :If 0=≢##.FilesAndDirs.Dir'conga??_32.dll'
+         :If ##.APLTreeUtils.IsDevelopment
+             'Conga DLL is missing"'⎕SIGNAL 6
+         :Else
+             ⎕OFF 106   ⍝ means: "Conga DLL is missing"
+         :EndIf
+     :Else
+         {}3502⌶0
+         rc←3502⌶'Serve::',⍕port
+         :If rc≠0
+             11 ⎕SIGNAL⍨'Ride error when resetting connection string to "',('Serve::',⍕port)'"; RC=',⍕rc
+         :EndIf
+         rc←3502⌶1
+         :If ~rc∊0 ¯1
+             :If 64≠rc
+                 11 ⎕SIGNAL⍨'Another application seems to use port ',(⍕port),'; RC=',⍕rc
+             :Else
+                 11 ⎕SIGNAL⍨'Ride error when trying to activate Ride; RC=',⍕rc
+             :EndIf
+         :EndIf
+         {}{_←⎕DL ⍵ ⋄ ∇ ⍵}⍣(⊃waitFlag)⊣1     ⍝ Endless loop that allows us to have a RIDE and wait for an interrupt
+     :EndIf
+ :EndIf
+⍝Done

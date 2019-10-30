@@ -1,0 +1,16 @@
+ R←Test_Parms_011(stopFlag batchFlag);⎕TRAP;md;n;parms;md2
+⍝ ⍝ A comment line before the first `[parm]` line: no embedded paramaters at all.
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ md←''
+ md,←⊂''
+ md,←⊂'[parm]:saveHTML = 1'
+ md,←⊂''
+ md,←⊂'A paragraph.'
+ (md2 parms)←##.Meddy.GetEmbeddedParmsAndRemoveFromMarkdown md
+ →PassesIf 0=≢parms
+
+ R←∆OK
+⍝Done

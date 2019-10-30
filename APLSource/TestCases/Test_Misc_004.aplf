@@ -1,0 +1,44 @@
+ R←Test_Misc_004(stopFlag batchFlag);⎕TRAP;CreateFolderAndMarkdownFile;folder;msg;n;targetFolder
+⍝ Test handling of .meddy config file
+⍝ The test case creates a new document in a temp folder in order to make sure no side effects take place.
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ CreateFolderAndMarkdownFile←{
+     folder←##.FilesAndDirs.GetTempPath,↑1↓⎕SI
+     _←'Create!'##.FilesAndDirs.CheckPath folder,'/level2'
+     _←##.APLTreeUtils.WriteUtf8File(folder,'/level2/my.md')⍵
+     _←##.APLTreeUtils.WriteUtf8File(folder,'/level2/.meddy')(⊂⍺)
+     folder
+ }
+
+ msg←''
+ msg,←⊂'[parm]:saveHTML = 1'
+ msg,←⊂''
+ msg,←⊂'Make a change and then issue the "Save" command from the "File" menu,'
+ msg,←⊂'then select the "Quit" command from the "File" menu.'
+ folder←'outputpath=''../'''CreateFolderAndMarkdownFile msg
+ n←∆RunMeddy folder,'/level2/my.md'
+ n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils.FormatDateTime ⎕TS
+ n.∆parms.firstFlag←0
+ 1 ⎕NQ n.∆Menubar.save'Select'
+ →GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
+ ##.FilesAndDirs.RmDir folder
+ 1 ⎕NQ n.∆Menubar.quit'Select'
+
+ targetFolder←##.FilesAndDirs.GetTempSubDir''
+ folder←('outputpath=''',targetFolder,'''')CreateFolderAndMarkdownFile msg
+ n←∆RunMeddy folder,'/level2/my.md'
+ n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils.FormatDateTime ⎕TS
+ n.∆parms.firstFlag←0
+ 1 ⎕NQ n.∆Menubar.save'Select'
+ →GoToTidyUp 0≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
+ →GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir targetFolder,'\*.html'
+
+ R←∆OK
+
+∆TidyUp:
+ :Trap 0 ⋄ 1 ⎕NQ n.∆Menubar.quit'Select' ⋄ :EndTrap
+ :Trap 0 ⋄ ##.FilesAndDirs.RmDir folder ⋄ :EndTrap
+ :Trap 0 ⋄ ##.FilesAndDirs.RmDir targetFolder ⋄ :EndTrap

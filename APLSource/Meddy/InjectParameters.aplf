@@ -1,0 +1,48 @@
+ {r}←InjectParameters n;parms;ps;list;bool;markdown;noOf;buff;alreadyDefined;isNum;ok;comments;list2;isLeanpubEncoding;n2;defaults
+ r←⍬
+ ps←#.MarkAPL.CreateParms
+ ps.presentation←0
+ list←ps.∆List[;0]
+ list~←'inputFilename' 'outputFilename' 'compileFunctions' 'debug' 'homeFolder' 'verbose' ⍝ These parameters should not be embedded by the user
+ :If 0<noOf←+/∧\'['=↑¨,n.Markdown.Text
+     list~←{{⍵↑⍨⍵⍳'='}(≢'[parm]:')↓⍵}¨{⍵/⍨'[parm]:'∘{⍺≡A.Lowercase(≢⍺)↑⍵}¨⍵}noOf↑,n.Markdown.Text
+ :EndIf
+ (alreadyDefined comments)←GetEmbeddedParms n.Markdown.Text
+ list~←{⍵↑⍨⌊/⍵⍳' ='}¨(≢'[parm]:')↓¨alreadyDefined
+ :If 0≠≢list
+     parms←G.OptionsTool.CreateParms
+     parms.addToCaption←'Inject MarkAPL parameters'
+     parms.style←G.Enums.OptionsStyles.check
+     parms.info←'Note that embedded parameters are a MarkAPL-only feature! Select parameters to embedd:'
+     parms.fontLabel←n.∆globalParms.fontAPL
+     isNum←0=↑¨1↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
+     n2←n.∆globalParms parms G.OptionsTool.Create↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
+     n2.menubar.help←n2.menubar.edit.##.⎕NEW'Menu'(⊂'Caption' '&Help')
+     n2.menubar.showDoc←n2.menubar.help.⎕NEW'MenuItem'(⊂'Caption' 'View parameter documentation')
+     n2.menubar.showDoc.onSelect←'OnShowParameterDocumentation'
+     (ok bool)←G.OptionsTool.ModalWait n2
+⍝⍝     (ok bool)←n.∆globalParms parms G.OptionsTool.Run↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
+     :If ok
+         :Trap 0
+         ⍝ We don't check `bool` because the user might just want to reformat the list of parameters
+             markdown←,n.Markdown.Text
+             (list isNum)←bool∘/¨list isNum
+             list2←({⍵↑⍨⌊/⍵⍳' ='}¨{(≢'[parm]:')↓⍵}¨alreadyDefined),list     ⍝ Needed for eliminating doubles
+             buff←alreadyDefined,'[parm]:'∘,¨list,¨('=' '=''''')[~isNum]
+             buff←(⌽{(⍳≢⍵)=⍵⍳⍵}⌽list2)/buff                                 ⍝ Eliminate any doubles but make last one win
+             buff←(⊃'='A.Split¨buff),'='
+             :If 0<≢list
+                 defaults←ps.∆List
+                 buff[list2⍳list;1]←{⎕NULL≡⍵:'⎕NULL' ⋄ 0=1↑0⍴⍵:⍕⍵ ⋄ '''',⍵,''''}¨defaults[defaults[;0]⍳list;1]
+             :EndIf
+             buff←(↓1↓[1]⎕FMT A.{dlb dtb ⍵}¨buff[;0 2 1]),comments
+             buff←A.dtb buff
+             isLeanpubEncoding←WhereIsLeanPubEncodingLine markdown
+             markdown←(isLeanpubEncoding/markdown),buff,(≢alreadyDefined,comments)↓(~isLeanpubEncoding)/markdown
+         :EndTrap
+         n.Markdown.Text←markdown
+     :EndIf
+ :Else
+     n TellAllParametersAlreadyDefined'Sorry, but you have already embedded all possible parameters.'
+ :EndIf
+⍝Done

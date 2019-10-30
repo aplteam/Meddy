@@ -689,6 +689,7 @@ nav {
     margin: 1.11em 2.22em;
     box-shadow: 0.27em 0.27em 0.27em Gray;
     overflow : hidden;
+    clear: both;
 }
 nav#main_nav{
     position: fixed;
@@ -809,7 +810,8 @@ div#footnotes_div ol {
 .red {color: red;}
 .center {
     text-align: center;     /* for inline elements */
-    margin: 0 auto;         /* for Block elements */
+    margin-left: auto;      /* for Block ... */
+    margin-right:auto;      /* ...elements */
 }
 .left {
     text-align: left;     /* for inline elements */

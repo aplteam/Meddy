@@ -1,0 +1,48 @@
+ {r}←Preferences n;parms;def;DT;result;width;Width;parms2;msg;flag;Done;styleSheet;StyleSheet;SaveHtml;Warnings;LeanpubExtensions;PortNo
+⍝ Allows the user to set the preferences
+ r←⍬
+ parms←G.Input.CreateParms
+ parms.addToCaption←'Preferences'
+ parms.tips←0 2⍴⍬
+ parms.tips⍪←'HTML'('The HTML will have the same filename but' 'with an extension .html rather than .md')
+ parms.tips⍪←'Width'('This affects only the preview.' 'You can set the width for your final' 'document with: [parm]:width=900')
+ parms.tips⍪←'StyleSheet'('Select one of two styleSheet-sheet sets:' 'MarkAPL_[screen|print].css' 'BlackOnWhite_[screen|print].css' 'Or specify your own set in the Markdown with [parm]:')
+ parms.tips⍪←'Warnings'('Show MarkAPL''s warnings, if any.' 'Note that error messages will be shown in any case.')
+ parms.tips⍪←'LeanPub'('See https://github.com/aplteam/MarkAPL' 'for details regarding LeanPub extensions.')
+ parms.parent←n.∆Form
+ parms.menubar←''
+ ⍝TODO⍝ parms.tips⍪←'PortNo' 'Port number used by Meddy''s built-in server.'  ⍝⍝⍝⍝⍝ When we support push, if ever
+ DT←G.Enums.InputDataTypes
+ def←0 7⍴⍬
+ def⍪←'Info' '' 'These settings define the defaults for a new Markdown document:'DT.Label ⍬ 1 1
+ width←(⍕¨100×5+⍳12),⊂'none'
+ parms.props←1 2⍴'Width'(⊂'SelItems'({0=+/⍵:(-≢⍵)↑1 ⋄ ⍵}width≡¨⊂n.∆Prefs.Width))
+ def⍪←'Width' 'Max-width for preview'(⍕¨width)DT.DropDown ⍬ 1 1
+ styleSheet←'MarkAPL' 'BlackOnWhite'
+ parms.props⍪←'StyleSheet'(⊂'SelItems'(styleSheet≡¨⊂n.∆Prefs.StyleSheet))
+ parms.onInitial←'OnInitialPreferences'
+ def⍪←'StyleSheet' 'Default style-sheet set'styleSheet DT.DropDown 30 1 1
+⍝ def⍪←'SaveOptionLabel' 'Together with the markdown:' ''DT.Label ⍬ 1 1
+ SaveHtml←0 1 2=n.∆Prefs.SaveHtml
+ def⍪←'HTML' 'Save HTML with markdown⋄never⋄always⋄keep asking'SaveHtml DT.Radio ⍬ 1 1
+ def⍪←'Warnings' 'Show MarkAPL''s warnings'n.∆Prefs.Warnings DT.YesNo ⍬ 1 1
+ def⍪←'LeanPub' 'Support LeanPub e&xtensions'n.∆Prefs.LeanpubExtensions DT.YesNo ⍬ 1 1
+ ⍝TODO⍝ def⍪←'PortNo' 'Port number'n.∆Prefs.PortNo DT.Numeric 5 1 1    ⍝⍝⍝⍝⍝ When we support push
+ :If ~0=≢result←n.∆globalParms parms G.Input.Run def
+     SaveHtml←1⊃result[result[;0]⍳⊂'HTML';]
+     Width←↑(1⊃result[result[;0]⍳⊂'Width';])/width
+     StyleSheet←↑(1⊃result[result[;0]⍳⊂'StyleSheet';])/styleSheet
+     Warnings←1⊃result[result[;0]⍳⊂'Warnings';]
+     LeanpubExtensions←1⊃result[result[;0]⍳⊂'LeanPub';]
+ ⍝TODO⍝      PortNo←1⊃result[result[;0]⍳⊂'PortNo';]                     ⍝⍝⍝⍝⍝ When we support push
+ :AndIf SaveHtml Width StyleSheet≢n.∆Prefs.(SaveHtml Width StyleSheet)
+     flag←Width StyleSheet≢n.∆Prefs.(Width StyleSheet)
+     n.∆Prefs.SaveHtml←⍸SaveHtml
+     n.∆Prefs.Width←Width
+     n.∆Prefs.StyleSheet←StyleSheet
+     n.∆Prefs.Warnings←Warnings
+     n.∆Prefs.LeanpubExtensions←LeanpubExtensions
+ ⍝TODO⍝      n.∆Prefs.PortNo←PortNo                                     ⍝⍝⍝⍝⍝ When we support push
+     SavePrefsInRegistry n
+ :EndIf
+⍝Done

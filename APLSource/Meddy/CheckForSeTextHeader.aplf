@@ -1,0 +1,15 @@
+ CheckForSeTextHeader←{
+     (row markdown)←⍵
+     line2←row⊃markdown
+     0≥row:0                                        ⍝ In the very first line2 there cannot be a SeText header by definition
+     0=≢A.dmb line2:0                               ⍝ Empty lines cannot be SeText headers
+     ~∨/line2∊'-=':0                                ⍝ Fast: most lines won't carry those...
+     line2←{⍵↑⍨⍵⍳'{'}line2                          ⍝ Remove special attributes, if any
+     ~0=≢line2~' -=':0                              ⍝ .. and those which do together with other stuff are gone now as well.
+     isEmpty←markdown{⍵=¯1:1 ⋄ 0=≢(⍵⊃⍺)~' '}row-2   ⍝ Before the SeText header there must be either an empty line...
+     isPara←CheckForBeingPara(row-1)⊃markdown       ⍝ ... or a para
+     0=isEmpty+isPara:0
+     4≤+/∧\' '=line2:0                              ⍝ Max three blanks
+     {(⍵∨.≠'=')∧(⍵∨.≠'-')}line2~' ':0
+     CheckForBeingPara(row-1)⊃markdown
+ }

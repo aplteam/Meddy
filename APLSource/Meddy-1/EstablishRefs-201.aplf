@@ -1,7 +1,0 @@
- {r}←EstablishRefs dummy
- r←⍬
- A←#.APLTreeUtils
- F←#.FilesAndDirs
- G←##.GUI
- G.APLTreeUtils←A
- G.FilesAndDirs←F

@@ -1,0 +1,6 @@
+ CheckForBeingPara←{
+     ~0=≢'^\s{0,3}[*+-]\s+/'⎕S 0⊣⍵:0            ⍝ Must not be a bulleted list
+     ~0=≢'^\s{0,3}[\d]+[).]\s+'⎕S 0⊣⍵:0         ⍝ Must not be a numbered list
+     ~(⍵~' ')∨.≠'-':0                           ⍝ Must not be a horizontal line
+     0=≢'\s{0,3}> '⎕S 0⊣⍵                       ⍝ Must not be a cite
+ }

@@ -1,0 +1,5 @@
+ {n}←EstablishDropFileHandler n;list
+⍝ Establish handler for the `DropFiles` event for all SubForms
+ list←{⍵[;0]}n.∆List'SubForm'
+ list.onDropFiles←⊂'OnDropFiles'
+⍝Done

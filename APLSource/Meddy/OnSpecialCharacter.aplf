@@ -1,0 +1,35 @@
+ r←n OnSpecialCharacter msg;rowCol;char;input
+ r←0
+ rowCol←msg[6 7]
+ :If 1=rowCol⌷n.SpecialChars.CellTypes
+     char←rowCol⌷n.SpecialChars.Values
+ :Else
+     :Return
+ :EndIf
+ :If 0<n.⎕NC'Markdown'                                  ⍝ Markdown (edit pane)?!
+     2 ⎕NQ n.Markdown'KeyPress'char
+     {}⎕NQ n.Markdown'GotFocus'
+ :Else
+     :If 0<n.⎕NC'SearchString'
+         input←n.SearchString                           ⍝ Find in TOC!
+     :Else
+         input←n.Search_for                             ⍝ Find in Markdown
+     :EndIf
+     :If 0=n.⎕NC'Replace_with'                          ⍝ "Search" dialog?!
+         →(~n.∆LastFocusWas∊input)/0
+     :Else                                              ⍝ It's the "Find & Replace" dialog
+         →(~n.∆LastFocusWas∊input,n.Replace_with)/0     ⍝ Only when we are in either "Search for" or "Replace with"!
+     :EndIf
+     :If 1=≢∪n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
+         n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
+     :EndIf
+     2 ⎕NQ n.∆LastFocusWas'KeyPress'char
+     :If 1=≢∪n.∆LastFocusWas.SelText←n.∆LastFocusWas.∆LastSelText
+         n.∆LastFocusWas.SelText←n.∆LastFocusWas.SelText+1
+     :Else
+         n.∆LastFocusWas.SelText←1+2⍴n.∆LastFocusWas.∆LastSelText[0]
+     :EndIf
+     n.∆LastFocusWas.∆LastSelText←n.∆LastFocusWas.SelText
+     {}2 ⎕NQ n.∆LastFocusWas'GotFocus'
+ :EndIf
+⍝Done

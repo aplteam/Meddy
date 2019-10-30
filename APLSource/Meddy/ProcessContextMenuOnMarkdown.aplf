@@ -1,0 +1,25 @@
+ {r}←ProcessContextMenuOnMarkdown n;m;∆;res;filename;cl;contextMenu;menuItem
+ r←⍬
+ contextMenu←CreateContextMenuOnMarkdown n
+ res←n DQ contextMenu
+ :If ~0=≢res
+     menuItem←↑res
+     :Select menuItem
+     :Case contextMenu.Find
+         FindInMarkdown n
+     :Case contextMenu.FindAndReplace
+         FindAndReplace n
+     :Case contextMenu.ViewParms
+         InjectParameters n
+     :Case contextMenu.InjectExpression
+         InjectMarkdownExpression n
+     :Case contextMenu.SplitAt50
+         n.Splitter2.Posn[1]←⌈n.LeftAndRight.Size[1]÷2
+     :Else
+         :If menuItem∊contextMenu.(cut copy paste)
+             contextMenu SendKeystroke n menuItem
+         :Else
+             . ⍝ Huuh?!
+         :EndIf
+     :EndSelect
+ :EndIf

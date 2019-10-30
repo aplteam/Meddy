@@ -1,0 +1,8 @@
+ {r}←{n}DQ ref
+ n←ref{0=⎕NC ⍵:GetRef2n ⍺ ⋄ ⍎⍵}'n'
+ :If ~0∊⍴n
+     r←⎕DQ ref
+ :Else
+     ⎕NQ n.Markdown'GotFocus' ⋄ r←⎕DQ ref
+ :EndIf
+⍝Done

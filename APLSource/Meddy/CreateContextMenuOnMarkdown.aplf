@@ -1,0 +1,61 @@
+ m←CreateContextMenuOnMarkdown n;∆
+ m←⎕NEW,⊂'Menu'
+
+ ∆←''
+ ∆,←⊂'Caption'('Cut',TAB,'Ctrl+X')
+ ∆,←⊂'Accelerator'(88 2)
+ ∆,←⊂'Active'({0=≢∊⍵.Markdown.Text:0 ⋄ ≢/n.Markdown.SelText}n)
+ m.cut←m.⎕NEW'MenuItem'∆
+ m.cut.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Copy',TAB,'Ctrl+C')
+ ∆,←⊂'Accelerator'(67 2)
+ ∆,←⊂'Active'({0=≢∊⍵.Markdown.Text:0 ⋄ ≢/n.Markdown.SelText}n)
+ m.copy←m.⎕NEW'MenuItem'∆
+ m.copy.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Paste',TAB,'Ctrl+V')
+ ∆,←⊂'Accelerator'(86 2)
+ ∆,←⊂'Active' 1
+ m.paste←m.⎕NEW'MenuItem'∆
+ m.paste.onSelect←1
+
+ m.Sep10←m.⎕NEW⊂'Separator'
+
+ ∆←''
+ ∆,←⊂'Caption'('Split at 50%',TAB,'F2')
+ ∆,←⊂'Active'(~0=≢∊n.Markdown.Text)
+ m.SplitAt50←m.⎕NEW'MenuItem'∆
+ m.SplitAt50.onSelect←1
+
+ m.Sep20←m.⎕NEW⊂'Separator'
+
+ ∆←''
+ ∆,←⊂'Caption'('Find',TAB,'Ctrl+F')
+ ∆,←⊂'Accelerator'(70 2)
+ ∆,←⊂'Active'(~0=≢∊n.Markdown.Text)
+ m.Find←m.⎕NEW'MenuItem'∆
+ m.Find.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Find and Replace',TAB,'Ctrl+R')
+ ∆,←⊂'Accelerator'(82 2)
+ ∆,←⊂'Active'(~0=≢∊n.Markdown.Text)
+ m.FindAndReplace←m.⎕NEW'MenuItem'∆
+ m.FindAndReplace.onSelect←1
+
+ m.Sep30←m.⎕NEW⊂'Separator'
+
+ ∆←''
+ ∆,←⊂'Caption'('Inject markdown expression...',TAB,'F8')
+ m.InjectExpression←m.⎕NEW'MenuItem'∆
+ m.InjectExpression.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Inject parameters...',TAB,'F9')
+ m.ViewParms←m.⎕NEW'MenuItem'∆
+ m.ViewParms.onSelect←1
+
+⍝Done

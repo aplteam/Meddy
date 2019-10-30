@@ -1,0 +1,8 @@
+ n←SavePosnAndSize n;regKey
+⍝ Saves `Posn` and `Size` of the Form
+ :If ~0=≢regKey←n.∆globalParms.userRegKey,'\',n.∆parms.regKey2,'\'
+     ##.WinRegSimple.Write(regKey,'\Size')(⍕n.∆Form.Size)
+     :If ∧/n.∆Form.Posn≤G.APLGuiHelpers.ScreenEstate
+         ##.WinRegSimple.Write(regKey,'\Posn')(⍕n.∆Form.Posn)
+     :EndIf
+ :EndIf

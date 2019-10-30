@@ -1,5 +1,0 @@
- GetListOfRecentFilesFromWindowsRegistry←{
-     regKey←⍵
-     0∊⍴buff←''#.WinRegSimple.Read regKey:buff
-     {⍵/⍨0<≢¨⍵}';'A.Split buff
- }

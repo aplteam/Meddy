@@ -1,0 +1,19 @@
+ {r}←OpenFile n;parms;filename;_;cmd;workdir
+ r←⍬
+ parms←G.FileBox.CreateParms
+ parms.addToCaption←'Select Markdown file'
+ parms.filters←('*.md' 'Markdown files')('*.txt' 'Text files')('*.*' 'All files')
+ parms.style←G.Enums.SelectionStyles.single
+ workdir←n.∆Path
+ :If 0≠≢filename←n.∆globalParms parms G.FileBox.Run workdir,'\'
+     :If 0=≢∊n.HTML.Text
+         OpenFile_ n filename
+     :Else
+         cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+         cmd,←'-file="',filename,'" '
+         cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
+         cmd,←A.IsDevelopment/'"',⎕WSID,'" '
+         ##.WinSys.ShellExecute cmd
+     :EndIf
+ :EndIf
+⍝Done

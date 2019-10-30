@@ -1,0 +1,6 @@
+ {r}←n SelectItem ind
+ r←⍬
+ n.Toc.SelItems[]←0
+ n.Toc.SelItems[ind]←1
+ n ##.ScrollToHeader ind
+⍝Done

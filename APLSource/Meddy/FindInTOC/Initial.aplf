@@ -1,0 +1,8 @@
+ Initial n
+ ##.CreateGridForSpecialCharsInFindAndReplace n
+ n.Case.Posn[0]+←15
+ n.∆OK.Active←0<≢∆SearchString
+ n.∆Form.on9999←'On9999'
+ n.∆LastFocusWas←n.SearchString
+ n.SearchString.SelText←1,1+≢n.SearchString.Text
+⍝Done

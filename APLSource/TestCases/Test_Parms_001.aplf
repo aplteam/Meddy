@@ -1,0 +1,14 @@
+ R←Test_Parms_001(stopFlag batchFlag);⎕TRAP;md;md2;parms
+⍝ No embedded parms at all
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ md←''
+ md,←⊂'A paragraph.'
+ (md2 parms)←##.Meddy.GetEmbeddedParmsAndRemoveFromMarkdown md
+ →PassesIf 0=≢parms
+ →PassesIf 0=∨/'[parm]'⍷∊md2
+
+ R←∆OK
+⍝Done

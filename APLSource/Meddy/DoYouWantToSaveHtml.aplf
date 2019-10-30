@@ -1,0 +1,23 @@
+ saveHTML←{saveHTML}DoYouWantToSaveHtml n;parms;result;btn
+⍝ `saveHTML` will be one of 0 to 3:
+⍝ 0 = Never
+⍝ 1 = Always
+⍝ 2 = Yes, but keep asking
+⍝ 3 = No, but keep asking
+ saveHTML←n.∆parms.saveHtml{0<⎕NC ⍵:⍎⍵ ⋄ ⍺}'saveHTML'
+ :If 0≠≢GetFolderFromMeddyConfigFile n
+     saveHTML←1
+ :Else
+     :If saveHTML∊2 3
+         parms←G.OptionsTool.CreateParms
+         parms.addToCaption←'HTML'
+         parms.info←'Would you like to save the HTML as well?'
+         parms.default←4⍴0
+         parms.default[saveHTML]←1
+         parms.parent←n.∆Form
+         (btn result)←n.∆globalParms parms G.OptionsTool.Run'Never' 'Always' 'Yes, and keep asking' 'No, but keep asking'
+     :AndIf 1=btn
+         saveHTML←n.∆parms.saveHtml←⍸result
+     :EndIf
+ :EndIf
+⍝Done

@@ -1,0 +1,33 @@
+ {r}←GetMarkAPLScriptIntoWS n;body;filename;msg;ref;parms;path
+ r←⍬
+ :If A.IsDevelopment
+     path←'expand'F.NormalizePath'./'
+ :Else
+     path←'expand'F.NormalizePath'%PROGRAMDATA%\Meddy'
+ :EndIf
+ filename←path,'\MarkAPL.dyalog'
+ :If F.Exists filename
+     body←A.ReadUtf8File filename
+     ref←⎕NS''
+     ref.##.APLTreeUtils←ref.APLTreeUtils←##.APLTreeUtils
+     ref.⎕FIX body
+     :If 1 0≡⍋1⊃¨ref.MarkAPL.Version ##.MarkAPL.Version
+         #.⎕FIX body
+     :ElseIf ∨/(⎕UCS 1⊃ref.MarkAPL.Version)<⎕UCS 1⊃##.MarkAPL.Version
+         parms←G.Dialogs.CreateParmsForNoOrYes
+         parms.addToCaption←'MarkAPL'
+         msg←⊂'Meddy comes with version ',(1⊃##.MarkAPL.Version),' of MarkPL.'
+         msg,←'The folder:'path('contains version ',(1⊃ref.MarkAPL.Version),' of MarkAPL')
+         msg,←'' 'Would you really like to load the older version?!'
+         :If n.∆globalParms parms G.Dialogs.NoOrYes msg
+             #.⎕FIX body
+         :Else
+             parms←G.Dialogs.CreateParmsForYesOrNo
+             parms.addToCaption←'MarkAPL'
+             msg←⊂'Would you like to delete the older version?'
+             :If n.∆globalParms parms G.Dialogs.YesOrNo msg
+                 F.DeleteFile filename
+             :EndIf
+         :EndIf
+     :EndIf
+ :EndIf

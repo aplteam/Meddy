@@ -1,0 +1,13 @@
+ {r}←ExpandAll n;row;ind
+ r←⍬
+ n.Toc.Visible←0
+ row←n.Toc.SelItems⍳1
+ :If 0<≢n.Toc.Depth
+ :AndIf ~0=≢ind←A.Where n.Toc.Depth∊0 1
+     {}n.Toc{2 ⎕NQ ⍺'Expanding'⍵}¨ind-1
+ :EndIf
+ :If ~0=≢row
+     ⎕NQ n.Toc'ItemUp'row 0 0
+ :EndIf
+ n.Toc.Visible←1
+⍝Done

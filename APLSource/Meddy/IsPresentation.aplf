@@ -1,0 +1,8 @@
+ IsPresentation←{
+     n←⍵
+     parms←↑GetEmbeddedParms n.Markdown.Text
+     parms←('presentation'∘{⍺≡(≢⍺)↑⍵}¨(≢'[parm]:')∘{⍺↓⍵}¨parms)/parms
+     0∊≢parms:0
+     0∊≢val←↑(//)⎕VFI'presentation='{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}' '~⍨↑parms:0
+     val
+ }

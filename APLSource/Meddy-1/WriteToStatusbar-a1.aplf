@@ -1,9 +1,0 @@
- {r}←{color}WriteToStatusbar(n msg)
-⍝ Writes `msg` to n.StatusField1
-⍝ `color` default to 0 (standard) or 1 (red).
- r←⍬
- color←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'color'
- 'Invalid left argument'⎕SIGNAL 11/⍨(1≠⍴,color)∨~(⊂color)∊0 1
- n.StatusField1.Text←msg
- n.StatusField1.BCol←color⊃0 n.∆globalParms.alarmColor
-⍝Done

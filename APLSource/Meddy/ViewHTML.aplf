@@ -1,0 +1,7 @@
+ {r}←{caption}ViewHTML filename;n
+ n←⎕NS''
+ caption←filename{0<⎕NC ⍵:⍎⍵ ⋄ ↑,/1↓⎕NPARTS ⍺}'caption'
+ n.∆Form←⍎'Browser'⎕WC'Form'caption('Coord' 'Pixel')('Posn' 50 50)('Size' 800 1000)
+ n.browser←G.IE.CreateIE n.∆Form
+ n.browser.IEobject.Navigate2⊂'file:///',filename
+⍝Done

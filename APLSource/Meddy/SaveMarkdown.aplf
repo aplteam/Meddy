@@ -1,0 +1,54 @@
+ {r}←SaveMarkdown n;parms;htmlFilename;flag;embeddedParms;bool;saveHTML;buff
+ r←⍬
+ saveHTML←¯1
+ :If 0=≢n.∆Filename
+     saveHTML←SaveMarkdownAs n
+ :Else
+     SaveText n.∆Filename n.Markdown.Text
+     n.Markdown.∆LastSavedVersion←n.Markdown.Text
+     RefreshPreview n
+     embeddedParms←↑GetEmbeddedParms n.Markdown.Text
+     :If 0<+/bool←embeddedParms{((≢⍵)↑¨⍺)≡¨⊂⍵}'[parm]:saveHTML'
+         saveHTML←(↑¯1↑⍸bool)⊃embeddedParms
+         saveHTML←{↑(//)⎕VFI ⍵↓⍨1+⍵⍳'='}saveHTML
+         :If ~saveHTML∊¯1 0 1 2
+             saveHTML←⍬
+         :EndIf
+     :ElseIf n.∆INI.Exist'CONFIG:saveHTML'
+         saveHTML←n.∆INI.Get'CONFIG:saveHTML'
+         'Invalid command line parameter: "saveHTML"'⎕SIGNAL 11/⍨1≠≢saveHTML
+         'Invalid command line parameter: "saveHTML"'⎕SIGNAL 11/⍨~saveHTML∊0 1 2
+     :Else
+         saveHTML←n.∆parms.saveHtml
+     :EndIf
+ :EndIf
+ :If (⍬≢saveHTML)∧(,¯1)≡,saveHTML              ⍝ ¯1 means "undefined", ⍬ means the user has not saved the markdown
+ :OrIf n.∆parms.firstFlag
+     n.∆parms.firstFlag←0
+     saveHTML←DoYouWantToSaveHtml n
+     flag←saveHTML∊1 2
+ :Else
+     :If saveHTML∊2 3
+         saveHTML←saveHTML DoYouWantToSaveHtml n
+         flag←saveHTML∊1 2
+     :Else
+         flag←saveHTML∊1 2
+     :EndIf
+ :EndIf
+
+ :If flag
+     :If 0=≢n.∆HtmlFilename
+         htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
+     :Else
+         htmlFilename←((-{1+'.'⍳⍨⌽⍵}n.∆HtmlFilename)↓n.∆HtmlFilename),'.html'   ⍝ Make sure extension is ".html"
+     :EndIf
+     n.∆HtmlFilename←htmlFilename
+     :If 0<≢buff←GetFolderFromMeddyConfigFile n
+         n.∆HtmlFilename←buff
+     :EndIf
+     :If IsPresentation n
+         SaveMarkdownAsPresentation n n.∆HtmlFilename
+     :Else
+         1 SaveText htmlFilename n.HTML.∆HTML
+     :EndIf
+ :EndIf

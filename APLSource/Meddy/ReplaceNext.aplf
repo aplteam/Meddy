@@ -1,0 +1,20 @@
+ {r}←ReplaceNext(n nr);was
+⍝ `n` is the main form's namespace.
+⍝ `nr` is the "Find and Replace" namespace.
+ r←⍬
+ :If 0=≢nr.Replace_with.Text
+ :AndIf 0=n AskForDelete nr.∆Form
+     :Return
+ :EndIf
+ nr.Replace.Active←0
+ was←n.Markdown.SelText
+ SaveTextForUndo n
+ ReplaceSelection nr.Replace_with.Text
+ :If 0=≢nr.Replace_with.Text
+     n.Markdown.SelText←was[0 0]
+ :Else
+     n.Markdown.SelText←was
+     (1 1⊃n.Markdown.SelText)←(0 1⊃was)+↑≢nr.Replace_with.Text
+ :EndIf
+ RefreshPreview n
+⍝Done

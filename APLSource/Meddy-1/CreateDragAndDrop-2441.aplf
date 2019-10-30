@@ -1,8 +1,0 @@
- n←CreateDragAndDrop n;∆
- ∆←''
- ∆,←⊂'Posn'(0 0)
- ∆,←⊂'Size'((n.∆Form.Size[0]-3+n.Statusbar.Size[0]),n.∆Form.Size[1])
- ∆,←⊂'AcceptFiles' 1
- n.DragAndDrop←n.∆Form.⎕NEW'SubForm'∆
- n.DragAndDrop.onDropFiles←'OnDropFiles'
-⍝Done

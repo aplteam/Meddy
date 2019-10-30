@@ -1,0 +1,9 @@
+ n←∆RunMeddy y;⎕TRAP
+⍝ Cover that start Meddy in test mode.
+ :If (≡y)∊0 1
+     y←y''  ⍝ Empty "iniFile" parameter
+ :EndIf
+ #.⎕SHADOW'ErrParms'
+ ##.Meddy.⎕SHADOW¨'AF'
+ n←↑1 ##.Meddy.Run_ y
+⍝Done

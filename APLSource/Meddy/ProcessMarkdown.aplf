@@ -1,0 +1,59 @@
+ {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay;E
+ success←1
+ newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
+ markdown←n.Markdown.Text
+ (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
+ :If AllParmsAreOkay n embeddedParms
+     :Trap (1=n.∆INI.Get'Config:trap')/##.EventCodes.(WS_FULL SYNTAX_ERROR INDEX_ERROR RANK_ERROR LENGTH_ERROR LIMIT_ERROR DOMAIN_ERROR FILE_NAME_ERROR)
+         parms←GetPreferences n
+         parms←CompileParmsForMarkAPL n parms embeddedParms
+         parms←n CheckOnCssFiles parms
+         :If 0=F.IsFile parms.screenCSS
+             parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
+             :If ⎕NULL≡parms.cssURL
+                 parms.cssURL←'file:///',F.PWD,'\CSS\'
+             :EndIf
+         :Else
+             parms.cssURL←''
+         :EndIf
+         (html ns)←parms ##.MarkAPL.Markdown2HTML⊆markdown
+         n.HTML.∆HTML←html
+         n.HTML.∆ns←ns
+         n.HideCSS.State ProcessHTML n
+         :If 0=n.IE.∆Closed
+         :AndIf 0=newFlag
+             :Trap 0
+             ⍝ Do not use the `Refresh` method here - won't work! Or rather, it works
+             ⍝ but the next line has then no effect any more, and it won't recover!
+                 n.IE.IEobject.Document.body.innerHTML←1↓↑,/(⎕UCS 10),¨GetBody html
+             ⍝ Do not attempt to change the header: does not work!
+                 okay←1
+             :Else
+                 G.IE.ShowHtml n.IE.IEobject html
+                 n.IE.IEobject.Refresh
+                 n.IE.∆Closed←0
+                 okay←0
+             :EndTrap
+             :If okay
+                 RefreshToc n
+             :EndIf
+             :Trap 0
+                 :If ~((⎕UCS 10)A.Split n.IE.IEobject.Document.head.innerHTML){(∧/⍺∊⍵)∧∧/⍵∊⍺}(GetHead html)  ⍝ Any change in <head>?!
+                     n.IE.IEobject.Document.head.innerHTML←1↓↑,/(⎕UCS 10),¨GetHead html
+                 :EndIf
+             :Else
+                 TellNeedForRestart n
+             :EndTrap
+         :Else
+             G.IE.ShowHtml n.IE.IEobject(MakeUrlsAbsolute html)
+             n←ShowToc n
+             n.IE.∆Closed←0
+         :EndIf
+         n.∆Report←ns.report
+         ReportConversionProblem n
+     :Else
+         TellAboutConversionFailure n
+         success←0
+         {}ResetAfterError⍣newFlag⊣n
+     :EndTrap
+ :EndIf

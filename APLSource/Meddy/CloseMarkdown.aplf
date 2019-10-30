@@ -1,0 +1,28 @@
+ {r}←CloseMarkdown n
+ r←⍬
+ :If 0=CheckForChanges n
+     CloseSpecialCharsGui n
+     ToggleControlsAndCommands n 0
+     :If 0≠n.⎕NC'∆LastSplitter1Posn'
+     :AndIf ~0=≢n.∆LastSplitter1Posn
+         n.Splitter1.Posn←n.∆LastSplitter1Posn
+     :EndIf
+     :If 0≠n.⎕NC'∆LastSplitter2Posn'
+     :AndIf ~0=≢n.∆LastSplitter2Posn
+         n.Splitter2.Posn←n.∆LastSplitter2Posn
+     :EndIf
+     n.HidePreview.State←0
+     n.Toc.Depth←⍬
+     n.Toc.Items←''
+     {}2 ⎕NQ n.∆Form'GotFocus'
+     n.∆Form.Caption←n.∆globalParms.caption
+     {⍵.(Text Caption)←⊂''}¨'StatusField'⎕WN n.Statusbar
+     n.∆HtmlFilename←n.∆Filename←''
+     ResetMarkdownAndPreview n
+     n.∆Hits←⍬
+     n.∆Report←''
+     n.∆LastSelText←(1 1)(1 1)
+     n.Markdown.⎕EX'∆LastSavedVersion'
+     1{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
+     '↑'n.∆CommitUndoRedo 0  ⍝ Clear
+ :EndIf

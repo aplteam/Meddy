@@ -1,0 +1,21 @@
+ GetEmbeddedParmsAndRemoveFromMarkdown←{
+ ⍝ Returns both the markdown with the embedded parms and the embedded parms as such.
+ ⍝ Ignores comment lines and single empty lines between any lines that carry `[parm]:`.
+     markdown←,⍵
+     mayBeParms←((≢markdown)⌊1⍳⍨1 1⍷¯1↓(0=≢¨markdown~¨' '),1 1)↑markdown  ⍝ The first two consecutive lines break any [parm]: definition
+     bool←~WhereIsLeanPubEncodingLine mayBeParms
+     buff←↑¨bool/mayBeParms
+     0=+/isParm←'['=buff:markdown''
+     ~↑isParm:markdown''
+     0=+/isParm←bool\∧\(isParm∨'⍝'=buff)∨0=≢¨' '~¨⍨bool/mayBeParms:markdown''
+     embeddedParms←isParm/mayBeParms
+     embeddedParms←('⍝'≠↑¨embeddedParms)/embeddedParms
+     pattern←'(^\s{0,3}\[parm]:\s{0}\b.*\b\s{0,}=).*$'
+     ind←pattern ⎕S 2⍠('Greedy' 0)('IC' 1)⊣embeddedParms
+     0=≢embeddedParms←embeddedParms[ind]:markdown''
+     embeddedParms←(≢'[parm]:')↓¨embeddedParms
+     embeddedParms←SplitEmbeddedParm¨embeddedParms
+     ((~bool∧~isParm)/mayBeParms)←⊂''
+     markdown[⍳≢mayBeParms]←mayBeParms
+     markdown embeddedParms
+ }

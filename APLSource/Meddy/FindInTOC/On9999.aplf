@@ -1,0 +1,6 @@
+ On9999←{
+⍝ Controls whether the "OK" button is active or not.
+     n←##.GetRef2n↑,⍵
+     n.∆OK.Active←0<≢n.SearchString.Text
+     0
+ }

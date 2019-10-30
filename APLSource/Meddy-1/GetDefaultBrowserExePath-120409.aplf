@@ -1,6 +1,0 @@
- r←GetDefaultBrowserExePath;rp;name;rp2
- rp←'HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice\ProgId'
- name←#.WinRegSimple.Read rp
- rp2←'HKEY_LOCAL_MACHINE\SOFTWARE\Classes\',name,'\shell\open\command\\'
- r←#.WinRegSimple.Read rp2
-⍝Done

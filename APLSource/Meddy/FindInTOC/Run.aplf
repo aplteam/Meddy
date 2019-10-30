@@ -1,0 +1,27 @@
+ {r}←Run n;n2;A;G;parms;def;DT
+⍝ Allows the user to search for text in the table-of-contents.
+ ⎕IO←0 ⋄ ⎕ML←3   ⍝ Needed to overcome an acre probkem with ⎕IO and ⎕ML; kai 2019-10-16
+ :If 0=⎕NC'∆SearchString'
+     ∆SearchString←''
+     ∆Case←0
+     ∆StartAtTop←1
+ :EndIf
+ r←⍬
+ A←##.APLTreeUtils ⋄ G←#.APLGUI
+ parms←G.Input.CreateParms
+ parms.addToCaption←'Find in TOC'
+ parms.parent←n.∆Form
+ parms.onOkay←'OnOkay'
+ parms.okBtnCaption←'Find'
+ parms.cancelBtnCaption←'Quit'
+ parms.onKeyPress←'OnKeyPress'
+ parms.onInitial←'Initial'
+ parms.selTextStyle←G.Enums.SelTextStyles.Restore
+ DT←G.Enums.InputDataTypes
+ def←0 7⍴⍬
+ def⍪←'SearchString' '&Search string'∆SearchString DT.Character 40 1 1
+ def⍪←'Case' '&Case sensitive'∆Case DT.YesNo ⍬ 1 1
+ def⍪←'StartTop' 'Start at &line 1'∆StartAtTop DT.YesNo ⍬ 1 1
+ {}n.∆globalParms parms G.Input.Run def
+ ∆Hits←''
+⍝Done

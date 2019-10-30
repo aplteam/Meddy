@@ -1,0 +1,50 @@
+ r←OnOkay n2;items;n;noOf
+⍝ Does all the work
+ r←0
+ n←##.GetRef2n n2.∆Form.##
+ :If 'Find'≡n2.∆OK.Caption~'&'
+     ∆Case←n2.Case.State
+     ∆StartAtTop←n2.StartTop.State
+     items←A.Lowercase⍣(~∆Case)⊣n.Toc.Items
+     :If ~∆StartAtTop
+         ((n.Toc.SelItems⍳1)↑items)←⊂''
+     :EndIf
+     ∆SearchString←A.Lowercase⍣(~n2.Case.State)⊣n2.SearchString.Text
+     ∆Hits←∨/¨∆SearchString∘⍷¨items
+     :If 0=+/∆Hits
+         n2.StatusField1.Text←'No Hits'
+     :Else
+         n2.(SearchString Case StartTop).Active←0
+         n2.SearchString.SelText←0 0
+         :If 1<noOf←+/∆Hits
+             ⎕NQ n2.∆OK'GotFocus'
+             n2.StatusField1.Text←(⍕noOf),' remaining hit',(1<¯1+noOf)/'s'
+             n2.∆OK.Caption←'&Next'
+         :Else
+             ⎕NQ n2.∆OK'GotFocus'
+             n2.StatusField1.Text←'No remaining Hits',(1<¯1+noOf)/'s'
+             n2.∆OK.Caption←'&Reset'
+         :EndIf
+         n SelectItem ∆Hits⍳1
+     :EndIf
+ :ElseIf 'Next'≡n2.∆OK.Caption~'&'
+     ∆Hits[∆Hits⍳1]←0
+     :If 1=noOf←+/∆Hits
+         ⎕NQ n2.∆OK'GotFocus'
+         n2.StatusField1.Text←'No remaining hits'
+         n2.∆OK.Caption←'&Reset'
+         n SelectItem ∆Hits⍳1
+         ∆Hits←0
+     :Else
+         n2.StatusField1.Text←(⍕¯1+noOf),' remaining hit',(1<¯1+noOf)/'s'
+         n SelectItem ∆Hits⍳1
+     :EndIf
+ :ElseIf 'Reset'≡n2.∆OK.Caption~'&'
+     n2.∆OK.Caption←'&Find'
+     n2.SearchString.SelText←1,1+≢n2.SearchString.Text
+     n2.(SearchString Case StartTop).Active←1
+     ⎕NQ n2.SearchString'GotFocus'
+ :Else
+     .⍝ Huuh?!
+ :EndIf
+⍝Done

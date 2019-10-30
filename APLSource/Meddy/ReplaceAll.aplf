@@ -1,0 +1,19 @@
+ {r}←ReplaceAll(n nr);searchFor;regExMetaChars;bool
+ r←⍬
+ :If 0=≢nr.Replace_with.Text
+ :AndIf 0=n AskForDelete nr.∆Form
+     :Return
+ :EndIf
+ nr.(Replace Replace_all).Active←0
+ SaveTextForUndo n
+ searchFor←n.∆Find.SearchFor
+ :If 0=n.∆Find.IsRegEx
+     regExMetaChars←'\^$.|?*+()[{'
+     :If 0<+/bool←searchFor∊regExMetaChars
+         (bool/searchFor)←'\',¨bool/searchFor
+         searchFor←↑,/searchFor
+     :EndIf
+ :EndIf
+ ProcessRegEx_ReplaceAll n searchFor nr.Replace_with.Text
+ RefreshPreview n
+⍝Done

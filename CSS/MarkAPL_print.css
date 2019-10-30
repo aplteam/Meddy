@@ -169,6 +169,8 @@ nav {
     padding: 5pt 5pt 5pt 0;
     margin: 5pt 0 5pt 5pt;
     page-break-inside: avoid;
+    clear: both;
+    overflow : hidden;
 }
 nav * {
     font-size: 75%;
@@ -215,10 +217,11 @@ label#hide_toc_label {
 .toc-container {
     position: relative;
     height: auto;
-    margin-top: 5pt;
+    margin-top: 2pt;
+    background-color: inherit;
 }
-.toc-container h1 {
-    margin: 0 0 7pt 7pt;
+.toc-container h3 {
+    margin: 0 0 2pt 7pt;
 }
 [type="checkbox"] {
     display:none;
@@ -275,7 +278,7 @@ div#footnotes_div {page-break-inside: avoid;}
     margin-left: 0 auto;   /* for Block elements */
 }
 .avoid_page_break {page-break-inside: avoid;}
-.page_break_before {page-break-before: auto;}
+.page_break_before {page-break-before: always;}
 
 
 /* LeanPub extensions */
@@ -335,7 +338,7 @@ div.leanpub p {
     margin:0;
 }
 span.leanpub_code {
-    color: black;
+    font-weight: bold;
 }
 div.leanpub p {
     display:block;

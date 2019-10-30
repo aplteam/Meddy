@@ -1,0 +1,5 @@
+ SelectAll←{
+     n←⍵
+     n.Markdown.SelText←(1 1)((1+≢n.Markdown.Text),1+≢↑¯1↑n.Markdown.Text)
+     1:r←⍬
+ }

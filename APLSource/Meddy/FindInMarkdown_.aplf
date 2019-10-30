@@ -1,0 +1,47 @@
+ {success}←{n2}FindInMarkdown_(n direction);regExMetaChars;bool;hits;item;hit;searchFor
+⍝ direction=1: Down; direction=0: Up
+⍝ n=main form; n2=Search form
+ success←0
+ searchFor←n.∆Find.SearchFor
+ :If 0=n.∆Find.IsRegEx
+     regExMetaChars←'\^$.|?*+()[{'
+     :If 0<+/bool←searchFor∊regExMetaChars
+         (bool/searchFor)←'\',¨bool/searchFor
+         searchFor←↑,/searchFor
+     :EndIf
+ :EndIf
+ :If ¯1≡hits←n ProcessRegEx_Find(n.Markdown.Text)searchFor
+     success←0
+ :Else
+     :If 0=≢∊hits
+         n.StatusField1.Text←''
+         n.∆globalParms.alarmColor G.Input.WriteToStatusbar n'Not found'
+         :If 9=⎕NC'n2'
+             n.∆globalParms.alarmColor G.Input.WriteToStatusbar n2'Not found'
+         :EndIf
+     :Else
+         :If direction
+             bool←hits>GetCandidatesFromHits 1⊃n.Markdown.SelText
+             :If 1∊bool
+                 item←bool⍳1
+             :Else
+                 n.∆globalParms.alarmColor G.Input.WriteToStatusbar n'No more hits'
+                 :Return
+             :EndIf
+         :Else
+             bool←hits<GetCandidatesFromHits 0 ¯1+0⊃n.Markdown.SelText
+             :If 1∊bool
+                 item←↑¯1↑⍸bool
+             :Else
+                 n.∆globalParms.alarmColor G.Input.WriteToStatusbar n'No more hits'
+                 :Return
+             :EndIf
+         :EndIf
+         hit←hits[item;]
+         n.Markdown.SelText←MakeSelTextFromHit hit
+         SyncWithTocAndPreview n
+         G.Input.WriteToStatusbar n('Hit ',(⍕item+1),' of ',(⍕≢hits))
+         success←1
+         ⎕NQ n.∆Form 9999 ⍝ Sets Row and Col in statusbar
+     :EndIf
+ :EndIf

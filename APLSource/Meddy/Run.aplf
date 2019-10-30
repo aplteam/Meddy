@@ -1,0 +1,16 @@
+ {r}←{iniFile}Run filename;n;⎕ML;⎕IO;A;F;⎕TRAP;savePathInReg
+⍝ Main function
+⍝ Usually `filename` is empty but it can be the name of a markdown file.
+⍝ If it is then that file it loaded straight away.
+⍝ `iniFile` is only to be used for test cases/development.
+⍝ It allows to simulate a command line  parameter -ini={filename}
+⍝ Always returns ⍬.
+ r←⍬
+ ⎕IO←0 ⋄ ⎕ML←3
+ #.⎕SHADOW'ErrParms'
+ iniFile←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'iniFile'
+ (n savePathInReg)←Run_ filename iniFile
+ DQ n.∆Form
+ savePathInReg SavePath n
+ Shutdown
+⍝Done

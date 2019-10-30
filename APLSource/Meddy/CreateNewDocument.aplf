@@ -1,0 +1,21 @@
+ {r}←CreateNewDocument n;cmd
+ r←⍬
+ :If 0=≢∊n.HTML.Text
+     CreateNewDocument_ n
+ :Else
+     :If A.IsDevelopment
+         ⎕LX←'#._Meddy.Meddy.Run ⍬'
+         0 ⎕SAVE ⎕WSID
+     :EndIf
+     cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+     cmd,←A.IsDevelopment/'"',F.PWD,'\',⎕WSID,'.dws" '
+     cmd,←'-new '
+     cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
+     :If A.IsDevelopment
+     :AndIf 0
+         cmd,←' -x'
+     :EndIf
+     ##.WinSys.ShellExecute cmd
+ :EndIf
+ 0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
+⍝Done

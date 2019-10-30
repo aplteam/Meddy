@@ -1,0 +1,10 @@
+ n←SaveSplitterPosn n;regKey
+⍝ Saves `Posn` for the two splitter objects
+ :If ~0=≢regKey←n.∆globalParms.userRegKey,'\',n.∆parms.regKey2,'\'
+     ##.WinRegSimple.Write(regKey,'\Splitter1Posn')(⍕n.Splitter1.Posn)
+     :If n.HidePreview.State
+         ##.WinRegSimple.Write(regKey,'\Splitter2Posn')(⍕n.∆LastSplitter2Posn)
+     :Else
+         ##.WinRegSimple.Write(regKey,'\Splitter2Posn')(⍕n.Splitter2.Posn)
+     :EndIf
+ :EndIf

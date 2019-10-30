@@ -1,8 +1,0 @@
- {r}←ViewClipboard_ n;cl;parms
- r←⍬
- cl←⎕NEW⊂'Clipboard'
- parms←##.GUI.Notepad.CreateParms
- parms.addToCaption←'view Clipboard'
- parms.fontInput←n.∆globalParms.fontAPL
- n.∆globalParms parms ##.GUI.Notepad.Browse cl.Array
-⍝Done

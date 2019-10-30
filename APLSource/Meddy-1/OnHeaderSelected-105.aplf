@@ -1,6 +1,0 @@
- r←OnHeaderSelected msg;n
- r←1
- :If 16≠↑(4↓msg),0              ⍝ Ignore clicks on the "+"
-     n←GetRef2n↑msg
-     n ScrollToHeader 2⊃msg
- :EndIf

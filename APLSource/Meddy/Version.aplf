@@ -1,0 +1,3 @@
+ r←Version
+⍝ See `History`
+ r←'Meddy' '2.6.0.330' '2019-10-21'

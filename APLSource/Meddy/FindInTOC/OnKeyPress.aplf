@@ -1,0 +1,5 @@
+ OnKeyPress←{
+     n←##.GetRef2n↑,⍵
+     _←⎕NQ n.∆Form 9999
+     1
+ }

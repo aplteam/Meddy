@@ -1,0 +1,17 @@
+ R←Test_Parms_010(stopFlag batchFlag);⎕TRAP;md;n;parms;md2
+⍝ Has a LeanPub encoding directive followed by a blank line which results in any subsequent `[parm]:`s to be ignored.
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ md←''
+ md,←⊂':: encoding="utf-8" /}'
+ md,←⊂''
+ md,←⊂'[parm]:saveHTML = 1'
+ md,←⊂''
+ md,←⊂'A paragraph.'
+ (md2 parms)←##.Meddy.GetEmbeddedParmsAndRemoveFromMarkdown md
+ →PassesIf 0=≢parms
+
+ R←∆OK
+⍝Done

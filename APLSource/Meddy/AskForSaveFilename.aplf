@@ -1,0 +1,30 @@
+ filename←{filename}AskForSaveFilename n;parms;path;flag;extension
+ parms←G.FileBox.CreateParms
+ parms.fileMode←'Write'
+ :If 0=⎕NC'filename'
+     filename←↑,/1↓⎕NPARTS n.∆Filename
+ :Else
+     parms.file←↑,/1↓⎕NPARTS filename
+ :EndIf
+ :If 0=≢path←↑⎕NPARTS filename
+     path←n.∆Path
+ :EndIf
+ flag←0
+ :Repeat
+     parms.addToCaption←'Save Markdown file'
+     parms.filters←⊂'*.md' 'Markdown file'
+     parms.file←filename
+     :If 0=≢filename←n.∆globalParms parms G.FileBox.Run path
+         :Return
+     :EndIf
+     extension←↑¯1↑⎕NPARTS filename
+     :If (⊂A.Lowercase extension)∊'.md' '.markdown'
+         flag←1
+     :ElseIf 0=≢extension
+         filename,←'.md'
+         flag←1
+     :Else
+         {}TellExtensionIsInvalid n
+     :EndIf
+ :Until flag
+⍝Done

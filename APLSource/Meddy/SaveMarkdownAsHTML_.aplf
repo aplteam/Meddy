@@ -1,0 +1,24 @@
+ {r}←SaveMarkdownAsHTML_(n filename);parms;html;ns;msg
+ parms←##.MarkAPL.CreateParms
+ parms.verbose←0
+ parms.createFullHtmlPage←n.FullHtmlDocument.State
+ :If parms.cssURL≢⎕NULL
+     parms.cssURL,←'CSS\'
+ :Else
+     parms.cssURL←F.PWD,'\CSS\'
+ :EndIf
+ #.CursorObj←1
+ (html ns)←parms ##.MarkAPL.Markdown2HTML,n.Markdown.Text
+ #.CursorObj←0
+ :If ~0=≢ns.report
+     parms←G.Dialogs.CreateParmsForShowLongMsg
+     parms.addToCaption←'Report'
+     parms.buttons←'Yes' 'No'
+     msg←'There have been problems or warnings, see below.' 'Continue saving the HTML anyway?'(30⍴'-')
+     msg,←ns.report
+     :If 0≠⊣n.∆globalParms parms G.Dialogs.ShowLongMsg msg
+         :Return
+     :EndIf
+ :EndIf
+ SaveText filename html
+⍝Done

@@ -1,0 +1,10 @@
+ JumpToNextHeader←{
+⍝ Scroll the HTML so that the next header  relative to the current cursor position is shown.
+     n←⍵
+     0=≢n.Toc.∆Toc:0
+     ind←+/n.Toc.∆Toc[;3]≤↑↑n.Markdown.SelText
+     ind≥≢n.Toc.SelItems:r←⍬
+     n.Toc.SelItems[]←0
+     n.Toc.SelItems[ind]←1
+     n ScrollToHeader ind
+ }

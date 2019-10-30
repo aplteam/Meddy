@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.5.1.285"
+#define MyAppVersion "2.6.0.330"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -66,12 +66,12 @@ Source: "CSS/BlackOnWhite_screen.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Blue.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS"; 
 
-; The Conga DLLs are needed for "Check for updates"
-Source: "conga31ssl32.dll"; DestDir: "{app}";
-Source: "conga31_32.dll"; DestDir: "{app}";
+; The Conga DLLs are needed for "Check for updates" (and potentially a Ride)
+Source: "conga32ssl32.dll"; DestDir: "{app}";
+Source: "conga32_32.dll"; DestDir: "{app}";
 
 ; These files are needed for the "Check for updates" command via .NET:
-Source: "bridge170_unicode.dll"; DestDir: "{app}";
+Source: "bridge171_unicode.dll"; DestDir: "{app}";
 Source: "dyalognet.dll"; DestDir: "{app}"     
 
 Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
@@ -84,10 +84,6 @@ Source: "C:\Windows\Fonts\apl385.ttf"; DestDir: "{fonts}"; FontInstall: "APL385 
 Source: "LICENSE"; DestDir: "{app}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
-
-; ----- During beta phase only: --------
-;Source: "Conga*.dll"; DestDir: "{app}";
-; -------- (For a Ride!) ---------------
 
 [Icons]
 Name: "{group}\Start Meddy"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}\";  IconFilename: "{app}\{#MyAppIcoName}" 

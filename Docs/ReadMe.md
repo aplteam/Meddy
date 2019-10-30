@@ -4,6 +4,7 @@
 [parm]:screenCSS='BlackOnWhite_screen.css'
 [parm]:title='Meddy ReadMe'
 [parm]:saveHTML=0
+[parm]:toc= 2 3
 
 
 Read me
@@ -17,7 +18,7 @@ Purpose
 
 Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are specific to MarkAPL.
 
-The application was created with Dyalog 17.0 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
+The application was created with Dyalog 17.1 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
 
 
 Usage
@@ -32,7 +33,7 @@ You can also start it from the command line with one of these statements in orde
       Meddy.exe -new
 ~~~
 
-There are three panes available in the main GUI:
+Once a document is loaded (or created) there are three panes available in the main GUI:
 
 * The left pane shows a tree view that represents all headers in the document and therefore acts as a table of contents. You can use this to navigate through the document.
 
@@ -44,7 +45,7 @@ There are three panes available in the main GUI:
 
   * On the "Preview" tab it shows a preview of how the HTML5 generated from the markdown will look like. For this the latest Microsoft engine is used. If available that is Edge.
 
-    Note that for technical reasons the preview will show presentations as a single HTML page. Use the "View HTML in default browser" menu command to run the presentation.
+    Note that for technical reasons the preview will show presentations as a single HTML page. Use the "View HTML in default browser" menu command to run the presentation as such.
 
   * On the "HTML" tab it shows the HTML generated from the markdown.
 
@@ -59,11 +60,13 @@ Tick the "Hide right pane" check box in order to use the space occupied by the "
 
 You can navigate through a document in three ways:
 
-* Click on an item in the TreeView representing the TOC.
+* Click on an item in the TreeView representing the TOC (table of contents).
 * Move the cursor somewhere in the Markdown area.
 * Click on a header in the Preview area.
 
 No matter how you navigate, the three views are always kept in sync.
+
+Note that the TOC offers a context menu command "Find in TOC..." for searching just the headers.
 
 
 CSS Style sheets
@@ -82,7 +85,7 @@ Instead of creating a stand-alone HTML page you might want to create one that li
 This can be achieved by setting these parameters:
 
 ~~~
-[parm]:cssUrl='CSS/'
+[parm]:cssUrl='file:///CSS/'
 [parm]:linkToCss=1
 [parm]:leanpubExtensions=1
 [parm]:screenCSS=Screen.CSS
@@ -321,5 +324,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was originally written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 2.5.0      |
-| Last update | 2019-06-30 |
+| Version     | 2.6.0      |
+| Last update | 2019-10-21 |

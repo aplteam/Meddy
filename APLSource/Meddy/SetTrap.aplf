@@ -1,0 +1,21 @@
+ TRAP←{force}SetTrap n;folder;appName
+ force←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'force'
+ :If ¯1=force
+     force←~A.IsDevelopment
+ :EndIf
+ #.ErrParms←##.HandleError.CreateParms
+ :If 3=⎕NC'#.Meddy.TellThereWasAnError'
+     #.ErrParms.customFns←'#.Meddy.ErrorHandler'
+ :ElseIf 3=⎕NC'#.Meddy.Meddy.TellThereWasAnError'
+     #.ErrParms.customFns←'#.Meddy.Meddy.ErrorHandler'
+ :Else
+     . ⍝ Huuh?!
+ :EndIf
+ appName←'Meddy'
+ folder←1 F.NormalizePath'%LOCALAPPDATA%\',appName
+ #.ErrParms.errorFolder←folder,'\Errors'
+ 'create!'F.CheckPath #.ErrParms.errorFolder
+ #.ErrParms.customFnsParent←(⍕⎕THIS)
+ #.ErrParms.windowsEventSource←appName
+ #.ErrParms.AppName←appName
+ TRAP←force ##.HandleError.SetTrap'#.ErrParms'

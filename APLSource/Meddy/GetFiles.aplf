@@ -1,0 +1,8 @@
+ GetFiles←{
+     ~0=≢files←⍵:files
+     files←1↓2 ⎕NQ'#' 'GetCommandLineArgs'
+     0=≢files:''
+     files←A.Nest files
+     files←({{⍵∧.≠'='}¨⍵}files)/files  ⍝ No variables
+     ('-'≠↑¨files)/files               ⍝ No flags
+ }
