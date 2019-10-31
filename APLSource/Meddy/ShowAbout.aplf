@@ -10,7 +10,7 @@
  about,←'⋄The project lives on GitHub:'
  about,←'⋄<https://github.com/aplteam/Meddy>'
  about,←''
- about,←'⋄It uses MarkAPL version ',(1⊃#.MarkAPL.Version),' from ',2⊃#.MarkAPL.Version
+ about,←'⋄It uses MarkAPL version ',(1⊃##.MarkAPL.Version),' from ',2⊃##.MarkAPL.Version
  about,←'⋄for converting any Markdown to HTML5.'
  inis←';'A.Split n.∆INI.IniFilename
  :If ⍬≢n.∆SpecialChars
