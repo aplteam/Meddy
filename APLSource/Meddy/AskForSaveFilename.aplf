@@ -1,10 +1,14 @@
- filename←{filename}AskForSaveFilename n;parms;path;flag;extension
+ filename←{filename}AskForSaveFilename n;parms;path;flag;extension;buff
  parms←G.FileBox.CreateParms
  parms.fileMode←'Write'
  :If 0=⎕NC'filename'
      filename←↑,/1↓⎕NPARTS n.∆Filename
  :Else
      parms.file←↑,/1↓⎕NPARTS filename
+ :EndIf
+ :If 0=≢filename
+ :AndIf 0<≢buff←↑' {0,3}# [^$]+'⎕S{⍵.Match}⍠('Mode' 'L')⊣n.Markdown.Text
+     filename←{⍵↓⍨2+1⍳⍨'# '⍷⍵}buff
  :EndIf
  :If 0=≢path←↑⎕NPARTS filename
      path←n.∆Path
