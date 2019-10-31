@@ -1,4 +1,10 @@
  History
+⍝ * 2.7.0
+⍝   * In the absence of a filename one is generated from first level-1 header.
+⍝   * ...
+⍝   * Bug fixes
+⍝     * Under rare circumstances Meddy crashed when a new Markdown file was saved for the
+⍝       very first time (empty `saveHTML`).
 ⍝ * 2.6.0
 ⍝   * Context menu command "Find in TOC" introduced to the table-of-contents.
 ⍝   * The "Inject parameters..." dialog got improved.

@@ -28,11 +28,11 @@
      saveHTML←DoYouWantToSaveHtml n
      flag←saveHTML∊1 2
  :Else
-     :If saveHTML∊2 3
+     :If 1↑saveHTML∊2 3
          saveHTML←saveHTML DoYouWantToSaveHtml n
-         flag←saveHTML∊1 2
+         flag←1↑saveHTML∊1 2
      :Else
-         flag←saveHTML∊1 2
+         flag←1↑saveHTML∊1 2
      :EndIf
  :EndIf
 

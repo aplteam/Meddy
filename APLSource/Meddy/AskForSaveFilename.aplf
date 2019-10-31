@@ -7,7 +7,8 @@
      parms.file←↑,/1↓⎕NPARTS filename
  :EndIf
  :If 0=≢filename
- :AndIf 0<≢buff←↑' {0,3}# [^$]+'⎕S{⍵.Match}⍠('Mode' 'L')⊣n.Markdown.Text
+ :AndIf 0<≢buff←' {0,3}# [^$]+'⎕S{⍵.Match}⍠('Mode' 'L')⊣n.Markdown.Text
+ :AndIf 0<≢buff←↑buff
      filename←{⍵↓⍨2+1⍳⍨'# '⍷⍵}buff
  :EndIf
  :If 0=≢path←↑⎕NPARTS filename
