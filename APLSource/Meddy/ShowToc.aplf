@@ -11,7 +11,7 @@
      :Trap 0
          n.Toc.Depth←0⌈¯1+1,2{(⍺+1)≥⍵:⍵ ⋄ ⍺+1}/toc[;0] ⍝ Correct any user mistakes, otherwise we get a DOMAIN ERROR.
      :Else
-         n.Toc.Depth←6⍴0    ⍝ Last resort
+         n.Toc.Depth←(≢toc)⍴0    ⍝ Last resort
      :EndTrap
      allStates←n.Toc GetState¨⍳≢n.Toc.Items
      n.Toc.Depth←n.Toc.((⊃⌈/≢¨(Depth Items))↑Depth)
