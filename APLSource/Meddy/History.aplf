@@ -1,6 +1,15 @@
  History
-⍝ * 2.7.1
+⍝ * 2.8.0
+⍝   * Command line parameter "-ride={number}" introduced.
+⍝   * Minor improvements:
+⍝     * Text in "About" improved.
+⍝     * Menu item "Visit Meddy on GitHub" added to the "Help" menu.
 ⍝   * Bug fixes
 ⍝     * Completely ill-defined headers could crash Meddy. It should always recover.
+⍝     * Early crash made error files appear in unexpected locations.
+⍝     * Early crash was silent: the user was not told anything.
+⍝     * Selecting any of the HTML files from the "Help" menu failed depending on what is the user's default browser.
+⍝     * Right-click on the HTML Tab in the right pane crashed Meddy.
+⍝     * The message regarding problems related to saving a file did not provide the error number.
 ⍝\\
 ⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

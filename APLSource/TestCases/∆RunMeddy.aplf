@@ -1,9 +1,10 @@
- n←∆RunMeddy y;⎕TRAP
+ n←∆RunMeddy y;⎕TRAP;A;F;G
 ⍝ Cover that start Meddy in test mode.
  :If (≡y)∊0 1
      y←y''  ⍝ Empty "iniFile" parameter
  :EndIf
  #.⎕SHADOW'ErrParms'
- ##.Meddy.⎕SHADOW¨'AF'
+ ##.Meddy.⎕SHADOW¨'AFG'
+ ##.Meddy.(A F G)←##.(APLTreeUtils FilesAndDirs APLGUI)
  n←↑1 ##.Meddy.Run_ y
 ⍝Done

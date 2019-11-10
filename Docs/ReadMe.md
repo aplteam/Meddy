@@ -257,6 +257,12 @@ You can set a number of command line parameters:
 
 : Use this in order to specify `Posn` for Meddy's main GUI window '
 
+`-ride=`
+
+: Use this to "give Meddy a Ride". The value assigned to `-ride` is interpreted as the Ride port number.
+
+: Without specifing this you cannot Ride into Meddy. By specyfing it you _must_ Ride into it. That means what when you set this parameter and then start Meddy nothing seems to happen. This is because by default Meddy enters an endless loop waiting for a Ride. 
+
 Note that in case a parameter is specified both in a user INI file and on the command line the latter one wins.
 
 
@@ -324,5 +330,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was originally written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 2.7.1      |
-| Last update | 2019-11-07 |
+| Version     | 2.8.0      |
+| Last update | 2019-11-10 |

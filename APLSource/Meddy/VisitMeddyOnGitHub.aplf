@@ -1,0 +1,4 @@
+ {r}←VisitMeddyOnGitHub n
+ r←⍬
+ A.GoToWebPage'https://github.com/aplteam/Meddy'
+⍝Done

@@ -1,4 +1,4 @@
- {saveHTML}←SaveMarkdownAs n;parms;filename;buff
+ {saveHTML}←SaveMarkdownAs n;parms;filename;buff;rc;question
  saveHTML←¯1
  filename←AskForSaveFilename n
  :If 0≠≢filename
@@ -9,19 +9,34 @@
      :EndIf
      n.∆IgnoreConfigFile←1
      UpdateFilename n filename
-     SaveText n.∆Filename(n.Markdown.Text)
+     rc←SaveText n.∆Filename(n.Markdown.Text)
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
      saveHTML←DoYouWantToSaveHtml n
      n.∆parms.firstFlag←0
      :If saveHTML∊1 2
+     :AndIf 0=rc
          RefreshPreview n
          :If 0=≢n.∆HtmlFilename
              n.∆HtmlFilename←(↑,/¯1↓⎕NPARTS filename),'.html'
+         :Else
+             :If 0<≢n.∆HtmlFilename
+             :AndIf (↑⎕NPARTS n.∆HtmlFilename)≢(↑⎕NPARTS n.∆Filename)
+                 parms←G.Dialogs.CreateParmsForYesOrNo
+                 parms.addToCaption←'HTML folder'
+                 question←''
+                 question,←⊂'Currently the markdown file is saved in'
+                 question,←⊂'a different folder than the HTML file.'
+                 question,←⊂''
+                 question,←⊂'Should the HTML be saved in the same'
+                 question,←⊂'folder as the markdown file?'
+             :AndIf n.∆globalParms parms G.Dialogs.YesOrNo question
+                 n.∆HtmlFilename←↑,/(↑⎕NPARTS n.∆Filename),1↓⎕NPARTS n.∆HtmlFilename
+             :EndIf
          :EndIf
          :If IsPresentation n
              SaveMarkdownAsPresentation n n.∆HtmlFilename
          :Else
-             A.WriteUtf8File n.∆HtmlFilename n.HTML.Text
+             {}SaveHTML n
          :EndIf
      :EndIf
      n.∆Menubar.(save close).Active←1

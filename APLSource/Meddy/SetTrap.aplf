@@ -1,4 +1,6 @@
- TRAP←{force}SetTrap n;folder;appName
+ TRAP←{force}SetTrap dummy;folder;appName
+⍝ `A` is a ref pointing to `APLTreeUtils`
+⍝ `F` is a ref pointing to `FilesAndDirs`
  force←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'force'
  :If ¯1=force
      force←~A.IsDevelopment

@@ -56,6 +56,7 @@
 
 [Help]                                                 {help}
  Meddy's ReadMe=Ctrl+Shift+F1      : OnMenuCommand     {readme}         ; Puts Meddy's ReadMe.html on display
+ Visit Meddy on GitHub             : OnMenuCommand     {meddyOnGitHub}  ; Opens Meddy's home page on GitHub in a new Tab/window
  -
  Quick intro into MarkAPL          : OnMenuCommand     {intro}          ; Basic info about MarkAPL, the Markdown converter used by Meddy
  MarkAPL's cheat cheet=F1          : OnMenuCommand     {cheat}          ; Open MarkAPL's cheat sheet

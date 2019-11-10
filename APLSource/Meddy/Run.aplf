@@ -1,4 +1,4 @@
- {r}←{iniFile}Run filename;n;⎕ML;⎕IO;A;F;⎕TRAP;savePathInReg
+ {r}←{iniFile}Run filename;n;⎕ML;⎕IO;A;F;G;⎕TRAP;savePathInReg
 ⍝ Main function
 ⍝ Usually `filename` is empty but it can be the name of a markdown file.
 ⍝ If it is then that file it loaded straight away.
@@ -7,6 +7,7 @@
 ⍝ Always returns ⍬.
  r←⍬
  ⎕IO←0 ⋄ ⎕ML←3
+ A←##.APLTreeUtils ⋄ F←##.FilesAndDirs ⋄ G←##.APLGUI
  #.⎕SHADOW'ErrParms'
  iniFile←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'iniFile'
  (n savePathInReg)←Run_ filename iniFile

@@ -1,10 +1,7 @@
  OpenInDefaultBrowser←{
      filename←⍵
      0=##.FilesAndDirs.IsFile{(⍵⍳'#')↑⍵}filename:n TellFileDoesNotExist{(⍵⍳'#')↑⍵}filename
-     exe←GetDefaultBrowserExePath
-     exe↑⍨←1⍳⍨' --'⍷exe
-     ((filename=' ')/filename)←⊂'%20'
-     filename←↑,/filename
-     _←⎕CMD exe,' file:///',filename
+     _←'wsh'⎕WC'OLEClient' 'WScript.Shell'
+     _←wsh.Run⊂'"',filename,'"'
      1:r←0
  }

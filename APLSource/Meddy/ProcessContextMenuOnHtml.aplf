@@ -1,7 +1,7 @@
  {r}←ProcessContextMenuOnHtml n;m;∆;res;filename;cl;contextMenu
  r←⍬
  contextMenu←CreateContextMenuOnHTML n
- res←DQ contextMenu
+ res←''DQ contextMenu
  :If ~0=≢res
      :Select ↑res
      :Case contextMenu.CopyAll

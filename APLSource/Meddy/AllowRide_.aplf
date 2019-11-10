@@ -1,11 +1,19 @@
- {r}←{waitFlag}AllowRide_ port;rc
-⍝ If `port` is empty or 0 no action is taken. If it is a positiv integer it is interpreted as the port number
-⍝ Ride might connect to.\\
+ {r}←{waitFlag}AllowRide_ port;rc;args;bool
+⍝ If `port` is empty then the command line arguments are checked. If "Ride={number}" is found then "number"
+⍝ is taken as the port number.\\
 ⍝ The optional left argument defaults to 1 menaing that the function will loop in order to give the user the
-⍝ opportunity to issue an interrupt in order to take control.
+⍝ opportunity to issue an interrupt in order to take control.\\
+⍝ In case the port was defined via the command line this function will set `waitFlag` to 1 no matter what.
  r←⍬
- waitFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'waitFlag'
- :If ((,0)≢,port)∧0<≢port
+ :If 0=≢port
+     args←##.APLTreeUtils.Lowercase⊣2 ⎕NQ #'GetCommandLineArgs'
+ :AndIf 0<+/bool←∨/¨'-ride='∘⍷¨args
+     port←↑↑(//)⎕VFI(≢'-ride=')↓(bool⍳1)⊃args
+     waitFlag←1
+ :Else
+     waitFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'waitFlag'
+ :EndIf
+ :If (≢/,¨0 port)∧0<≢port
  :AndIf 0=IsConnectedToRide ⍬
      :If 0=≢##.FilesAndDirs.Dir'conga??_32.dll'
          :If ##.APLTreeUtils.IsDevelopment

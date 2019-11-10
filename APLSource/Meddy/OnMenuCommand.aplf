@@ -80,6 +80,8 @@
      n.Splitter2.Posn[1]←⌈n.LeftAndRight.Size[1]÷2
  :Case n.∆Menubar.findInTOC
      FindInTOC.Run n
+ :Case n.∆Menubar.meddyOnGitHub
+     VisitMeddyOnGitHub n
  :Else
      :If menuItem∊n.∆Menubar.(cut copy paste)
          SendKeystroke n menuItem

@@ -1,8 +1,10 @@
- {r}←TellFileSaveError filenames;msg
+ {r}←TellFileSaveError filenames;msg;dmx
  r←⍬
+ dmx←⎕DMX
  msg←''
  msg,←⊂'Unable to save this file:'
  msg,←⊂filenames
- msg,←⊂'Error msg: ',##.EventCodes.GetName ⎕DMX.EN
- G.Dialogs.ShowMsg msg
+ msg,←⊂'Error message: ',##.EventCodes.GetName dmx.EN
+ msg,←⊂'Error code: ',⍕dmx.EN
+ n.∆globalParms G.Dialogs.ShowMsg msg
 ⍝Done
