@@ -6,7 +6,7 @@ _**Meddy**_ is a Windows-only GUI application written in Dyalog APL 17.0 Unicode
 
 ![](meddy_screenshot.png)
 
-* Support sall MarkAPL features; for details see <https://github.com/aplteam/MarkAPL>
+* Supports all MarkAPL features; for details see <https://github.com/aplteam/MarkAPL>
 * Allows navigating via the TreeView representing all headers
 * Powerful search and replace functionality
 * Allows injecting complex Markdown expressions via the context menu
