@@ -1,15 +1,16 @@
  History
-⍝ * 2.8.0
-⍝   * Command line parameter "-ride={number}" introduced.
-⍝   * Minor improvements:
-⍝     * Text in "About" improved.
-⍝     * Menu item "Visit Meddy on GitHub" added to the "Help" menu.
-⍝   * Bug fixes
-⍝     * Completely ill-defined headers could crash Meddy. It should always recover.
-⍝     * Early crash made error files appear in unexpected locations.
-⍝     * Early crash was silent: the user was not told anything.
-⍝     * Selecting any of the HTML files from the "Help" menu failed depending on what is the user's default browser.
-⍝     * Right-click on the HTML Tab in the right pane crashed Meddy.
-⍝     * The message regarding problems related to saving a file did not provide the error number.
+⍝ * 2.9.0
+⍝   * The keys "+" and "-" now extend and retract a node in the TOC.
+⍝   * Bug fixes:
+⍝     * Clicking at a header in the TOC did not always scroll correctly the Markdown.
+⍝     * Navigating via the TOC was often slower than it should have been.
+⍝     * When the "HTML" tab had the focus and a search was initiaed the focus was
+⍝       not given to the Markdown.
+⍝     * Occasionally (very rarely) the context menu command "Copy caption" did not copy
+⍝       a caption but a large part of the Markdown, and encapsulated it.
+⍝     * When the "Preview" is hidden an update is only required when the user clicks the TOC.
+⍝     * The "Hide right pane" check box wrongly claimed to have F9 as a hot key.
+⍝     * The "Inject Markdown expressions" dialog was not a child of the main form, leading
+⍝       to unexpected behaviour at times.
 ⍝\\
 ⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

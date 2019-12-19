@@ -2,28 +2,28 @@
 ⍝ Test invalid parms
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  md←''
  md,←⊂'[parm]:markdownStrict=0'
  md,←⊂'[parm]:homeFolder=''C:\Path with blanks\My'''
  (md2 parms)←##.Meddy.{_←EstablishRefs ⍬ ⋄ GetEmbeddedParmsAndRemoveFromMarkdown ⍵}md
- →PassesIf 0∊≢∊md2
- →PassesIf∧/##.Meddy.{_←EstablishRefs ⍬ ⋄ CheckParameter ⍵}¨parms
- →PassesIf(2 2⍴'markdownStrict'(,0)'homeFolder' '''C:\Path with blanks\My''')≡⊃parms
+ →T.PassesIf 0∊≢∊md2
+ →T.PassesIf∧/##.Meddy.{_←EstablishRefs ⍬ ⋄ CheckParameter ⍵}¨parms
+ →T.PassesIf(2 2⍴'markdownStrict'(,0)'homeFolder' '''C:\Path with blanks\My''')≡⊃parms
 
  md←⊂'[parm]:markdownStrict=text'
  (md2 parms)←##.Meddy.{_←EstablishRefs ⍬ ⋄ GetEmbeddedParmsAndRemoveFromMarkdown ⍵}md
- →PassesIf 0=##.Meddy.{_←EstablishRefs ⍬ ⋄ CheckParameter ⍵}¨parms
+ →T.PassesIf 0=##.Meddy.{_←EstablishRefs ⍬ ⋄ CheckParameter ⍵}¨parms
 
  md←⊂'[parm]:unknown=1'
  (md2 parms)←##.Meddy.{_←EstablishRefs ⍬ ⋄ GetEmbeddedParmsAndRemoveFromMarkdown ⍵}md
  :Trap 6
      {}##.Meddy.{_←EstablishRefs ⍬ ⋄ CheckParameter ⍵}¨parms
-     →FailsIf 1
+     →T.FailsIf 1
  :Else
      EM←⎕DMX.EM
-     →PassesIf'Unknown name: "unknown"'≡EM
+     →T.PassesIf'Unknown name: "unknown"'≡EM
  :EndTrap
 
- R←∆OK
+ R←T._OK

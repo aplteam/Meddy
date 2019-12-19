@@ -11,14 +11,14 @@
  def⍪←'Expressions'('Expressions',↑,/'⋄',¨options)0 G.Enums.InputDataTypes.Radio ⍬ 1 1
  ⍝ [caption](url | title){special attrs}
  result←n.∆globalParms parms G.Input.Run def
- :If ~0∊≢result
+ :If 0≠≢result
      SaveTextForUndo n
      2 ⎕NQ n.Markdown'KeyPress' 'CT'
      :Select ↑⍸1⊃result[0;]
      :Case 0 ⍝ Image by URL
          text←'![Alt text](https://www.dyalog.com/uploads/images/General/dyaloglogo.png "My title" {style="height:70px; width:100px;"})'
      :Case 1 ⍝ Link by filename
-         text←'![Alt text](file:///./Meddy.ico "Icon representing Meddy" {style="height:70px; width:100px;"})'
+         text←'![Alt text](C:/folder/Meddy.ico "Icon representing Meddy" {style="height:70px; width:100px;"})'
      :Case 2 ⍝ Footnote
          text←'[^unique_id]  --- Move this to the bottom: [^unique_id]: My footnote'
      :Case 3 ⍝ Abbreviation

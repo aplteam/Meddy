@@ -1,0 +1,8 @@
+ TellMustSelectOption←{
+     n←⍵
+     msg←'Please make sure that select one of the options'
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.addToCaption←'Save HTML file'
+     parms.parent←n.∆Form
+     n.∆globalParms parms G.Dialogs.ShowMsg msg
+ }

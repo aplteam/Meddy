@@ -1,7 +1,6 @@
  n←EstablishPreferences n;regKey;prefName;value
 ⍝ Reads the preferences from the Windows Registry or uses defaults.
  n.∆Prefs←n.⎕NS''
- n.∆Prefs.SaveHtml←0
  n.∆Prefs.Width←900
  n.∆Prefs.StyleSheet←'MarkAPL'
  n.∆Prefs.Warnings←0

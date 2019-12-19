@@ -2,11 +2,11 @@
 ⍝ Replace arbitrary selection over three lines by an empty row.
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  text←'First' 'This is it' 'the Third' 'Forth'
  selText←(2 6)(4 2)
  content←''
  buff←(selText text)##.Meddy.ReplaceSelectionBy content
- →PassesIf'First' 'This orth'≡buff
- R←∆OK
+ →T.PassesIf'First' 'This orth'≡buff
+ R←T._OK

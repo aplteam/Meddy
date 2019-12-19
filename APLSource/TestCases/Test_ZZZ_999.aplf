@@ -1,7 +1,7 @@
  R←Test_ZZZ_999(stopFlag batchFlag);v;n;d;xml;rf;f1;f2;⎕TRAP
  ⍝ Check the "Version" function and publish.config.
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  rf←#.Meddy.Meddy
 
@@ -28,6 +28,6 @@
      ⎕←'The contents of "publish.config" is not in line with "Version".'
  :EndIf
 
- →FailsIf f1∨f2
+ →T.FailsIf f1∨f2
 
- R←∆OK
+ R←T._OK

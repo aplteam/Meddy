@@ -3,18 +3,17 @@
 [parm]:printCSS='BlackOnWhite_print.css'
 [parm]:screenCSS='BlackOnWhite_screen.css'
 [parm]:title='Meddy ReadMe'
-[parm]:saveHTML=0
 [parm]:toc= 2 3
+[parm]:saveHTML=0
 
 
 Read me
 =======
 
-
 Purpose
 -------
 
-**_Meddy_** is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is refer to <https://github.com/aplteam/MarkAPL> for details.
+**_Meddy_** is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is, refer to <https://github.com/aplteam/MarkAPL> for details.
 
 Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are specific to MarkAPL.
 
@@ -58,10 +57,9 @@ Tick the "Hide right pane" check box in order to use the space occupied by the "
 
 ### Navigating through a document
 
-You can navigate through a document in three ways:
+You can navigate through a document in two ways:
 
 * Click on an item in the TreeView representing the TOC (table of contents).
-* Move the cursor somewhere in the Markdown area.
 * Click on a header in the Preview area.
 
 No matter how you navigate, the three views are always kept in sync.
@@ -116,52 +114,42 @@ There is a document "LeanPubExtensions.html" available in the Meddy install dire
 Converting to and saving as HTML file
 -------------------------------------
 
-When a Markdown file is saved by Meddy then by default there is also an HTML file saved as a sibling with the same name but the extension `.html` rather than `.md`. You can change this in several ways:
+When a Markdown file is saved by Meddy then it will ask you whether you want to save an HTML file as well. In the dialog box you have three options:
 
-* In the preferences you can tell Meddy that it should...
-  * always save an HTML file.
-  * never save an HTML file.
-  * always ask whether such an HTML file shall be saved or not.
-* If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.meddy` to the folder where the Markdown file lives. 
+* always save HTML as well
+* never save HTML
+* keep asking
 
-  In that case Meddy knows that you want to save an HTML file and ignores the preferences as well as any embedded `saveHTML` parameter.
+The choice is valid for as long the document is not closed.
 
-  This file may contain a line like this:
+If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.meddy` to the folder where the Markdown file lives. 
 
-  ~~~
-  outputPath = '..\'
-  ~~~ 
+This file may contain a line like this:
 
-  This lets Meddy save the HTML file in the parent folder of the folder the Markdown file came from.
+~~~
+outputPath = '..\'
+~~~ 
 
-  Instead you can of course also specify an absolute path:
+This lets Meddy save the HTML file in the parent folder of the folder the Markdown file came from.
 
-  ~~~
-  outputPath = 'C:\My_HTML'
-  ~~~
+Instead you can of course also specify an absolute path:
 
-⍝The (optional) INI file "meddy_config.ini" {#meddy_config} 
-⍝----------------------------------------------------------
-⍝
-⍝In case you want Meddy to act inspecific ways, for example...
-⍝
-⍝* always (or never) save HTML files 
-⍝* set a specific working directory
-⍝* specify one or more taylor-made CSS files
+~~~
+outputPath = 'C:\My_HTML'
+~~~
 
-Note that Meddy's behaviour can also be influenced by setting a parameter `saveHTML` in an INI file, see there for details.
-
-You can also embded `saveHTML` as a parameter and specify it as...
-* 0 for **not** saving an HTML file
-* 1 for saving an HTML file
+You can embed `saveHTML` as a parameter and specify it as...
+* 0 for **never** saving an HTML file
+* 1 for **always** saving an HTML file
 * 2 for asking the user what to do
-
 
 
 INI Files
 ---------
 
 ### app.ini
+
+
 
 Meddy relies on the INI file `app.ini`: if that cannot be found then Meddy cannot run.
 
@@ -330,5 +318,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was originally written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 2.8.0      |
-| Last update | 2019-11-10 |
+| Version     | 2.9.0      |
+| Last update | 2019-12-19 |

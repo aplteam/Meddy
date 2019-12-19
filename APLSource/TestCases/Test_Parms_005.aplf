@@ -2,7 +2,7 @@
 ⍝ For embedded parameters separated by single blanks lines.
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  md←''
  md,←⊂'[parm]:saveHTML = 1'
@@ -15,8 +15,8 @@
  md,←⊂''
  md,←⊂'A paragraph.'
  (md2 parms)←##.Meddy.GetEmbeddedParmsAndRemoveFromMarkdown md
- →PassesIf 4=≢parms
- →PassesIf 0=+/'[parm]'⍷∊md2
+ →T.PassesIf 4=≢parms
+ →T.PassesIf 0=+/'[parm]'⍷∊md2
 
- R←∆OK
+ R←T._OK
 ⍝Done

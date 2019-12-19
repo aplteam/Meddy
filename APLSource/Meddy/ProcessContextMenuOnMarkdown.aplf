@@ -2,7 +2,7 @@
  r←⍬
  contextMenu←CreateContextMenuOnMarkdown n
  res←n DQ contextMenu
- :If ~0=≢res
+ :If 0≠≢res
      menuItem←↑res
      :Select menuItem
      :Case contextMenu.Find

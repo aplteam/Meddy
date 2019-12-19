@@ -40,6 +40,7 @@
      ShowNextHit n
  :Case n.∆Menubar.find
      FindInMarkdown n
+     ⎕NQ n.Markdown'GotFocus'
  :Case n.∆Menubar.preferences
      Preferences n
  :Case n.∆Menubar.undo

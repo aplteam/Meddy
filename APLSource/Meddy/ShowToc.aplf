@@ -28,8 +28,8 @@
          n ExpandThese now⍳was
      :EndIf
      toc[;1]←(,¨'“”')⎕R(,¨'""')⊣toc[;1]
-     n.Toc.∆Toc←toc,n.HTML.∆ns.headerLineNos
-     :If ~0=≢invalid←A.Where 0,2{(⍺+1)≥⍵:0 ⋄ 1}/toc[;0]
+     n.Toc.∆Toc←toc
+     :If 0≠≢invalid←A.Where 0,2{(⍺+1)≥⍵:0 ⋄ 1}/toc[;0]
          states←n.Toc GetState¨invalid
          (4⊃¨states)←0                  ⍝ Reset
          :If ~0=≢invalid

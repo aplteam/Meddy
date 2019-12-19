@@ -1,8 +1,19 @@
- {success}←{newFlag}RefreshPreview n
- #.CursorObj←1
- WriteToStatusbar n'Converting Markdown to HTML...'
- newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
- success←newFlag ProcessMarkdown n
- 0 WriteToStatusbar n''
- #.CursorObj←0
+ {success}←{flags}RefreshPreview n;enforceFlag;newFlag
+ ⍝ `flags` represents two bits, `newFlag` and `enforceFlag`, and is one of:
+ ⍝ 0 = Both flags are off
+ ⍝ 1 = `newFlag` is on while `enforceFlag` is off
+ ⍝ 2 = `newFlag` is off while `enforceFlag` is on
+ ⍝ 3 = Both flags are on
+ flags←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'flags'
+ 'Invalid left argument'⎕SIGNAL 11/⍨~flags∊0 1 2 3
+ (enforceFlag newFlag)←2 2∘⊤flags
+ success←1
+ :If 0=n.HidePreview.State
+ :OrIf 0≠flags
+     #.CursorObj←1
+     WriteToStatusbar n'Converting Markdown to HTML...'
+     success←newFlag ProcessMarkdown n
+     0 WriteToStatusbar n''
+     #.CursorObj←0
+ :EndIf
 ⍝Done

@@ -2,22 +2,22 @@
 ⍝ Test the version number the Meddy's README file
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  md←##.APLTreeUtils.ReadUtf8File'Docs\ReadMe.md'
 
  row←⍸∨/¨'|Lastupdate|'∘⍷¨md~¨' '
- →PassesIf 1=≢row
+ →T.PassesIf 1=≢row
  buff←'|'{(⍺≠⍵)⊆⍵}row⊃md
- →PassesIf 2=≢buff
+ →T.PassesIf 2=≢buff
  date←##.APLTreeUtils.dmb 1⊃buff
- →PassesIf date≡2⊃##.Meddy.Version
+ →T.PassesIf date≡2⊃##.Meddy.Version
 
  row←⍸∨/¨'|Version|'∘⍷¨md~¨' '
- →PassesIf 1=≢row
+ →T.PassesIf 1=≢row
  buff←'|'{(⍺≠⍵)⊆⍵}row⊃md
- →PassesIf 2=≢buff
+ →T.PassesIf 2=≢buff
  version←##.APLTreeUtils.dmb 1⊃buff
- →PassesIf version≡{⍵/⍨2≥+\'.'=⍵}1⊃##.Meddy.Version
+ →T.PassesIf version≡{⍵/⍨2≥+\'.'=⍵}1⊃##.Meddy.Version
 
- R←∆OK
+ R←T._OK

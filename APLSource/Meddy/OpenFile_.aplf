@@ -9,9 +9,8 @@
      :Else
          n.∆HtmlFilename←F.NormalizePath(↑⎕NPARTS buff),'/',(1⊃⎕NPARTS n.∆Filename),'.html'
      :EndIf
-     n.∆parms.saveHtml←n.∆Prefs.SaveHtml
-     n.∆parms.firstFlag←~n.∆INI.Exist'CONFIG:saveHTML'
-     n.∆parms.saveHtml←↑n.∆parms.saveHtml n.∆INI.Get'CONFIG:saveHTML'
+     n.∆parms.firstFlag←1
+     n.∆parms.saveHtml←SaveHTMLValues.YesButKeepAsking
      n←InitialUndoRedoStack n
  :AndIf success←1 RefreshPreview n
      1 ⎕NQ n.TabBtn1'Select'

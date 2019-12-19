@@ -42,20 +42,20 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </nav>
 <div class="h_tag">
 <a href="#Read-me" id="Read-me" class="autoheader_anchor">
-<h1>Read me</h1>
+<h1 data-id="Read-me">Read me</h1>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Purpose" id="Purpose" class="autoheader_anchor">
-<h2>1. Purpose</h2>
+<h2 data-id="Purpose">1. Purpose</h2>
 </a>
 </div>
-<p><strong><em>Meddy</em></strong> is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is refer to <a href="https://github.com/aplteam/MarkAPL" class="external_link">https://github.com/aplteam/MarkAPL</a> for details.</p>
+<p><strong><em>Meddy</em></strong> is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is, refer to <a href="https://github.com/aplteam/MarkAPL" class="external_link">https://github.com/aplteam/MarkAPL</a> for details.</p>
 <p>Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are specific to MarkAPL.</p>
 <p>The application was created with Dyalog 17.1 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.</p>
 <div class="h_tag">
 <a href="#Usage" id="Usage" class="autoheader_anchor">
-<h2>2. Usage</h2>
+<h2 data-id="Usage">2. Usage</h2>
 </a>
 </div>
 <p>You can start Meddy like any other Windows application and then use the menu command “New” or “Open” from the “File” menu.</p>
@@ -79,20 +79,19 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>Tick the “Hide right pane” check box in order to use the space occupied by the “Preview” area for editing the markdown.</p>
 <div class="h_tag">
 <a href="#Navigating-through-a-document" id="Navigating-through-a-document" class="autoheader_anchor">
-<h3>2.1. Navigating through a document</h3>
+<h3 data-id="Navigating-through-a-document">2.1. Navigating through a document</h3>
 </a>
 </div>
-<p>You can navigate through a document in three ways:</p>
+<p>You can navigate through a document in two ways:</p>
 <ul>
 <li>Click on an item in the TreeView representing the TOC (table of contents).</li>
-<li>Move the cursor somewhere in the Markdown area.</li>
 <li>Click on a header in the Preview area.</li>
 </ul>
 <p>No matter how you navigate, the three views are always kept in sync.</p>
 <p>Note that the TOC offers a context menu command “Find in TOC…” for searching just the headers.</p>
 <div class="h_tag">
 <a href="#CSS-Style-sheets" id="CSS-Style-sheets" class="autoheader_anchor">
-<h2>3. CSS Style sheets</h2>
+<h2 data-id="CSS-Style-sheets">3. CSS Style sheets</h2>
 </a>
 </div>
 <p>By default Meddy uses the “MarkAPL” style sheet for the preview. You can switch to “BlackOnWhite” via the “Preferences” menu (= for all documents you are going to save). These two style sheets are the default style sheets MarkAPL is coming with.</p>
@@ -117,53 +116,49 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </ul>
 <div class="h_tag">
 <a href="#LeanPub-extensions" id="LeanPub-extensions" class="autoheader_anchor">
-<h2>4. LeanPub extensions</h2>
+<h2 data-id="LeanPub-extensions">4. LeanPub extensions</h2>
 </a>
 </div>
 <p>LeanPub (<a href="https://leanpub.com/" class="external_link">https://leanpub.com/</a>) is a publishing platform for books. They've established a number of enhancements to Markdown that allow an author to add asides, info boxes and more, but also to highlight lines in the code, for example for emphasizing lines that have been changed or added compared with a previous version. The extensions might well be of interest to you even if you are not planning to use LeanPub's services.</p>
 <p>There is a document “LeanPubExtensions.html” available in the Meddy install directory that documents these extensions. The document can be viewed from the “Help” menu.</p>
 <div class="h_tag">
 <a href="#Converting-to-and-saving-as-HTML-file" id="Converting-to-and-saving-as-HTML-file" class="autoheader_anchor">
-<h2>5. Converting to and saving as HTML file</h2>
+<h2 data-id="Converting-to-and-saving-as-HTML-file">5. Converting to and saving as HTML file</h2>
 </a>
 </div>
-<p>When a Markdown file is saved by Meddy then by default there is also an HTML file saved as a sibling with the same name but the extension <code>.html</code> rather than <code>.md</code>. You can change this in several ways:</p>
+<p>When a Markdown file is saved by Meddy then it will ask you whether you want to save an HTML file as well. In the dialog box you have three options:</p>
 <ul>
-<li>In the preferences you can tell Meddy that it should…
-<ul>
-<li>always save an HTML file.</li>
-<li>never save an HTML file.</li>
-<li>always ask whether such an HTML file shall be saved or not.</li>
-</ul></li>
-<li>If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file <code>.meddy</code> to the folder where the Markdown file lives.
-<p>In that case Meddy knows that you want to save an HTML file and ignores the preferences as well as any embedded <code>saveHTML</code> parameter.</p>
+<li>always save HTML as well</li>
+<li>never save HTML</li>
+<li>keep asking</li>
+</ul>
+<p>The choice is valid for as long the document is not closed.</p>
+<p>If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file <code>.meddy</code> to the folder where the Markdown file lives.</p>
 <p>This file may contain a line like this:</p>
 <pre><code>outputPath = '..\'</code></pre>
 <p>This lets Meddy save the HTML file in the parent folder of the folder the Markdown file came from.</p>
 <p>Instead you can of course also specify an absolute path:</p>
-<pre><code>outputPath = 'C:\My_HTML'</code></pre></li>
-</ul>
-<p>Note that Meddy's behaviour can also be influenced by setting a parameter <code>saveHTML</code> in an INI file, see there for details.</p>
-<p>You can also embded <code>saveHTML</code> as a parameter and specify it as…</p>
+<pre><code>outputPath = 'C:\My_HTML'</code></pre>
+<p>You can embed <code>saveHTML</code> as a parameter and specify it as…</p>
 <ul>
-<li>0 for <strong>not</strong> saving an HTML file</li>
-<li>1 for saving an HTML file</li>
+<li>0 for <strong>never</strong> saving an HTML file</li>
+<li>1 for <strong>always</strong> saving an HTML file</li>
 <li>2 for asking the user what to do</li>
 </ul>
 <div class="h_tag">
 <a href="#INI-Files" id="INI-Files" class="autoheader_anchor">
-<h2>6. INI Files</h2>
+<h2 data-id="INI-Files">6. INI Files</h2>
 </a>
 </div>
 <div class="h_tag">
 <a href="#appini" id="appini" class="autoheader_anchor">
-<h3>6.1. app.ini</h3>
+<h3 data-id="appini">6.1. app.ini</h3>
 </a>
 </div>
 <p>Meddy relies on the INI file <code>app.ini</code>: if that cannot be found then Meddy cannot run.</p>
 <div class="h_tag">
 <a href="#User-defined-INI-file" id="User-defined-INI-file" class="autoheader_anchor">
-<h3>6.2. User-defined INI file</h3>
+<h3 data-id="User-defined-INI-file">6.2. User-defined INI file</h3>
 </a>
 </div>
 <p>There is an INI file available that documents the options available via a user-defined INI file. It's name is <code>user.ini.optional</code>, meaning that it is not identified and used by Meddy.</p>
@@ -181,13 +176,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>If such parameters are defined (no matter where) then they take precedence over anything else but command line parameters.</p>
 <div class="h_tag">
 <a href="#Specify-user-defined-INI-file-via-the-command-line" id="Specify-user-defined-INI-file-via-the-command-line" class="autoheader_anchor">
-<h4>6.2.1. Specify user-defined INI file via the command line</h4>
+<h4 data-id="Specify-user-defined-INI-file-via-the-command-line">6.2.1. Specify user-defined INI file via the command line</h4>
 </a>
 </div>
 <p>In cases when the user- or application specific INI file cannot live in Meddy's installation directory you need a way to tell Meddy which INI file to use along with <code>app.ini</code>. This can be achieved by specifying <code>-ini="path/to/ini"</code> on the command line.</p>
 <div class="h_tag">
 <a href="#The-workdir-parameter" id="The-workdir-parameter" class="autoheader_anchor">
-<h4>6.2.2. The <code>workdir</code> parameter</h4>
+<h4 data-id="The-workdir-parameter">6.2.2. The <code>workdir</code> parameter</h4>
 </a>
 </div>
 <p>In a user-defined INI file one might specify the parameter <code>workdir</code>. That might well be a path, but since the user-defined INI file is likely to be in the folder (or at least parent folder) that is going to be the working directory you can simply specify something like this:</p>
@@ -198,7 +193,7 @@ workdir = `[INI]/docs` ⍝ Sub folder docs\ of the folder the INI file lives in<
 <p>Note that you can influence the working directory also via a command line option by specifying <code>-dir="path/to/workdir"</code>; see <a href="#Command-line-parameters" class="bookmark_link">Command line parameters</a>.</p>
 <div class="h_tag">
 <a href="#The--INI-file-specialcharsini" id="The--INI-file-specialcharsini" class="autoheader_anchor">
-<h3>6.3. The (optional) INI file “specialchars.ini”</h3>
+<h3 data-id="The--INI-file-specialcharsini">6.3. The (optional) INI file “specialchars.ini”</h3>
 </a>
 </div>
 <p>This INI file may or may not exist. By default it does exist and looks like this:</p>
@@ -218,7 +213,7 @@ Misc        ,= '«»'</code></pre>
 <p>This is a necessary measure because Dyalog's “Edit” control does not allow entering Unicode symbols by pressing &lt;Alt&gt; with a certain numeric code.</p>
 <div class="h_tag">
 <a href="#Command-line-parameters" id="Command-line-parameters" class="autoheader_anchor">
-<h2>7. Command line parameters</h2>
+<h2 data-id="Command-line-parameters">7. Command line parameters</h2>
 </a>
 </div>
 <p>You can set a number of command line parameters:</p>
@@ -241,7 +236,7 @@ Misc        ,= '«»'</code></pre>
 <p>Note that in case a parameter is specified both in a user INI file and on the command line the latter one wins.</p>
 <div class="h_tag">
 <a href="#Update-MarkAPL" id="Update-MarkAPL" class="autoheader_anchor">
-<h2>8. Update MarkAPL</h2>
+<h2 data-id="Update-MarkAPL">8. Update MarkAPL</h2>
 </a>
 </div>
 <p>Meddy comes with a particular version of <code>MarkAPL.dyalog</code>.</p>
@@ -254,7 +249,7 @@ Misc        ,= '«»'</code></pre>
 <p>You can find out which version of MarkAPL Meddy is currently using via the “About” command from the “Help” menu.</p>
 <div class="h_tag">
 <a href="#Add-user-help" id="Add-user-help" class="autoheader_anchor">
-<h2>9. Add user help</h2>
+<h2 data-id="Add-user-help">9. Add user help</h2>
 </a>
 </div>
 <p>You can add one (literally!) additional file to the help file by adding a <code>[HELP]</code> section with two entries <code>title</code> and <code>file</code> to it.</p>
@@ -266,7 +261,7 @@ file    = 'C:\SpecialHelp.html'</code></pre>
 <p>Usually this would go into a <a href="#User-defined-INI-file" class="bookmark_link">User-defined INI file</a> rather then <code>app.ini</code>.</p>
 <div class="h_tag">
 <a href="#Bugs" id="Bugs" class="autoheader_anchor">
-<h2>10. Bugs</h2>
+<h2 data-id="Bugs">10. Bugs</h2>
 </a>
 </div>
 <ul>
@@ -280,13 +275,13 @@ file    = 'C:\SpecialHelp.html'</code></pre>
 </ul>
 <div class="h_tag">
 <a href="#Feature-requests" id="Feature-requests" class="autoheader_anchor">
-<h2>11. Feature requests</h2>
+<h2 data-id="Feature-requests">11. Feature requests</h2>
 </a>
 </div>
 <p>Open an issue on GitHub, explain your idea and mark it as “enhancement”.</p>
 <div class="h_tag">
 <a href="#Misc" id="Misc" class="autoheader_anchor">
-<h2>12. Misc</h2>
+<h2 data-id="Misc">12. Misc</h2>
 </a>
 </div>
 <p>Meddy is free software. It may be distributed freely but must not be sold. Also, the code of the application must not be re-engineered and/or used for other purposes.</p>
@@ -299,11 +294,11 @@ file    = 'C:\SpecialHelp.html'</code></pre>
 </tr>
 <tr>
 <td style="text-align: left;">Version</td>
-<td style="text-align: left;">2.8.0</td>
+<td style="text-align: left;">2.9.0</td>
 </tr>
 <tr>
 <td style="text-align: left;">Last update</td>
-<td style="text-align: left;">2019-11-10</td>
+<td style="text-align: left;">2019-12-19</td>
 </tr>
 </tbody>
 </table>

@@ -1,5 +1,9 @@
- {r}←FindInMarkdown n;parms;ref;def;result;DT;searchFor;bool;regExMetaChars;hits
+ {r}←FindInMarkdown n;parms;ref;def;result;DT;searchFor;bool;regExMetaChars;hits;hasFocus
  r←⍬
+ hasFocus←2 ⎕NQ #'GetFocusObj'
+ :If n.HTML≡hasFocus
+     n.HTML.SelText←2⍴⊂↑n.HTML.SelText  ⍝ Any selected text gets deselected if the current focus is on the "HTML" tab
+ :EndIf
  parms←G.Input.CreateParms
  parms.addToCaption←'Find in Markdown'
  parms.onInitial←'AdjustFindFormSize'

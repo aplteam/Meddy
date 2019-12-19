@@ -6,6 +6,10 @@
      ⍝ Ctrl+F                                   ⍝ There are currently no plans to implement this
  :ElseIf keyNo shiftState≡9 0                   ⍝ TAB
      ⎕NQ n.Markdown'GotFocus'
+ :ElseIf 107 0≡msg[4 5]                         ⍝ + should open a node
+     ⎕NQ n.Toc'Expanding'(n.Toc.SelItems⍳1)
+ :ElseIf 109 0≡msg[4 5]                         ⍝ - should close a node
+     ⎕NQ n.Toc'Retracting'(n.Toc.SelItems⍳1)
  :ElseIf 107 2≡msg[4 5]                         ⍝ Ctrl++
      n ChangeFontSize 1
      ⎕NQ n.Toc'GotFocus'

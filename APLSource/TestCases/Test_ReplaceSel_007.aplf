@@ -2,11 +2,11 @@
 ⍝ Replace two full rows by a single row.
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  text←'First' 'This is it' 'Third' 'Forth'
  selText←(2 1)(3 6)
  content←'New stuff!'
  buff←(selText text)##.Meddy.ReplaceSelectionBy content
- →PassesIf'First' 'New stuff!' 'Forth'≡buff
- R←∆OK
+ →T.PassesIf'First' 'New stuff!' 'Forth'≡buff
+ R←T._OK

@@ -2,7 +2,7 @@
 ⍝ `carryOnFlag` gets 1 in case the user cancels the whole operation
  carryOnFlag←0
  :If 0<n.Markdown.⎕NC'∆LastSavedVersion'
- :AndIf (∊n.Markdown.∆LastSavedVersion)≢∊n.Markdown.Text
+ :AndIf n.Markdown.∆LastSavedVersion≢n.Markdown.Text
      parms←G.Dialogs.CreateParmsForYesNoCancel
      parms.addToCaption←'Close document'
      parms.(hasStatusbar hasProgressbar)←0
@@ -17,8 +17,7 @@
              :EndIf
          :EndIf
          SaveText n.∆Filename n.Markdown.Text
-         :If 1=n.∆parms.saveHtml
-         :OrIf n WantToSaveHtml⍣(↑2=n.∆parms.saveHtml)⊣0
+         :If n.∆parms.saveHtml∊SaveHTMLValues.(Always YesButKeepAsking)
              RefreshPreview n
              htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
              A.WriteUtf8File htmlFilename n.HTML.Text

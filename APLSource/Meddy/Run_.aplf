@@ -1,4 +1,4 @@
- (n savePathInReg)←{testFlag}Run_(filename iniFile);APLVersion;flag;n;⎕IO;⎕ML
+ (n savePathInReg)←{testFlag}Run_(filename iniFile);APLVersion;flag;n;⎕IO;⎕ML;minVersion
 ⍝ Sub function called by the main function `Run`. Only used for automated tests.
  ⎕IO←0 ⋄ ⎕ML←3
  testFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'testFlag'
@@ -6,10 +6,10 @@
  EnableCONTINUE_workspaces ⍬
  APLVersion←# ⎕WG'APLVersion'
  'This application requires to run under Dyalog''s 32 bit version'⎕SIGNAL 11/⍨∨/'-64'⍷↑APLVersion
- {
-     ⍵≤{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'##.APLTreeUtils.Split ⍵)÷1 10}1⊃APLVersion:shy←⍬
-     11 ⎕SIGNAL⍨'This application requires to run under at least Dyalog ',4 1⍕⍵
- }17
+ minVersion←17.1
+ :If minVersion>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'##.APLTreeUtils.Split ⍵)÷1 10}1⊃APLVersion
+     11 ⎕SIGNAL⍨'This application requires to run under at least Dyalog ',4 1⍕minVersion
+ :EndIf
  ⎕TRAP←(~testFlag)/SetTrap ⍬
  n←##.APLGUI.RefNamespace.Create'Meddy'
  n.∆IniFilenam←{0<⎕NC ⍵:⍎⍵ ⋄ {0=≢⍵:⍵ ⋄ ↑⍵}'-ini='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'}'iniFile'

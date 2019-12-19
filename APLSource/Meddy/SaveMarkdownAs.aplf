@@ -1,5 +1,5 @@
- {saveHTML}←SaveMarkdownAs n;parms;filename;buff;rc;question
- saveHTML←¯1
+ {r}←SaveMarkdownAs n;parms;filename;buff;rc;question
+ r←⍬
  filename←AskForSaveFilename n
  :If 0≠≢filename
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0=≢⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
@@ -11,9 +11,9 @@
      UpdateFilename n filename
      rc←SaveText n.∆Filename(n.Markdown.Text)
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
-     saveHTML←DoYouWantToSaveHtml n
+     n.∆parms.saveHtml←DoYouWantToSaveHtml n
      n.∆parms.firstFlag←0
-     :If saveHTML∊1 2
+     :If n.∆parms.saveHtml∊SaveHTMLValues.(Always YesButKeepAsking)
      :AndIf 0=rc
          RefreshPreview n
          :If 0=≢n.∆HtmlFilename
@@ -42,7 +42,5 @@
      n.∆Menubar.(save close).Active←1
      n.∆Menubar.save.Active←1
      {}n AddFileToRecentFileList n.∆Filename
- :Else
-     saveHTML←⍬
  :EndIf
 ⍝Done

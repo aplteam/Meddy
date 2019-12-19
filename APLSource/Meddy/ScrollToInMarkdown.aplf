@@ -1,32 +1,19 @@
- {r}←ScrollToInMarkdown(n ind);length;row;caption;pattern;level;offset;buff;best
+ {r}←ScrollToInMarkdown(n ind);length;row;caption;pattern;level;offset;buff;best;header
  r←⍬
  ind←↑ind
  :If ind∊⍳≢n.Toc.∆Toc
-     caption←n.Toc.((SelItems⍳1)⊃Items)
-     level←↑n.Toc.∆Toc[ind;]
-     pattern←'^ {0,3}',(level⍴'#'),' ',EscapeRegExMetaChars caption
-     :If 0∊⍴row←pattern ⎕S 2⊣n.Markdown.Text
-         pattern←'^ {0,3}',caption
-         (offset length)←↓⍉⊃pattern ⎕S 0 1⍠('Mode' 'M')('Greedy' 0)('DotAll' 1)⊣n.Markdown.Text
-         :If 0<≢offset
-             ⍝row←+/(⎕UCS 10 13)⍷offset↑2↓⊃,/(⎕UCS 10 13)∘,¨n.Markdown.Text
-             :If 1<≢row←offset{+/(⎕UCS 10 13)⍷⍺↑2↓⍵}¨,/(⎕UCS 10 13)∘,¨n.Markdown.Text
-                 best←{⍵⍳⌊/⍵}|(↑↑n.Markdown.SelText)-row
-                 (offset length row)←best⊃¨offset length row
-             :EndIf
-             buff←row⊃n.Markdown.Text
-         :AndIf (length≢buff)∨((1↑1↓length)∊' {')
-         :AndIf level∊1 2
-         :AndIf (1↑(row+1)⊃n.Markdown.Text)=(level-1)⊃'=-'
-         :Else
-             row←3⊃n.Toc.∆Toc[ind;]                         ⍝ Fallback: this becomes potentially wrong when user adds or removed lines
-         :EndIf
+     (header row)←n.Toc.∆Toc[ind;1 3]
+     caption←A.dlb A.dtb{⍵↓⍨+/∧\'#'=⍵}(row-1)⊃n.Markdown.Text
+     :If '}'=¯1↑caption
+     :AndIf '{'∊caption
+         caption←A.dtb{⍵↑⍨(≢⍵)-1+(⌽⍵)⍳'{'}caption
      :EndIf
-     :If 1<≢row                                             ⍝ Because the RegEx search might well find more than one hit!
-         row←↑row
+     :If header≢caption
+         2 RefreshPreview n
+         (header row)←n.Toc.∆Toc[ind;0 3]
      :EndIf
-     length←1+≢A.dlb row⊃n.Markdown.Text
-     n.Markdown.SelText←buff←((row+1),0)((row+1),length)
+     length←1+≢(row-1)⊃n.Markdown.Text
+     n.Markdown.SelText←buff←((row),0)((row),length)
      ScrollToInMarkdown_ n.Markdown
      ⎕DL 0.1
      n.Markdown.SelText←buff

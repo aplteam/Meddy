@@ -2,7 +2,7 @@
 ⍝ Has a LeanPub encoding directive followed by a blank line which results in any subsequent `[parm]:`s to be ignored.
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  md←''
  md,←⊂':: encoding="utf-8" /}'
@@ -11,7 +11,7 @@
  md,←⊂''
  md,←⊂'A paragraph.'
  (md2 parms)←##.Meddy.GetEmbeddedParmsAndRemoveFromMarkdown md
- →PassesIf 0=≢parms
+ →T.PassesIf 0=≢parms
 
- R←∆OK
+ R←T._OK
 ⍝Done

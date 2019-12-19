@@ -5,6 +5,6 @@
  ⎕NA'U user32|SendMessage* U U I I'
  firstVisibleLine←GetFirstVisibleLine ref
  currentLine←GetCurrentLine ref
- r←currentLine-firstVisibleLine
+ r←currentLine-firstVisibleLine+1
  {}SendMessage ref.Handle EM_LINESCROLL 0 r
 ⍝Done

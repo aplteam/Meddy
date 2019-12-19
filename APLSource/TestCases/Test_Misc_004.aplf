@@ -3,7 +3,7 @@
 ⍝ The test case creates a new document in a temp folder in order to make sure no side effects take place.
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  CreateFolderAndMarkdownFile←{
      folder←##.FilesAndDirs.GetTempPath,↑1↓⎕SI
@@ -23,7 +23,7 @@
  n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils.FormatDateTime ⎕TS
  n.∆parms.firstFlag←0
  1 ⎕NQ n.∆Menubar.save'Select'
- →GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
+ →T.GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
  ##.FilesAndDirs.RmDir folder
  1 ⎕NQ n.∆Menubar.quit'Select'
 
@@ -33,10 +33,10 @@
  n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils.FormatDateTime ⎕TS
  n.∆parms.firstFlag←0
  1 ⎕NQ n.∆Menubar.save'Select'
- →GoToTidyUp 0≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
- →GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir targetFolder,'\*.html'
+ →T.GoToTidyUp 0≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
+ →T.GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir targetFolder,'\*.html'
 
- R←∆OK
+ R←T._OK
 
 ∆TidyUp:
  :Trap 0 ⋄ 1 ⎕NQ n.∆Menubar.quit'Select' ⋄ :EndTrap

@@ -13,8 +13,9 @@
      parms←G.OptionsTool.CreateParms
      parms.addToCaption←'Inject MarkAPL parameters'
      parms.style←G.Enums.OptionsStyles.check
-     parms.info←'Note that embedded parameters are a MarkAPL-only feature! Select parameters to embedd:'
+     parms.info←'Note that embedded parameters are a MarkAPL-only feature!' 'Select parameters to embedd:'
      parms.fontLabel←n.∆globalParms.fontAPL
+     parms.parent←n.∆Form
      isNum←0=↑¨1↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
      n2←n.∆globalParms parms G.OptionsTool.Create↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
      n2.menubar.help←n2.menubar.edit.##.⎕NEW'Menu'(⊂'Caption' '&Help')

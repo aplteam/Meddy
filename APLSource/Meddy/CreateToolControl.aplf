@@ -20,10 +20,9 @@
  ∆,←⊂'State' 0
  ∆,←⊂'Active' 0
  ∆,←⊂'Visible' 0
- ∆,←⊂'Accelerator'(120 0)
  n.HidePreview←n.ToolControl.⎕NEW'Button'∆
  n.HidePreview.Posn[1]+←10
  n.HidePreview.TipObj←n.Tip
- n.HidePreview.Tip←'Toggles visibility of the preview/HTML tab,' 'enlarging the Markdown edit pane.' 'Shortcut is F9.'
+ n.HidePreview.Tip←'Toggles visibility of the Preview and the HTML tab'
  n.HidePreview.onSelect←'OnTogglePreview'
  ⍝Done

@@ -6,7 +6,7 @@
  n.Markdown.∆LastSavedVersion←''
  n←InitialUndoRedoStack n
  n.(Row Col).Text←'1'
- n.∆parms.saveHtml←n.∆Prefs.SaveHtml
+ n.∆parms.saveHtml←SaveHTMLValues.Always
  n.Markdown.Text←GetPresentationTemplate
  0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
  {}1 RefreshPreview n
