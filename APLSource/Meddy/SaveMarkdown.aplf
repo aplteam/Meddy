@@ -28,22 +28,23 @@
              :EndIf
          :EndIf
      :EndIf
+     n.∆parms.saveHtml←saveHTML
+     flag←saveHTML∊SaveHTMLValues.(Always YesButKeepAsking)
+     :If flag
+         :If 0=≢n.∆HtmlFilename
+             htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
+         :Else
+             htmlFilename←((-{1+'.'⍳⍨⌽⍵}n.∆HtmlFilename)↓n.∆HtmlFilename),'.html'   ⍝ Make sure extension is ".html"
+         :EndIf
+         n.∆HtmlFilename←htmlFilename
+         :If 0<≢buff←GetFolderFromMeddyConfigFile n
+             n.∆HtmlFilename←buff
+         :EndIf
+         :If IsPresentation n
+             SaveMarkdownAsPresentation n n.∆HtmlFilename
+         :Else
+             1 SaveText htmlFilename n.HTML.∆HTML
+         :EndIf
+     :EndIf
  :EndIf
- n.∆parms.saveHtml←saveHTML
- flag←saveHTML∊SaveHTMLValues.(Always YesButKeepAsking)
- :If flag
-     :If 0=≢n.∆HtmlFilename
-         htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
-     :Else
-         htmlFilename←((-{1+'.'⍳⍨⌽⍵}n.∆HtmlFilename)↓n.∆HtmlFilename),'.html'   ⍝ Make sure extension is ".html"
-     :EndIf
-     n.∆HtmlFilename←htmlFilename
-     :If 0<≢buff←GetFolderFromMeddyConfigFile n
-         n.∆HtmlFilename←buff
-     :EndIf
-     :If IsPresentation n
-         SaveMarkdownAsPresentation n n.∆HtmlFilename
-     :Else
-         1 SaveText htmlFilename n.HTML.∆HTML
-     :EndIf
- :EndIf
+ ⍝Done

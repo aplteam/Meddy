@@ -19,7 +19,6 @@
          (html ns)←parms ##.MarkAPL.Markdown2HTML⊆markdown
          n.HTML.∆HTML←html
          n.HTML.∆ns←ns
-         n.Toc.∆Toc←⊃ns.toc
          n.HideCSS.State ProcessHTML n
          :If 0=n.IE.∆Closed
          :AndIf 0=newFlag

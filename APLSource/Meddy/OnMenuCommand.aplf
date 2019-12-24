@@ -17,7 +17,7 @@
  :Case n.∆Menubar.clear
      ClearContent n
  :Case n.∆Menubar.refresh
-     RefreshPreview n
+     2 RefreshPreview n
  :Case n.∆Menubar.selectall
      SelectAll n
  :Case n.∆Menubar.save
