@@ -51,45 +51,45 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </nav>
 <div class="h_tag">
 <a href="#MarkAPL-Reference" id="MarkAPL-Reference" class="autoheader_anchor">
-<h1>MarkAPL Reference</h1>
+<h1 data-id="MarkAPL-Reference">MarkAPL Reference</h1>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Overview" id="Overview" class="autoheader_anchor">
-<h2>1. Overview</h2>
+<h2 data-id="Overview">1. Overview</h2>
 </a>
 </div>
 <p>This document is a reference for those who use <strong><em>MarkAPL</em></strong> in one way or another, for example as a user of the Markdown editor Meddy[<a href="#fnref1" class="footnote_link"><sup>1</sup></a>] or as an APL programmer integrating <strong><em>MarkAPL</em></strong> into your own application(s).</p>
 <div class="h_tag">
 <a href="#This-document-is-too-long-for-me" id="This-document-is-too-long-for-me" class="autoheader_anchor">
-<h3>1.1. This document is too long for me!</h3>
+<h3 data-id="This-document-is-too-long-for-me">1.1. This document is too long for me!</h3>
 </a>
 </div>
 <p>Okay, got it. There is also a <a href="http://download.aplteam.com/MarkAPL_CheatSheet.htm" class="external_link" title="The MarkAPL cheatsheet" target="_blank">cheat sheet</a> available.</p>
 <p>This document discusses <strong><em>MarkAPL</em></strong> from a user's point of view. If you are using it as a programmer than you need to read the “MarkAPL for Programmers” document as well.</p>
 <div class="h_tag">
 <a href="#What-is-Markdown" id="What-is-Markdown" class="autoheader_anchor">
-<h3>1.2. What is Markdown?</h3>
+<h3 data-id="What-is-Markdown">1.2. What is Markdown?</h3>
 </a>
 </div>
 <p>Markdown — which is much better readable and therefore much better maintainable than HTML — can be transformed into HTML.</p>
 <p>Because of its advantages over HTML and because the rules are easy to learn, Markdown became ubiquitous: many of the big names are using it now. Examples are StackFlow, Git, SourceForge and Trello. Wiki engines have also started to adopt the concept.</p>
 <div class="h_tag">
 <a href="#Is-there-a-Markdown-standard" id="Is-there-a-Markdown-standard" class="autoheader_anchor">
-<h3>1.3. Is there a Markdown standard?</h3>
+<h3 data-id="Is-there-a-Markdown-standard">1.3. Is there a Markdown standard?</h3>
 </a>
 </div>
 <p>Yes and no. The original implementation by John Gruber had no specification at all, just a Perl script and test cases. Unfortunately it was also quite buggy. Gruber has not put work into developing his brain child. Some consider the original Markdown therefore abandonware[<a href="#fnref2" class="footnote_link"><sup>2</sup></a>].</p>
 <p>Because of the bugs, some ambiguities and the lack of much needed features several flavours of an enhanced Markdown evolved, the most important ones being <a href="https://help.github.com/articles/working-with-advanced-formatting/" class="external_link" title="GIT's formatting rules" target="_blank">Git-flavoured Markdown</a>, <a href="https://www.wikiwand.com/en/Markdown_Extra" class="external_link" target="_blank">Markdown Extra</a> and <a href="http://pandoc.org/README.html" class="external_link" target="_blank">PanDoc's Markdown</a>.</p>
 <div class="h_tag">
 <a href="#What-is-MarkAPL" id="What-is-MarkAPL" class="autoheader_anchor">
-<h3>1.4. What is MarkAPL?</h3>
+<h3 data-id="What-is-MarkAPL">1.4. What is MarkAPL?</h3>
 </a>
 </div>
 <p><strong><em>MarkAPL</em></strong> is an APL program that converts (extended) Markdown into valid HTML5.</p>
 <div class="h_tag">
 <a href="#MarkAPL-Markdown-Markdown-Extra-and-CommonMark" id="MarkAPL-Markdown-Markdown-Extra-and-CommonMark" class="autoheader_anchor">
-<h3>1.5. MarkAPL, Markdown, Markdown Extra and CommonMark</h3>
+<h3 data-id="MarkAPL-Markdown-Markdown-Extra-and-CommonMark">1.5. MarkAPL, Markdown, Markdown Extra and CommonMark</h3>
 </a>
 </div>
 <p>CommonMark [<a href="#fnref3" class="footnote_link"><sup>3</sup></a>] is an attempt to establish a standard for Markdown.</p>
@@ -100,23 +100,23 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>For a full list see the next chapter.</p>
 <div class="h_tag">
 <a href="#Preconditions" id="Preconditions" class="autoheader_anchor">
-<h3>1.6. Preconditions</h3>
+<h3 data-id="Preconditions">1.6. Preconditions</h3>
 </a>
 </div>
 <p><strong><em>MarkAPL</em></strong> needs Dyalog APL Unicode version 15.0 or better.</p>
 <div class="h_tag">
 <a href="#Compatibility-features-bugs" id="Compatibility-features-bugs" class="autoheader_anchor">
-<h2>2. Compatibility, features, bugs</h2>
+<h2 data-id="Compatibility-features-bugs">2. Compatibility, features, bugs</h2>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Standard-compliance" id="Standard-compliance" class="autoheader_anchor">
-<h3>2.1. Standard compliance</h3>
+<h3 data-id="Standard-compliance">2.1. Standard compliance</h3>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Intentional-differences" id="Intentional-differences" class="autoheader_anchor">
-<h4>2.1.1. Intentional differences</h4>
+<h4 data-id="Intentional-differences">2.1.1. Intentional differences</h4>
 </a>
 </div>
 <ul>
@@ -141,7 +141,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </ul>
 <div class="h_tag">
 <a href="#Not-implemented" id="Not-implemented" class="autoheader_anchor">
-<h4>2.1.2. Not implemented</h4>
+<h4 data-id="Not-implemented">2.1.2. Not implemented</h4>
 </a>
 </div>
 <ul>
@@ -153,7 +153,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </ul>
 <div class="h_tag">
 <a href="#Enhancements" id="Enhancements" class="autoheader_anchor">
-<h3>2.2. Enhancements</h3>
+<h3 data-id="Enhancements">2.2. Enhancements</h3>
 </a>
 </div>
 <ul>
@@ -201,13 +201,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </ul>
 <div class="h_tag">
 <a href="#Known-bugs" id="Known-bugs" class="autoheader_anchor">
-<h3>2.3. Known bugs</h3>
+<h3 data-id="Known-bugs">2.3. Known bugs</h3>
 </a>
 </div>
 <p>See <a href="https://github.com/aplteam/MarkAPL" class="external_link">https://github.com/aplteam/MarkAPL</a></p>
 <div class="h_tag">
 <a href="#Reference" id="Reference" class="autoheader_anchor">
-<h2 class="page_break_before">3. Reference</h2>
+<h2 data-id="Reference" class="page_break_before">3. Reference</h2>
 </a>
 </div>
 <nav>
@@ -220,7 +220,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </nav>
 <div class="h_tag">
 <a href="#Mark-up" id="Mark-up" class="autoheader_anchor">
-<h3>3.1. Mark-up</h3>
+<h3 data-id="Mark-up">3.1. Mark-up</h3>
 </a>
 </div>
 <nav>
@@ -246,7 +246,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </nav>
 <div class="h_tag">
 <a href="#markup-overview" id="markup-overview" class="autoheader_anchor">
-<h4>3.1.1. Overview</h4>
+<h4 data-id="markup-overview">3.1.1. Overview</h4>
 </a>
 </div>
 <p>The following table categorizes the different mark-ups into “Original”, “Extra”, “Pandoc” and “MarkAPL”. A single line might carry more than one X in case it got enhanced.</p>
@@ -475,7 +475,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </ul>
 <div class="h_tag">
 <a href="#Comments" id="Comments" class="autoheader_anchor">
-<h4>3.1.2. Comments</h4>
+<h4 data-id="Comments">3.1.2. Comments</h4>
 </a>
 </div>
 <p>Any line that starts with an APL lamp symbol (<code>⍝</code>) is ignored. That means that the line won't make it into the resulting HTML at all.</p>
@@ -488,7 +488,7 @@ a comment line.</code></pre>
 <p>&lt;p&gt;Start of a para that contains a comment line.&lt;/p&gt;</p>
 <div class="h_tag">
 <a href="#Abbreviations" id="Abbreviations" class="autoheader_anchor">
-<h4>3.1.3. Abbreviations</h4>
+<h4 data-id="Abbreviations">3.1.3. Abbreviations</h4>
 </a>
 </div>
 <p><abbr title="Text is marked up with the &lt;abbr&gt; tag">Abbreviations</abbr> can be defined anywhere in the document. This is the syntax:</p>
@@ -507,7 +507,7 @@ a comment line.</code></pre>
 </ul>
 <div class="h_tag">
 <a href="#Blockquotes" id="Blockquotes" class="autoheader_anchor">
-<h4>3.1.4. Blockquotes</h4>
+<h4 data-id="Blockquotes">3.1.4. Blockquotes</h4>
 </a>
 </div>
 <p>Markdown — and therefore <strong><em>MarkAPL</em></strong> — uses the <code>&gt;</code> character for block quoting. If you’re familiar with quoting parts of text in an email message then you know how to create a block quote in Markdown. It looks best if you hard wrap the text and put a <code>&gt;</code> before every line:</p>
@@ -545,7 +545,7 @@ Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 <p>Note that blockquotes are not restricted in any respect: they may contain anything like paragraphs, tables, lists, headers, definition lists and blockquotes. However, headers are not numbered and do not have anchors attached, and any <code>&lt;&lt;SubTOC&gt;&gt;</code> directives within a blockquote are ignored.</p>
 <div class="h_tag">
 <a href="#Code-blocks" id="Code-blocks" class="autoheader_anchor">
-<h4>3.1.5. Code blocks</h4>
+<h4 data-id="Code-blocks">3.1.5. Code blocks</h4>
 </a>
 </div>
 <nav>
@@ -560,7 +560,7 @@ Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 <p>Code blocks can be marked up in two different ways, fencing or by injecting a &lt;pre&gt; as well as a &lt;/pre&gt; tag. We discuss one after the other.</p>
 <div class="h_tag">
 <a href="#Fencing" id="Fencing" class="autoheader_anchor">
-<h5>3.1.5.1. Fencing</h5>
+<h5 data-id="Fencing">3.1.5.1. Fencing</h5>
 </a>
 </div>
 <p>You can use the “Git” style with three — or more — backticks as shown here:</p>
@@ -591,7 +591,7 @@ of code!
 </ul>
 <div class="h_tag">
 <a href="#Code-the--tag" id="Code-the--tag" class="autoheader_anchor">
-<h5>3.1.5.2. Code: the <code>&lt;pre&gt;</code> tag</h5>
+<h5 data-id="Code-the--tag">3.1.5.2. Code: the <code>&lt;pre&gt;</code> tag</h5>
 </a>
 </div>
 <p>You can also mark a block of text with the HTML <code>&lt;pre&gt;</code> tag. This is particularly useful in order to show the fencing characters as part of the code.</p>
@@ -620,7 +620,7 @@ Last but one line
 &lt;/code&gt;&lt;/pre&gt;</code></pre>
 <div class="h_tag">
 <a href="#Definition-lists" id="Definition-lists" class="autoheader_anchor">
-<h4>3.1.6. Definition lists (description lists)</h4>
+<h4 data-id="Definition-lists">3.1.6. Definition lists (description lists)</h4>
 </a>
 </div>
 <p>Definition lists are made of terms and definitions of these terms, much like in a dictionary. If there is a blank line between the term and the definition then the definition is enclosed between a &lt;p&gt; tag. However, if there are sub-definitions (see below) then all definitions are enclosed by &lt;p&gt; tags.</p>
@@ -680,7 +680,7 @@ Term 2
 </ul>
 <div class="h_tag">
 <a href="#Footnotes" id="Footnotes" class="autoheader_anchor">
-<h4>3.1.7. Footnotes</h4>
+<h4 data-id="Footnotes">3.1.7. Footnotes</h4>
 </a>
 </div>
 <p>Footnotes can be referenced by something like <code>[^1]</code> or <code>[^foo]</code>. The footnotes <code>1</code> and <code>foo</code> can be defined anywhere in the document although it seems to be a good idea to collect them at the bottom of the Markdown document. Footnotes cannot contain anything but paragraphs: no code blocks, lists, blockquotes or tables. In-line mark-up will be processed.</p>
@@ -704,7 +704,7 @@ Term 2
 </ul>
 <div class="h_tag">
 <a href="#Headers" id="Headers" class="autoheader_anchor">
-<h4>3.1.8. Headers</h4>
+<h4 data-id="Headers">3.1.8. Headers</h4>
 </a>
 </div>
 <nav>
@@ -722,7 +722,7 @@ Term 2
 <p>There are two ways to mark up headers, and both are part of the original Markdown specification:</p>
 <div class="h_tag">
 <a href="#The--and---syntax" id="The--and---syntax" class="autoheader_anchor">
-<h5>3.1.8.1. The “=” and “-” syntax (SeText)</h5>
+<h5 data-id="The--and---syntax">3.1.8.1. The “=” and “-” syntax (SeText)</h5>
 </a>
 </div>
 <p>With this syntax you can only define headers of level 1 and 2.</p>
@@ -746,7 +746,7 @@ header
 <p>Generally no blank line is required either before or after such a header but because a SeText header cannot interrupt a paragraph it is necessary to have a blank line between the end of a paragraph and a SeText header.</p>
 <div class="h_tag">
 <a href="#The-pound-syntax" id="The-pound-syntax" class="autoheader_anchor">
-<h5>3.1.8.2. The “pound” syntax (ATX)</h5>
+<h5 data-id="The-pound-syntax">3.1.8.2. The “pound” syntax (ATX)</h5>
 </a>
 </div>
 <p>A line that looks like this:</p>
@@ -761,7 +761,7 @@ header
 <p>Note that you may have trailing <code>#</code> characters as well; however, they are simply ignored.</p>
 <div class="h_tag">
 <a href="#ATX-versus-SeText-syntax" id="ATX-versus-SeText-syntax" class="autoheader_anchor">
-<h5>3.1.8.3. ATX versus SeText syntax</h5>
+<h5 data-id="ATX-versus-SeText-syntax">3.1.8.3. ATX versus SeText syntax</h5>
 </a>
 </div>
 <ul>
@@ -771,7 +771,7 @@ header
 </ul>
 <div class="h_tag">
 <a href="#Headers-and-bookmarks" id="Headers-and-bookmarks" class="autoheader_anchor">
-<h5>3.1.8.4. Headers and bookmarks</h5>
+<h5 data-id="Headers-and-bookmarks">3.1.8.4. Headers and bookmarks</h5>
 </a>
 </div>
 <p>By default <strong><em>MarkAPL</em></strong> automatically embraces headers (&lt;h{number}&gt;) by bookmark anchors. Use <code>parms.bookmarkLink</code> (default: 6 = all levels) to change this: setting this to 0 suppresses this feature altogether. You can also assign a number lesser than 6. For example, assigning 3 means that all headers of level 1, 2 and 3 are embraced by bookmark anchors but any headers of level 4, 5 and 6 are not.</p>
@@ -803,7 +803,7 @@ header
 <pre><code>&lt;h1&gt;Second level-2 "Header!"&lt;/h1&gt;</code></pre>
 <div class="h_tag">
 <a href="#Headers-and-special-attributes" id="Headers-and-special-attributes" class="autoheader_anchor">
-<h5>3.1.8.5. Headers and special attributes</h5>
+<h5 data-id="Headers-and-special-attributes">3.1.8.5. Headers and special attributes</h5>
 </a>
 </div>
 <p>Note that assigning <a href="#Special-attributes" class="bookmark_link">Special attributes</a> has special rules:</p>
@@ -814,7 +814,7 @@ header
 </ul>
 <div class="h_tag">
 <a href="#Headers-and-linksimages" id="Headers-and-linksimages" class="autoheader_anchor">
-<h5>3.1.8.6. Headers and links/images</h5>
+<h5 data-id="Headers-and-linksimages">3.1.8.6. Headers and links/images</h5>
 </a>
 </div>
 <p>A Markdown header can only be simple text and/or code. In particular you cannot make an image or a link part of a header.</p>
@@ -823,13 +823,13 @@ header
 <p>Note that <strong><em>MarkAPL</em></strong>'s ability to inject a table-of-contents is not harmed by an HTML block injecting a header. However, its ability to number headers <strong>is</strong> harmed.</p>
 <div class="h_tag">
 <a href="#Headers-with-leading-spaces" id="Headers-with-leading-spaces" class="autoheader_anchor">
-<h5>3.1.8.7. Headers with leading spaces</h5>
+<h5 data-id="Headers-with-leading-spaces">3.1.8.7. Headers with leading spaces</h5>
 </a>
 </div>
 <p>No matter how you defines headers, they may have between zero and up to three leading spaces.</p>
 <div class="h_tag">
 <a href="#HTML-blocks" id="HTML-blocks" class="autoheader_anchor">
-<h4>3.1.9. HTML blocks</h4>
+<h4 data-id="HTML-blocks">3.1.9. HTML blocks</h4>
 </a>
 </div>
 <p>It is perfectly legal to have HTML blocks in a Markdown document, but be aware that this is way more complex a topic than it seems to be at first glance.</p>
@@ -883,7 +883,7 @@ Another paragraph.</code></pre>
 <p>The <code>&lt;pre&gt;</code> blocks are different in so far as there is no Markdown processing done to anything between <code>&lt;pre&gt;</code> and <code>&lt;/pre&gt;</code> anyway; therefore you can have just one block without any disadvantages.</p>
 <div class="h_tag">
 <a href="#Horizontal-rulers" id="Horizontal-rulers" class="autoheader_anchor">
-<h4>3.1.10. Horizontal rulers</h4>
+<h4 data-id="Horizontal-rulers">3.1.10. Horizontal rulers</h4>
 </a>
 </div>
 <p>You can create a horizontal ruler by following these rules:</p>
@@ -908,7 +908,7 @@ _ _    _
 <p>It is a common mistake to forget the empty line required <strong>before</strong> the definition of a ruler which might well create a <a href="#The--and---syntax" class="bookmark_link">SeText header</a>.</p>
 <div class="h_tag">
 <a href="#Images" id="Images" class="autoheader_anchor">
-<h4>3.1.11. Images</h4>
+<h4 data-id="Images">3.1.11. Images</h4>
 </a>
 </div>
 <p>Images are implemented so that an image can be included into a paragraph, a list, a blockquote and table cells. If you want an image outside such an element then you are advised to insert it as <a href="#HTML-blocks" class="bookmark_link">HTML block</a> with an <code>&lt;img&gt;</code> tag.</p>
@@ -931,7 +931,7 @@ _ _    _
 <pre><code>&lt;p class="caption right"&gt;&lt;img src="MyPic.png" class="Picture15em"/&gt;&lt;br&gt; Figure 3. Random&lt;/p&gt;</code></pre>
 <div class="h_tag">
 <a href="#In-line-mark-up" id="In-line-mark-up" class="autoheader_anchor">
-<h4>3.1.12. In-line mark up</h4>
+<h4 data-id="In-line-mark-up">3.1.12. In-line mark up</h4>
 </a>
 </div>
 <nav>
@@ -953,7 +953,7 @@ _ _    _
 <p>Note that you cannot assign <a href="#Special-attributes" class="bookmark_link">Special attributes</a> to in-line mark-up.</p>
 <div class="h_tag">
 <a href="#Emphasize-with--and" id="Emphasize-with--and" class="autoheader_anchor">
-<h5>3.1.12.1. Emphasize with <code>&lt;em&gt;</code> and <code>&lt;strong&gt;</code></h5>
+<h5 data-id="Emphasize-with--and">3.1.12.1. Emphasize with <code>&lt;em&gt;</code> and <code>&lt;strong&gt;</code></h5>
 </a>
 </div>
 <p>Some rules apply for <code>&lt;em&gt;</code> and <code>&lt;strong&gt;</code> alike:</p>
@@ -971,7 +971,7 @@ _</code></pre>
 <p>Note that you can always escape either <code>*</code> or <code>_</code> with a backslash, therefore <code>\___Word__\_</code> results in _<strong>Word</strong>_ (the underscores are not emphasized) while <code>__\_Word\___</code> would result in <strong>_Word_</strong> (the underscores are both emphasized; note that this might not be obvious depending on the font or font size).</p>
 <div class="h_tag">
 <a href="#Emphasize-with" id="Emphasize-with" class="autoheader_anchor">
-<h6>3.1.12.1.1. Emphasize with <code>&lt;em&gt;</code></h6>
+<h6 data-id="Emphasize-with">3.1.12.1.1. Emphasize with <code>&lt;em&gt;</code></h6>
 </a>
 </div>
 <p>To mark some text as <code>&lt;em&gt;</code> you can enclose that text either with <code>**</code> or with <code>__</code> (two underscores).</p>
@@ -982,7 +982,7 @@ This is an __ordinary__ paragraph.</code></pre>
 <p>This is an <strong>ordinary</strong> paragraph.</p>
 <div class="h_tag">
 <a href="#emphasize-with-strong" id="emphasize-with-strong" class="autoheader_anchor">
-<h6>3.1.12.1.2. Emphasize with <code>&lt;strong&gt;</code></h6>
+<h6 data-id="emphasize-with-strong">3.1.12.1.2. Emphasize with <code>&lt;strong&gt;</code></h6>
 </a>
 </div>
 <p>To mark some text as <code>&lt;strong&gt;</code> you can enclose that text either with <code>*</code> or with <code>_</code> (single underscore).</p>
@@ -998,7 +998,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p>_VarsName</p>
 <div class="h_tag">
 <a href="#Strike-through-with" id="Strike-through-with" class="autoheader_anchor">
-<h5>3.1.12.2. Strike-through with <code>&lt;del&gt;</code></h5>
+<h5 data-id="Strike-through-with">3.1.12.2. Strike-through with <code>&lt;del&gt;</code></h5>
 </a>
 </div>
 <p>To mark some text with <code>&lt;del&gt;</code> you can enclose that text with <code>~~</code>:</p>
@@ -1008,7 +1008,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p>Note that to the right of any opening <code>~~</code> and to the left of any closing <code>~~</code> there must be a non-space character for them to be accepted as mark-up.</p>
 <div class="h_tag">
 <a href="#Line-breaks" id="Line-breaks" class="autoheader_anchor">
-<h5>3.1.12.3. Line breaks</h5>
+<h5 data-id="Line-breaks">3.1.12.3. Line breaks</h5>
 </a>
 </div>
 <p>There are two different ways to enforce a line break (= inserting a <code>&lt;br&gt;</code> tag) within paragraphs, lists, footnotes and table cells:</p>
@@ -1019,7 +1019,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p>Having two spaces at the end of a paragraph or list item is according to the Markdown implementation — and also the early versions of <strong><em>MarkAPL</em></strong> — designed to inject a line break. This caused bug reports by people who accidentally added two spaces to the end of a line without realizing and then started to wonder where exactly the line break was coming from. It seemed to be a bad idea from the start; therefore this feature was removed from <strong><em>MarkAPL</em></strong> in version 1.3.0.</p>
 <div class="h_tag">
 <a href="#In-line-code" id="In-line-code" class="autoheader_anchor">
-<h5>3.1.12.4. In-line code (verbatim)</h5>
+<h5 data-id="In-line-code">3.1.12.4. In-line code (verbatim)</h5>
 </a>
 </div>
 <p>You can insert code samples into paragraphs, blockquotes, lists, cells and footnotes by putting backticks around them:</p>
@@ -1042,7 +1042,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p>This is the outcome: ```` {+/⍳≢⍵} `` ⌹ ``` — no in-line code at all.</p>
 <div class="h_tag">
 <a href="#Syntax-sugar" id="Syntax-sugar" class="autoheader_anchor">
-<h5>3.1.12.5. Syntax sugar</h5>
+<h5 data-id="Syntax-sugar">3.1.12.5. Syntax sugar</h5>
 </a>
 </div>
 <p><strong><em>MarkAPL</em></strong> converts a number of shortcuts:</p>
@@ -1065,7 +1065,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p>Note that in case you want to have syntax sugar switched on but in a particular case you don't want something to be converted then you must put it between backticks in order to make it code: escaping is not supported for syntax sugar.</p>
 <div class="h_tag">
 <a href="#Links" id="Links" class="autoheader_anchor">
-<h4>3.1.13. Links</h4>
+<h4 data-id="Links">3.1.13. Links</h4>
 </a>
 </div>
 <nav>
@@ -1081,7 +1081,7 @@ This is an _ordinary_ paragraph.</code></pre>
 </nav>
 <div class="h_tag">
 <a href="#External-links" id="External-links" class="autoheader_anchor">
-<h5>3.1.13.1. External links</h5>
+<h5 data-id="External-links">3.1.13.1. External links</h5>
 </a>
 </div>
 <p>Generally an external link looks like this:</p>
@@ -1101,7 +1101,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p>See also the next topic (AutoLinks).</p>
 <div class="h_tag">
 <a href="#Automated-links" id="Automated-links" class="autoheader_anchor">
-<h5>3.1.13.2. Automated links (Autolinks)</h5>
+<h5 data-id="Automated-links">3.1.13.2. Automated links (Autolinks)</h5>
 </a>
 </div>
 <p>Because external links are often injected “as is” — meaning that they actually have no link text and no link title — Markdown has a special syntax for this:</p>
@@ -1116,7 +1116,7 @@ This is an _ordinary_ paragraph.</code></pre>
 &lt;/a&gt;</code></pre>
 <div class="h_tag">
 <a href="#Internal-links" id="Internal-links" class="autoheader_anchor">
-<h5>3.1.13.3. Internal links (bookmarks)</h5>
+<h5 data-id="Internal-links">3.1.13.3. Internal links (bookmarks)</h5>
 </a>
 </div>
 <p>Bookmark links are defined by a leading <code>#</code>. This character tells that the link points to somewhere in the same document.</p>
@@ -1137,13 +1137,14 @@ This is an _ordinary_ paragraph.</code></pre>
 <pre><code>[This is (really) chapter 5-2](#)</code></pre>
 <p>That will result in a bookmark link as well.</p>
 <p>Note that this is a <strong><em>MarkAPL</em></strong>-only feature.</p>
+<p>Do not use this feature if your document will also be rendered by other means than <strong><em>MarkAPL</em></strong>, most notably GitHub and the likes (ReadMe.md!) because that would not work.</p>
 <p>There are times when the actual title of the header you are linking to does not fit as a link text. In that case you can specify an alternative link text:</p>
 <pre><code>[This is (really) chapter 5-2](#"Alt text")</code></pre>
 <p>This would create a link to the header <em>This is (really) chapter 5-2</em> but it would show “Alt text” as link text.</p>
 <p>Note that external and internal links differ in how they make use of a string between double quotes.</p>
 <div class="h_tag">
 <a href="#Link-references" id="Link-references" class="autoheader_anchor">
-<h5>3.1.13.4. Link references</h5>
+<h5 data-id="Link-references">3.1.13.4. Link references</h5>
 </a>
 </div>
 <p>Link references are defined by <code>[ID]: url "alt text"</code>. Note that “alt text” is optional and therefore may be empty or even absent. You may also add <a href="#Special-attributes" class="bookmark_link">Special attributes</a>: <code>[ID]: url "alt text"{target:"_blank"}</code>. There might be a space between the colon and the URL or not.</p>
@@ -1177,7 +1178,7 @@ This is an _ordinary_ paragraph.</code></pre>
 </ul>
 <div class="h_tag">
 <a href="#Links-containing-code" id="Links-containing-code" class="autoheader_anchor">
-<h5>3.1.13.5. Links containing code</h5>
+<h5 data-id="Links-containing-code">3.1.13.5. Links containing code</h5>
 </a>
 </div>
 <p>Note that this works:</p>
@@ -1191,7 +1192,7 @@ This is an _ordinary_ paragraph.</code></pre>
 </ul>
 <div class="h_tag">
 <a href="#Links-and-special-attributes" id="Links-and-special-attributes" class="autoheader_anchor">
-<h5>3.1.13.6. Links and special attributes</h5>
+<h5 data-id="Links-and-special-attributes">3.1.13.6. Links and special attributes</h5>
 </a>
 </div>
 <p><a href="#Special-attributes" class="bookmark_link">Special attributes</a> can be assigned to all links but references to link references:</p>
@@ -1205,7 +1206,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p><strong><em>MarkAPL</em></strong> gets around this: you just need to specify the special attributes <strong>within</strong> the link definition. That means to the left of the closing <code>&gt;</code> or <code>)</code> respectively.</p>
 <div class="h_tag">
 <a href="#Lists" id="Lists" class="autoheader_anchor">
-<h4>3.1.14. Lists</h4>
+<h4 data-id="Lists">3.1.14. Lists</h4>
 </a>
 </div>
 <nav>
@@ -1223,7 +1224,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p>If your lists comprise just short single sentences then you will find lists easy and intuitive to use; otherwise you are advised to read the list of rules carefully.</p>
 <div class="h_tag">
 <a href="#General-rules" id="General-rules" class="autoheader_anchor">
-<h5>3.1.14.1. General rules</h5>
+<h5 data-id="General-rules">3.1.14.1. General rules</h5>
 </a>
 </div>
 <ol start="1">
@@ -1265,7 +1266,7 @@ This is an _ordinary_ paragraph.</code></pre>
 <p><strong>A word of warning:</strong> getting the number of space characters wrong — in particular for sub-paragraphs, images, tables, blockquotes and/or code blocks — is the most common reason for unexpected results. You are advised to use a monospace font since this makes it much easier to spot such problems, or to avoid them in the first place.</p>
 <div class="h_tag">
 <a href="#Bulleted-lists" id="Bulleted-lists" class="autoheader_anchor">
-<h5>3.1.14.2. Bulleted lists</h5>
+<h5 data-id="Bulleted-lists">3.1.14.2. Bulleted lists</h5>
 </a>
 </div>
 <p>Bulleted — or unordered — lists can be marked by an asterisk (<code>*</code>), a plus (<code>+</code>) or a minus (<code>-</code>). There might by zero to three space characters between the left margin and the list marker. There might be any number of space characters between the list marker and the beginning of the contents.</p>
@@ -1298,7 +1299,7 @@ This is an _ordinary_ paragraph.</code></pre>
 </ul>
 <div class="h_tag">
 <a href="#Ordered-lists" id="Ordered-lists" class="autoheader_anchor">
-<h5>3.1.14.3. Ordered lists</h5>
+<h5 data-id="Ordered-lists">3.1.14.3. Ordered lists</h5>
 </a>
 </div>
 <p>An ordered list must start with a digit followed by a dot (<code>.</code>) or a parentheses (<code>)</code>) and one or more space characters. The digit(s) in the first row define the starting point. For the remaining rows any digit will do. Note that some browsers cannot deal with more than 9 digits, so that's the limit.</p>
@@ -1323,7 +1324,7 @@ This is an _ordinary_ paragraph.</code></pre>
 </ol>
 <div class="h_tag">
 <a href="#List-item-contents" id="List-item-contents" class="autoheader_anchor">
-<h5>3.1.14.4. List item contents</h5>
+<h5 data-id="List-item-contents">3.1.14.4. List item contents</h5>
 </a>
 </div>
 <p>You may want to inject line breaks for readability, or you may not and be lazy, and you may add blanks or not.</p>
@@ -1370,7 +1371,7 @@ semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipi
 </ul>
 <div class="h_tag">
 <a href="#Paragraphs-and-code-blocks-in-list-items" id="Paragraphs-and-code-blocks-in-list-items" class="autoheader_anchor">
-<h5>3.1.14.5. Paragraphs and code blocks in list items</h5>
+<h5 data-id="Paragraphs-and-code-blocks-in-list-items">3.1.14.5. Paragraphs and code blocks in list items</h5>
 </a>
 </div>
 <p>The fencing lines of code blocks as well as the first line of paragraphs that belong to a list item need to be indented by the same number of spaces as the list item they belong to. They <strong>must</strong> be separated from the initial list item contents or any earlier sub-paragraph or code block by a blank line.</p>
@@ -1409,14 +1410,14 @@ semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipi
 <p>Note that the code block has two leading spaces <strong>within the fence</strong>. These make it into the output while the leading spaces defining just the indentation don't.</p>
 <div class="h_tag">
 <a href="#Lists-and-special-attributes" id="Lists-and-special-attributes" class="autoheader_anchor">
-<h5>3.1.14.6. Lists and special attributes</h5>
+<h5 data-id="Lists-and-special-attributes">3.1.14.6. Lists and special attributes</h5>
 </a>
 </div>
 <p>When <a href="#Special-attributes" class="bookmark_link">Special attributes</a> are assigned to the very first item on any list then that definition is assigned to the <strong>list</strong> (&lt;ul&gt; or &lt;ol&gt;) rather than the list item itself.</p>
 <p>You cannot assign special attributes to list items.</p>
 <div class="h_tag">
 <a href="#Paragraphs" id="Paragraphs" class="autoheader_anchor">
-<h4>3.1.15. Paragraphs</h4>
+<h4 data-id="Paragraphs">3.1.15. Paragraphs</h4>
 </a>
 </div>
 <p>Any text between two lines that are either empty or are considered special Markdown syntax and that do not have any leading character(s) recognized as Markdown directives will result in a single paragraph. The only exception is a definition list: Although the term part looks like any ordinary paragraph, the <code>: </code> on the next non-empty line makes it rather a definition.</p>
@@ -1435,7 +1436,7 @@ semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipi
 <p>There is of course a small chance that something is interpreted as a special attribute definition that is meant to be part of the paragraph. In that case you need to escape the curly brackets with <code>\{</code> and/or <code>\}</code>.</p>
 <div class="h_tag">
 <a href="#Tables" id="Tables" class="autoheader_anchor">
-<h4>3.1.16. Tables</h4>
+<h4 data-id="Tables">3.1.16. Tables</h4>
 </a>
 </div>
 <nav>
@@ -1450,7 +1451,7 @@ semper ipsum sit amet velit. Suspendisse id sem consectetuer libero luctus adipi
 </nav>
 <div class="h_tag">
 <a href="#ov2" id="ov2" class="autoheader_anchor">
-<h5>3.1.16.1. Overview</h5>
+<h5 data-id="ov2">3.1.16.1. Overview</h5>
 </a>
 </div>
 <p>A table must be separated from other stuff by empty lines.</p>
@@ -1495,7 +1496,7 @@ Second |</code></pre>
 </ul>
 <div class="h_tag">
 <a href="#Constructing-tables" id="Constructing-tables" class="autoheader_anchor">
-<h5>3.1.16.2. Constructing tables</h5>
+<h5 data-id="Constructing-tables">3.1.16.2. Constructing tables</h5>
 </a>
 </div>
 <p>So valid table definitions look like this:</p>
@@ -1586,7 +1587,7 @@ Second |</code></pre>
 </table>
 <div class="h_tag">
 <a href="#Column-alignment" id="Column-alignment" class="autoheader_anchor">
-<h5>3.1.16.3. Column alignment</h5>
+<h5 data-id="Column-alignment">3.1.16.3. Column alignment</h5>
 </a>
 </div>
 <p>Note the colons in row two of the following example: they define the alignment of all cells in that column.</p>
@@ -1651,7 +1652,7 @@ Second |</code></pre>
 </table>
 <div class="h_tag">
 <a href="#Footers" id="Footers" class="autoheader_anchor">
-<h5>3.1.16.4. Footers</h5>
+<h5 data-id="Footers">3.1.16.4. Footers</h5>
 </a>
 </div>
 <pre><code>| Product | Price |
@@ -1688,7 +1689,7 @@ Second |</code></pre>
 <p>Note that <strong><em>MarkAPL</em></strong> does not recognize footers in case <a href="#markdownStrict" class="bookmark_link"><code>markdownStrict</code></a> is 1; the default is 0.</p>
 <div class="h_tag">
 <a href="#In-line-mark-up-in-cells" id="In-line-mark-up-in-cells" class="autoheader_anchor">
-<h5>3.1.16.5. In-line mark-up in cells</h5>
+<h5 data-id="In-line-mark-up-in-cells">3.1.16.5. In-line mark-up in cells</h5>
 </a>
 </div>
 <p>Cells can use in-line mark-up as shown here:</p>
@@ -1766,7 +1767,7 @@ Second |</code></pre>
 </table>
 <div class="h_tag">
 <a href="#Misc" id="Misc" class="autoheader_anchor">
-<h3>3.2. Misc</h3>
+<h3 data-id="Misc">3.2. Misc</h3>
 </a>
 </div>
 <nav>
@@ -1792,7 +1793,7 @@ Second |</code></pre>
 </nav>
 <div class="h_tag">
 <a href="#Escaping" id="Escaping" class="autoheader_anchor">
-<h4>3.2.1. Escaping</h4>
+<h4 data-id="Escaping">3.2.1. Escaping</h4>
 </a>
 </div>
 <p>These characters can, depending on the context, have a special meaning in Markdown: <code>"_*|&lt;~{}(``</code>. They can be escaped with a <code>\</code> character which takes the special meaning away from that character.</p>
@@ -1813,13 +1814,13 @@ Second |</code></pre>
 <p>C:\~\myfile</p>
 <div class="h_tag">
 <a href="#Reserved-names" id="Reserved-names" class="autoheader_anchor">
-<h4>3.2.2. Reserved names (CSS)</h4>
+<h4 data-id="Reserved-names">3.2.2. Reserved names (CSS)</h4>
 </a>
 </div>
 <p>There are a few HTML elements that get a class name assigned by <strong><em>MarkAPL</em></strong> in order to tell them apart from other HML elements for easier styling. However, this is discussed in a separate document “Styles.html”.</p>
 <div class="h_tag">
 <a href="#Special-attributes" id="Special-attributes" class="autoheader_anchor">
-<h4>3.2.3. Special attributes</h4>
+<h4 data-id="Special-attributes">3.2.3. Special attributes</h4>
 </a>
 </div>
 <p>One can add special attributes — that is an ID, class name(s) and other attributes — to many elements:</p>
@@ -1846,7 +1847,7 @@ Second |</code></pre>
 </ul>
 <div class="h_tag">
 <a href="#Assigning-a-class-name" id="Assigning-a-class-name" class="autoheader_anchor">
-<h5>3.2.3.1. Assigning a class name</h5>
+<h5 data-id="Assigning-a-class-name">3.2.3.1. Assigning a class name</h5>
 </a>
 </div>
 <p>The name of a class can be assigned by just mentioning the name:</p>
@@ -1856,7 +1857,7 @@ Second |</code></pre>
 <pre><code>{.foo .goo}</code></pre>
 <div class="h_tag">
 <a href="#Assigning-an-ID" id="Assigning-an-ID" class="autoheader_anchor">
-<h5>3.2.3.2. Assigning an ID</h5>
+<h5 data-id="Assigning-an-ID">3.2.3.2. Assigning an ID</h5>
 </a>
 </div>
 <p>An ID can be assigned by just mentioning the name:</p>
@@ -1864,14 +1865,14 @@ Second |</code></pre>
 <p>The leading <code>#</code> tells <strong><em>MarkAPL</em></strong> that it is an ID.</p>
 <div class="h_tag">
 <a href="#Styling" id="Styling" class="autoheader_anchor">
-<h5>3.2.3.3. Styling</h5>
+<h5 data-id="Styling">3.2.3.3. Styling</h5>
 </a>
 </div>
 <p>CSS styling directives are possible as well:</p>
 <pre><code>{style="color:red;line-height:1.4;"}</code></pre>
 <div class="h_tag">
 <a href="#Quotes-and-special-attributes" id="Quotes-and-special-attributes" class="autoheader_anchor">
-<h5>3.2.3.4. Quotes and special attributes</h5>
+<h5 data-id="Quotes-and-special-attributes">3.2.3.4. Quotes and special attributes</h5>
 </a>
 </div>
 <p>It is of course possible to put it all together:</p>
@@ -1879,7 +1880,7 @@ Second |</code></pre>
 <p>Note that you cannot put double-quotes around the name of the font family here because double-quotes are already used to determine the definition of the “style” attribute. Therefore you <em>must</em> use single quotes in this instance.</p>
 <div class="h_tag">
 <a href="#Paragraphs-and-special-attributes" id="Paragraphs-and-special-attributes" class="autoheader_anchor">
-<h5>3.2.3.5. Paragraphs and special attributes</h5>
+<h5 data-id="Paragraphs-and-special-attributes">3.2.3.5. Paragraphs and special attributes</h5>
 </a>
 </div>
 <p>Naturally a paragraph that runs over several lines in the Markdown must define any special attributes at the very end of the paragraph rather than the end of the first line.</p>
@@ -1890,7 +1891,7 @@ This is a paragraph with curlies at the end: \{\}.
 </code></pre>
 <div class="h_tag">
 <a href="#Data" id="Data" class="autoheader_anchor">
-<h4>3.2.4. Data</h4>
+<h4 data-id="Data">3.2.4. Data</h4>
 </a>
 </div>
 <p>You can inject key-value pairs of data into a Markdown document.</p>
@@ -1932,7 +1933,7 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#Sub-topics" id="Sub-topics" class="autoheader_anchor">
-<h4>3.2.5. Sub topics</h4>
+<h4 data-id="Sub-topics">3.2.5. Sub topics</h4>
 </a>
 </div>
 <p>By inserting <code>&lt;&lt;SubTopic&gt;&gt;</code> (case insensitive) one can insert a table of contents for a sub topic. This can be useful in order to avoid overloading the principle table of contents. Note that this document has several such SubTOCs embedded.</p>
@@ -1940,14 +1941,14 @@ This is a paragraph with curlies at the end: \{\}.
 <p>SubTOCs can have <a href="#Special-attributes" class="bookmark_link">Special attributes</a> assgined to them.</p>
 <div class="h_tag">
 <a href="#Restricting-depth" id="Restricting-depth" class="autoheader_anchor">
-<h5>3.2.5.1. Restricting depth</h5>
+<h5 data-id="Restricting-depth">3.2.5.1. Restricting depth</h5>
 </a>
 </div>
 <p>Typically SubTOCs are inserted into a markdown document right after a header; this header is called a parent header. By default all headers that are children of the parent header are going to become part of the SubTOC.</p>
 <p>You can change this by specifying the maximum depth. For example, if the SubTOC should only carry headers that are children or grandchildren of the parent header specify <code>&lt;&lt;SubTOC-2&gt;&gt;</code>.</p>
 <div class="h_tag">
 <a href="#Embedding-parameters-with" id="Embedding-parameters-with" class="autoheader_anchor">
-<h4>3.2.6. Embedding parameters with <code>[parm]:</code></h4>
+<h4 data-id="Embedding-parameters-with">3.2.6. Embedding parameters with <code>[parm]:</code></h4>
 </a>
 </div>
 <p>With version 2.6 a mechanism was introduced to embed <strong><em>MarkAPL</em></strong> parameters within a Markdown document: by using <code>[parm]:</code> you can tell <strong><em>MarkAPL</em></strong> that this defines a key/value pair as a <strong><em>MarkAPL</em></strong> parameter, meaning that this is a <strong><em>MarkAPL</em></strong>-only feature.</p>
@@ -1976,7 +1977,7 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#Parameters" id="Parameters" class="autoheader_anchor">
-<h3>3.3. Parameters</h3>
+<h3 data-id="Parameters">3.3. Parameters</h3>
 </a>
 </div>
 <nav>
@@ -2028,7 +2029,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>If you use Meddy for editing a Markdown document it is easy to find out what can be injected into the document by selecting the “Inject parameters…” command from the context menu of the markdown pane.</p>
 <div class="h_tag">
 <a href="#bookmarkLink" id="bookmarkLink" class="autoheader_anchor">
-<h4>3.3.1. bookmarkLink</h4>
+<h4 data-id="bookmarkLink">3.3.1. bookmarkLink</h4>
 </a>
 </div>
 <p>Defaults to 6. That means that all headers of level 1 to 6 are going to be embraced by anchors (bookmarks). See <a href="#Headers-and-bookmarks" class="bookmark_link">Headers and bookmarks</a> for details.</p>
@@ -2036,34 +2037,34 @@ This is a paragraph with curlies at the end: \{\}.
 <p>There is not really a good reason for suppressing this except <strong><em>MarkAPL</em></strong> calling itself recursively for, say, blockquotes. Those blockquotes might contain headers, but you don't want them anchored or numbered – they might interfere with your real headers.</p>
 <div class="h_tag">
 <a href="#bookmarkMayStartWithDigit" id="bookmarkMayStartWithDigit" class="autoheader_anchor">
-<h4>3.3.2. bookmarkMayStartWithDigit</h4>
+<h4 data-id="bookmarkMayStartWithDigit">3.3.2. bookmarkMayStartWithDigit</h4>
 </a>
 </div>
 <p>Boolean that defaults to 1: in HTML5 an ID (= bookmark) may indeed start with a digit.</p>
 <p>However, sometimes it might be appropriate to avoid this, for example when <strong><em>MarkAPL</em></strong> creates a Sub-Topic. In such — quite special — circumstances it may well be appropriate to set this to 0.</p>
 <div class="h_tag">
 <a href="#charset" id="charset" class="autoheader_anchor">
-<h4>3.3.3. charset</h4>
+<h4 data-id="charset">3.3.3. charset</h4>
 </a>
 </div>
 <p>Defaults to “utf-8”.</p>
 <div class="h_tag">
 <a href="#checkFootnotes" id="checkFootnotes" class="autoheader_anchor">
-<h4>3.3.4. checkFootnotes</h4>
+<h4 data-id="checkFootnotes">3.3.4. checkFootnotes</h4>
 </a>
 </div>
 <p>This parameter is of interest only to APL programmers.</p>
 <p>Boolean. The default depends on <code>debug</code>. For example, if this is 1 the <code>Process</code> method checks all footnotes and reports any problems on <code>ns.report</code>.</p>
 <div class="h_tag">
 <a href="#checkLinks" id="checkLinks" class="autoheader_anchor">
-<h4>3.3.5. checkLinks</h4>
+<h4 data-id="checkLinks">3.3.5. checkLinks</h4>
 </a>
 </div>
 <p>This parameter is of interest only to APL programmers.</p>
 <p>Boolean. The default depends on <code>debug</code>. If this is 1 the <code>Process</code> method checks the internal (bookmark) links and reports any problems on <code>ns.report</code> (APL programmers only).</p>
 <div class="h_tag">
 <a href="#collapsibleTOC" id="collapsibleTOC" class="autoheader_anchor">
-<h4>3.3.6. collapsibleTOC</h4>
+<h4 data-id="collapsibleTOC">3.3.6. collapsibleTOC</h4>
 </a>
 </div>
 <p>This is a Boolean that defaults to 0. If you set this to 1 it has two effects:</p>
@@ -2081,7 +2082,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>One might be able to overcome these obstacles by restricting the level of headlines that go into the main TOC and introduce sub-TOCs where appropriate. This document uses this technique.</p>
 <div class="h_tag">
 <a href="#compileFunctions" id="compileFunctions" class="autoheader_anchor">
-<h4>3.3.7. compileFunctions</h4>
+<h4 data-id="compileFunctions">3.3.7. compileFunctions</h4>
 </a>
 </div>
 <p>This parameter is of interest only to APL programmers.</p>
@@ -2089,7 +2090,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>However, with version 1.8.3 <strong><em>MarkAPL</em></strong> does not compile its functions any more because this caused trouble under some circumstances while the performance gains are limited: <strong><em>MarkAPL</em></strong> spends most of its time in <code>⎕S</code> and <code>⎕R</code>, and compiling does not help.</p>
 <div class="h_tag">
 <a href="#compressCSS" id="compressCSS" class="autoheader_anchor">
-<h4>3.3.8. compressCSS</h4>
+<h4 data-id="compressCSS">3.3.8. compressCSS</h4>
 </a>
 </div>
 <p>This parameter is of interest only to APL programmers.</p>
@@ -2103,7 +2104,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>Note that this parameter has an effect only when the CSS is injected.</p>
 <div class="h_tag">
 <a href="#createFullHtmlPage" id="createFullHtmlPage" class="autoheader_anchor">
-<h4>3.3.9. createFullHtmlPage</h4>
+<h4 data-id="createFullHtmlPage">3.3.9. createFullHtmlPage</h4>
 </a>
 </div>
 <p>This parameter is of interest only to APL programmers.</p>
@@ -2116,14 +2117,14 @@ This is a paragraph with curlies at the end: \{\}.
 <p>For what happens when it is <code>¯1</code> see the <a href="#outputFilename" class="bookmark_link">outputFilename</a> parameter.</p>
 <div class="h_tag">
 <a href="#cssURL" id="cssURL" class="autoheader_anchor">
-<h4>3.3.10. cssURL</h4>
+<h4 data-id="cssURL">3.3.10. cssURL</h4>
 </a>
 </div>
 <p>Holds the web address or folder that is expected to host the two CSS files needed for screen and print.</p>
 <p>Defaults to <code>homeFolder</code>, but when <code>screenCSS</code> is not found there then it defaults to a folder <code>Files</code> in the <code>homeFolder</code>.</p>
 <div class="h_tag">
 <a href="#debug" id="debug" class="autoheader_anchor">
-<h4>3.3.11. debug</h4>
+<h4 data-id="debug">3.3.11. debug</h4>
 </a>
 </div>
 <p>This parameter is of interest only to APL programmers.</p>
@@ -2131,7 +2132,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>Note that this parameter influences the defaults of a number of other parameters: <code>checkLinks</code> and <code>checkFootnotes</code> are examples.</p>
 <div class="h_tag">
 <a href="#div_h_tag" id="div_h_tag" class="autoheader_anchor">
-<h4>3.3.12. div_h_tag</h4>
+<h4 data-id="div_h_tag">3.3.12. div_h_tag</h4>
 </a>
 </div>
 <p>Headers (&lt;h1&gt; to &lt;h6&gt; tags) are surrounded by an &lt;a&gt; tag. That allows a user to make a particular header the first line in its window by simply clicking at it.</p>
@@ -2140,7 +2141,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>However, there are situations when you might not want this div. By setting <code>div_h_tag</code> — which defaults to 1 — to 0 you can prevent this from happening.</p>
 <div class="h_tag">
 <a href="#enforceEdge" id="enforceEdge" class="autoheader_anchor">
-<h4>3.3.13. enforceEdge</h4>
+<h4 data-id="enforceEdge">3.3.13. enforceEdge</h4>
 </a>
 </div>
 <p>This defaults to:</p>
@@ -2149,20 +2150,20 @@ This is a paragraph with curlies at the end: \{\}.
 <p>This should only have an effect when the page created by <strong><em>MarkAPL</em></strong> is displayed by Microsoft's Webbrowser COM (or ActiveX) control. This control uses the oldest version of IE on any given machine by default. Instead one can specify any IE or even Edge, Microsoft's latest browser at the time of writing, and that's exactly what the above statement achieves.</p>
 <div class="h_tag">
 <a href="#footnotesCaption" id="footnotesCaption" class="autoheader_anchor">
-<h4>3.3.14. footnotesCaption</h4>
+<h4 data-id="footnotesCaption">3.3.14. footnotesCaption</h4>
 </a>
 </div>
 <p>String that defaults to “Footnotes”. This is placed above the footnotes section.</p>
 <div class="h_tag">
 <a href="#head" id="head" class="autoheader_anchor">
-<h4>3.3.15. head</h4>
+<h4 data-id="head">3.3.15. head</h4>
 </a>
 </div>
 <p>If you want to add additional meta tags to the <code>&lt;head&gt;</code> part of a document (just an example) you can assign them to <code>head</code>. They will then be added to the <code>&lt;head&gt;</code> section. This can be a simple string (representing &lt;title&gt; for example) or a vector of simple text vectors (several meta tags for example).</p>
 <p>Note that any tags added by the <code>head</code> parameter are injected <strong>after</strong> any sub tags of &lt;head&gt; that are injected by <strong><em>MarkAPL</em></strong>. This makes it possible not only to add stuff but also to overwrite earlier definitions like “title”, or to add a CSS file that overwrites earlier CSS definitions.</p>
 <div class="h_tag">
 <a href="#homeFolder" id="homeFolder" class="autoheader_anchor">
-<h4>3.3.16. homeFolder</h4>
+<h4 data-id="homeFolder">3.3.16. homeFolder</h4>
 </a>
 </div>
 <p>This points to the folder where MarkAPL.html and MarkAPL_CheatSheet.html and the default CSS files live. If this is not set then <strong><em>MarkAPL</em></strong> tries to find it:</p>
@@ -2175,19 +2176,19 @@ This is a paragraph with curlies at the end: \{\}.
 </ol>
 <div class="h_tag">
 <a href="#ignoreEmbeddedParms" id="ignoreEmbeddedParms" class="autoheader_anchor">
-<h4>3.3.17. ignoreEmbeddedParms</h4>
+<h4 data-id="ignoreEmbeddedParms">3.3.17. ignoreEmbeddedParms</h4>
 </a>
 </div>
 <p>Boolean that defaults to 0. If you want to overrule any embedded parameters then you must set this to 1. See <a href="#Embedding-parameters-with" class="bookmark_link">Embedding parameters with <code>[parm]:</code></a> for details.</p>
 <div class="h_tag">
 <a href="#inputFilename" id="inputFilename" class="autoheader_anchor">
-<h4>3.3.18. inputFilename</h4>
+<h4 data-id="inputFilename">3.3.18. inputFilename</h4>
 </a>
 </div>
 <p>If the Markdown you want to process lives in a file rather than the workspace then you can pass an empty vector as right argument to the <code>Process</code> method and specify <code>parms.inputFilename</code> instead.</p>
 <div class="h_tag">
 <a href="#lang" id="lang" class="autoheader_anchor">
-<h4>3.3.19. lang</h4>
+<h4 data-id="lang">3.3.19. lang</h4>
 </a>
 </div>
 <p>This defaults to «en» for «English». «lang» is added to the &lt;html&gt; tag if it is not empty. If you wish so you can specify a different language.</p>
@@ -2196,25 +2197,25 @@ This is a paragraph with curlies at the end: \{\}.
 <p>This parameter makes also a difference when it comes to deciding what is an opening and what is a closing double quote: Germany, Austria and Switzerland differ in this respect from the rest of the world.</p>
 <div class="h_tag">
 <a href="#leanpubExtensions" id="leanpubExtensions" class="autoheader_anchor">
-<h4>3.3.20. leanpubExtensions</h4>
+<h4 data-id="leanpubExtensions">3.3.20. leanpubExtensions</h4>
 </a>
 </div>
 <p>Flag that defaults to 0. In case this is 1 certain shortcuts like <code>A&gt;</code> are recognized and marked up accordingly. The LeanPub extensions are discussed in a separate document.</p>
 <div class="h_tag">
 <a href="#leanpubIconsUrl" id="leanpubIconsUrl" class="autoheader_anchor">
-<h4>3.3.21. leanpubIconsUrl</h4>
+<h4 data-id="leanpubIconsUrl">3.3.21. leanpubIconsUrl</h4>
 </a>
 </div>
 <p>URL that defaults to <code>https://download.aplwiki.com/LeanPub/Images/</code>. That's where <strong><em>MarkAPL</em></strong> will try to find the icons used by the LeanPub extensions. If you want to use the LeanPub extensions and make it independent from an Internet connection you need to download the icons and put them somewhere local and then point with <code>leanpubIconsUrl</code> to that local folder.</p>
 <div class="h_tag">
 <a href="#lineNumberOffset" id="lineNumberOffset" class="autoheader_anchor">
-<h4>3.3.22. lineNumberOffset</h4>
+<h4 data-id="lineNumberOffset">3.3.22. lineNumberOffset</h4>
 </a>
 </div>
 <p>Defaults to 0. Set this only in case <strong><em>MarkAPL</em></strong> is called recursively. Allows <strong><em>MarkAPL</em></strong> to adjust line numbers to be reported as having a problem.</p>
 <div class="h_tag">
 <a href="#linkToCSS" id="linkToCSS" class="autoheader_anchor">
-<h4>3.3.23. linkToCSS</h4>
+<h4 data-id="linkToCSS">3.3.23. linkToCSS</h4>
 </a>
 </div>
 <p>Boolean that defaults to 0. This means that CSS for screen and print is injected into the resulting HTML page. If this is 1 a &lt;link&gt; tag for the CSS file(s) is added to the header. Naturally <code>cssURL</code>, <code>screenCSS</code> and <code>printCSS</code> must carry reasonable content then.</p>
@@ -2223,7 +2224,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>If you wish to use this parameter for other purposes than playing with CSS then the default CSS files need modifying: <del>take a copy and watch out for everything that is embraced by <code>&lt;&lt;</code> and <code>&gt;&gt;</code>: before <strong><em>MarkAPL</em></strong> injects the CSS it replaces all such strings. We could call this a dynamic approach. For a static approach you need to change those placeholders by reasonable values.</del> Since version 3.6.1 the style sheets carry reasonable defaults. The associated comment still allows MarkAPL to replace this with certain settings, but the style sheets are now fine as they are at delivery time.</p>
 <div class="h_tag">
 <a href="#markdownStrict" id="markdownStrict" class="autoheader_anchor">
-<h4>3.3.24. markdownStrict</h4>
+<h4 data-id="markdownStrict">3.3.24. markdownStrict</h4>
 </a>
 </div>
 <p>Note: prior to version 3.4.0 this flag was associated with the processing of syntactical sugar; see <a href="#syntaxSugar" class="bookmark_link"><code>syntaxSugar</code></a> for details.</p>
@@ -2246,13 +2247,13 @@ This is a paragraph with curlies at the end: \{\}.
 <p>There is also the special case of lines that start with the APL lamp symbol (<code>⍝</code>) outside of code: such lines don't make it into the final HTML document. This is not affected by the <code>markdownStrict</code> parameter.</p>
 <div class="h_tag">
 <a href="#noCSS" id="noCSS" class="autoheader_anchor">
-<h4>3.3.25. noCSS</h4>
+<h4 data-id="noCSS">3.3.25. noCSS</h4>
 </a>
 </div>
 <p>Boolean that defaults to 0. If you don't want to have any CSS at all the set this to 1. This is most likely used in test cases only.</p>
 <div class="h_tag">
 <a href="#numberHeaders" id="numberHeaders" class="autoheader_anchor">
-<h4>3.3.26. numberHeaders</h4>
+<h4 data-id="numberHeaders">3.3.26. numberHeaders</h4>
 </a>
 </div>
 <p>An integer or integer vector that defaults to 0, meaning that headers are not numbered.</p>
@@ -2263,7 +2264,7 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#outputFilename" id="outputFilename" class="autoheader_anchor">
-<h4>3.3.27. outputFilename</h4>
+<h4 data-id="outputFilename">3.3.27. outputFilename</h4>
 </a>
 </div>
 <p>Note that this is relevant only to APL Programmers.</p>
@@ -2275,13 +2276,13 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#printCSS" id="printCSS" class="autoheader_anchor">
-<h4>3.3.28. printCSS</h4>
+<h4 data-id="printCSS">3.3.28. printCSS</h4>
 </a>
 </div>
 <p>The name of the CSS file (or several CSS files separated by commata) for printing. Defaults to <code>MarkAPL_print.css</code>. If this is empty no CSS for printing purposes is included or linked to.</p>
 <div class="h_tag">
 <a href="#reportLinks" id="reportLinks" class="autoheader_anchor">
-<h4>3.3.29. reportLinks</h4>
+<h4 data-id="reportLinks">3.3.29. reportLinks</h4>
 </a>
 </div>
 <p>Boolean that defaults to 0. If this is set to 1 then a list of all links together with the associated link text is added to the end of the document but before the footnotes (if any).</p>
@@ -2290,13 +2291,13 @@ This is a paragraph with curlies at the end: \{\}.
 <p>However, the user does not have the means to see the URL of any external link. <code>reportLinks</code> tries to ease the problem: all links are printed at the very end of the document together with their link text.</p>
 <div class="h_tag">
 <a href="#reportLinksCaption" id="reportLinksCaption" class="autoheader_anchor">
-<h4>3.3.30. reportLinksCaption</h4>
+<h4 data-id="reportLinksCaption">3.3.30. reportLinksCaption</h4>
 </a>
 </div>
 <p>String that defaults to “Link report:”. This is placed above the list of all links (see <code>reportLinks</code>).</p>
 <div class="h_tag">
 <a href="#saveHTML" id="saveHTML" class="autoheader_anchor">
-<h4>3.3.31. saveHTML</h4>
+<h4 data-id="saveHTML">3.3.31. saveHTML</h4>
 </a>
 </div>
 <p>Note that this parameter is special insofar as it is not a MarkAPL but a Meddy parameter, meaning that MarkAPL just ignores it.</p>
@@ -2336,13 +2337,13 @@ This is a paragraph with curlies at the end: \{\}.
 <p>If specified this parameter overwrites the user's preferences in Meddy.</p>
 <div class="h_tag">
 <a href="#screenCSS" id="screenCSS" class="autoheader_anchor">
-<h4>3.3.32. screenCSS</h4>
+<h4 data-id="screenCSS">3.3.32. screenCSS</h4>
 </a>
 </div>
 <p>The name of the CSS file (or several CSS files separated by commata) for the screen. Defaults to <code>MarkAPL_screen.css</code>. If this is empty no CSS for viewing purposes is included or linked to.</p>
 <div class="h_tag">
 <a href="#showHide" id="showHide" class="autoheader_anchor">
-<h4>3.3.33. showHide</h4>
+<h4 data-id="showHide">3.3.33. showHide</h4>
 </a>
 </div>
 <p><del>This is ignored in case <code>collapsibleTOC</code> is 0. It defaults to “Show;Hide”. The <code>;</code> acts as a separator. If <code>collapsibleTOC</code> is 1 then the header of the TOC is compiled initially from <code>tocHeader</code> followed by <code> (</code> and “Show”. After that <code>)</code> is added.</del></p>
@@ -2351,7 +2352,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>With version 4.3 this parameter is ignored. Instead of text triangles (<code>▼</code> and <code>▲</code>) are used to mimick a combo box. Note that this change requires a change in the CSS as well.</p>
 <div class="h_tag">
 <a href="#subTocs" id="subTocs" class="autoheader_anchor">
-<h4>3.3.34. subTocs</h4>
+<h4 data-id="subTocs">3.3.34. subTocs</h4>
 </a>
 </div>
 <p>Boolean that defaults to 1. If you want to suppress sub TOCs no matter whether there are any included in the Markdown or not then set this to 0.</p>
@@ -2364,7 +2365,7 @@ This is a paragraph with curlies at the end: \{\}.
 <p>Note that in case <a href="#toc" class="bookmark_link">toc</a> is 0 then no sub topics are inserted, no matter what the actually setting of <code>subTocs</code> is.</p>
 <div class="h_tag">
 <a href="#syntaxSugar" id="syntaxSugar" class="autoheader_anchor">
-<h4>3.3.35. syntaxSugar</h4>
+<h4 data-id="syntaxSugar">3.3.35. syntaxSugar</h4>
 </a>
 </div>
 <p>Boolean that defaults to 1. Settings this to 0 if you don't want <strong><em>MarkAPL</em></strong> carry out the operations that are associated with syntactical sugar. That means not exchanging…</p>
@@ -2381,14 +2382,14 @@ This is a paragraph with curlies at the end: \{\}.
 <p>Note that prior to version 3.4 this was called <a href="#markdownStrict" class="bookmark_link"><code>markdownStrict</code></a>.</p>
 <div class="h_tag">
 <a href="#title" id="title" class="autoheader_anchor">
-<h4>3.3.36. title</h4>
+<h4 data-id="title">3.3.36. title</h4>
 </a>
 </div>
 <p>In case the document has exactly one level-1 header then <code>title</code> defaults to this header. Otherwise it defaults to “MarkAPL”.</p>
 <p>Defines the <code>&lt;title&gt;</code> tag in the <code>&lt;head&gt;</code> section of the resulting HTML page.</p>
 <div class="h_tag">
 <a href="#toc" id="toc" class="autoheader_anchor">
-<h4>3.3.37. toc (table of contents)</h4>
+<h4 data-id="toc">3.3.37. toc (table of contents)</h4>
 </a>
 </div>
 <p>An integer or integer vector that defaults to 0, meaning that no table of contents is injected into a document created by <strong><em>MarkAPL</em></strong>.</p>
@@ -2407,21 +2408,21 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#tocCaption" id="tocCaption" class="autoheader_anchor">
-<h4>3.3.38. tocCaption</h4>
+<h4 data-id="tocCaption">3.3.38. tocCaption</h4>
 </a>
 </div>
 <p>Defaults to “Table of contents”. Set this to any character vector you want to appear as header of the TOC. <code>tocCaption</code> will be ignored in case <code>toc</code> is 0.</p>
 <p>Note that this parameter has an effect only when the CSS is injected. Linked CSS must be prepared accordingly.</p>
 <div class="h_tag">
 <a href="#verbose" id="verbose" class="autoheader_anchor">
-<h4>3.3.39. verbose</h4>
+<h4 data-id="verbose">3.3.39. verbose</h4>
 </a>
 </div>
 <p>This parameter is of interest only to APL programmers.</p>
 <p>Boolean that defaults to <code>debug</code>. If this is 1 then the <code>Process</code> method will print the content of <code>ns.report</code> to the session.</p>
 <div class="h_tag">
 <a href="#width" id="width" class="autoheader_anchor">
-<h4>3.3.40. width</h4>
+<h4 data-id="width">3.3.40. width</h4>
 </a>
 </div>
 <p>This defaults to <code>900px</code>. You can specify this either as a character vector or a numeric value. However, a numeric value always becomes <code>px</code> while a character value allows you to specify not only a value but also a different metric, for example <code>80em</code>.</p>
@@ -2432,19 +2433,19 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#Problems" id="Problems" class="autoheader_anchor">
-<h2>4. Problems</h2>
+<h2 data-id="Problems">4. Problems</h2>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Crashes" id="Crashes" class="autoheader_anchor">
-<h3>4.1. Crashes</h3>
+<h3 data-id="Crashes">4.1. Crashes</h3>
 </a>
 </div>
 <p>When <strong><em>MarkAPL</em></strong> crashes the most likely reason is an invalid definition. Check the variable <code>ns.markdown</code>: that tells you how far <strong><em>MarkAPL</em></strong> got in processing the Markdown.</p>
 <p>However, since <strong><em>MarkAPL</em></strong> should not crash and always produce a document it is appreciated when you report any crashes. See the next topic for how to report a crash.</p>
 <div class="h_tag">
 <a href="#Bugs" id="Bugs" class="autoheader_anchor">
-<h3>4.2. Bugs</h3>
+<h3 data-id="Bugs">4.2. Bugs</h3>
 </a>
 </div>
 <p>Please report any bugs to <a href="mailto:kai@aplteam.com" class="mailto_link">kai@aplteam.com</a>. I appreciate:</p>
@@ -2458,18 +2459,18 @@ This is a paragraph with curlies at the end: \{\}.
 </ul>
 <div class="h_tag">
 <a href="#Unexpected-results" id="Unexpected-results" class="autoheader_anchor">
-<h3>4.3. Unexpected results</h3>
+<h3 data-id="Unexpected-results">4.3. Unexpected results</h3>
 </a>
 </div>
 <p>Before reporting a bug please check carefully your Markdown. More often than not mistakes in the Markdown are causing the problem.</p>
 <p>If you cannot work out why it goes wrong report it to me – see the previous topic for how to report a problem.</p>
 <div class="h_tag">
 <a href="#Version-information" id="Version-information" class="autoheader_anchor">
-<h2>5. Version information</h2>
+<h2 data-id="Version-information">5. Version information</h2>
 </a>
 </div>
-<p>This document refers to version 8.1.0 of <strong><em>MarkAPL</em></strong>.</p>
-<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2019-12-17</p>
+<p>This document refers to version 8.1 of <strong><em>MarkAPL</em></strong>.</p>
+<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2020-01-22</p>
 <div id="external_link_report" class="print_only">
 <hr>
 <p><strong>Link report</strong></p>

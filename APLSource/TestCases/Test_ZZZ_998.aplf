@@ -1,38 +1,40 @@
- R←Test_ZZZ_998(stopFlag batchFlag);⎕IO;⎕ML;⎕TRAP;report;buff;xml;source;FindSpecialString
+ R←Test_ZZZ_998(stopFlag batchFlag);⎕IO;⎕ML;⎕TRAP;report;buff;parms;ref
 ⍝ Checks on two text vectors: "⍝TODO⍝" and "⍝CHECK⍝"; never fails, just reports.
  ⎕IO←0 ⋄ ⎕ML←3
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ ref←#.Meddy.Meddy
+
  R←T._OK
  report←''
 
- FindSpecialString←{
-⍝ Use this to search for stuff like "CHECK" or "TODO" enclosed between `⍝` (⍵).
-     ⎕IO←0 ⋄ ⎕ML←3
-     startIn←⍺
-     r←⍉1↓[1]⎕SE.UCMD'locate "',⍵,'" -return=count -objects=',⍕startIn
-     r←(0<r[;1])⌿r                                  ⍝ Drop those with no hits
-     0≥1↑⍴r:r
-     r[;0]←{2>'#'+.=⍵:⍵ ⋄ {⌽⍵↑⍨1+⍵⍳'#'}⌽⍵}¨r[;0]    ⍝ Circumvent bug <01356>
-     r
- }
-
- xml←⎕XML'flat'##.APLTreeUtils.ReadUtf8File'publish.config'
- source←2⊃xml[xml[;1]⍳⊂'container';]
- buff←source FindSpecialString'⍝CHECK⍝'
- buff←(buff[;0]≢¨⎕XSI[0])⌿buff                  ⍝ remove caller
- buff←({9≠⎕NC ⍵:1 ⋄ ⍵≡⍕⍎⍵}¨buff[;0])⌿buff       ⍝ remove refs
- :If ~0∊⍴buff
-     report,←↓(⊂' ⍝CHECK⍝ found:'),(⊂'   '),¨buff
+ :If 0=⎕SE.⎕NC'_Fire'
+     ⎕SE.UCMD'Fire -noGUI'
  :EndIf
- buff←source FindSpecialString'⍝TODO⍝'
- buff←(buff[;0]≢¨⎕XSI[0])⌿buff                  ⍝ remove caller
- buff←({9≠⎕NC ⍵:1 ⋄ ⍵≡⍕⍎⍵}¨buff[;0])⌿buff       ⍝ remove refs
- :If ~0∊⍴buff
-     report,←↓(⊂' ⍝TODO⍝ found:'),(⊂'   '),¨buff
- :EndIf
- :If 1=⍴,report
-     report,←⊂'    Nothing found!'
+ :If 0=⎕SE.⎕NC'_Fire'
+     R←T._NotApplicable
  :Else
-     ⎕←'Checking for ⍝TODO⍝ and ⍝CHECK⍝ '{⍵↑,'--- ',⍺,' ',⍵⍴'-'}80⌊⎕PW-1
-     ⎕←⊃report
+     parms←⎕SE._Fire.Fire.API.CreateSearchParms
+     parms.StartSearchIn←ref
+     buff←parms ⎕SE._Fire.Fire.API.Search'⍝CHECK⍝'
+     buff←(2<⌊buff[;2])/buff[;0]            ⍝ Only functions, operators, classes, interfaces and namespace scripts
+     buff←(buff≢¨⎕XSI[0])/buff              ⍝ remove caller
+     buff←(0<∊⎕NC¨buff)⌿buff                ⍝ remove local vars
+     :If 0≠≢buff
+         report,←↓(⊂' ⍝CHECK⍝ found:'),(⊂'   '),¨buff
+     :EndIf
+     buff←parms ⎕SE._Fire.Fire.API.Search'⍝TODO⍝'
+     buff←(2<⌊buff[;2])/buff[;0]            ⍝ Only functions, operators, classes, interfaces and namespace scripts
+     buff←(buff≢¨⎕XSI[0])/buff              ⍝ remove caller
+     buff←(0<∊⎕NC¨buff)⌿buff                ⍝ remove local vars
+     :If 0≠≢buff
+         report,←↓(⊂' ⍝TODO⍝ found:'),(⊂'   '),¨buff
+     :EndIf
+     :If 0=≢report
+         report,←⊂'    Nothing found!'
+     :Else
+         ⎕←'Checking for ⍝TODO⍝ and ⍝CHECK⍝ '{⍵↑,'--- ',⍺,' ',⍵⍴'-'}80⌊⎕PW-1
+         ⎕←⊃report
+     :EndIf
  :EndIf
+⍝Done

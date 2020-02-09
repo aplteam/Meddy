@@ -36,12 +36,12 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </nav>
 <div class="h_tag">
 <a href="#LeanPub-Extensions" id="LeanPub-Extensions" class="autoheader_anchor">
-<h1>LeanPub Extensions</h1>
+<h1 data-id="LeanPub-Extensions">LeanPub Extensions</h1>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Overview" id="Overview" class="autoheader_anchor">
-<h2>Overview</h2>
+<h2 data-id="Overview">Overview</h2>
 </a>
 </div>
 <p>LeanPub[<a href="#fnref1" class="footnote_link"><sup>1</sup></a>] is a publishing platform for books, especially for technical books.</p>
@@ -55,7 +55,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>We are going to discuss all extensions in detail.</p>
 <div class="h_tag">
 <a href="#1-Highlighting-Code" id="1-Highlighting-Code" class="autoheader_anchor">
-<h2>1. Highlighting Code</h2>
+<h2 data-id="1-Highlighting-Code">1. Highlighting Code</h2>
 </a>
 </div>
 <p>Code can be highlighted by injecting <code>leanpub-start-insert</code> and <code>leanpub-end-insert</code> as shown here:</p>
@@ -71,7 +71,7 @@ dropLeadingBlanks←{(∨\' '≠⍵)/⍵}</code></pre>
 </span>dropLeadingBlanks←{(∨\' '≠⍵)/⍵}</code></pre>
 <div class="h_tag">
 <a href="#2-Asides-or-Text-Boxes" id="2-Asides-or-Text-Boxes" class="autoheader_anchor">
-<h2>2. Asides or Text Boxes</h2>
+<h2 data-id="2-Asides-or-Text-Boxes">2. Asides or Text Boxes</h2>
 </a>
 </div>
 <p>Note that in the markdown asides need to be surrounded by empty lines, otherwise they won't be recognized.</p>
@@ -122,7 +122,7 @@ A&gt; In-line mark-up is available, too: **bold**, _italic_, `code`, whatever.</
 </ul>
 <div class="h_tag">
 <a href="#3-Specialties" id="3-Specialties" class="autoheader_anchor">
-<h2>3. Specialties</h2>
+<h2 data-id="3-Specialties">3. Specialties</h2>
 </a>
 </div>
 <p>Note that in the markdown all specialties need to be embraced by empty lines, otherwise they won't be recognized.</p>
@@ -141,7 +141,7 @@ A&gt; In-line mark-up is available, too: **bold**, _italic_, `code`, whatever.</
 <p>Note that in case you specify a level-1 (&lt;h1&gt;) or a level-2 (&lt;h2&gt;) header in a specialty it will be converted to a level-3 header (&lt;h3&gt;) anyway. The reason is that many screenreaders read out all &lt;h1&gt; and all &lt;h2&gt; tags. Therefore the W3C recommends to not use headers of the levels 1 and 2 except they really are such headers.</p>
 <div class="h_tag">
 <a href="#Information" id="Information" class="autoheader_anchor">
-<h3>Information</h3>
+<h3 data-id="Information">Information</h3>
 </a>
 </div>
 <p>This:</p>
@@ -182,7 +182,7 @@ I&gt; They can have headers and multiple paragraphs, but they can also have all 
 
 <div class="h_tag">
 <a href="#Discussions" id="Discussions" class="autoheader_anchor">
-<h3>Discussions</h3>
+<h3 data-id="Discussions">Discussions</h3>
 </a>
 </div>
 <p>Simple example:</p>
@@ -207,7 +207,7 @@ I&gt; They can have headers and multiple paragraphs, but they can also have all 
 
 <div class="h_tag">
 <a href="#Exercise" id="Exercise" class="autoheader_anchor">
-<h3>Exercise</h3>
+<h3 data-id="Exercise">Exercise</h3>
 </a>
 </div>
 <p>Simple Example:</p>
@@ -233,7 +233,7 @@ I&gt; They can have headers and multiple paragraphs, but they can also have all 
 
 <div class="h_tag">
 <a href="#Errors" id="Errors" class="autoheader_anchor">
-<h3>Errors</h3>
+<h3 data-id="Errors">Errors</h3>
 </a>
 </div>
 <p>Simple example:</p>
@@ -255,7 +255,7 @@ I&gt; They can have headers and multiple paragraphs, but they can also have all 
 
 <div class="h_tag">
 <a href="#Warning" id="Warning" class="autoheader_anchor">
-<h3>Warning</h3>
+<h3 data-id="Warning">Warning</h3>
 </a>
 </div>
 <p>Simple example:</p>
@@ -277,7 +277,7 @@ I&gt; They can have headers and multiple paragraphs, but they can also have all 
 
 <div class="h_tag">
 <a href="#Questions" id="Questions" class="autoheader_anchor">
-<h3>Questions</h3>
+<h3 data-id="Questions">Questions</h3>
 </a>
 </div>
 <p>Simple example:</p>
@@ -299,14 +299,14 @@ I&gt; They can have headers and multiple paragraphs, but they can also have all 
 
 <div class="h_tag">
 <a href="#Behind-the-scenes" id="Behind-the-scenes" class="autoheader_anchor">
-<h2>Behind the scenes</h2>
+<h2 data-id="Behind-the-scenes">Behind the scenes</h2>
 </a>
 </div>
 <p>All Leanpub extensions are converted into HTML independently from processing the main document. The resulting HTML then replaces the markdown defining them as a one-line HTML block. If necessary additional empty lines are inserted in order to keep the rows in line with the original ones.</p>
 <p>Because HTML blocks are left alone when the actual markdown is processed that works pretty well. There is one downside however: since empty lines define the end of an HTML block any empty lines within a LeanPub extension are converted into <code>&amp;nbsp;</code> which in HTML speak is a non-breakable space.</p>
 <p>As a side effect of this technique multi-line code blocks loose their newline characters because the HTML is converted into a single line. For that reason <code>&lt;br&gt;</code> tags are inserted to preserve those newlines.</p>
-<p>This document refers to version 8.1.0 of <strong><em>MarkAPL</em></strong>.</p>
-<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2018-10-14</p>
+<p>This document refers to version 8.1 of <strong><em>MarkAPL</em></strong>.</p>
+<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2020-01-22</p>
 <p>Last Update: 2019-12-17</p>
 <div id="footnotes_div">
 <hr>

@@ -56,19 +56,19 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </nav>
 <div class="h_tag">
 <a href="#MarkAPL-for-Programmers" id="MarkAPL-for-Programmers" class="autoheader_anchor">
-<h1>MarkAPL for Programmers</h1>
+<h1 data-id="MarkAPL-for-Programmers">MarkAPL for Programmers</h1>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Overview" id="Overview" class="autoheader_anchor">
-<h2>1. Overview</h2>
+<h2 data-id="Overview">1. Overview</h2>
 </a>
 </div>
 <p>This document is of interest only if you use <strong><em>MarkAPL</em></strong> within an APL application as an APL programmer.</p>
 <p>If you use it implicitly, say by editing a Markdown file with Meddy[<a href="#fnref1" class="footnote_link"><sup>1</sup></a>], then the cheat cheet and the <strong><em>MarkAPL</em></strong> reference document should suffice.</p>
 <div class="h_tag">
 <a href="#How-to" id="How-to" class="autoheader_anchor">
-<h2>2. How to</h2>
+<h2 data-id="How-to">2. How to</h2>
 </a>
 </div>
 <p>One way to study how to make use of <strong><em>MarkAPL</em></strong> is to trace through the method <code>MarkAPL.Help</code>. This should clarify the principles.</p>
@@ -80,7 +80,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>Negative numbers tell the test framework to stop right before a particular test function is going to be executed. That gives you the opportunity to trace through that function without tracing through the actual test framework.</p>
 <div class="h_tag">
 <a href="#Methods" id="Methods" class="autoheader_anchor">
-<h2>3. Methods</h2>
+<h2 data-id="Methods">3. Methods</h2>
 </a>
 </div>
 <nav>
@@ -102,7 +102,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>Note that all <a href="#Helpers" class="bookmark_link">helpers</a> are discussed separately.</p>
 <div class="h_tag">
 <a href="#ConvertMarkdownFile" id="ConvertMarkdownFile" class="autoheader_anchor">
-<h3>3.1. ConvertMarkdownFile</h3>
+<h3 data-id="ConvertMarkdownFile">3.1. ConvertMarkdownFile</h3>
 </a>
 </div>
 <p>Takes a filename as right argument. The file is expected to hold Markdown. By default a fully-fledged HTML page is created from that Markdown file with exactly the same filename except that the file extension is <code>.html</code> rather than <code>.md</code>.</p>
@@ -112,7 +112,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>Note that <code>inputFilename</code> <strong>must not</strong> be specified, otherwise an error is signalled. This is because the input file is already defined by the right argument.</p>
 <div class="h_tag">
 <a href="#CreateParms" id="CreateParms" class="autoheader_anchor">
-<h3>3.2. CreateParms</h3>
+<h3 data-id="CreateParms">3.2. CreateParms</h3>
 </a>
 </div>
 <p>Niladic function that returns a namespace populated with parameters carrying their default values. <code>CreateParms</code> tries to find for every parameter a value from the command line or environment variables. If it cannot find them it will establish a default value.</p>
@@ -120,19 +120,19 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>Note that a value of <code>¯1</code> means that there is not really a default available but a reasonable value will be determined at a later stage.</p>
 <div class="h_tag">
 <a href="#CreateHelpParms" id="CreateHelpParms" class="autoheader_anchor">
-<h3>3.3. CreateHelpParms</h3>
+<h3 data-id="CreateHelpParms">3.3. CreateHelpParms</h3>
 </a>
 </div>
 <p>Niladic function that returns a namespace populated with parameters carrying their default values. Internally it calls <code>CreateParms</code> and then adds some parameters that are needed by the <a href="#Help" class="bookmark_link"><code>Help</code></a> and <a href="#ref_method" class="bookmark_link"><code>Reference</code></a> methods.</p>
 <div class="h_tag">
 <a href="#Execute" id="Execute" class="autoheader_anchor">
-<h3>3.4. Execute</h3>
+<h3 data-id="Execute">3.4. Execute</h3>
 </a>
 </div>
 <p>This function is used exclusively by test cases.</p>
 <div class="h_tag">
 <a href="#Help" id="Help" class="autoheader_anchor">
-<h3>3.5. Help</h3>
+<h3 data-id="Help">3.5. Help</h3>
 </a>
 </div>
 <p>The function takes a Boolean right argument:</p>
@@ -145,7 +145,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>In order to enable <code>Help</code> to find the file “Markdown_CheatSheet.html” (in case the defaults don't work) you must create a parameter space and then set <code>homeFolder</code> accordingly.</p>
 <div class="h_tag">
 <a href="#Init" id="Init" class="autoheader_anchor">
-<h3>3.6. Init</h3>
+<h3 data-id="Init">3.6. Init</h3>
 </a>
 </div>
 <p>Takes a two-item-vector as right argument:</p>
@@ -156,13 +156,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>Returns <a href="#The-ns-namespace" class="bookmark_link">The “ns” namespace</a>.</p>
 <div class="h_tag">
 <a href="#MakeHTML_Doc" id="MakeHTML_Doc" class="autoheader_anchor">
-<h3>3.7. MakeHTML_Doc</h3>
+<h3 data-id="MakeHTML_Doc">3.7. MakeHTML_Doc</h3>
 </a>
 </div>
 <p>Takes HTML, typically created by calling <code>Process</code>, and makes it a fully fledged HTML document by adding &lt;body&gt;, &lt;head&gt; — with &lt;title&gt; — and &lt;html&gt; with the DocType.</p>
 <div class="h_tag">
 <a href="#MarkDown2HTML" id="MarkDown2HTML" class="autoheader_anchor">
-<h3>3.8. MarkDown2HTML</h3>
+<h3 data-id="MarkDown2HTML">3.8. MarkDown2HTML</h3>
 </a>
 </div>
 <p>This ambivalent function requires some Markdown as right argument.</p>
@@ -178,13 +178,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>Note that in case the parameter <code>createFullHtmlPage</code> is <code>¯1</code> (the default value which means “undefiend”) the default behaviour of <code>MarkDown2HTML</code> is defined by the setting of the parameter <code>outputFilename</code>: if <code>outputFilename</code> is not empty then <code>createFullHtmlPage</code> will default to 1, otherwise to 0, and that's what <code>Markdown2HTML</code> will take into account.</p>
 <div class="h_tag">
 <a href="#Process" id="Process" class="autoheader_anchor">
-<h3>3.9. Process</h3>
+<h3 data-id="Process">3.9. Process</h3>
 </a>
 </div>
 <p>This function takes — and returns — an <code>ns</code> namespace which was typically created by calling <code>Init</code>.</p>
 <div class="h_tag">
 <a href="#ref_method" id="ref_method" class="autoheader_anchor">
-<h3>3.10. Reference</h3>
+<h3 data-id="ref_method">3.10. Reference</h3>
 </a>
 </div>
 <p>The function takes a Boolean right argument:</p>
@@ -197,13 +197,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>In order to enable <code>Reference</code> to find the file “MarkAPL.html” (in case the defaults don't work) you must create a parameter space and then set <code>homeFolder</code>.</p>
 <div class="h_tag">
 <a href="#Version" id="Version" class="autoheader_anchor">
-<h3>3.11. Version</h3>
+<h3 data-id="Version">3.11. Version</h3>
 </a>
 </div>
 <p>Returns the name, the version number — including the built-ID — and the version date of <strong><em>MarkAPL</em></strong>.</p>
 <div class="h_tag">
 <a href="#Parameters" id="Parameters" class="autoheader_anchor">
-<h2>4. Parameters</h2>
+<h2 data-id="Parameters">4. Parameters</h2>
 </a>
 </div>
 <p>In order to specify parameters follow these steps:</p>
@@ -250,7 +250,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 <p>The parameters themselves are discussed in the <strong><em>MarkAPL</em></strong> reference.</p>
 <div class="h_tag">
 <a href="#Function-calls" id="Function-calls" class="autoheader_anchor">
-<h2>5. Function calls</h2>
+<h2 data-id="Function-calls">5. Function calls</h2>
 </a>
 </div>
 <p>It is possible to embed APL function calls in your Markdown document. The simplest way to call a function <code>#.foo</code> is:</p>
@@ -289,12 +289,12 @@ Last line
 </ul>
 <div class="h_tag">
 <a href="#The-ns-namespace" id="The-ns-namespace" class="autoheader_anchor">
-<h2>6. The <code>ns</code> namespace.</h2>
+<h2 data-id="The-ns-namespace">6. The <code>ns</code> namespace.</h2>
 </a>
 </div>
 <div class="h_tag">
 <a href="#OV4" id="OV4" class="autoheader_anchor">
-<h3>6.1. Overview</h3>
+<h3 data-id="OV4">6.1. Overview</h3>
 </a>
 </div>
 <p>The <code>ns</code> namespace is returned (created) by the <code>Init</code> method and modified by the <code>Process</code> method. It contains both input and output variables.</p>
@@ -302,7 +302,7 @@ Last line
 <p>The two variables <code>report</code> and <code>lineNumber</code> are special, see there.</p>
 <div class="h_tag">
 <a href="#ns_details" id="ns_details" class="autoheader_anchor">
-<h3>6.2. The ns namespace in detail</h3>
+<h3 data-id="ns_details">6.2. The ns namespace in detail</h3>
 </a>
 </div>
 <nav>
@@ -331,19 +331,19 @@ Last line
 <p>The namespace contains the following variables:</p>
 <div class="h_tag">
 <a href="#abbreviations" id="abbreviations" class="autoheader_anchor">
-<h4>6.2.1. abbreviations</h4>
+<h4 data-id="abbreviations">6.2.1. abbreviations</h4>
 </a>
 </div>
 <p>A (possibly empty) vector of two-item-vectors. The first item holds the abbreviation, the second item the explanation or comment.</p>
 <div class="h_tag">
 <a href="#emptyLines" id="emptyLines" class="autoheader_anchor">
-<h4>6.2.2. emptyLines</h4>
+<h4 data-id="emptyLines">6.2.2. emptyLines</h4>
 </a>
 </div>
 <p>A vector of Booleans indicating which lines in <code>markdown</code> are empty. Lines consisting of white-space characters only are considered empty.</p>
 <div class="h_tag">
 <a href="#embeddedParms" id="embeddedParms" class="autoheader_anchor">
-<h4>6.2.3. embeddedParms</h4>
+<h4 data-id="embeddedParms">6.2.3. embeddedParms</h4>
 </a>
 </div>
 <p>A matrix with two columns and as many rows as there are embedded parameters.</p>
@@ -359,7 +359,7 @@ Last line
  reportLinks                      1</code></pre>
 <div class="h_tag">
 <a href="#footnoteDefs" id="footnoteDefs" class="autoheader_anchor">
-<h4>6.2.4. footnoteDefs</h4>
+<h4 data-id="footnoteDefs">6.2.4. footnoteDefs</h4>
 </a>
 </div>
 <p>A matrix that carries all footnote definitions found in <code>markdown</code>. The matrix has these columns:</p>
@@ -370,13 +370,13 @@ Last line
 </ol>
 <div class="h_tag">
 <a href="#headerLineNos" id="headerLineNos" class="autoheader_anchor">
-<h4>6.2.5. headerLineNos</h4>
+<h4 data-id="headerLineNos">6.2.5. headerLineNos</h4>
 </a>
 </div>
 <p>An integer vector that carries the line numbers of <code>headers</code>.</p>
 <div class="h_tag">
 <a href="#headers" id="headers" class="autoheader_anchor">
-<h4>6.2.6. headers</h4>
+<h4 data-id="headers">6.2.6. headers</h4>
 </a>
 </div>
 <p>A matrix that carries all headers defined in <code>markdown</code>.</p>
@@ -390,19 +390,19 @@ Last line
 <p>Naturally the last column does not exist in case <code>numberHeaders</code> is 0.</p>
 <div class="h_tag">
 <a href="#html" id="html" class="autoheader_anchor">
-<h4>6.2.7. html</h4>
+<h4 data-id="html">6.2.7. html</h4>
 </a>
 </div>
 <p>After having created the <code>ns</code> namespace by calling <code>Init</code> this variable is empty. By running the <code>Process</code> method this variable will be filled up.</p>
 <div class="h_tag">
 <a href="#leadingChars" id="leadingChars" class="autoheader_anchor">
-<h4>6.2.8. leadingChars</h4>
+<h4 data-id="leadingChars">6.2.8. leadingChars</h4>
 </a>
 </div>
 <p>After having created the <code>ns</code> namespace by calling <code>Init</code> this variable contains a limited number of characters from <code>markdown</code>. Leading white-space is removed. This increases performance for many of the checks to be carried out by <code>Process</code>.</p>
 <div class="h_tag">
 <a href="#lineNumbers" id="lineNumbers" class="autoheader_anchor">
-<h4>6.2.9. lineNumbers</h4>
+<h4 data-id="lineNumbers">6.2.9. lineNumbers</h4>
 </a>
 </div>
 <p>After having created the <code>ns</code> namespace by calling <code>Init</code> this variable contains a vector of integers representing line numbers in <code>markdown</code>. This allows the current line number to be reported in case there is a problem like odd number of double quotes, invalid internal links etc. Note that function calls (See “Embedded APL function calls” in the <strong><em>MarkAPL</em></strong> reference) can access the line numbers as well.</p>
@@ -410,7 +410,7 @@ Last line
 <p>See also the parameter <code>lineNumberOffset</code> in the <strong><em>MarkAPL</em></strong> reference.</p>
 <div class="h_tag">
 <a href="#linkRefs" id="linkRefs" class="autoheader_anchor">
-<h4>6.2.10. linkRefs</h4>
+<h4 data-id="linkRefs">6.2.10. linkRefs</h4>
 </a>
 </div>
 <p>A vector of vectors holding information regarding all link references (see the <strong><em>MarkAPL</em></strong> reference for details regarding link references):</p>
@@ -422,38 +422,38 @@ Last line
 </ol>
 <div class="h_tag">
 <a href="#markdown" id="markdown" class="autoheader_anchor">
-<h4>6.2.11. markdown</h4>
+<h4 data-id="markdown">6.2.11. markdown</h4>
 </a>
 </div>
 <p>This variable holds the Markdown to be processed by <code>Process</code>.</p>
 <div class="h_tag">
 <a href="#markdownLC" id="markdownLC" class="autoheader_anchor">
-<h4>6.2.12. markdownLC</h4>
+<h4 data-id="markdownLC">6.2.12. markdownLC</h4>
 </a>
 </div>
 <p>Same as <code>markdown</code> but all in lower case. That speeds things up at the expense of memory.</p>
 <div class="h_tag">
 <a href="#noOf" id="noOf" class="autoheader_anchor">
-<h4>6.2.13. noOf</h4>
+<h4 data-id="noOf">6.2.13. noOf</h4>
 </a>
 </div>
 <p>The number of lines processed in the next (or current) step.</p>
 <div class="h_tag">
 <a href="#parms" id="parms" class="autoheader_anchor">
-<h4>6.2.14. parms</h4>
+<h4 data-id="parms">6.2.14. parms</h4>
 </a>
 </div>
 <p>The parameters that were passed to <code>Init</code>.</p>
 <div class="h_tag">
 <a href="#report" id="report" class="autoheader_anchor">
-<h4>6.2.15. report</h4>
+<h4 data-id="report">6.2.15. report</h4>
 </a>
 </div>
 <p>After having created the <code>ns</code> namespace by calling <code>CreateParms</code> this variable is empty. The <code>Process</code> method might add remarks to this variable in case it finds something to complain about or comment on.</p>
 <p>Some methods print what they assign to <code>report</code> also to the session in case the parameter <code>verbose</code> is 1.</p>
 <div class="h_tag">
 <a href="#subToc" id="subToc" class="autoheader_anchor">
-<h4>6.2.16. subToc</h4>
+<h4 data-id="subToc">6.2.16. subToc</h4>
 </a>
 </div>
 <p>This is a vector of two-item vectors:</p>
@@ -463,7 +463,7 @@ Last line
 </ol>
 <div class="h_tag">
 <a href="#ns_toc" id="ns_toc" class="autoheader_anchor">
-<h4>6.2.17. toc</h4>
+<h4 data-id="ns_toc">6.2.17. toc</h4>
 </a>
 </div>
 <p>This is a vector of <del>four</del> three-item vectors:</p>
@@ -475,13 +475,13 @@ Last line
 <p>Note that prior to version 2.8 there was a forth column (4. The type of the header: 1 = SeText, 2 = ATX.) which was removed then.</p>
 <div class="h_tag">
 <a href="#withoutBlanks" id="withoutBlanks" class="autoheader_anchor">
-<h4>6.2.18. withoutBlanks</h4>
+<h4 data-id="withoutBlanks">6.2.18. withoutBlanks</h4>
 </a>
 </div>
 <p>Same as <code>markdown</code> but without any blanks. This speeds things up at the expense of memory.</p>
 <div class="h_tag">
 <a href="#Helpers" id="Helpers" class="autoheader_anchor">
-<h2>7. Helpers</h2>
+<h2 data-id="Helpers">7. Helpers</h2>
 </a>
 </div>
 <p>This chapter comprises all methods that help converting APL arrays into Markdown.</p>
@@ -494,7 +494,7 @@ Last line
 </nav>
 <div class="h_tag">
 <a href="#Matrix2MarkdownList" id="Matrix2MarkdownList" class="autoheader_anchor">
-<h3>7.1. Matrix2MarkdownList</h3>
+<h3 data-id="Matrix2MarkdownList">7.1. Matrix2MarkdownList</h3>
 </a>
 </div>
 <p>This helper method takes an APL matrix and converts it to a list definition in Markdown.</p>
@@ -526,7 +526,7 @@ Last line
 </ul>
 <div class="h_tag">
 <a href="#Matrix2MarkdownTable" id="Matrix2MarkdownTable" class="autoheader_anchor">
-<h3>7.2. Matrix2MarkdownTable</h3>
+<h3 data-id="Matrix2MarkdownTable">7.2. Matrix2MarkdownTable</h3>
 </a>
 </div>
 <p>This helper method takes an APL matrix and converts it to a table definition in Markdown.</p>
@@ -602,12 +602,12 @@ Last line
 </ul>
 <div class="h_tag">
 <a href="#Problems" id="Problems" class="autoheader_anchor">
-<h2>8. Problems</h2>
+<h2 data-id="Problems">8. Problems</h2>
 </a>
 </div>
 <div class="h_tag">
 <a href="#Bugs" id="Bugs" class="autoheader_anchor">
-<h3>8.1. Bugs</h3>
+<h3 data-id="Bugs">8.1. Bugs</h3>
 </a>
 </div>
 <p>Please report any bugs to <a href="mailto:kai@aplteam.com" class="mailto_link">kai@aplteam.com</a>. I appreciate:</p>
@@ -621,13 +621,13 @@ Last line
 </ul>
 <div class="h_tag">
 <a href="#Unexpected-results" id="Unexpected-results" class="autoheader_anchor">
-<h3>8.2. Unexpected results</h3>
+<h3 data-id="Unexpected-results">8.2. Unexpected results</h3>
 </a>
 </div>
 <p>Before reporting a bug please check carefully your Markdown. More often than not mistakes in the Markdown are causing the problem.</p>
 <p>If you cannot work out why it goes wrong report it to me – see the previous topic for how to report a problem.</p>
-<p>This document refers to version 8.1.0 of <strong><em>MarkAPL</em></strong>.</p>
-<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2019-12-17</p>
+<p>This document refers to version 8.1 of <strong><em>MarkAPL</em></strong>.</p>
+<p>Kai Jaeger ⋄ APL Team Ltd ⋄ 2020-01-22</p>
 <div id="footnotes_div">
 <hr>
 <p><strong>Footnotes</strong></p>

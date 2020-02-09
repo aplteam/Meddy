@@ -1,4 +1,7 @@
  History
+⍝ * 2.9.2
+⍝   * Toc-related parameters that were not in line with actual header could crash MarkAPL and
+⍝     therefore also Meddy. MarkAPL 8.1.2 addresses the problem.
 ⍝ * 2.9.1
 ⍝   * Under certain circumstances Meddy crashed when it tried to ask the user whether an
 ⍝     HTML version of the markdown should be saved as well.
