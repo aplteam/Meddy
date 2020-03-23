@@ -10,7 +10,7 @@
      :EndIf
      :If header≢caption
          2 RefreshPreview n
-         (header row)←n.Toc.∆Toc[ind;0 3]
+         (header row)←n.Toc.∆Toc[ind;1 3]
      :EndIf
      length←1+≢(row-1)⊃n.Markdown.Text
      n.Markdown.SelText←buff←((row),0)((row),length)

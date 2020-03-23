@@ -14,6 +14,6 @@
          :Else
              row←1+bool⍳1
          :EndIf
-         n←row ShowToc n
      :EndIf
+     n←row ShowToc n
  :EndIf
