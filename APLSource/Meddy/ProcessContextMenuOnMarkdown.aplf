@@ -15,6 +15,12 @@
          InjectMarkdownExpression n
      :Case contextMenu.SplitAt50
          n.Splitter2.Posn[1]←⌈n.LeftAndRight.Size[1]÷2
+     :Case contextMenu.copyID
+         CopyID n
+     :Case contextMenu.Sync
+         SyncTocAndPreviewWithCursorInMarkdown n
+     :Case contextMenu.MoveFocus2TOC
+         ⎕NQ n.Toc'GotFocus'
      :Else
          :If menuItem∊contextMenu.(cut copy paste)
              contextMenu SendKeystroke n menuItem

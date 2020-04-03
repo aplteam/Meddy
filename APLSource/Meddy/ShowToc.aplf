@@ -1,9 +1,10 @@
  n←{row}ShowToc n;toc;depth;diff;invalid;states;allStates;was;now
  row←n.Toc{0<⎕NC ⍵:⍎⍵ ⋄ 0}'row'
- :If 0=≢toc←⊃n.HTML.∆ns.toc
+ toc←⊃n.HTML.∆ns.toc
+ n.Toc.Visible←0
+ :If 0=≢toc
      n.Toc.Items←''
      n.Toc.SelItems←⍬
-     n.Toc.Visible←0
      n.Toc.Depth←⍬
      n.Toc.∆Toc←0 4⍴⍬
  :Else
@@ -20,13 +21,20 @@
      n.Toc.RealDepth←toc[;0]        ⍝ In case the user has built an invalid structure of headers we need to remember his definition
      toc[;0]←toc[;0]-(↑toc[;0])-1
      n.TocSF.(Active Visible)←1
-     :If 0=≢allStates
-         {}{2 ⎕NQ n.Toc'Expanding'⍵}¨A.Where n.Toc.Depth∊0 1
-     :ElseIf ~0=≢was←↓(5⊃¨allStates)⌿was
-         now←↓n.Toc.(Depth,[0.5]Items)
-     :AndIf ~0=≢was←(was∊now)/was
-         n ExpandThese now⍳was
+
+     ⍝⍝⍝⍝ Policy change: we now show the full TOC all the time  ⍝TODO⍝
+     :If 1
+         {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍳≢n.Toc.Depth   ⍝ A.Where n.Toc.Depth∊0 1
+     :Else
+         :If 0=≢allStates
+             {}{2 ⎕NQ n.Toc'Expanding'⍵}¨A.Where n.Toc.Depth∊0 1
+         :ElseIf ~0=≢was←↓(5⊃¨allStates)⌿was
+             now←↓n.Toc.(Depth,[0.5]Items)
+         :AndIf ~0=≢was←(was∊now)/was
+             n ExpandThese now⍳was
+         :EndIf
      :EndIf
+
      toc[;1]←(,¨'“”')⎕R(,¨'""')⊣toc[;1]
      n.Toc.∆Toc←toc
      :If 0≠≢invalid←A.Where 0,2{(⍺+1)≥⍵:0 ⋄ 1}/toc[;0]
@@ -38,7 +46,7 @@
          {}n.Toc SetState¨invalid,¨⊂¨states
      :EndIf
      n.Toc.SelItems[row⌊¯1+≢n.Toc.SelItems]←1
-     n.Toc.Visible←1
  :EndIf
+ n.Toc.Visible←1
  SyncWithTocAndPreview n
 ⍝Done

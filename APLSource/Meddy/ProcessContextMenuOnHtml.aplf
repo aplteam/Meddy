@@ -2,7 +2,7 @@
  r←⍬
  contextMenu←CreateContextMenuOnHTML n
  res←''DQ contextMenu
- :If ~0=≢res
+ :If 0≠≢res
      :Select ↑res
      :Case contextMenu.CopyAll
          :If ≡/n.HTML.SelText
@@ -17,5 +17,9 @@
      :Case contextMenu.SaveAs
          WarnAboutCSS n
          'ASK'SaveMarkdownAsHTML n
+     :Case contextMenu.Search
+         SearchInHTML n
+     :Else
+         ∘∘∘ ⍝ Huuh?!
      :EndSelect
  :EndIf

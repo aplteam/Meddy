@@ -10,10 +10,12 @@
      :If 0<≢toc←↓n.Toc.∆Toc
      :AndIf ({⍵[0 2]}¨toc)≢{⍵[0 2]}¨n.HTML.∆ns.toc
          :If 0=+/bool←~toc∊n.HTML.∆ns.toc
-             row←1+n.Toc.SelItems⍳1
+             row←n.Toc.SelItems⍳1
          :Else
-             row←1+bool⍳1
+             row←bool⍳1
          :EndIf
+     :Else
+         row←n.Toc.SelItems⍳1
      :EndIf
      n←row ShowToc n
  :EndIf

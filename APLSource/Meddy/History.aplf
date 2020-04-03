@@ -1,6 +1,9 @@
  History
-⍝ * 2.9.4
-⍝   * #22 fixed.
+⍝ * 2.10.0
+⍝   * The markdown context menu now offers a command "Copy ID".
+⍝   * The "View" menu and the markdown context menu now offer a command "Sync".
+⍝   * Bug fixes:
+⍝     * #22 fixed.
 ⍝ * 2.9.3
 ⍝   * Bug fix: a header with multiple spaces caused a mutilated document when header numbering was on.
 ⍝     This is a MarkAPL bug which is fixed by incoirporating the new version of MarkAPL.

@@ -1,4 +1,4 @@
-/* Print CSS version 1.3 from 2017-12-23 */
+/* Print CSS version 1.4 from 2030-03-23 */
 
 @page {
     margin: 25mm 20mm 25mm 20mm;
@@ -72,7 +72,7 @@ li {
     margin-bottom: 5pt;
 }
 ul > li {
-    margin-left: 10pt;
+    margin-left: 25pt;
 }
 li ul {
     margin-left: 5pt;
@@ -91,6 +91,12 @@ p, ul, ol {
     margin: 0;
     color: black;
 }
+ul, ol {
+    margin-top: 0.5em;
+}
+ol > li {
+    margin-left: 25pt;
+}
 pre {
     padding: 3pt;
     margin: 5pt 0;
@@ -101,7 +107,6 @@ pre {
     font-family: APLFont, monospace;
     page-break-inside: avoid;
     break-inside:  avoid;
-    -webkit-print-color-adjust: exact;
 }
 pre code {
      background-color: #FBFBFB;
@@ -133,12 +138,21 @@ th, td {
     padding: 1pt 5pt;
 }
 
+table td + td { border-left:1px solid gray; }
+table th + th { border-left:1px solid gray; }
+
+table code {
+    font-style: normal;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 table {
-    margin: 10pt 0;
+    margin: 1.5em 0;
     font-family: APLFont;
     padding: 0;
     border: 1pt solid silver;
-    -webkit-print-color-adjust: exact;
+    border-collapse: collapse;
 }
 
 li > table {
@@ -315,7 +329,7 @@ div.leanpub_A h5, div.leanpub_A h5 {
     margin: 0;
 }
 div.leanpub img {
-    padding: 0;   
+    padding: 0;
     margin: 0 10pt 2pt 0;    
 }
 div.leanpub_A > p:first-child {

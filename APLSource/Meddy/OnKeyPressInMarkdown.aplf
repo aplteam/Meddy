@@ -4,7 +4,10 @@
  hasFocus←2 ⎕NQ #'GetFocusObj'
  :If 3<≢msg
      :If 9 1≡msg[4 5]               ⍝ Shift+Tab?!
-         2 ⎕NQ n.Toc'GotFocus'
+         n.Markdown.SelText←2⍴n.Markdown.SelText[1]
+         ⍝{}1 ⎕NQ n.Toc'ItemUp'(n.Toc.SelItems⍳1)0 0 8
+         0 ScrollToInMarkdown n(n.Toc.SelItems⍳1)
+         {}⎕NQ n.Toc'GotFocus'
          n.(Row Col).Text←⊂''
          r←0
          :Return

@@ -1,4 +1,4 @@
-/* MarkAPL's default scree CSS version 2.6 from 2019-01-23 */
+/* MarkAPL's default scree CSS version 2.7 from 2020-03-23 */
 
 /* Note that there are some variables embedded as comments which will be replaced
    by MarkAPL. The names are embraced by "<<", so for a variable "foo" it is
@@ -557,8 +557,11 @@ li {
     margin-left: 1.38em;
     margin-bottom: 0.55em;
 }
-ul > li {    
-    margin-left: 1.11em;
+ul > li {
+    margin-left: 2.5em;
+}
+ol > li {
+    margin-left: 2.5em;
 }
 li ul {
     margin-left: 0.55em;
@@ -571,9 +574,14 @@ li p {
     margin: 0.55em 0 0.27em 0;
     line-height: 1.3;
 }
-p, ul, ol {
+ul, ol {
     line-height: 1.3;
-    padding: 0.44em 0 0 0;
+    padding: 0.33em 0 0 0;
+    margin: 0.5em;
+}
+p {
+    line-height: 1.2;
+    padding: 0.40em 0 0 0;
     margin: 0;
 }
 pre {
@@ -598,6 +606,9 @@ pre > code {
     font-weight: inherit;
     white-space: pre-wrap;
 }
+td code {
+    padding: 0;
+}
 a code {
     padding: 0;
     font-size: 1em;
@@ -609,7 +620,6 @@ nav code {
 }
 code {
     font-family: APLFont, monospace;
-    background-color: #e7e7e7;
     color: Black;
     font-weight: 800;
     line-height: 1.2;
@@ -631,9 +641,12 @@ th, td {
     padding: 0.16em 0.55em;
 }
 
+table td + td { border-left:1px solid gray; }
+table th + th { border-left:1px solid gray; }
+
 table {
     border-color: Black;
-    margin: 1.11em 0 1.11em 0;
+    margin: 1.5em 0;
     border: 2px black;
     border-collapse: collapse;
     font-family: APLFont;

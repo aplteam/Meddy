@@ -15,5 +15,9 @@
          CopyCaption n
      :Case cm.FindInToc
          FindInTOC.Run n
+     :Case cm.MoveFocus2Markdown
+         ⍝ Nothing to do, is automatically handled
+     :Else
+         ∘∘∘ ⍝ Huh?!
      :EndSelect
  :EndIf

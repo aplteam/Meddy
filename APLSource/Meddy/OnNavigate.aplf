@@ -3,7 +3,7 @@
  rf←↑msg
  doc←rf.Document
  body←doc.body
- :If ~0=≢html←{11::'' ⋄ ⍵ ⍵.innerHTML}body
+ :If 0≠≢html←{11::'' ⋄ ⍵.innerHTML}body
      n←GetRef2n(GetRef2n rf).∆container.##
  :AndIf 0<n.Toc.⎕NC'∆Toc'                       ⍝ At a very early stage ∆Toc might not exist
      :If 0=≢caption←{⍵↓⍨1+⍵⍳'#'}{⍵↑⍨-{⍵⍳'/'}⌽⍵}2⊃msg

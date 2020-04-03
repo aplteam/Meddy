@@ -1,4 +1,4 @@
- m←CreateContextMenuOnMarkdown n;∆
+ m←CreateContextMenuOnMarkdown n;∆;f
  m←⎕NEW,⊂'Menu'
 
  ∆←''
@@ -11,9 +11,19 @@
  ∆←''
  ∆,←⊂'Caption'('Copy',TAB,'Ctrl+C')
  ∆,←⊂'Accelerator'(67 2)
- ∆,←⊂'Active'({0=≢∊⍵.Markdown.Text:0 ⋄ ≢/n.Markdown.SelText}n)
+ f←{0=≢∊⍵.Markdown.Text:0 ⋄ =/0⊃¨n.Markdown.SelText}n
+ ∆,←⊂'Active'f
  m.copy←m.⎕NEW'MenuItem'∆
  m.copy.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Copy ID')
+ f←{0=≢∊⍵.Markdown.Text:1 ⋄ =/0⊃¨n.Markdown.SelText}n
+ f∧←{≡/⍵}↑¨n.Markdown.SelText
+ f∧←{0=≢n.HTML.∆ns.toc:1 ⋄ (0 0⊃n.Markdown.SelText)∊(⊃⍵)[;3]}n.HTML.∆ns.toc
+ ∆,←⊂'Active'f
+ m.copyID←m.⎕NEW'MenuItem'∆
+ m.copyID.onSelect←1
 
  ∆←''
  ∆,←⊂'Caption'('Paste',TAB,'Ctrl+V')
@@ -26,9 +36,20 @@
 
  ∆←''
  ∆,←⊂'Caption'('Split at 50%',TAB,'F2')
- ∆,←⊂'Active'(~0=≢∊n.Markdown.Text)
+ ∆,←⊂'Active'(0≠≢∊n.Markdown.Text)
  m.SplitAt50←m.⎕NEW'MenuItem'∆
  m.SplitAt50.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Sync',TAB,'F4')
+ ∆,←⊂'Active'(0≠≢∊n.Markdown.Text)
+ m.Sync←m.⎕NEW'MenuItem'∆
+ m.Sync.onSelect←1
+
+ ∆←''
+ ∆,←⊂'Caption'('Move focus to TOC',TAB,'Shift+Tab')
+ m.MoveFocus2TOC←m.⎕NEW'MenuItem'∆
+ m.MoveFocus2TOC.onSelect←1
 
  m.Sep20←m.⎕NEW⊂'Separator'
 

@@ -33,6 +33,7 @@
  ~Go to line number...=Ctrl+G      : OnMenuCommand     {goto}           : Jumps to particular line number the user is prompted for 
  -
  ~Refresh preview=F5               : OnMenuCommand     {refresh}        : Update the preview
+ ~Sync=F4                          : OnMenuCommand     {sync}           : Sync the TOC and the Preview with the cursor position in the Markdown
  -
  ~Jump to previous header=F6       : OnMenuCommand     {prevHeader}     : Jumps to header after cursor pos and syncronises table of contents and preview
  ~Jump to next header=F7           : OnMenuCommand     {nextHeader}     : Jumps to header beforecursor pos and syncronises table of contents and preview

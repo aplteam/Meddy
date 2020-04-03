@@ -1,0 +1,10 @@
+ {r}←SyncTocAndPreviewWithCursorInMarkdown n;row;ind
+⍝
+ r←⍬
+ row←↑↑n.Markdown.SelText
+ ind←1⌈¯1++/row≥3⊃¨n.HTML.∆ns.toc
+ n.Toc.SelItems[]←0
+ n.Toc.SelItems[ind]←1
+ {}2 ⎕NQ n.Toc'ItemUp'ind 0 0 8
+ ScrollToInPreview n ind
+⍝Done

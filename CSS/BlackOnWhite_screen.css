@@ -1,4 +1,4 @@
-/* MarkAPL's default screen CSS version 2.5 from 2018-10-17 */
+/* MarkAPL's default screen CSS version 2.6 from 2020-03-23 */
 
 /* Note that there are some variables embedded as comments which will be replaced
    by MarkAPL. The names are embraced by "<<", so for a variable "foo" it is
@@ -462,12 +462,12 @@ template {
 body  {
     margin: 0;
     font-family: Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, Sans-serif;
-    background-color: #fdfdfd;
+    background-color: #FDFDFD;
     font-size: 18px;
     line-height: 1.4;
     max-width: 900px; /* <<maxwidth>> */
     padding: 0.83em;
-    color: #505050;
+    color: #171717;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -530,9 +530,14 @@ a.autoheader_anchor {
 ul {
     list-style-type: disc;
 }
-p, ul, ol {
-    line-height: 1.4;
-    padding: .55em 0 0 0;
+p {
+    line-height: 1.3;
+    padding: .40em 0 0 0;
+    margin: 0;
+}
+ul, ol {
+    line-height: 1.5;
+    padding: .33em 0 0 0;
     margin: 0;
 }
 dd {
@@ -542,7 +547,6 @@ p.first_dd {
     padding-top: 0.25em;
 }
 ul, ol {
-    padding: 0;
     margin: 0.83em 0.83em 0.55em 1.11em;
 }
 li > ul, ol {
@@ -586,8 +590,12 @@ pre > code {
     margin: 0;
     background-color: inherit;
     color: inherit;
+    font-weight: inherit;
     white-space: pre-wrap;
 }
+td code {
+    padding: 0;
+}li
 a code {
     padding: 0;
     font-size: 1em;
@@ -601,6 +609,7 @@ nav code {
     background-color: inherit;
     font-weight: 400;
     font-size: 0.77rem;
+    color: inherit;
 }
 
 code {
@@ -608,10 +617,10 @@ code {
     background-color: #e7e7e7;
     color: Black;
     font-weight: 400;
-    line-height: 1.2;
-    font-size: 0.88em;
+    line-height: 1.1;
+    font-size: 1em;
     margin: 0;
-    padding: 0.16em 0.44em 0.16em 0.44em;
+    padding: 0.10em 0.10em 0.10em 0.10em;
 }
 
 div.leanpub table p > code {
@@ -623,7 +632,7 @@ tbody th, tfoot tr {
 }
 
 tbody tr:nth-child(even) {
-    background-color: #DEDEDE;
+    background-color: #EBEBEB;
 }
 
 th {
@@ -641,9 +650,20 @@ th > code {
     background-color: Black;
 }
 
+td > code {
+    background-color: transparent;
+}
+
+td > a > code {
+    background-color: transparent;
+}
+
+table td + td { border-left:1px solid Black; }
+table th + th { border-left:1px solid Black; }
+
 table {
     border-color: Black;
-    margin: 1.11em 0 1.11em 0;
+    margin: 1.5em 0 1.5em 0;
     border: 2px black;
     border-collapse: collapse;
     font-family: APLFont;

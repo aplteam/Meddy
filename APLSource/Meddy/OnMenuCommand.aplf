@@ -83,6 +83,8 @@
      FindInTOC.Run n
  :Case n.∆Menubar.meddyOnGitHub
      VisitMeddyOnGitHub n
+ :Case n.∆Menubar.sync
+     SyncTocAndPreviewWithCursorInMarkdown n
  :Else
      :If menuItem∊n.∆Menubar.(cut copy paste)
          SendKeystroke n menuItem

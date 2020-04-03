@@ -1,0 +1,12 @@
+ {r}←SearchInHTML n;parms;searchFor;html;btn
+ r←0
+ parms←G.Request.CreateParmsForString
+ parms.addToCaption←'Search in HTML'
+ parms.length←30
+ parms.maxLength←60
+ (btn searchFor)←n.∆globalParms parms G.Request.AskForString'Search for:'
+ :If btn
+     html←1↓↑,/(⎕UCS 13),¨n.HTML.Text
+     G.Dialogs.ShowMsg'Sorry, not reay yet!'   ⍝TODO⍝
+ :EndIf
+⍝Done

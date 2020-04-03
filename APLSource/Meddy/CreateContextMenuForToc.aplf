@@ -2,8 +2,12 @@
  n2←⎕NS''
  n2.∆menu←⎕NEW⊂'Menu'
 
- n2.ExpandAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Expand first three levels'))
- n2.RetractAllAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Retract all'))
+ :If 0   ⍝ We do not do this anymore: we keep the TOC open all the time
+     n2.ExpandAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Expand first three levels'))
+     n2.RetractAllAll←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption' 'Retract all'))
+ :EndIf
+
+ n2.MoveFocus2Markdown←n2.∆menu.⎕NEW'MenuItem'(⊂('Caption'('Move focus to Markdown',TAB,'Tab')))
  n2.Sep5←n2.∆menu.⎕NEW⊂'Separator'
  n2.Cut←n2.∆menu.⎕NEW'MenuItem'(('Caption' 'Cut Markdown...')('Active'(0<+/n.Toc.SelItems)))
  n2.Copy←n2.∆menu.⎕NEW'MenuItem'(('Caption' 'Copy Markdown...')('Active'(0<+/n.Toc.SelItems)))
