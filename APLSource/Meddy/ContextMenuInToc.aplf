@@ -5,8 +5,6 @@
      :Select ↑res
      :Case cm.ExpandAll
          ExpandAll n
-     :Case cm.RetractAllAll
-         RetractAll n
      :Case cm.Cut
          CutFromTree n
      :Case cm.Copy

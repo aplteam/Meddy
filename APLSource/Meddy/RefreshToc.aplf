@@ -13,9 +13,12 @@
              row←n.Toc.SelItems⍳1
          :Else
              row←bool⍳1
+             n←row ShowToc n
          :EndIf
      :Else
-         row←n.Toc.SelItems⍳1
+         :If 0  ⍝ This is not required, or is it?!   ⍝TODO⍝
+             row←n.Toc.SelItems⍳1
+             n←row ShowToc n
+         :EndIf
      :EndIf
-     n←row ShowToc n
  :EndIf

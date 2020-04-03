@@ -1,6 +1,11 @@
- r←OnHeaderSelected msg;n
- r←1
- :If 16≠↑(5↓msg),0              ⍝ Ignore clicks on the "+"
+ r←OnHeaderSelected msg;n;pos;plus;label;left;whitespace
+⍝ Handle "ItemUp" events:
+⍝ Scroll to the item clicked at only in case the user clicked the label as such
+ r←100
+ plus←16 ⋄ label←4 ⋄ left←8 ⋄ whitespace←32
+ pos←↑(5↓msg),0
+ :If label=pos              ⍝ Scrolling only for click on th label as such
      n←GetRef2n↑msg
      n ScrollToHeader 2⊃msg
  :EndIf
+⍝Done
