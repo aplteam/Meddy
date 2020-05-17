@@ -4,12 +4,22 @@
  :If 0≠≢filename
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0=≢⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
      :If F.IsFile filename
-     :AndIf 0=n AlreadyExistsSaveAnyway filename
-         :Return
+         :If 0=n AlreadyExistsSaveAnyway filename
+             :Return
+         :Else
+             :If OpenFile__ n filename #.CursorObj
+                 :Return
+             :EndIf
+         :EndIf
+     :Else
+         ⎕NUNTIE filename ⎕NCREATE 0
+         :If OpenFile__ n filename #.CursorObj
+             :Return
+         :EndIf
      :EndIf
      n.∆IgnoreConfigFile←1
      UpdateFilename n filename
-     rc←SaveText n.∆Filename(n.Markdown.Text)
+     rc←SaveText n.∆TIE_NO(n.Markdown.Text)
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
      n.∆parms.saveHtml←DoYouWantToSaveHtml n
      n.∆parms.firstFlag←0

@@ -1,0 +1,3 @@
+ OnInitialFind n
+ n.Btn_01.Active←0
+ AdjustFindFormSize n

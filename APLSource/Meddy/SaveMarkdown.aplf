@@ -4,7 +4,7 @@
      SaveMarkdownAs n
      saveHTML←n.∆parms.saveHtml
  :Else
-     SaveText n.∆Filename n.Markdown.Text
+     SaveText n.∆TIE_NO n.Markdown.Text
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
      RefreshPreview n
      embeddedParms←↑GetEmbeddedParms n.Markdown.Text

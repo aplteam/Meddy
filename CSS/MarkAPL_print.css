@@ -138,6 +138,8 @@ th {
 
 th, td {
     padding: 1pt 5pt;
+    border:1px solid #E3E3E3;
+    vertical-align: top;
 }
 
 table td + td { border-left:1px solid gray; }

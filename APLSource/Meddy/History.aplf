@@ -1,10 +1,12 @@
  History
 ⍝ * 2.10.0
-⍝   * The markdown context menu now offers a command "Copy ID".
+⍝   * "Find" improved (#36).
+⍝   * The markdown context menu now offers a command "Copy ID" (#25).
 ⍝   * The "View" menu and the markdown context menu now offer a command "Sync".
 ⍝   * Handling of the TOC improved including some changes to the context menu.
+⍝   * Files are tied exclusively for the course of the session, preventing accidental double-editing
 ⍝   * Bug fixes:
-⍝     * #22, #24, #27 fixed.
+⍝     * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
 ⍝ * 2.9.3
 ⍝   * Bug fix: a header with multiple spaces caused a mutilated document when header numbering was on.
 ⍝     This is a MarkAPL bug which is fixed by incoirporating the new version of MarkAPL.

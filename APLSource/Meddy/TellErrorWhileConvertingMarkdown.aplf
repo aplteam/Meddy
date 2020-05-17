@@ -1,0 +1,11 @@
+ TellErrorWhileConvertingMarkdown←{
+     n←⍺
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.parent←n.∆Form
+     parms.style←G.Enums.DialogStyles.Error
+     parms.addToCaption←'Error while converting Markdown'
+     msg←⍵
+     #.CursorObj←0
+     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     ⍬
+ }

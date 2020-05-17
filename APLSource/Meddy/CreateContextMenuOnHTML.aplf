@@ -19,11 +19,11 @@
  ∆,←⊂'Accelerator'(123 0)
  m.SaveAs←m.⎕NEW'MenuItem'∆
 
- m.Sep4←m.⎕NEW,⊂'Separator'
+⍝ m.Sep4←m.⎕NEW,⊂'Separator'
 
- ∆←''
- ∆,←⊂'Caption'('Search...')
- m.Search←m.⎕NEW'MenuItem'∆
+⍝ ∆←''
+⍝ ∆,←⊂'Caption'('Search...')
+⍝ m.Search←m.⎕NEW'MenuItem'∆
 
- m.(CopyAll Save SaveAs Search).onSelect←1
+ m.(CopyAll Save SaveAs).onSelect←1
  ⍝Done

@@ -24,8 +24,8 @@
  n.∆parms.firstFlag←0
  1 ⎕NQ n.∆Menubar.save'Select'
  →T.GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
- ##.FilesAndDirs.RmDir folder
  1 ⎕NQ n.∆Menubar.quit'Select'
+ Assert 0=↑##.FilesAndDirs.RmDir folder
 
  targetFolder←##.FilesAndDirs.GetTempSubDir''
  folder←('outputpath=''',targetFolder,'''')CreateFolderAndMarkdownFile msg

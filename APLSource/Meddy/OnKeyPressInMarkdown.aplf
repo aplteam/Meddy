@@ -1,4 +1,4 @@
- {r}←n OnKeyPressInMarkdown msg;hasFocus;row;key
+ {r}←n OnKeyPressInMarkdown msg;hasFocus;row;key;cl
  r←1
  key←,2⊃msg
  hasFocus←2 ⎕NQ #'GetFocusObj'
@@ -19,6 +19,11 @@
          :Select key
          :Case 'HT'
              HandleTabKey ⍬
+         :Case 'CP'
+             :If n.HTML≡hasFocus
+                 cl←⎕NEW⊂'Clipboard'
+                 cl.Text←n.HTML.Text
+             :EndIf
          :EndSelect
      :ElseIf 0=≢key
          r←4=msg[5]  ⍝ "Alt" key?!

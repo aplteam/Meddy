@@ -1,0 +1,13 @@
+ TellMarkdownNeedsSaving←{
+     n←⍵
+     ⍺←'Message'
+     caption←⍺
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.parent←n.∆Form
+     parms.style←G.Enums.DialogStyles.Info
+     parms.addToCaption←caption
+     msg←'The Markdown has changed: please save first.'
+     #.CursorObj←0
+     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     1:shy←⍬
+ }

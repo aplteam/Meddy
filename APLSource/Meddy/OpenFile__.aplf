@@ -1,8 +1,12 @@
  rc←OpenFile__(n filename cursorWas);parms;msg
  rc←0
  :Trap 0
-     n.Markdown.Text←A.ReadUtf8File filename
-     n.Markdown.Text←'\t'⎕R'    '⊣n.Markdown.Text  ⍝ Tabs ==> 4 spaces
+     :If ⍬≢n.∆TIE_NO←TieFile filename
+         n.Markdown.Text←A.ReadUtf8File n.∆TIE_NO
+         n.Markdown.Text←'\t'⎕R'    '⊣n.Markdown.Text  ⍝ Tabs ==> 4 spaces
+     :Else
+         rc←1
+     :EndIf
  :Else
      parms←G.Dialogs.CreateParmsForShowMsg
      parms.style←G.Enums.DialogStyles.Error

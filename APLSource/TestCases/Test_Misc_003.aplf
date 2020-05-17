@@ -11,7 +11,7 @@
  buff←'|'{(⍺≠⍵)⊆⍵}row⊃md
  →T.PassesIf 2=≢buff
  date←##.APLTreeUtils.dmb 1⊃buff
- →T.PassesIf date≡2⊃##.Meddy.Version
+ →T.PassesIf date≡{⍵/⍨3>+\'-'=⍵}2⊃##.Meddy.Version
 
  row←⍸∨/¨'|Version|'∘⍷¨md~¨' '
  →T.PassesIf 1=≢row

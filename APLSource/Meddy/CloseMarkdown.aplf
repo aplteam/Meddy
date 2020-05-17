@@ -25,4 +25,6 @@
      n.Markdown.⎕EX'∆LastSavedVersion'
      1{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
      '↑'n.∆CommitUndoRedo 0  ⍝ Clear
+     ⎕NUNTIE n.∆TIE_NO
+     n.∆TIE_NO←⍬
  :EndIf

@@ -34,13 +34,8 @@
      SaveMarkdownAsHTML n
  :Case n.∆Menubar.exportAs
      'ask'SaveMarkdownAsHTML n
- :Case n.∆Menubar.previousHit
-     ShowPreviousHit n
- :Case n.∆Menubar.nextHit
-     ShowNextHit n
  :Case n.∆Menubar.find
      FindInMarkdown n
-     ⎕NQ n.Markdown'GotFocus'
  :Case n.∆Menubar.preferences
      Preferences n
  :Case n.∆Menubar.undo

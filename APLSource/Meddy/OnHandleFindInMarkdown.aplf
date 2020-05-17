@@ -1,7 +1,7 @@
  r←OnHandleFindInMarkdown n2;searchFor;direction
 ⍝ Called by the "Find" dialog in case the user presses "Find"'
- r←1
- :If ~0=≢searchFor←n2.Search_for.Text
+ r←0
+ :If 0≠≢searchFor←n2.Search_for.Text
      n.∆Find.SearchFor←searchFor
      n.∆Find.Case←n2.Case_sensitive.State
      n.∆Find.IsRegEx←n2.Regular_expression.State
@@ -9,7 +9,11 @@
      n.∆Find.IgnoreCodeBlocks←n2.IgnoreCodeBlock.State
      direction←0 1≡n2.(Direction_00 Direction_01).State
      :If n2 FindInMarkdown_ n direction
-         n.∆Menubar.previousHit.Active←1
+     :AndIf 'Meddy: Find in Markdown'≡n2.∆Form.Caption
+         :If 0<≢n.∆Find.Hits
+             n2.Btn_00.Caption←'&Next'
+         :EndIf
+         n2.Btn_01.Active←1
      :Else
          ⍝ No hit!
      :EndIf

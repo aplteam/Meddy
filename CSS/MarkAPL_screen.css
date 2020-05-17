@@ -639,6 +639,7 @@ th {
 
 th, td {
     padding: 0.16em 0.55em;
+    vertical-align: top;
 }
 
 table td + td { border-left:1px solid gray; }

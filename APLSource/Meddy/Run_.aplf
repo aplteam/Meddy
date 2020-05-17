@@ -17,6 +17,7 @@
  ⎕TRAP←(n.∆INI.Get'Config:trap')SetTrap ⍬
  AllowRide n
  n←testFlag CreateGui n
+ n.∆TIE_NO←⍬
  GetMarkAPLScriptIntoWS n
  flag←HandleCommandLineParms n
  savePathInReg←HandlePath flag n

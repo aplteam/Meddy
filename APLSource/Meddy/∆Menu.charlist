@@ -46,12 +46,8 @@
  
 [Search]
  ~Find in Markdown...=Ctrl+F       : OnMenuCommand     {find}           : Find string in the markdown 
- ~Previous hit=F2                  : OnMenuCommand     {previousHit}    : Show next hit (up)
- ~Next hit=F3                      : OnMenuCommand     {nextHit}        : Show next hit (down)
- ~Find and replace=Ctrl+R          : OnMenuCommand     {replace}        : Find and replace string in the markdown
- - 
  ~Find in TOC...=Ctrl+Shift+F      : OnMenuCommand     {findInTOC}      : Find string in the table of contents
- 
+ ~Find and replace=Ctrl+R          : OnMenuCommand     {replace}        : Find and replace string in the markdown
 [Settings]                                             {settings}
  Preferences...=F12                : OnMenuCommand     {preferences}    ; Set your preferences
 

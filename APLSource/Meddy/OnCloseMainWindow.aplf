@@ -1,6 +1,7 @@
  flag←OnCloseMainWindow n;what;q
  flag←~CheckForChanges n
  {}SaveFontSize⍣flag⊣n
+ ⎕NUNTIE n.∆TIE_NO
  UnloadWebBrowserControl ⍬
  {}{0::⍬ ⋄ 2 ⎕NQ ⍵'Close'}⍣(n.∆SpecialCharsForm≢⍬)⊣n.∆SpecialCharsForm
  F.DeleteFile n.IE.IEobject.∆Filename

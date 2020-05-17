@@ -1,0 +1,14 @@
+ {r}←OnHelpInFind n2;n;direction
+ r←⍬
+ n←GetRef2n n2.∆Form.##
+ direction←0 1≡n2.(Direction_00 Direction_01).State
+ :If n2 FindInMarkdown_ n direction
+ :AndIf 'Meddy: Find in Markdown'≡n2.∆Form.Caption
+     :If 0<≢n.∆Find.Hits
+         n2.Btn_00.Caption←'Next'
+     :EndIf
+     n2.Btn_01.Active←1
+ :Else
+         ⍝ No hit!
+ :EndIf
+⍝Done

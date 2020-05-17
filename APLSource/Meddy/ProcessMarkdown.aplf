@@ -1,4 +1,4 @@
- {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay;E
+ {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay;E;qdmx
  success←1
  newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
  markdown←n.Markdown.Text
@@ -16,7 +16,13 @@
          :Else
              parms.cssURL←''
          :EndIf
-         (html ns)←parms ##.MarkAPL.Markdown2HTML⊆markdown
+         :Trap 0
+             (html ns)←parms ##.MarkAPL.Markdown2HTML⊆markdown
+         :Else
+             qdmx←⎕DMX
+             n TellErrorWhileConvertingMarkdown qdmx.EM
+             :Return
+         :EndTrap
          n.HTML.∆HTML←html
          n.HTML.∆ns←ns
          n.HideCSS.State ProcessHTML n

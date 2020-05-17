@@ -1,23 +1,33 @@
  {r}←FindInMarkdown n;parms;ref;def;result;DT;searchFor;bool;regExMetaChars;hits;hasFocus
  r←⍬
  hasFocus←2 ⎕NQ #'GetFocusObj'
- :If n.HTML≡hasFocus
-     n.HTML.SelText←2⍴⊂↑n.HTML.SelText  ⍝ Any selected text gets deselected if the current focus is on the "HTML" tab
+
+⍝TODO⍝ Check these function which were invoked via the main menu previosuly
+⍝       ShowPreviousHit n
+⍝       ShowNextHit n
+⍝TODO⍝
+
+ :If n.Markdown≡hasFocus
+     parms←G.Input.CreateParms
+     parms.addToCaption←'Find in Markdown'
+     parms.onInitial←'OnInitialFind'
+     parms.onOkay←'OnHandleFindInMarkdown'
+     parms.okBtnCaption←'&Find'
+     parms.parent←n.∆Form
+     parms.selTextStyle←G.Enums.SelTextStyles.Restore
+     parms.hasStatusbar←1
+     parms.helpBtnCaption←'&Previous hit'
+     parms.onHelp←'OnHelpInFind'
+     DT←G.Enums.InputDataTypes
+     def←0 7⍴⍬
+     def⍪←'&Search_for' ''n.∆Find.SearchFor DT.Character(40 200)1 1
+     def⍪←'Regular_&expression' ''n.∆Find.IsRegEx DT.YesNo ⍬ 1 1
+     def⍪←'&Case_sensitive' ''n.∆Find.Case DT.YesNo ⍬ 1 1
+     def⍪←'IgnoreInlineCode' 'Ignore &inline code'n.∆Find.IgnoreInlineCode DT.YesNo ⍬ 1 1
+     def⍪←'IgnoreCodeBlock' 'Ignore code &blocks'n.∆Find.IgnoreCodeBlocks DT.YesNo ⍬ 1 1
+     def⍪←'Direction' 'Direction⋄&Up⋄&Down'(0 1)DT.Radio ⍬ 1 1
+     result←n.∆globalParms parms G.Input.Run def
+ :Else
+     result←⍬
  :EndIf
- parms←G.Input.CreateParms
- parms.addToCaption←'Find in Markdown'
- parms.onInitial←'AdjustFindFormSize'
- parms.onOkay←'OnHandleFindInMarkdown'
- parms.okBtnCaption←'Find'
- parms.parent←n.∆Form
- parms.selTextStyle←G.Enums.SelTextStyles.Restore
- DT←G.Enums.InputDataTypes
- def←0 7⍴⍬
- def⍪←'&Search_for' ''n.∆Find.SearchFor DT.Character(40 200)1 1
- def⍪←'Regular_&expression' ''n.∆Find.IsRegEx DT.YesNo ⍬ 1 1
- def⍪←'&Case_sensitive' ''n.∆Find.Case DT.YesNo ⍬ 1 1
- def⍪←'IgnoreInlineCode' 'Ignore &inline code'n.∆Find.IgnoreInlineCode DT.YesNo ⍬ 1 1
- def⍪←'IgnoreCodeBlock' 'Ignore code &blocks'n.∆Find.IgnoreCodeBlocks DT.YesNo ⍬ 1 1
- def⍪←'Direction' 'Direction⋄&Up⋄&Down'(0 1)DT.Radio ⍬ 1 1
- result←n.∆globalParms parms G.Input.Run def
 ⍝Done

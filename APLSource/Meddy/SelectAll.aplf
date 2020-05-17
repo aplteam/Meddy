@@ -1,5 +1,7 @@
  SelectAll←{
      n←⍵
-     n.Markdown.SelText←(1 1)((1+≢n.Markdown.Text),1+≢↑¯1↑n.Markdown.Text)
+     hasFocus←n.∆Form.GetFocusObj
+     n.HTML≡hasFocus:n.HTML.SelText←{(1 1)((1+≢⍵),1+≢↑¯1↑⍵)}n.HTML.Text
+     n.Markdown≡hasFocus:n.Markdown.SelText←{(1 1)((1+≢⍵),1+≢↑¯1↑⍵)}n.Markdown.Text
      1:r←⍬
  }

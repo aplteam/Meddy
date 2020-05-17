@@ -3,6 +3,7 @@
 ⍝ n=main form; n2=Search form
  success←0
  searchFor←n.∆Find.SearchFor
+ n.∆Find.Hits←''
  :If 0=n.∆Find.IsRegEx
      regExMetaChars←'\^$.|?*+()[{'
      :If 0<+/bool←searchFor∊regExMetaChars
@@ -15,9 +16,11 @@
  :Else
      :If 0=≢∊hits
          n.StatusField1.Text←''
-         n.∆globalParms.alarmColor G.Input.WriteToStatusbar n'Not found'
+         n2.StatusField1.FCol←n.∆globalParms.alarmColor
+         n2.StatusField1.Text←'Not found'
          :If 9=⎕NC'n2'
-             n.∆globalParms.alarmColor G.Input.WriteToStatusbar n2'Not found'
+             n2.StatusField1.FCol←n.∆globalParms.alarmColor
+             n2.StatusField1.Text←'Not found'
          :EndIf
      :Else
          :If direction
@@ -25,7 +28,8 @@
              :If 1∊bool
                  item←bool⍳1
              :Else
-                 n.∆globalParms.alarmColor G.Input.WriteToStatusbar n'No more hits'
+                 n2.StatusField1.FCol←n.∆globalParms.alarmColor
+                 n2.StatusField1.Text←'No more hits'
                  :Return
              :EndIf
          :Else
@@ -33,14 +37,16 @@
              :If 1∊bool
                  item←↑¯1↑⍸bool
              :Else
-                 n.∆globalParms.alarmColor G.Input.WriteToStatusbar n'No more hits'
+                 n2.StatusField1.FCol←n.∆globalParms.alarmColor
+                 n2.StatusField1.Text←'No more hits'
                  :Return
              :EndIf
          :EndIf
          hit←hits[item;]
+         n.∆Find.Hits←hit
          n.Markdown.SelText←MakeSelTextFromHit hit
          SyncWithTocAndPreview n
-         G.Input.WriteToStatusbar n('Hit ',(⍕item+1),' of ',(⍕≢hits))
+         n2.StatusField1.Text←'Hit ',(⍕item+1),' of ',(⍕≢hits)
          success←1
          ⎕NQ n.∆Form 9999 ⍝ Sets Row and Col in statusbar
      :EndIf
