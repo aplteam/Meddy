@@ -7,12 +7,13 @@
          :If 0=n AlreadyExistsSaveAnyway filename
              :Return
          :Else
-             :If OpenFile__ n filename #.CursorObj
-                 :Return
-             :EndIf
+             n.∆TIE_NO←TieFile filename
+             A.WriteUtf8File n.∆TIE_NO n.Markdown.Text
          :EndIf
      :Else
-         ⎕NUNTIE filename ⎕NCREATE 0
+         A.WriteUtf8File filename n.Markdown.Text
+         ⎕NUNTIE n.∆TIE_NO
+         n.∆TIE_NO←⍬
          :If OpenFile__ n filename #.CursorObj
              :Return
          :EndIf

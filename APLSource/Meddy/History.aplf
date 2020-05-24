@@ -1,5 +1,5 @@
  History
-⍝ * 2.10.0
+⍝ * 2.10.0 - 2020-05-24
 ⍝   * "Find" improved (#36).
 ⍝   * The markdown context menu now offers a command "Copy ID" (#25).
 ⍝   * The "View" menu and the markdown context menu now offer a command "Sync".

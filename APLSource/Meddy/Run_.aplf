@@ -1,6 +1,7 @@
  (n savePathInReg)←{testFlag}Run_(filename iniFile);APLVersion;flag;n;⎕IO;⎕ML;minVersion
 ⍝ Sub function called by the main function `Run`. Only used for automated tests.
  ⎕IO←0 ⋄ ⎕ML←3
+ {}2401⌶1 ⍝ Enable exposed root properties
  testFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'testFlag'
  AllowRide_ ⍬
  EnableCONTINUE_workspaces ⍬

@@ -19,7 +19,7 @@
          :If 10>counter←counter+1
              ⎕DL counter×0.02
          :Else
-             ('Could not read file: ',filename)⎕SIGNAL ⎕EN
+             ('Could not open the file: ',filename)⎕SIGNAL ⎕EN
          :EndIf
      :EndTrap
  :Until flag
