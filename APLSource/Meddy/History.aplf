@@ -1,4 +1,6 @@
  History
+⍝ * 2.10.1 - 2020-05-26
+⍝   * "New", when selected while a document is currently open, crashed Meddy.
 ⍝ * 2.10.0 - 2020-05-24
 ⍝   * "Find" improved (#36).
 ⍝   * The markdown context menu now offers a command "Copy ID" (#25).
@@ -7,15 +9,5 @@
 ⍝   * Files are tied exclusively for the course of the session, preventing accidental double-editing
 ⍝   * Bug fixes:
 ⍝     * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
-⍝ * 2.9.3
-⍝   * Bug fix: a header with multiple spaces caused a mutilated document when header numbering was on.
-⍝     This is a MarkAPL bug which is fixed by incoirporating the new version of MarkAPL.
-⍝ * 2.9.2
-⍝   * Toc-related parameters that were not in line with actual header could crash MarkAPL and
-⍝     therefore also Meddy. MarkAPL 8.1.2 addresses the problem.
-⍝ * 2.9.1
-⍝   * Under certain circumstances Meddy crashed when it tried to ask the user whether an
-⍝     HTML version of the markdown should be saved as well.
-⍝   * F5 ("Refresh") did not always update the TOC.
 ⍝\\
 ⍝ For information regarding older version see <https://github.com/aplteam/Meddy/releases>

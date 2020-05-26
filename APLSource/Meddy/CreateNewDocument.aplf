@@ -15,7 +15,7 @@
      :AndIf 0
          cmd,←' -x'
      :EndIf
-     ##.WinSys.ShellExecute cmd
+     ##.OS.WinExecBatch cmd
  :EndIf
  0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
 ⍝Done
