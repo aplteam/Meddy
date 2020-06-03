@@ -13,7 +13,8 @@
          ind←bool⍳1
          n.Toc.SelItems[]←0
          n.Toc.SelItems[ind]←1
-         {}⎕NQ n.Toc'ItemUp'ind 0 0 8
+         {}1 ⎕NQ n.Toc'ItemUp'ind 0 0 4
+         ⍝
      :EndIf
      r←0
  :EndIf

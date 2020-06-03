@@ -319,4 +319,4 @@ Meddy was originally written by Kai Jaeger --- [APL Team Ltd](https://aplteam/gi
 
 | Created     | 2017-10-23 |
 | Version     | 2.10       |
-| Last update | 2020-05-24 |
+| Last update | 2020-06-03 |
