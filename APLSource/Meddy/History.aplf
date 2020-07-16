@@ -1,4 +1,6 @@
  History
+⍝ * 2.10.3 - 2020-07-15
+⍝   * Bug fix: under some circumstances a click on the special characters could crash Meddy.
 ⍝ * 2.10.2 - 2020-06-03
 ⍝   * Toc was not always updated properly (#44).
 ⍝   * Clicking on a title in the Preview does not work (#43).
