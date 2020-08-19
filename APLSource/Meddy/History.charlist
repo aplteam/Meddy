@@ -1,0 +1,15 @@
+* 2.11.0 - 2020-08-19
+  * Policy for warnings has changed: “Show warnings” is not a preference anymore but a document-specific option that after opening always defaults to “true”.\\\\
+    If it is switched off via the menu command “Settings > Show warnings” then the message “There are warnings” is shown in the status bar.
+  * The "Search > Find next (F3)" menu command is back.
+  * Under the hood Meddy now uses 18.0 and Conga 3.3.
+  * Bug fixes:
+    * <Escape> and <Enter> (triggering the default button) did not work in dialogs in 2.10.3.
+
+      This was a Dyalog issue, not a Meddy issue, but it is solved now with the new version of 18.0
+    * A header that resulted in containing tags was shown with the tags in the TOC. Now removed.
+    * Renaming a markdown file did not rename the associated HTML file except when it was moved to a different directory.
+
+For information regarding older version see <https://github.com/aplteam/Meddy/releases>
+
+

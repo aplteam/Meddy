@@ -1,0 +1,23 @@
+ {r}←{askForShowingAgain}ShowWarnings_(n report);parms;msg;was;flag
+ r←⍬
+ askForShowingAgain←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'askForShowingAgain'
+ was←#.CursorObj
+ #.CursorObj←0
+ parms←G.Dialogs.CreateParmsForShowLongMsg
+ parms.addToCaption←'Warnings & error msg'
+ :If askForShowingAgain
+     parms.buttons←'&OK' '&Do not show again'
+     parms.cancelButton←⍬
+ :Else
+     parms.buttons←,⊂'OK'
+ :EndIf
+ msg←'Markdown-to-HTML warnings and error messages'
+ msg←msg((≢msg)⍴'=')
+ msg,←report
+ n.∆Form.CursorObj←0
+ flag←~n.∆globalParms parms G.Dialogs.ShowLongMsg msg
+ #.CursorObj←was
+ :If askForShowingAgain
+     n.∆Menubar.noWarnings.Checked←flag
+ :EndIf
+⍝Done

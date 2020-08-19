@@ -1,0 +1,5 @@
+ {r}←FindNext n
+ r←⍬
+ n FindInMarkdown_ n 1
+ n.∆Menubar.findNext.Active←0<≢n.∆Find.Hits
+⍝Done

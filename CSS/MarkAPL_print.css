@@ -274,7 +274,7 @@ div#footnotes_div {page-break-inside: avoid;}
     font-family: "APLFont";
     src:
     local("APL385 Unicode"),
-    url("http://misc.aplteam.com/apl385.ttf") format("truetype");
+    url("https://misc.aplteam.com/apl385.ttf") format("truetype");
 }
 
 

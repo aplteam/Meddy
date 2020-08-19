@@ -1,12 +1,7 @@
  {r}←CheckForUpdates n;tag;msg;dmx;api;flag;url
  r←⍬
  api←⎕NEW ##.GitHubAPIv3(,⊂'aplteam')
- :Trap 0
-     tag←api.GetLatestTag'Meddy'
- :Else
-     n TellErrorWhileCheckingForBetterVersion↑⎕DMX.DM
-     :Return
- :EndTrap
+ tag←api.GetLatestTag'Meddy'
  flag←api.CheckForUpdate'Meddy'(1⊃Version)
  :If ~flag
      TellMeddyIsUp2Date n

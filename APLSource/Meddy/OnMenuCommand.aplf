@@ -2,7 +2,7 @@
  r←0
  menuItem←↑msg
  n←GetRef2n menuItem
- 0 WriteToStatusbar n''
+ WriteToStatusbar n''
  :Select menuItem
  :Case n.∆Menubar.quit
      ⎕NQ n.∆Form'Close'
@@ -80,6 +80,12 @@
      VisitMeddyOnGitHub n
  :Case n.∆Menubar.sync
      SyncTocAndPreviewWithCursorInMarkdown n
+ :Case n.∆Menubar.findNext
+     FindNext n
+ :Case n.∆Menubar.noWarnings
+     ShowWarnings n
+ :Case n.∆Menubar.relNotes
+     ShowReleaseNotes n
  :Else
      :If menuItem∊n.∆Menubar.(cut copy paste)
          SendKeystroke n menuItem

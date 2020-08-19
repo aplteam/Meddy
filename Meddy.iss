@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.10.3.408"
+#define MyAppVersion "2.11.0.424"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "APL Team Ltd"
@@ -67,15 +67,19 @@ Source: "CSS/PresentAPL_Blue.css"; DestDir: "{app}/CSS";
 Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS"; 
 
 ; The Conga DLLs are needed for "Check for updates" (and potentially a Ride)
-Source: "conga32ssl32.dll"; DestDir: "{app}";
-Source: "conga32_32.dll"; DestDir: "{app}";
+Source: "conga33ssl32.dll"; DestDir: "{app}";
+Source: "conga33_32.dll"; DestDir: "{app}";
 
 ; These files are needed for the "Check for updates" command via .NET:
-Source: "bridge171_unicode.dll"; DestDir: "{app}";
+Source: "bridge180_unicode.dll"; DestDir: "{app}";
 Source: "dyalognet.dll"; DestDir: "{app}"     
+
+;Source: "Dyalog.Net.Bridge.dll"; DestDir: "{app}"          ; Only needed for .NET 
+;Source: "Dyalog.Net.Bridge.Host.dll"; DestDir: "{app}"     ; Only needed for .NET 
 
 Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
 Source: "ReadMe.html"; DestDir: "{app}";
+Source: "ReleaseNotes.html"; DestDir: "{app}";
 Source: "Meddy2.ico"; DestDir: "{app}";
 Source: "app.ini.remove_me"; DestDir: "{app}"; DestName:"app.ini"; Flags: onlyifdoesntexist;
 Source: "specialchars.ini.remove_me"; DestDir: "{app}"; DestName:"specialchars.ini"; Flags: onlyifdoesntexist;
@@ -91,6 +95,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFil
 
 [Run]
 Filename: "{app}\ReadMe.html"; Description: "View the README file"; Flags: postinstall shellexec skipifsilent
+Filename: "{app}\ReleaseNotes.html"; Description: "View the Release Notes"; Flags: postinstall shellexec skipifsilent
 Filename: "{app}\{#MyAppExeName}"; Description: "Launch Meddy"; Flags: postinstall skipifsilent nowait
 
 ; Strangely sometimes (rarely) this seems to be required in order to be able to Ride into Meddy:

@@ -46,13 +46,19 @@
  
 [Search]
  ~Find in Markdown...=Ctrl+F       : OnMenuCommand     {find}           : Find string in the markdown 
+ ~Find next=F3                     : OnMenuCommand     {findNext}       : Find next hit
+ -
  ~Find in TOC...=Ctrl+Shift+F      : OnMenuCommand     {findInTOC}      : Find string in the table of contents
  ~Find and replace=Ctrl+R          : OnMenuCommand     {replace}        : Find and replace string in the markdown
+
 [Settings]                                             {settings}
  Preferences...=F12                : OnMenuCommand     {preferences}    ; Set your preferences
+ -
+ #Show warnings                    : OnMenuCommand     {noWarnings}     ; Disable warnings for this document
 
 [Help]                                                 {help}
  Meddy's ReadMe=Ctrl+Shift+F1      : OnMenuCommand     {readme}         ; Puts Meddy's ReadMe.html on display
+ Meddy's Release notes             : OnMenuCommand     {relNotes}       ; Puts Meddy's ReleaseNotes.html on display
  Visit Meddy on GitHub             : OnMenuCommand     {meddyOnGitHub}  ; Opens Meddy's home page on GitHub in a new Tab/window
  -
  Quick intro into MarkAPL          : OnMenuCommand     {intro}          ; Basic info about MarkAPL, the Markdown converter used by Meddy

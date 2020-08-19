@@ -1,5 +1,7 @@
  {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay;E;qdmx
  success←1
+ #.CursorObj←1
+ WriteToStatusbar n'Converting Markdown to HTML...'
  newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
  markdown←n.Markdown.Text
  (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
@@ -63,3 +65,5 @@
          {}ResetAfterError⍣newFlag⊣n
      :EndTrap
  :EndIf
+ WriteToStatusbar n''
+ #.CursorObj←0

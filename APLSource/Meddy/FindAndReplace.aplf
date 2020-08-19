@@ -32,5 +32,5 @@
  def⍪←'Replace_&all' '' ''DT.Button ⍬ 0 2
  def⍪←'Close' '' ''DT.Button ⍬ 1 2
  {}n.∆globalParms parms G.Input.Run def
- 0 WriteToStatusbar n''
+ WriteToStatusbar n''
 ⍝Done

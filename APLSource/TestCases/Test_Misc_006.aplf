@@ -1,0 +1,12 @@
+ R←Test_Misc_006(stopFlag batchFlag);⎕TRAP;make;version;ddlName;ISS
+⍝ Makes sure that the correct bridge file is mentioned in the ISS file
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ make←⎕XML 0⊃##.FilesAndDirs.NGET'Make/aplteam.config'
+ version←(≢'APL ')↓↑'APL [0-9]+\.[0-9]+ '⎕S{⍵.Match}⊣2⊃make[make[;1]⍳⊂'exe';]
+ ddlName←'bridge',(version~'. '),'_unicode.dll'
+ ISS←0⊃##.FilesAndDirs.NGET'Meddy.iss'
+ →T.PassesIf∨/ddlName⍷ISS
+
+ R←T._OK

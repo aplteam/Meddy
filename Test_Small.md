@@ -19,6 +19,8 @@ Note that all the features related to the so-called LeanPub extensions are discu
 
 ## Headers
 
+
+     
 These are the standard ways to mark-up headers:
 
 ~~~

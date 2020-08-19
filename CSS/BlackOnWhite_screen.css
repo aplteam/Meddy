@@ -821,7 +821,7 @@ div#footnotes_div ol {
     font-family: "APLFont";
   src:
     local("APL385 Unicode"),
-    url("http://misc.aplteam.com/apl385.ttf") format("truetype");
+    url("https://misc.aplteam.com/apl385.ttf") format("truetype");
 }
 
 

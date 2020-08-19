@@ -1,0 +1,16 @@
+ {r}←ShowWarnings n;report
+ r←⍬
+ :If n.∆Menubar.noWarnings.Checked←~n.∆Menubar.noWarnings.Checked
+ :AndIf 0<n.⎕NC'∆Report'
+ :AndIf 0<≢n.∆Report
+     report←n.∆Report
+     :If 0=n.∆Prefs.Warnings
+     :OrIf n.∆INI{~⍺.Exist ⍵:0 ⋄ ↑⍺.Get ⍵}'CONFIG:warnings'
+         report/⍨←'Warning:'{⍺∘≢¨(≢⍺)↑¨⍵}report
+     :EndIf
+     :If 0=≢report
+         {}TellNothingToReport⍣tellNothingFlag⊣n
+     :Else
+         0 ShowWarnings_ n report
+     :EndIf
+ :EndIf

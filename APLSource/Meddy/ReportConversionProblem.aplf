@@ -1,26 +1,22 @@
- {r}←{tellNothingFlag}ReportConversionProblem n;parms;msg;report;⎕TRAP
+ {r}←{tellNothingFlag}ReportConversionProblem n;parms;msg;report
  r←⍬
  tellNothingFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'tellNothingFlag'
  :If 0=n.⎕NC'∆Report'
      {}TellNothingToReport⍣tellNothingFlag⊣n
  :Else
-     report←n.∆Report
-     ⎕TRAP←0 'S'
-     :If 0=n.∆Prefs.Warnings
-     :OrIf n.∆INI{~⍺.Exist ⍵:0 ⋄ ↑⍺.Get ⍵}'CONFIG:warnings'
-         report/⍨←'Warning:'{⍺∘≢¨(≢⍺)↑¨⍵}report
-     :EndIf
-     :If 0=≢report
-         {}TellNothingToReport⍣tellNothingFlag⊣n
+     :If n.∆Menubar.noWarnings.Checked
+         1 WriteToStatusbar n''
+         report←n.∆Report
+         :If 0=n.∆Prefs.Warnings
+         :OrIf n.∆INI{~⍺.Exist ⍵:0 ⋄ ↑⍺.Get ⍵}'CONFIG:warnings'
+             report/⍨←'Warning:'{⍺∘≢¨(≢⍺)↑¨⍵}report
+         :EndIf
+         :If 0=≢report
+             {}TellNothingToReport⍣tellNothingFlag⊣n
+         :Else
+             ShowWarnings_ n report
+         :EndIf
      :Else
-         #.CursorObj←0
-         parms←G.Dialogs.CreateParmsForShowLongMsg
-         parms.addToCaption←'Warnings & error msg'
-         parms.buttons←,⊂'OK'
-         msg←'Markdown-to-HTML warnings and error messages'
-         msg←msg((≢msg)⍴'=')
-         msg,←report
-         n.∆Form.CursorObj←0
-         n.∆globalParms parms G.Dialogs.ShowLongMsg msg
+         1 WriteToStatusbar n'There are warnings'
      :EndIf
  :EndIf

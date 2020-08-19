@@ -10,10 +10,6 @@
  success←1
  :If 0=n.HidePreview.State
  :OrIf 0≠flags
-     #.CursorObj←1
-     WriteToStatusbar n'Converting Markdown to HTML...'
      success←newFlag ProcessMarkdown n
-     0 WriteToStatusbar n''
-     #.CursorObj←0
  :EndIf
 ⍝Done

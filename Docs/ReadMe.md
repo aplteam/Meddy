@@ -249,7 +249,7 @@ You can set a number of command line parameters:
 
 : Use this to "give Meddy a Ride". The value assigned to `-ride` is interpreted as the Ride port number.
 
-: Without specifing this you cannot Ride into Meddy. By specyfing it you _must_ Ride into it. That means what when you set this parameter and then start Meddy nothing seems to happen. This is because by default Meddy enters an endless loop waiting for a Ride. 
+: Without specifing this you cannot Ride into Meddy. By specyfing it you _must_ Ride into it. That means what when you set this parameter and then start Meddy nothing seems to happen. This is because Meddy then enters an endless loop waiting for a Ride. 
 
 Note that in case a parameter is specified both in a user INI file and on the command line the latter one wins.
 
@@ -318,5 +318,5 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was originally written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
 
 | Created     | 2017-10-23 |
-| Version     | 2.10       |
-| Last update | 2020-06-03 |
+| Version     | 2.11       |
+| Last update | 2020-07-31 |

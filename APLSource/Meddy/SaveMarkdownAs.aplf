@@ -40,8 +40,11 @@
                  question,←⊂''
                  question,←⊂'Should the HTML be saved in the same'
                  question,←⊂'folder as the markdown file?'
-             :AndIf n.∆globalParms parms G.Dialogs.YesOrNo question
-                 n.∆HtmlFilename←↑,/(↑⎕NPARTS n.∆Filename),1↓⎕NPARTS n.∆HtmlFilename
+                 :If n.∆globalParms parms G.Dialogs.YesOrNo question
+                     n.∆HtmlFilename←↑,/(↑⎕NPARTS n.∆Filename),1↓⎕NPARTS n.∆HtmlFilename
+                 :EndIf
+             :ElseIf (1⊃⎕NPARTS n.∆HtmlFilename)≢(1⊃⎕NPARTS n.∆Filename)
+                 n.∆HtmlFilename←↑{⍺,⍵}/(2↑⎕NPARTS n.∆Filename),¯1↑⎕NPARTS n.∆HtmlFilename
              :EndIf
          :EndIf
          :If IsPresentation n

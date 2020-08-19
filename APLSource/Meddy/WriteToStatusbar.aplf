@@ -1,9 +1,15 @@
- {r}←{color}WriteToStatusbar(n msg)
+ {r}←{captionFlag}WriteToStatusbar(n msg);captionFlag
 ⍝ Writes `msg` to n.StatusField1
-⍝ `color` default to 0 (standard) or 1 (red).
+⍝ By default `msg` is assigned to `Text`. By passing ⍺←1 you can enforce `Caption` instead.
  r←⍬
- color←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'color'
- 'Invalid left argument'⎕SIGNAL 11/⍨(1≠≢color)∨~(⊂color)∊0 1
- n.StatusField1.Text←msg
- n.StatusField1.BCol←color⊃0 n.∆globalParms.alarmColor
+ captionFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'captionFlag'
+ :If captionFlag
+     n.StatusField1.Caption←(≢n.StatusField1.Text){0=≢⍵:⍵ ⋄ 0=⍺:⍵ ⋄ ⍵,' --- '}msg
+ :Else
+     n.StatusField1.Text←msg
+     :If 0=≢msg
+     :AndIf ' --- '{⍺≡(-≢⍺)↑⍵}n.StatusField1.Caption
+         n.StatusField1.Caption←(-≢' --- ')↓n.StatusField1.Caption
+     :EndIf
+ :EndIf
 ⍝Done

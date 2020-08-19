@@ -9,7 +9,7 @@
      {⍵:.}(∨/'<!DOCTYPE html>'⍷∊buff)∧(0=1↑0⍴fileID)   ⍝TODO⍝  Make sure that we do not save HTML with n.∆TIE_NO!
      {}A.WriteUtf8File fileID buff
      :If statusbarFlag
-         0 WriteToStatusbar n('Saved at ',A.FormatDateTime ⎕TS)
+         WriteToStatusbar n('Saved at ',A.FormatDateTime ⎕TS)
      :EndIf
  :Else
      :If 0=1↑0⍴fileID
