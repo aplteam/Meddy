@@ -1,19 +1,19 @@
  {r}←{statusbarFlag}SaveText(fileID text);buff;filename
 ⍝ In case of success a 0 is returned. In case of an error the error code is returned.
-⍝ In particular error code 19 is of interest ("The media is write protected.") because it means
-⍝ that attempting top save the HTML in the same directory won't be successfull either.
+⍝ In particular error code 19 is of interest ("The media is write protected.", "File owned by another process" etc.)
+⍝ because it means that attempting to save the HTML in the same directory won't be successfull either.
  r←0
  statusbarFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'statusbarFlag'
  buff←{↓⍣(↑2=⍴⍴⍵)⊣⍵}text
  :Trap ##.EventCodes.(FILE_ACCESS_ERROR FILE_DAMAGED FILE_NAME_ERROR FILE_SYSTEM_NO_SPACE FILE_TIE_ERROR FILE_TIE_QUOTA_USED_UP FILE_TIED)
-     {⍵:.}(∨/'<!DOCTYPE html>'⍷∊buff)∧(0=1↑0⍴fileID)   ⍝TODO⍝  Make sure that we do not save HTML with n.∆TIE_NO!
-     {}A.WriteUtf8File fileID buff
+     {⍵:.}(∨/'<!DOCTYPE html>'⍷∊3↑buff)∧(0=1↑0⍴fileID)   ⍝TODO⍝  Make sure that we do not save HTML with n.∆TIE_NO!
+     {}(⊂buff)F.NPUT fileID
      :If statusbarFlag
          WriteToStatusbar n('Saved at ',A.FormatDateTime ⎕TS)
      :EndIf
  :Else
      :If 0=1↑0⍴fileID
-         filename←A.(dlb dtb)⎕NNAMES[⎕NNUMS⍳fileID;]
+         filename←A.(DLB DTB)⎕NNAMES[⎕NNUMS⍳fileID;]
      :Else
          filename←fileID
      :EndIf

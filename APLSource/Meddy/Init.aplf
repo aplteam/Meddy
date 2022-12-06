@@ -1,7 +1,7 @@
  n←Init n;msg;parms
  {}2035⌶'ScaledPixel'
  EstablishRefs ⍬
- ##.APLGUI.EstablishRefsToParent ⍬
+ G.EstablishRefsToParent ⍬
  :If A.IsDevelopment
      F.PolishCurrentDir
  :Else

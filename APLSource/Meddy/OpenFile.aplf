@@ -13,7 +13,7 @@
          cmd,←'-file="',filename,'" '
          cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
          cmd,←A.IsDevelopment/'"',⎕WSID,'" '
-         ##.WinSys.ShellExecute cmd
+         ##.OS.ShellExecute cmd
      :EndIf
  :EndIf
 ⍝Done

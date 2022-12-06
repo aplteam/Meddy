@@ -7,7 +7,7 @@
      name~←' '
      (b v)←⎕VFI value
      ∧/b:name v
-     value←A.dlb A.dtb value
+     value←A.DLB A.DTB value
      value←((''''≠1↑value)/''''),value,(''''≠¯1↑value)/''''
      0=≢'''⎕NULL'''⎕S{⍵}⍠('IC' 1)⊣value:name value
      name ⎕NULL

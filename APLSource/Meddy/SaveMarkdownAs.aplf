@@ -8,10 +8,15 @@
              :Return
          :Else
              n.∆TIE_NO←TieFile filename
-             A.WriteUtf8File n.∆TIE_NO n.Markdown.Text
+             :If 0<≢n.∆TIE_NO
+                 (⊂n.Markdown.Text)F.NPUT n.∆TIE_NO
+             :Else
+                 n.∆TIE_NO←⍬
+                 :Return
+             :EndIf
          :EndIf
      :Else
-         A.WriteUtf8File filename n.Markdown.Text
+         (⊂n.Markdown.Text)filename
          ⎕NUNTIE n.∆TIE_NO
          n.∆TIE_NO←⍬
          :If OpenFile__ n filename #.CursorObj
@@ -20,7 +25,7 @@
      :EndIf
      n.∆IgnoreConfigFile←1
      UpdateFilename n filename
-     rc←SaveText n.∆TIE_NO(n.Markdown.Text)
+     rc←SaveText n.∆TIE_NO n.Markdown.Text
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
      n.∆parms.saveHtml←DoYouWantToSaveHtml n
      n.∆parms.firstFlag←0

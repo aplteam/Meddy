@@ -17,9 +17,9 @@
              :OrIf isSetText←CheckForSeTextHeader i n.Markdown.Text
                  success←1
                  :If isSetText
-                     caption←A.dlb A.dtb(i-1)⊃n.Markdown.Text
+                     caption←A.DLB A.DTB(i-1)⊃n.Markdown.Text
                  :Else
-                     caption←{⍵↓⍨1+⍵⍳' '}A.dlb A.dtb i⊃n.Markdown.Text
+                     caption←{⍵↓⍨1+⍵⍳' '}A.DLB A.DTB i⊃n.Markdown.Text
                  :EndIf
                  caption←{⍵↑⍨⍵⍳'{'}caption
                  :Select +/bool←n.Toc.∆Toc[;1]≡¨⊂caption

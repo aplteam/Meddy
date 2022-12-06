@@ -16,12 +16,11 @@
                  UpdateFilename n filename
              :EndIf
          :EndIf
-         SaveText n.∆Filename n.Markdown.Text
+         carryOnFlag←0≠SaveText n.∆Filename n.Markdown.Text
          :If n.∆parms.saveHtml∊SaveHTMLValues.(Always YesButKeepAsking)
              RefreshPreview n
              htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
-             A.WriteUtf8File htmlFilename n.HTML.Text
+             (⊂n.HTML.Text)F.NPUT htmlFilename
          :EndIf
      :EndIf
-     carryOnFlag←¯1=answer
  :EndIf

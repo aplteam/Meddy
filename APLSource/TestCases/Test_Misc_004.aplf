@@ -8,8 +8,8 @@
  CreateFolderAndMarkdownFile←{
      folder←##.FilesAndDirs.GetTempPath,↑1↓⎕SI
      _←'Create!'##.FilesAndDirs.CheckPath folder,'/level2'
-     _←##.APLTreeUtils.WriteUtf8File(folder,'/level2/my.md')⍵
-     _←##.APLTreeUtils.WriteUtf8File(folder,'/level2/.meddy')(⊂⍺)
+     _←(⊂⍵)⎕NPUT(folder,'/level2/my.md')1
+     _←(⊂⍺)⎕NPUT(folder,'/level2/.meddy')1
      folder
  }
 
@@ -20,7 +20,7 @@
  msg,←⊂'then select the "Quit" command from the "File" menu.'
  folder←'outputpath=''../'''CreateFolderAndMarkdownFile msg
  n←∆RunMeddy folder,'/level2/my.md'
- n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils.FormatDateTime ⎕TS
+ n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils2.FormatDateTime ⎕TS
  n.∆parms.firstFlag←0
  1 ⎕NQ n.∆Menubar.save'Select'
  →T.GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
@@ -30,7 +30,7 @@
  targetFolder←##.FilesAndDirs.GetTempSubDir''
  folder←('outputpath=''',targetFolder,'''')CreateFolderAndMarkdownFile msg
  n←∆RunMeddy folder,'/level2/my.md'
- n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils.FormatDateTime ⎕TS
+ n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils2.FormatDateTime ⎕TS
  n.∆parms.firstFlag←0
  1 ⎕NQ n.∆Menubar.save'Select'
  →T.GoToTidyUp 0≠≢↑##.FilesAndDirs.Dir folder,'\*.html'

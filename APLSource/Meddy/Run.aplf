@@ -7,7 +7,12 @@
 ⍝ Always returns ⍬.
  r←⍬
  ⎕IO←0 ⋄ ⎕ML←3
- A←##.APLTreeUtils ⋄ F←##.FilesAndDirs ⋄ G←##.APLGUI
+ A←##.APLTreeUtils2 ⋄ F←##.FilesAndDirs ⋄ G←##.APLGUI
+ :If 0<##.⎕NC'CiderConfig'
+     {}F.Cd ##.CiderConfig.HOME
+ :Else
+     F.PolishCurrentDir
+ :EndIf
  #.⎕SHADOW'ErrParms'
  iniFile←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'iniFile'
  (n savePathInReg)←Run_ filename iniFile

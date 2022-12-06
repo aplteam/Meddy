@@ -6,7 +6,7 @@
 ⍝ In case the port was defined via the command line this function will set `waitFlag` to 1 no matter what.
  r←⍬
  :If 0=≢port
-     args←##.APLTreeUtils.Lowercase⊣2 ⎕NQ #'GetCommandLineArgs'
+     args←⎕C⊣2 ⎕NQ #'GetCommandLineArgs'
  :AndIf 0<+/bool←∨/¨'-ride='∘⍷¨args
      port←↑↑(//)⎕VFI(≢'-ride=')↓(bool⍳1)⊃args
      waitFlag←1
@@ -16,7 +16,7 @@
  :If (≢/,¨0 port)∧0<≢port
  :AndIf 0=IsConnectedToRide ⍬
      :If 0=≢##.FilesAndDirs.Dir'conga??_32.dll'
-         :If ##.APLTreeUtils.IsDevelopment
+         :If ##.APLTreeUtils2.IsDevelopment
              'Conga DLL is missing"'⎕SIGNAL 6
          :Else
              ⎕OFF 106   ⍝ means: "Conga DLL is missing"

@@ -21,10 +21,10 @@
              htmlFilename←(↑,/¯1↓⎕NPARTS htmlFilename),'.html'
              :If IsPresentation n
                  html←ProcessMarkdownAsPresentation n
-                 A.WriteUtf8File htmlFilename html
+                 (⊂html)F.NPUT htmlFilename
              :Else
                  RefreshPreview n
-                 A.WriteUtf8File htmlFilename n.HTML.Text
+                 (⊂n.HTML.Text)F.NPUT htmlFilename
              :EndIf
          :Else
              :If n.Markdown.∆LastSavedVersion≢n.Markdown.Text

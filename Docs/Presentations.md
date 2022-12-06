@@ -54,7 +54,7 @@ These pieces of information can then be referenced within any slide. An example 
 
 ## Handouts
 
-There is a special syntax available for adding information to a slide that is not visible on the slide as such in display mode such but will become visible in print mode. When a presentation is running then you can toggle between "print" and "screen" mode with the keyboard shortcut "p".
+There is a special syntax available for adding information to a slide that is not visible on the slide as such in display mode but will become visible in print mode. When a presentation is running then you can toggle between "print" and "screen" mode with the keyboard shortcut "p".
 
 Information that should be visible only on the handouts needs to be embraced by a <div> with the class "handout" assigned to it:
 

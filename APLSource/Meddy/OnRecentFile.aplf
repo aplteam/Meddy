@@ -10,6 +10,6 @@
      cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
      cmd,←'-file="',filename,'" '
      cmd,←A.IsDevelopment/'"',⎕WSID,'" '
-     ##.WinSys.ShellExecute cmd
+     ##.OS.ShellExecute cmd
  :EndIf
 ⍝Done

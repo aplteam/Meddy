@@ -1,7 +1,7 @@
  CreateFolderAndMarkdownFile←{
      folder←##.FilesAndDirs.GetTempPath,↑1↓⎕SI
      _←'Create!'##.FilesAndDirs.CheckPath folder
-     _←##.APLTreeUtils.WriteUtf8File(folder,'/.meddy')(⊂⍺)
-     _←##.APLTreeUtils.WriteUtf8File(folder,'/my.md')⍵
+     _←(⊂⍵)⎕NPUT(folder,'/.meddy')1
+     _←(⊂⍵)⎕NPUT(folder,'/my.md')1
      folder
  }

@@ -5,6 +5,6 @@
  :EndIf
  #.⎕SHADOW'ErrParms'
  ##.Meddy.⎕SHADOW¨'AFG'
- ##.Meddy.(A F G)←##.(APLTreeUtils FilesAndDirs APLGUI)
+ ##.Meddy.(A F G)←##.(APLTreeUtils2 FilesAndDirs APLGUI)
  n←↑1 ##.Meddy.Run_ y
 ⍝Done

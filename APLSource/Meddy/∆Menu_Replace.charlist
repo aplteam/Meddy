@@ -1,5 +1,0 @@
-[&Edit]                                             {edit}
- Cut=Ctrl+X                 : OnCutCopyPaste        {cut}       ;Cut any selected piece of text and put it into the clipboard
- Copy=Ctrl+C                : OnCutCopyPaste        {copy}      ;Copy currently selected data to the clipboard
- Paste=Ctrl+V               : OnCutCopyPaste        {paste}     ;Paste the contents of the clipboard
-

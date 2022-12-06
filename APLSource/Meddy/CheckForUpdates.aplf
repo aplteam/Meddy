@@ -19,7 +19,7 @@
          :If 0=≢url
              n TellErrorWhileCheckingForBetterVersion''
          :Else
-             ##.APLTreeUtils.GoToWebPage url
+             ##.APLTreeUtils2.GoToWebPage url
          :EndIf
      :EndIf
  :EndIf

@@ -1,0 +1,12 @@
+(
+ '* 2.2.0 - 2020-12-25'
+ '  * When copying text from Notepad++ a nested vector is saved in the clipboard. The first item contains all the text (⎕UCS 13 separated), the second '
+ '    one is empty. This is now converted automatically into something useful.'
+ '  * Bug fixes'
+ '    * When changing a document from having a TOC to one that does not, Meddy crashed.'
+ '    * Creating a new presentation, opening a recent file and Opening file might all well have crashed.'
+ '    * When Meddy was told to shut down (ALT+F4,...) and there were changes waiting for being saved and that failed with error 19'
+ '      then Meddy closed down anyway, effectively discarding the changes.'
+ 'For information regarding older version see <https://github.com/aplteam/Meddy/releases>'
+ ''
+)

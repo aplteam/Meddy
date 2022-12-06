@@ -1,0 +1,22 @@
+ {r}←PolishClipboard dummy;cl;buff
+⍝ Special treatment for certain formats, for exmaple when copying text from Notpad++ or Google Mail.
+⍝ * Notepad++ assignes a nested vector to the "Text" property of the clipboard.
+⍝   The first item contains all the text (⎕UCS 13 separated), the second one is empty.
+⍝ In all these cases the contents of the clipboard is now converted into something useful.
+ r←⍬
+ cl←⎕NEW⊂'Clipboard'
+ :If 0<≢cl.Text
+     buff←{⍵↓⍨{-+/∧\0=⍵}⌽≢¨⍵}cl.Text
+     :If (1=≢buff)∧2=≡buff
+         buff←0⊃buff
+         :If CR∊buff
+             cl.Text←CR(≠⊆⊢)buff
+         :EndIf
+     :Else
+         :If 1=≡buff
+         :AndIf (⎕UCS 10)∊buff
+             cl.Text←(⎕UCS 10)(≠⊆⊢)buff
+         :EndIf
+     :EndIf
+ :EndIf
+⍝Done

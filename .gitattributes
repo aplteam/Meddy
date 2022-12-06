@@ -9,7 +9,6 @@
 *.dws linguist-language=apl
 *.dyapp linguist-language=apl
 
-Dist/ linguist-vendored=true
 CSS/ linguist-vendored=true
 Docs/ linguist-vendored=true
 Testcases/ linguist-vendored=true

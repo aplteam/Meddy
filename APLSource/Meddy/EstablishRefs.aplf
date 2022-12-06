@@ -1,7 +1,6 @@
  {r}←EstablishRefs dummy
  r←⍬
- A←##.APLTreeUtils
+ A←##.APLTreeUtils2
  F←##.FilesAndDirs
- G←##.APLGUI
- G.APLTreeUtils←A
+ G.APLTreeUtils2←A
  G.FilesAndDirs←F

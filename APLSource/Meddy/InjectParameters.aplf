@@ -36,8 +36,8 @@
                  defaults←ps.∆List
                  buff[list2⍳list;1]←{⎕NULL≡⍵:'⎕NULL' ⋄ 0=1↑0⍴⍵:⍕⍵ ⋄ '''',⍵,''''}¨defaults[defaults[;0]⍳list;1]
              :EndIf
-             buff←(↓1↓[1]⎕FMT A.{dlb dtb ⍵}¨buff[;0 2 1]),comments
-             buff←A.dtb buff
+             buff←(↓1↓[1]⎕FMT A.{DLB DTBV ⍵}¨buff[;0 2 1]),comments
+             buff←A.DTB buff
              isLeanpubEncoding←WhereIsLeanPubEncodingLine markdown
              markdown←(isLeanpubEncoding/markdown),buff,(≢alreadyDefined,comments)↓(~isLeanpubEncoding)/markdown
          :EndTrap

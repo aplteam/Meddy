@@ -2,7 +2,7 @@
  rc←0
  :Trap 0
      :If ⍬≢n.∆TIE_NO←TieFile filename
-         n.Markdown.Text←A.ReadUtf8File n.∆TIE_NO
+         n.Markdown.Text←⊃F.NGET n.∆TIE_NO
          n.Markdown.Text←'\t'⎕R'    '⊣n.Markdown.Text  ⍝ Tabs ==> 4 spaces
      :Else
          rc←1

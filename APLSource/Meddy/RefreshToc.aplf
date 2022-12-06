@@ -8,6 +8,7 @@
      n←ShowToc n
  :Else
      :If 0<≢toc←↓n.Toc.∆Toc
+     :AndIf 0<≢n.HTML.∆ns.toc
      :AndIf ({⍵[0 2]}¨toc)≢{⍵[0 2]}¨n.HTML.∆ns.toc
          :If 0=+/bool←~toc∊n.HTML.∆ns.toc
              row←n.Toc.SelItems⍳1

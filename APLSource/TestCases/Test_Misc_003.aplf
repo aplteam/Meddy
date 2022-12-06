@@ -4,13 +4,13 @@
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
- md←##.APLTreeUtils.ReadUtf8File'Docs\ReadMe.md'
+ md←↑⎕NGET'Docs\ReadMe.md'
 
  row←⍸∨/¨'|Version|'∘⍷¨md~¨' '
  →T.PassesIf 1=≢row
  buff←'|'{(⍺≠⍵)⊆⍵}row⊃md
  →T.PassesIf 2=≢buff
- version←##.APLTreeUtils.dmb 1⊃buff
+ version←##.APLTreeUtils2.DMB 1⊃buff
  →T.PassesIf version≡{⍵/⍨1≥+\'.'=⍵}1⊃##.Meddy.Version
 
  R←T._OK

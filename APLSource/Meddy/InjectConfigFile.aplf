@@ -3,7 +3,7 @@
 ⍝ If there is such a file it looks for any parameters (⍵) and takes them.
  (folder filename extension)←⎕NPARTS path~'"'
  :If 1=##.FilesAndDirs.IsFile folder,'.Meddy'
-     data←A.Nest A.ReadUtf8File folder,'.Meddy'
+     data←A.Nest⊃F.NGET folder,'.Meddy'
      data←⊃'='A.Split¨,data
      data[;0]←data[;0]~¨' '
  :AndIf 0<+/bool←data[;0]∊parms.∆List[;0]

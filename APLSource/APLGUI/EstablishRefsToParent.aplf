@@ -1,0 +1,22 @@
+ {r}←EstablishRefsToParent dummy
+ r←⍬
+ APLTreeUtils←##.APLTreeUtils2
+ :If 9=##.⎕NC'DateAndTime'
+     DateAndTime←##.DateAndTime
+ :EndIf
+ :If 9=##.⎕NC'OS'
+     OS←##.OS
+ :EndIf
+ :If 9=##.⎕NC'FilesAndDirs'
+     FilesAndDirs←##.FilesAndDirs
+ :EndIf
+ :If 9=##.⎕NC'MarkAPL'
+     MarkAPL←##.MarkAPL
+ :EndIf
+ :If 9=##.⎕NC'WinSys'
+     WinSys←##.WinSys
+ :EndIf
+ :If 9=##.⎕NC'Laguntza'
+     Laguntza←##.Laguntza
+ :EndIf
+⍝Done

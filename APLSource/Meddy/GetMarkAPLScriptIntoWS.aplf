@@ -7,9 +7,9 @@
  :EndIf
  filename←path,'\MarkAPL.dyalog'
  :If F.Exists filename
-     body←A.ReadUtf8File filename
+     body←⊃F.NGET filename
      ref←⎕NS''
-     ref.##.APLTreeUtils←ref.APLTreeUtils←##.APLTreeUtils
+     ref.##.APLTreeUtils2←ref.APLTreeUtils2←##.APLTreeUtils2
      ref.⎕FIX body
      :If 1 0≡⍋1⊃¨ref.MarkAPL.Version ##.MarkAPL.Version
          #.⎕FIX body

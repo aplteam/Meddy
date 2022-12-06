@@ -4,6 +4,18 @@
 
 # Release Notes
 
+## 2.11.2 - 2020-08-29
+
+* When copying text from Notepad++ a nested vector is saved in the clipboard. The first item contains all the text (`⎕UCS 13` separated), the second one is empty. This is now converted automatically into something useful.
+
+  Something similar happens when text from Google Mail is copied, but because when Meddy gets to see the text it's not able to restore fully what was copied. The reason is that every two `⎕UCS 10`s got already converted into a single one, and there is nothing we can do about this. No idea how Microsoft Word handles this, but they do.
+
+## 2.11.1 - 2020-08-24
+
+* When a document that was saved with a TOC was changed so that there were no headers anynmore and then saved under a different name, Meddy crashed.
+
+* When Meddy was asked to close down but there were unsaved changes waiting, and the attempt to save them failed with error 19, then Meddy informed the user about the error but closed down anyway, effectively discarding the changes.
+
 ## 2.11.0 - 2020-08-19
 
 * The "Search > Find next (F3)" menu command is back.

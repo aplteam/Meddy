@@ -1,7 +1,7 @@
  r←SaveHTML n
  r←0
  :Trap ##.EventCodes.(FILE_ACCESS_ERROR FILE_DAMAGED FILE_NAME_ERROR FILE_SYSTEM_NO_SPACE FILE_TIE_ERROR FILE_TIE_QUOTA_USED_UP FILE_TIED)
-     {}A.WriteUtf8File n.∆HtmlFilename n.HTML.Text
+     (⊂n.HTML.Text0 F.NPUT n.∆HtmlFilename
  :Else
      TellFileSaveError n.∆HtmlFilename
      r←⎕EN

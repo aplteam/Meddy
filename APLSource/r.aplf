@@ -1,7 +1,2 @@
- r filename
- FilesAndDirs.PolishCurrentDir
- filename←FilesAndDirs.PWD,'/Test_Small.md'
-⍝ filename←''
-⍝ ≢'C:\T\Projects\APL-cation\Franky\Blog\Meddy.ini'Meddy.Run filename
- ≢Meddy.Run filename
-⍝Done
+r
+Meddy.Run ''
