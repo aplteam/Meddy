@@ -1,5 +1,5 @@
  Initial
  ⎕IO←0 ⋄ ⎕ML←3
- ##.FilesAndDirs.PolishCurrentDir
- T←⎕NEW ##.Tester2 ⎕THIS
+ FilesAndDirs.PolishCurrentDir
+ T←⎕NEW Tester2 ⎕THIS
 ⍝Done
