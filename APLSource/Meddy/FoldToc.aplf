@@ -1,7 +1,7 @@
  FoldToc←{
 ⍝ Called when the user has pressed "-" in the TOC
      n←⍵
-     0=≢ind←A.Where n.Toc.SelItems:⍬
+     0=≢ind←⍸n.Toc.SelItems:⍬
      _←⎕NQ n.Toc'Retracting'ind
      1:r←0
  }

@@ -1,0 +1,678 @@
+:Class Request
+⍝ This class offers simple dialog boxes useful for standard requests like:
+⍝ * `Request.AskString 'Enter your name:'`
+⍝ * `Request.AskNumber 'Number of copies:'`
+⍝ * `Request.AskPassword 'secret123'`
+⍝ * `Request.AskDate 2015 5 31`
+⍝
+⍝ These are modal cover functions. Instead of using them you can also create
+⍝ the objects and add more controls of your own before adjusting the size
+⍝ and `⎕DQ` the module.
+⍝
+⍝ There are examples available in the GUI_Demo namespace that can advice you
+⍝ how to do this.\\
+⍝ Naturally it can be useful to be able to easily add a check box "Remember
+⍝ my password" to the `Password` module.
+⍝
+⍝ Author: Kai Jaeger ⋄ Copyright: APL Team Ltd
+
+    :Include APLGuiUtils
+
+    ⎕IO←0 ⋄ ⎕ML←3
+
+    :Field Public Shared ReadOnly UpdateLengthInStatusbarEvent←9995
+
+    ∇ r←ListHelpers
+      :Access Public Shared
+      ⍝ This method lists all modal helpers.
+      r←'AskForNumber' 'AskForString' 'AskForPassword' 'AskForDate' ⍝ 'AskFor2Dates'
+    ∇
+
+    ∇ (okFlag answer)←{x}AskForString question;n;buffer;globalParms;parms;⎕TRAP
+     ⍝ Modal cover for `CreateStringRequest`
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      okFlag←0 ⋄ answer←''
+      :If 0=⎕NC'x'
+          n←CreateStringRequest question
+      :Else
+          n←x CreateStringRequest question
+      :EndIf
+      ⎕NQ n.Input'GotFocus' ⋄ buffer←⎕DQ n.∆Form
+      :If 0≠≢buffer
+      :AndIf (n.Btn0≡0⊃buffer)∨##.Enums.Events.QuitDQ≡1⊃buffer
+          okFlag←1
+          answer←n.∆result
+      :EndIf
+      n.∆CloseForm
+    ∇
+
+    ∇ password←{x}AskForPassword length;n;globalParms;parms;⎕TRAP
+     ⍝ Modal cover for `CreatePasswordRequest`
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      'Invalid right argument: password length'⎕SIGNAL 11/⍨83≠⎕DR length
+      :If 0=⎕NC'x'
+          n←CreatePasswordRequest length
+      :Else
+          n←x CreatePasswordRequest length
+      :EndIf
+      n←PolishRequest n
+      ⎕NQ n.Input'GotFocus' ⋄ {}⎕DQ n.∆Form
+      password←n.∆result
+      n.∆CloseForm
+    ∇
+
+    ∇ (okFlag date)←{x}AskForDate date;n;buffer;globalParms;parms;⎕TRAP
+     ⍝ Modal cover for `CreateDateRequest`
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      :If 0=⎕NC'x'
+          n←CreateDateRequest date
+      :Else
+          n←x CreateDateRequest date
+      :EndIf
+      n←PolishRequest n
+      okFlag←0 ⋄ date←⍬
+      ⎕NQ n.DateTime'GotFocus' ⋄ buffer←⎕DQ n.∆Form
+      :If 0≠≢buffer
+      :AndIf (n.Btn0≡0⊃buffer)∨##.Enums.Events.QuitDQ≡1⊃buffer
+          date←n.∆result
+          okFlag←1
+      :Else
+          okFlag←0
+          date←⍬
+      :EndIf
+      n.∆CloseForm
+    ∇
+
+    ∇ (okFlag value)←{x}AskForNumber question;n;buffer;globalParms;parms;⎕TRAP
+     ⍝ Modal cover for `CreateNumberRequest`
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      :If 0=⎕NC'x'
+          n←CreateNumberRequest question
+      :Else
+          n←x CreateNumberRequest question
+      :EndIf
+      n←PolishRequest n
+      okFlag←0 ⋄ value←⍬
+      ⎕NQ n.Input'GotFocus' ⋄ buffer←⎕DQ n.∆Form
+      okFlag←n.∆OK
+      value←n.∆result
+      n.∆CloseForm
+    ∇
+
+    ∇ n←{x}CreateStringRequest question;buffer;globalParms;parms;⎕TRAP
+     ⍝ Creates the form for a request for a string.
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForString GetParms x
+      parms.(onHelp onOkay)←'"Help"' '"Okay"'CheckUserCallback¨parms.(onHelp onOkay)
+      :If 0≠≢question
+          parms.question←question
+      :EndIf
+      n←globalParms CreateRequest parms
+      n←PolishRequest n
+      n.Btn1.onSelect←1 ⍝ Enable the "Cancel" button
+    ∇
+
+    ∇ n←{x}CreatePasswordRequest length;buffer;globalParms;parms;⎕TRAP
+     ⍝ Creates the form for a request for a password.
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      'Invalid right argument: password length'⎕SIGNAL 11/⍨83≠⎕DR length
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForPassword GetParms x
+      parms.(onHelp onOkay)←'"Help"' '"Okay"'CheckUserCallback¨parms.(onHelp onOkay)
+      n←globalParms CreateRequest parms
+      n.Btn1.onSelect←1 ⍝ Enable the "Cancel" button
+      :If parms.allowShowPassword
+          n←CreateShowPasswordCheckbox n
+      :EndIf
+      n←ReorderTabIndex n
+    ∇
+
+    ∇ n←{x}CreateDateRequest date;globalParms;parms;⎕TRAP
+     ⍝ Creates the form for a request for a Date.
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForDate GetParms x
+      parms←CheckParmsForProgressbarAndStatusbar parms
+      parms.(onHelp onOkay)←'"Help"' '"Okay"'CheckUserCallback¨parms.(onHelp onOkay)
+      :If 0≠≢date
+          parms.date←date
+      :EndIf
+      'Invalid date: not (y,m,d)'⎕SIGNAL 11/⍨3≠≢parms.date
+      n←globalParms CreateDateRequest_ parms
+      n.Btn1.onSelect←1 ⍝ Enable the "Cancel" button
+    ∇
+
+    ∇ n←{x}CreateNumberRequest question;globalParms;parms;⎕TRAP
+     ⍝ Creates the form for a request for a number.
+      :Access Public Shared
+      ⎕TRAP←(##.APLGuiUtils.APLGuiError'C'('(0⊃⎕DM )⎕signal ',⍕##.APLGuiUtils.APLGuiError))(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      (globalParms parms)←CreateParmsForNumber GetParms x
+      parms←CheckParmsForProgressbarAndStatusbar parms
+      parms.sizeable←0
+      'Invalid: "fieldType"'⎕SIGNAL ##.APLGuiUtils.APLGuiError/⍨~(⊂parms.fieldType)∊##.Enums.EditFieldTypes.(numeric currency)
+      parms.(onHelp onOkay)←'"Help"' '"Okay"'CheckUserCallback¨parms.(onHelp onOkay)
+      :If 0≠≢question
+          parms.question←question
+      :EndIf
+      n←globalParms CreateRequest parms
+      n.Btn1.onSelect←1 ⍝ Enable the "Cancel" button
+    ∇
+
+    ∇ n←{globalParms}CreateRequest parms;height;width;t
+      :Access Public Shared
+      globalParms←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍵}'globalParms'
+      globalParms{(0=≢⍺):⍵ ⋄ ⍺}←##.APLGuiGlobalParms.CreateDefaults
+      parms.maxButton←0
+      parms←CheckParmsForProgressbarAndStatusbar parms
+      n←CreateForm parms globalParms
+      n.∆parms.centerIn←parms.centerIn
+      n.∆result←⍬
+      n.∆OK←0
+      n←CreateQuestion n
+      n←CreateInputField n
+      n←CreateButtons n
+      n.∆Form.⎕WS'Event'##.Enums.Events.QuitDQ 1
+    ∇
+
+    ∇ n←{globalParms}CreateDateRequest_ parms;height;width;t
+      :Access Public Shared
+      globalParms←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍵}'globalParms'
+      globalParms{(0=≢⍺):⍵ ⋄ ⍺}←##.APLGuiGlobalParms.CreateDefaults
+      parms.(minButton maxButton)←0
+      n←CreateForm parms globalParms
+      n.∆result←⍬
+      n.∆OK←0
+      n←CreateQuestion n
+      n←CreateDateControl n
+      n←CreateButtons n
+      n.∆Form.⎕WS'Event'##.Enums.Events.QuitDQ 1
+    ∇
+
+    ∇ n←PolishRequest n;parms;globalParms
+      :Access Public Shared
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      n←AdjustSize n
+      n←PositionButtons n
+      n←CreateProgressbarTimerAndMessage n
+      :If 0<n.⎕NC'Input'
+          :If 'AskForString'{⍺≡(-≢⍺)↑⍵}parms.parmType
+              n.Input.Attach←'Top' 'Left' 'Top',('Right' 'Left'[≡/parms.(length maxLength)])
+              :If ~(⊂⍬)∊parms.(length maxLength)
+              :AndIf </parms.(length maxLength)
+                  n.∆Form.onConfigure←'OnConfigure'(⍬(2×n.∆Vgap)+1⊃+⌿⊃↑(¯1↑n.∆buttons).(Posn Size))
+              :EndIf
+          :EndIf
+      :EndIf
+      :If ⍬ ⍬≡parms.posn
+          {}n.∆Form ##.APLGuiHelpers.CenterIn globalParms.centerIn{0=≢⍵:⍺ ⋄ ⍵}parms.centerIn
+      :EndIf
+      n(CreateAutoPressTimer)←parms.timeout
+      :If 0<n.⎕NC'Input'
+          {}1 ⎕NQ n.Input UpdateLengthInStatusbarEvent
+      :EndIf
+      n.∆Form.n←n
+    ∇
+
+
+    ∇ r←CreateParms
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings.
+      r←##.APLGuiParameterSpace.Create
+      r.addToCaption←''
+      r.alignButtons←##.Enums.Align.Left
+      r.autoPress←¯1
+      r.buttons←'OK' 'Cancel'
+      r.cancelButton←1
+      r.caption←''
+      r.centerIn←''
+      r.defaultButton←0
+      r.destroyAutoPressTimerHotKey←'F12'
+      r.(fontAPL fontInput fontLabel fontStandard)←⊂''
+      r.hasHelpBtn←0
+      r.hasProgressbar←0
+      r.hasStatusbar←1
+      r.helpBtnCaption←'Help'
+      r.helpKey←'F1'
+      r.hGap←¯1
+      r.icon←''
+      r.initialVgap←¯1
+      r.minSize←200 300
+      r.onHelp←''
+      r.onOkay←''
+      r.parent←''
+      r.parmType←'Request.General'
+      r.posn←⍬ ⍬
+      r.progressbarMsgColor←0 0 255
+      r.regKey2←''
+      r.size←⍬ ⍬
+      r.sizeable←0
+      r.statusbarMessage←''
+      r.timeout←0
+      r.testMode←¯1
+      r.vGap←¯1
+     ⍝Done
+    ∇
+
+    ∇ r←CreateParmsForString
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for the `AskForString` method.
+      r←CreateParms
+      r.default←''
+      r.fieldType←##.Enums.EditFieldTypes.char
+      r.length←30
+      r.maxLength←⍬
+      r.parmType←'Request.AskForString'
+      r.question←''
+      r.validIfEmpty←0
+      r.hasStatusbar←1
+     ⍝Done
+    ∇
+
+    ∇ r←CreateParmsForDate
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for the `AskForPassword` method.
+      r←CreateParms
+      r.date←100⊥3↑⎕TS
+      r.fieldType←##.Enums.DateTimePickerFieldTypes.Date
+      r.hasToday←1
+      r.maxDate←9999 12 31
+      r.minDate←1752 9 14
+      r.minSize←⍬ ⍬
+      r.parmType←'Request.AskForDate'
+      r.question←'Please select a date:'
+      r.sizeable←0
+     ⍝Done
+    ∇
+
+    ∇ r←CreateParmsForPassword
+      :Access Public Shared
+      r←CreateParms
+      r.allowShowPassword←1
+      r.caseSensitive←1
+      r.default←''
+      r.fieldType←##.Enums.EditFieldTypes.password
+      r.length←20
+      r.parmType←'Request.AskForPassword'
+      r.question←'Please enter your password:'
+      r.sizeable←0
+      r.validIfEmpty←0
+      r.hasStatusbar←1
+     ⍝Done
+    ∇
+
+    ∇ r←CreateParmsForNumber
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for the `AskForNumber` method.
+      r←CreateParms
+      r.decimals←0
+      r.default←0
+      r.fieldType←##.Enums.EditFieldTypes.numeric
+      r.length←10
+      r.minSize←200 300
+      r.parmType←'Request.AskForNumber'
+      r.question←''
+      r.validIfZero←1
+      r.valueRange←0 ⍬
+      r.hasStatusbar←1
+     ⍝Done
+    ∇
+
+    ∇ n←CreateForm(parms globalParms);∆;to;parms2
+      :Access Public Shared
+      parms2←CopyNamespace parms
+      :If ¯1≡parms2.sizeable
+      :AndIf (↑∘parms2.⎕NC¨'length' 'maxLength')∧.≠0
+          parms2.sizeable←</↑¨parms2.(length maxLength)
+      :EndIf
+      parms2.caption←parms.caption
+      parms2.minSize←{0<⍵.⎕NC'minSize':⍵⍎'minSize' ⋄ ⍬ ⍬}parms
+      parms2.sysMenu←1
+      parms2.(minButton maxButton)←0
+      parms2.parmType←'StdForm'
+      n←##.StdForm.Create globalParms parms2
+      :If ⍬≡↑parms.size[0]
+          n.∆Form.Size[0]←⊂⍬
+      :Else
+          n.∆Form.Size[0]←parms.size[0]
+      :EndIf
+      :If ⍬≡↑parms.size[1]
+          n.∆Form.Size[1]←⊂⍬
+      :Else
+          n.∆Form.Size[1]←parms.size[1]
+      :EndIf
+      n.∆parms.parmType←parms.parmType
+    ∇
+
+    ∇ n←CreateQuestion n;∆;startPosn;para;question;i;height;parms;globalParms;ref
+      :Access Public Shared
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      ∆←''
+      question←,⊆parms.question
+      i←0
+      n.Question←⍬      ⍝ Keeps a vector with refs to all labels.
+      startPosn←n.(∆initialVgap ∆Hgap)
+      :For para :In question
+          ∆←''
+          ∆,←⊂'Caption'para
+          ∆,←⊂'Attach'(4⍴'Top' 'Left')
+          ∆,←⊂'Font'(n GetParm ##.Enums.Fonts.Label)
+          n.Question,←n.∆Form.⎕NEW'Label'∆
+          i+←1
+      :EndFor
+      height←0⊃n.Question[0].GetTextSize 0⊃question
+      n.Question.Posn←{startPosn+(⍵×n.∆Vgap+height),0}¨⍳i
+    ⍝Done
+    ∇
+
+    ∇ n←CreateDateControl n;∆
+      :Access Public Shared
+      ∆←''
+      ∆,←⊂'Posn'((n.∆Vgap+↑+⌿⊃↑⌽n.Question.(Posn Size)),n.∆Hgap)
+      ∆,←⊂'Style' 'Combo'
+      ∆,←⊂'FieldType'n.∆parms.fieldType
+      ∆,←⊂'Attach'(4⍴'Top' 'Left')
+      ∆,←⊂'HasToday'n.∆parms.hasToday
+      ∆,←⊂'MinDate'(2 ⎕NQ'#' 'DateToIDN'n.∆parms.minDate)
+      ∆,←⊂'MaxDate'(2 ⎕NQ'#' 'DateToIDN'n.∆parms.maxDate)
+      n.DateTime←n.∆Form.⎕NEW'DateTimePicker'∆
+      n.DateTime.⎕DF'[DateTimePicker]:DateTime'
+      n.DateTime.DateTime←n.DateTime.DateToIDN n.∆parms.date
+    ⍝Done
+    ∇
+
+    ∇ n←CreateButtons n;i;thisBtn;∆;btnHeight;buf;HelpBtn;rf;parms;globalParms;name
+      :Access Public Shared
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      n.∆buttons←⍬
+      i←¯1
+      btnHeight←1⊃n.∆Form.GetTextSize'W'⍴⍨2+⌈/≢¨(parms.helpBtnCaption),parms.buttons
+      :For thisBtn :In parms.buttons
+          i+←1
+          ∆←('Caption'thisBtn)('Attach'(4⍴'Bottom' 'Left'))
+          ∆,←(i=parms.defaultButton)/⊂'Default' 1
+          ∆,←(i=parms.cancelButton)/⊂'Cancel' 1
+          ∆,←⊂'Size'(⍬ btnHeight)
+          :If 'text'≡n.∆parms.fieldType
+              ∆,←((0∊⊃⍴parms.default)∧(i=0)∧~parms.validIfEmpty)/⊂'Active' 0
+          :ElseIf (⊂n.∆parms.fieldType)∊##.Enums.EditFieldTypes.(numeric currency)
+              ∆,←((0∊⊃⍴parms.default)∧(i=0)∧~parms.validIfZero)/⊂'Active' 0
+          :EndIf
+          name←'Btn',(⍕i)
+          rf←⍎'n.',name,'←n.∆Form.⎕NEW''Button'' ∆'
+          rf.⎕DF'[Button]:',name
+          :If 0=i  ⍝ ⍝ OK button?!
+              rf.onSelect←'OnOkay_',1⊃'.'##.APLTreeUtils2.SplitPath n.∆parms.parmType
+          :EndIf
+          rf.Posn[0]←n.∆Form.Size[0]-n.∆Vgap+rf.Size[0]+{(0=⍵.⎕NC'Statusbar'):0 ⋄ ⍵.Statusbar.Size[0]}n
+          rf.Posn[1]←n.∆Hgap+{⍵:0 ⋄ 1⊃+⌿⊃(↑⌽n.∆buttons).(Posn Size)}0=i
+          rf.⎕DF'[Button:',thisBtn,']'
+          rf.⎕WS'Event'UpdateLengthInStatusbarEvent 1
+          n.∆buttons,←rf
+      :EndFor
+      :If parms.hasHelpBtn
+          ∆←''
+          ∆,←⊂'Caption'parms.helpBtnCaption
+          ∆,←⊂'Attach'(4⍴'Bottom' 'Left')
+          ∆,←⊂'Size'(⍬ btnHeight)
+          :If 0≠≢buf←⊃parms.helpKey
+              ∆,←⊂'Accelerator'((⎕NEW ##.KeyCodes).GetKeyCodeFor buf)
+          :EndIf
+          n.HelpBtn←n.∆Form.⎕NEW'Button'∆
+          n.HelpBtn.⎕DF'[Button]:HelpBtn'
+          n.HelpBtn.Posn[0]←n.∆Form.Size[0]-n.∆Vgap+rf.Size[0]+{(0=⍵.⎕NC'Statusbar'):0 ⋄ ⍵.Statusbar.Size[0]}n
+          n.HelpBtn.Posn[1]←n.∆Hgap+{⍵:0 ⋄ 1⊃+⌿⊃(↑⌽n.∆buttons).(Posn Size)}0=i
+          :If 0=≢buf←parms.onHelp
+              'Help button enabled but callback is missing'⎕SIGNAL ##.APLGuiUtils.APLGuiError
+          :Else
+              'onHelp does not point to a callback function'⎕SIGNAL ##.APLGuiUtils.APLGuiError/⍨{3≠(0⊃⍵).⎕NC 1⊃⍵}{2=≡⍵:⍵ ⋄ ⎕THIS ⍵}buf
+              n.HelpBtn.onSelect←'OnExecHandler'
+          :EndIf
+          n.HelpBtn.⎕DF'[Button:',n.HelpBtn.Caption,']'
+          n.∆buttons,←n.HelpBtn
+      :EndIf
+    ∇
+
+    ∇ n←CreateInputField n;parms;globalParms;posn0;length;maxLength;∆;type
+      :Access Public Shared
+      ⍝ Creates the input field
+      type←n.∆parms.fieldType
+      'Invalid: "type"'⎕SIGNAL 11/⍨~(⊂type)∊##.Enums.EditFieldTypes.∆List[;1]
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      posn0←n.∆Vgap+↑+⌿⊃↑(¯1↑n.Question).(Posn Size)
+      length←parms.length
+      maxLength←length{0<⍵.⎕NC'maxLength':⍵.maxLength ⋄ ⍺}parms
+      ∆←''
+      ∆,←⊂'Posn'(posn0,n.∆Hgap)
+      ∆,←⊂'Size'(⍬ ⍬)
+      :If (⊂type)∊##.Enums.EditFieldTypes.(numeric currency)
+          ∆,←⊂'Text'((0=≢length)⊃(length⍴'9')(parms.(length decimals)⍕parms.default))
+      :ElseIf type≡##.Enums.EditFieldTypes.char
+          ∆,←⊂'Text'((0=≢length)⊃(length⍴'9')parms.default)
+      :ElseIf type≡##.Enums.EditFieldTypes.password
+          ∆,←⊂'Text'(length⍴'9')
+      :EndIf
+      ∆,←(0<n.∆parms.⎕NC'password')/⊂'Password' '*'
+      ∆,←(0≠≢maxLength)/⊂'MaxLength'maxLength
+      ∆,←⊂'Font'(n GetParm ##.Enums.Fonts.Input)
+      ∆,←⊂'FieldType'(##.Enums.EditFieldTypes.∆Get parms.fieldType)
+      ∆,←⊂'Attach'('Top' 'Left' 'Top' 'Left')
+      n.Input←n.∆Form.⎕NEW'Edit'∆
+      n.Input.⎕DF'[Edit]:Input'
+      n.Input.Size[0]-←⌊0.4×(↑n.Input.Size)-↑n.Input.GetTextSize'W'
+      :If (⊂type)∊##.Enums.EditFieldTypes.(numeric currency)
+          n.Input.Value←parms.default
+          {⍵:n.Input.SelText←1,1+≢n.Input.Text}0≠≢parms.default
+      :Else
+          n.Input.Text←parms.default
+      :EndIf
+      ⍎'n.Input.on',(⍕UpdateLengthInStatusbarEvent),'←''OnUpdateLengthInStatusbarEvent'''
+      n.Input.onKeyPress←'OnKeyPress'
+      n.Input.onMouseUp←'OnMouseUp'
+      :If 0<parms.timeout
+          n.Input.onLostFocus←'OnInputLostFocus'
+      :EndIf
+    ∇
+
+    ∇ n←n CreateAutoPressTimer timeout
+      :Access Public Shared
+      :If 0<timeout
+          n←n CreateAutoPressTimer_ timeout
+      :EndIf
+    ∇
+
+    ∇ okay←CheckRange ref
+      :Access Public Shared
+    ⍝ "ref" is supposed to point to a "n" namespace.
+      okay←1
+      →(0=≢ref.∆parms.valueRange)/0
+      →(0=+/≢¨ref.∆parms.valueRange)/0
+      :If okay←ref.Input.Value{(0=≢⍵):1 ⋄ ⍺≥⍵}0⊃ref.∆parms.valueRange
+          okay←ref.Input.Value{(0=≢⍵):1 ⋄ ⍺≤⍵}1⊃ref.∆parms.valueRange
+      :EndIf
+    ∇
+
+    ∇ {r}←x CheckUserCallback msg
+      :Access Public Shared
+      r←x CheckUserCallback_ msg
+    ∇
+
+    ∇ n←AdjustSize n
+      :Access Public Shared
+      n←AdjustSize_ n
+    ∇
+
+⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝ Private
+
+    ∇ n←CreateShowPasswordCheckbox n;∆
+      ∆←''
+      ∆,←⊂'Style' 'Check'
+      ∆,←⊂'State' 0
+      ∆,←⊂'Caption' '&Show password'
+      ∆,←⊂'Posn'(((⌊n.∆Vgap÷2)+↑+⌿⊃n.Input.(Posn Size)),1⊃n.Input.Posn)
+      ∆,←⊂'Attach'(4⍴'Top' 'Left')
+      n.ShowPasswordFlag←n.∆Form.⎕NEW'Button'∆
+      n.ShowPasswordFlag.⎕DF'[Checkbox]:ShowPasswordFlag'
+      n.ShowPasswordFlag.onSelect←'OnTogglePasswordFieldType'
+      ⍝Done
+    ∇
+
+      OnUpdateLengthInStatusbarEvent←{
+      ⍝ Update length information in status bar and deactivate the OK button
+      ⍝ in case length is 0 and validIfEmpty=0 (this is ⍺[2]).
+          n←GetRefTo_n 0⊃⍵
+          rf←0⊃⍵
+          l←≢rf.Text
+          n.Btn0.Active{0=⎕NC ⍵:⍺ ⋄ (↑⍎⍵)∨l>0}←'n.∆parms.validIfEmpty'
+          n.StatusField1.BCol←0
+          n.StatusField1.Text←'Length: ',(⍕l),{
+              (0=rf.MaxLength):''
+              ' of max ',⍕⍵}rf.MaxLength
+      }
+
+      OnKeyPress←{
+          3=≢⍵:1 ⍝ That means it's a test case
+          (65 2≡⍵[4 5]):0⊣n.Input.SelText←0,1+≢n.Input.Text  ⍝ Handle Ctrl+A: selet all
+          rf←(0⊃⍵).##                           ⍝ Ref pointing to the form
+          _←SendUpdateLengthInStatusbarEvent 0⊃⍵
+          (9≠rf.n.⎕NC'Timer'):1
+          DisableAutoClick rf
+      }
+
+    OnMouseUp←{1⊣SendUpdateLengthInStatusbarEvent 0⊃⍵}
+
+    ∇ r←OnOkay_AskForNumber(ref event);n;fns;entered;shouldBe
+      n←GetRefTo_n ref
+      r←0
+      :If CheckRange n
+          n.∆result←↑n.Input.Value
+          :If 0≠≢n.∆parms.onOkay
+              :If 2=|≡n.∆parms.onOkay
+                  fns←(0⊃n.∆parms.onOkay)⍎1⊃n.∆parms.onOkay
+              :Else
+                  fns←⍎n.∆parms.onOkay
+              :EndIf
+              →(~fns n)/0
+          :EndIf
+          n.∆OK←1
+          ⎕NQ n.∆Form ##.Enums.Events.QuitDQ
+          r←1
+      :Else
+          :If 0=≢0⊃n.∆parms.valueRange
+              n.StatusField1.Caption←'Value must be lower than ',(⍕1⊃n.∆parms.valueRange),' '
+          :ElseIf 0=≢1⊃n.∆parms.valueRange
+              n.StatusField1.Caption←'Value must be higher than ',(⍕0⊃n.∆parms.valueRange),' '
+          :Else
+              n.StatusField1.Caption←{'Value must be higher than ',(⍕¯1+0⊃⍵),' and lower than ',(⍕1+1⊃⍵),' incl. '}n.∆parms.valueRange
+              n.StatusField1.BCol←n.∆globalParms.alarmColor
+          :EndIf
+          n.StatusField1.BCol←n.∆globalParms.alarmColor
+      :EndIf
+    ∇
+
+    ∇ r←OnOkay_AskForPassword(ref event);n;fns;entered
+      n←GetRefTo_n ref
+      r←0
+      n.∆result←n.Input.Text
+      :If 0≠≢n.∆parms.onOkay
+          :If 2=|≡n.∆parms.onOkay
+              fns←(0⊃n.∆parms.onOkay)⍎1⊃n.∆parms.onOkay
+          :Else
+              fns←⍎n.∆parms.onOkay
+          :EndIf
+          :If fns n
+              n.StatusField1.Text←'Incorrect password'
+              n.StatusField1.BCol←n.∆globalParms.alarmColor
+              :Return
+          :EndIf
+      :EndIf
+      n.∆OK←1
+      ⎕NQ n.∆Form ##.Enums.Events.QuitDQ
+    ∇
+
+    ∇ r←OnOkay_AskForString(ref event);n;fns;entered;shouldBe
+      n←GetRefTo_n ref
+      r←0
+      n.∆result←,n.Input.Text
+      :If 0≠≢n.∆parms.onOkay
+          :If 2=|≡n.∆parms.onOkay
+              fns←(0⊃n.∆parms.onOkay)⍎1⊃n.∆parms.onOkay
+          :Else
+              fns←⍎n.∆parms.onOkay
+          :EndIf
+          :If ~fns n
+              n.Input.SelText←1,1+≢n.Input.Text
+              2 ⎕NQ n.Input'GotFocus'
+              :Return
+          :EndIf
+      :EndIf
+      n.∆OK←1
+      ⎕NQ n.∆Form ##.Enums.Events.QuitDQ
+      r←1
+    ∇
+
+    ∇ r←OnOkay_AskForDate(ref event);n;fns;entered;shouldBe
+      n←GetRefTo_n ref
+      r←0
+      n.∆result←3↑n.DateTime.(IDNToDate↑DateTime)
+      :If 0≠≢n.∆parms.onOkay
+          :If 2=|≡n.∆parms.onOkay
+              fns←(0⊃n.∆parms.onOkay)⍎1⊃n.∆parms.onOkay
+          :Else
+              fns←⍎n.∆parms.onOkay
+          :EndIf
+          →(~fns n)/0
+      :EndIf
+      n.∆OK←1
+      ⎕NQ n.∆Form ##.Enums.Events.QuitDQ
+      r←1
+    ∇
+
+    SendUpdateLengthInStatusbarEvent←{⍬⊣⎕NQ ⍵ UpdateLengthInStatusbarEvent}
+
+      OnInputLostFocus←{
+          to←2⊃⍵
+          (0=≢to):1                 ⍝ When the focus goes to another application then we let the timer carry on
+          rf←0⊃⍵
+          (~to∊rf.##.n.(⍎¨⎕NL-9)):1 ⍝ Same application but a different control? Let it carry on as well.
+          DisableAutoClick rf.##    ⍝ Focus changed elsewhere within that very Form, so we stop the timer.
+      }
+
+      OnExecOkayHandler←{
+          n←GetRefTo_n 0⊃⍵
+          no←n.∆buttons⍳0⊃⍵
+          (parent name)←{2=≡⍵:⍵ ⋄ ⎕THIS ⍵}(no=0)⊃n.∆parms.(onHelp onOkay)
+          fns←parent⍎name
+          fns n
+      }
+
+      OnExecHelpHandler←{
+          n←GetRefTo_n 0⊃⍵
+          no←n.∆buttons⍳0⊃⍵
+          (parent name)←{2=≡⍵:⍵ ⋄ ⎕THIS ⍵}(no=0)⊃n.∆parms.(onHelp onOkay)
+          fns←parent⍎name
+          fns n
+      }
+
+      OnExecHandler←{
+          n←GetRefTo_n 0⊃⍵
+          (parent name)←n.∆parms.onHelp
+          fns←parent⍎name
+          ⍬⊣fns n
+      }
+
+      OnTogglePasswordFieldType←{
+          n←GetRefTo_n 0⊃⍵
+          n.Input.Password←(~{⍵.State}↑⍵)/'*'
+          0
+      }
+
+:EndClass

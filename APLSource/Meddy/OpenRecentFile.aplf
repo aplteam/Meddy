@@ -8,7 +8,7 @@
      :If n.∆globalParms parms G.Dialogs.YesOrNo tell
          regKey←n.∆globalParms.userRegKey,'\RecentFiles'
          list←';'A.Split ##.WinRegSimple.Read regKey
-         list←((A.Lowercase list)≢¨⊂A.Lowercase filename)/list
+         list←((⎕C list)≢¨⊂⎕C filename)/list
          ##.WinRegSimple.Write regKey(↑{⍺,';',⍵}/list)
          {}AddRecentFilesFromWindowsRegistry n n.∆Menubar.recent
      :EndIf

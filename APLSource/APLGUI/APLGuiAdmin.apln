@@ -1,0 +1,146 @@
+:Namespace APLGuiAdmin
+
+    ∇ r←Version
+      r←(⍕⎕THIS.##)'0.21.3.58' '2020-02-08'
+    ∇
+
+    ∇ r←History 
+      ⍝ * 0.21.3
+      ⍝   * Bug fixes
+      ⍝     * ∆Run* function in `APLGUI_Demo`: some were niladic, some monadic. Now they are all monadic.
+      ⍝     * Help in the `Input` demo was not found due to the HTML being moved into a sub folder.
+      ⍝     * Adressing APLTreeUtils and Laguntza was faulty.
+      ⍝     * The function `SelAndProcess.SetFocusTo` created a function `sendmsg` (name class 3.6). It shouldn't. 
+      ⍝\\
+      ⍝ For information regarding older version see <https://github.com/aplteam/APLGUI/releases>
+    ∇
+
+    ∇ {(report rc)}←CheckOtherRequirements compileFlag
+      report←''
+      rc←⍬
+      :Trap 6
+          RefToFilesAndDirs←##.APLGuiUtils.RefToFilesAndDirs
+      :Else
+          report←'Cannot find FilesAndDirs in neither # nor ',(⍕⎕THIS.##)
+          rc←6
+          :Return
+      :EndTrap
+      :Trap 6
+          RefToWinRegSimple←##.APLGuiUtils.RefToWinRegSimple
+      :Else
+          report←'Cannot find WinRegSimple in neither # nor ',(⍕⎕THIS.##)
+          rc←6
+          :Return
+      :EndTrap
+      :Trap 6
+          RefToWinSys←##.APLGuiUtils.RefToWinSys
+      :Else
+          report←'Cannot find WinSys in neither # nor ',(⍕⎕THIS.##)
+          rc←6
+          :Return
+      :EndTrap
+      :Trap 6
+          RefToAPLTreeUtils2←##.APLGuiUtils.RefToAPLTreeUtils2
+      :Else
+          report←'Cannot find APLTreeUtils2 in ',⍕⎕THIS.##
+          rc←6
+          :Return
+      :EndTrap
+      :If compileFlag
+      :AndIf 9≠⎕NC'#.MarkAPL'
+          report←'Help file must be compiled but #.MarkAPL is missing'
+          rc←6
+      :EndIf
+    ∇
+
+    ∇ {r}←{compileFlag}StartHelp userMode;tno;parms;helpFilename
+    ⍝ Starts the help.
+    ⍝ `GUI_Help` must be a sibling of `GUI`.
+    ⍝ In case `compileFlag` is 1 the help file is re-compiled. The `MarkAPL` class must be available then.
+    ⍝ `compileFlag` defaults to 0 except when the help file cannot be found.
+    ⍝ `userMode` is a Boolean. If it is 1 then there is no "Developer" menu.
+      r←⍬
+      helpFilename←'Laguntza.dcf'
+      parms←##.##.Laguntza.CreateParms ⍬
+      parms.folderName←(↑⎕nparts ⎕wsid),'Help'
+      compileFlag←(parms.folderName,'/',helpFilename){0<⎕NC ⍵:⍎⍵ ⋄ 0=⎕NEXISTS ⍺}'compileFlag'
+      'Right argument must be a Boolean'⎕SIGNAL 11/⍨∧/(,userMode)∘≢¨,¨0 1
+      ⎕SIGNAL/CheckOtherRequirements compileFlag
+      parms.helpAbout←'GUI Help' '' 'APL Team Ltd - Kai Jaeger' ''('Version ',{(1⊃⍵),' from ',2⊃⍵}##.##.APLGUI_Help.Version)
+      parms.helpCaption←'APL GUI Help'
+      parms.helpVersion←''
+      parms.helpVersionDate←''
+      parms.userMode←userMode
+      :If compileFlag
+          parms.source←##.##.APLGUI_Help
+      :EndIf
+      compileFlag ##.##.Laguntza.New parms
+    ∇
+
+    ∇ {r}←SaveScripts flag;list;path;code;filename;scriptName
+    ⍝ Saves all scripts in #.GUI in folder Source\Scripts\ which will first be deleted
+    ⍝ and then re-created. Does not save scripts that also live in # like FilesAndDirs etc.
+      r←⍬
+      :If flag
+          path←'Source\Scripts\'
+          'Recursive'RefToFilesAndDirs.RmDir path
+          'Create!'RefToFilesAndDirs.CheckPath path
+          list←#.GUI.⎕NL-9
+          list~←#.⎕NL-9
+          :For scriptName :In list
+              :Trap 16
+                  code←#.GUI.⎕SRC #.GUI.⍎scriptName
+              :Else
+                  :Continue
+              :EndTrap
+              filename←path,scriptName,'.dyalog'
+              (⊂,code)⎕NPUT filename 1
+              ⎕←'* saved: ',r,←⊂scriptName
+          :EndFor
+          ⎕←'*** Done'
+      :Else
+          ⎕←'*** No action taken'
+      :EndIf
+    ∇
+
+    ∇ TransFormParms fullName;class;fns;body;code;b;A;headers;name;children;helpPath;this;text;child;path;buf
+      A←##.APLTreeUtils2
+      (class fns)←'.'A.SplitPath fullName
+      class←¯1↓class
+      code←⎕SRC⍎class
+      name←↑¯1↑'.'A.SplitPath class
+      helpPath←'#.GUI_Help.Reference.Main_GUI_Classes.',name
+      helpPath←'#.GUI_Help.Design_principles.Parameter_spaces.Global_parameters'
+      ⍎(0≠⎕NC ⎕←helpPath,'.',fns)/'. ⍝ Something is wrong here'
+      b←'∇'∊¨code
+      b∧←∨/('r←',fns,' ')⍷⊃code,¨' '
+      'Not found'⎕SIGNAL 11/⍨0=+/b
+      'Found more than once'⎕SIGNAL 11/⍨1<+/b
+      code←(1+b⍳1)↓code
+      b←(,'∇')≡¨code~¨' '
+      code←1↓(¯1+(↑¨code~¨' ')⍳'∇')↑code  ⍝ drop ":Access ..."
+      code←A.DLB¨code
+      code←2↓¨(+/∧\'⍝'=↑¨code)↑code
+      code←('|'=↑¨code)/code
+      code←(~'`'∊↑code)↓code
+      code←3↓¨code
+      ⍎('`'∨.≠↑¨code)/'.⍝ Something is wrong here!'
+      headers←{⍵↑⍨⍵⍳'`'}¨1↓¨code
+      children←{A.DLB 2↓A.DLB ⍵↓⍨1+⍵⍳'`'}¨1↓¨code
+      children←A.DTB¨¯2↓¨A.DTB¨children
+      children←{0=+/b←''''=w←⍵:w ⋄ (b/w)←⊂'''''' ⋄ ∊w}¨children
+     
+      fns(⍎helpPath).⎕NS''
+      path←helpPath,'.',fns
+     
+      :For child text :InEach headers children
+          body←,¨(child,'←{')''('r←⊂''Title'' ''',child,'''')''('t←''',text,'''')'r,←⊂''Body'' t' '' 'r' '}'
+          buf←(⍎path).⎕FX⊃body
+          ⍎(' '≠1↑0⍴buf)/'. ⍝ Something is wrong'
+          #.acre_APLGui_Help.SetChanged(path,'.',child)
+      :EndFor
+      ⎕←'*** Done with ',fullName
+⍝Done
+    ∇
+
+:EndNamespace

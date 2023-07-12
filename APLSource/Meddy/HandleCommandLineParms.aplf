@@ -28,7 +28,7 @@
      CreateNewDocument_ n
  :ElseIf 2=≢#.GetCommandLineArgs
      filename←↑¯1↑#.GetCommandLineArgs
- :AndIf (A.Lowercase ¯1↑⎕NPARTS filename)∊'.md' '.markdown'
+ :AndIf (⎕C ¯1↑⎕NPARTS filename)∊'.md' '.markdown'
      :If ##.FilesAndDirs.Exists filename
          OpenFile_ n filename
      :Else

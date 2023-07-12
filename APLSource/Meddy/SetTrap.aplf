@@ -1,5 +1,5 @@
  TRAP←{force}SetTrap dummy;folder;appName
-⍝ `A` is a ref pointing to `APLTreeUtils`
+⍝ `A` is a ref pointing to `APLTreeUtils2`
 ⍝ `F` is a ref pointing to `FilesAndDirs`
  force←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'force'
  :If ¯1=force

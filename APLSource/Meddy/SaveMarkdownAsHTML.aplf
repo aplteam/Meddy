@@ -3,7 +3,7 @@
  :If MarkdownHasChanged n
      'Export HTML'TellMarkdownNeedsSaving n
  :Else
-     askFlag←{0<⎕NC ⍵:'ASK'≡A.Uppercase⍎⍵ ⋄ 0=≢n.∆HtmlFilename}'askFlag'
+     askFlag←{0<⎕NC ⍵:'ASK'≡1 ⎕C⍎⍵ ⋄ 0=≢n.∆HtmlFilename}'askFlag'
      :If 0=≢n.∆HtmlFilename
      :AndIf ~0=≢n.∆Filename
          n.∆HtmlFilename←↑{⍺,⍵}/(¯1↓1 ⎕NPARTS n.∆Filename),⊂'.html'

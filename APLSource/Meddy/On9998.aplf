@@ -1,5 +1,5 @@
  On9998←{
      n←GetRef2n↑⍵
-     0=≢ind←A.Where n.Toc.SelItems:⍬
+     0=≢ind←⍸n.Toc.SelItems:⍬
      n ScrollToHeader ind
  }

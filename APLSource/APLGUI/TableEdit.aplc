@@ -1,0 +1,2549 @@
+:Class TableEdit
+⍝ This class offers functions for editing and browsing SQL-like tables.
+⍝ SQL-like means that any column has exactly one well-defined data type.\\
+⍝ Main methods are `Edit` and `Browse`.\\
+
+    :Include APLGuiUtils
+
+    :Section Public
+
+    ∇ r←Version
+      :Access Public Shared
+      r←(⍕⎕THIS)'0.0.2' '2015-12-12'
+    ∇
+
+    ∇ {n1}←Create(table globalParms parms);∆;events;n1;cellTypes;BCol;a
+    ⍝ Creates a form with a grid and returns an `n` namespace.\\
+    ⍝ Use this only if you need to make amendments to the Form or the Grid,
+    ⍝ otherwise use `Edit` or `Browse`. For creating just a grid see `CreateGrid`.
+      :Access Public Shared
+      events←CreateEvents ⍬
+      parms←CheckCallbacks parms
+      parms←CheckParms parms table
+      n1←CreateForm globalParms parms
+      n1.∆Form.⍎'on',(⍕events.QuitDQ),'←1'
+      n1.∆Form.⍎'on',(⍕events.Quit),'←''OnQuit'''
+      n1.∆Form.⍎'on',(⍕events.QuitDQ),'←1'
+      n1.∆Form.onClose←'OnClose'
+      n1.∆g←CreateGlobals n1 table
+      n1.∆e←events
+      n1.∆data←parms.data
+      n1.menubar←AddMenubar n1
+      n1.Grid←0 CreateGrid table n1
+      n1←CreateInputControls n1
+      n1 HandleSettings parms.settings
+      n1←CreateStatusFields n1(⍴table)
+      (⍴table)UpdateStatus n1(GetCurCellInfo n1)
+      SetCellWidth n1
+      HandleComments n1
+      :If 0≠parms.lock
+          2 ⎕NQ n1.Grid'LockColumns'(⍳parms.lock)1
+      :EndIf
+      n1.Grid.(Index CurCell)←parms.(index curCell)
+      :If 0≠≢parms.selItems
+          n1.Grid.SelItems←parms.selItems
+      :EndIf
+      InitialComboFill n1
+      ⎕NQ n1.Grid'GotFocus'
+      n1.∆Form ##.APLGuiHelpers.CenterIn parms.centerIn
+    ∇
+
+    ∇ r←{x}Edit table;n;globalParms;parms
+      :Access Public Shared
+      x←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'x'
+      (globalParms parms)←(CreateParms 1)GetParms x
+      n←Create table globalParms parms
+      DQ n.∆Form
+      r←n.(∆result ∆settings ∆data)
+    ∇
+
+    ∇ {r}←{x}Browse table;n;globalParms;parms
+      :Access Public Shared
+      r←⍬
+      x←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'x'
+      (globalParms parms)←(CreateParms 1)GetParms x
+      parms.readOnly←1
+      parms.row_Cmds←0
+      n←Create table globalParms parms
+      DQ n.∆Form
+      r←n.(∆result ∆settings ∆data)
+    ∇
+
+    ∇ grid←mode CreateGrid(table n);∆
+    ⍝ Creates the Grid as such. Returns the grid but also assigns it to `n.Grid`.  (??  ⍝TODO⍝ )
+    ⍝
+    ⍝ `mode` is a Boolean that indicates whether `CreateGrid` is called from a `Table` mnethod
+    ⍝ (mod is 0) or in "inject" mode (1), meaning that the grid is injected in any other Form
+    ⍝ or SubForm (the `Input` data type "GR" being an example).
+      :Access Public Shared
+      ∆←''
+      ∆,←⊂'Posn'(0 0)
+      ∆,←⊂'Size'(100 100)
+      ∆,←⊂'Coord' 'Prop'
+      ∆,←⊂'Values'(n CheckData table)
+      ∆,←⊂'Fcol'(0 0 0)
+      ∆,←⊂'FontObj'(n.∆globalParms{0=≢⍵:⍺.fontInput ⋄ ⍵.fontInput}n.∆parms)
+      :If ⍬≢⍴n.∆parms.colTitles
+      :AndIf 0≠≢n.∆parms.colTitles
+          :If 2<≡n.∆parms.colTitles
+              n.∆g.colTitleHeight←⌈/(2≤≡¨n.∆parms.colTitles)×≢¨n.∆parms.colTitles
+              n.∆parms.colTitles←{1=≡⍵:⍵ ⋄ 1↓∊(⎕UCS 13),¨⍵}¨n.∆parms.colTitles
+          :EndIf
+          :If ⍬≡n.∆parms.colTitleDepth
+              ∆,←⊂'ColTitles'((1⊃⍴table)⍴,¨n.∆parms.colTitles)
+          :Else
+              ∆,←⊂'ColTitles'n.∆parms.colTitles
+              ∆,←⊂'ColTitleDepth'n.∆parms.colTitleDepth
+              n.∆g.colTitleHeight+←⌈/n.∆parms.colTitleDepth
+          :EndIf
+      :EndIf
+      :If ⍬≢⍴n.∆parms.rowTitles
+      :AndIf 0≠≢n.∆parms.rowTitles
+          :If 2<≡n.∆parms.rowTitles
+              n.∆parms.rowTitles←{1=≡⍵:⍵ ⋄ 1↓∊(⎕UCS 13),¨⍵}¨n.∆parms.rowTitles
+          :EndIf
+          :If ⍬≡n.∆parms.rowTitleDepth
+              ∆,←⊂'RowTitles'((↑⍴table)⍴n.∆parms.rowTitles)
+          :Else
+              'Check "RowTitles" and "RowTitleDepth"!'⎕SIGNAL(≠/≢¨n.∆parms.rowTitles n.∆parms.rowTitleDepth)/11
+              ∆,←⊂'RowTitles'n.∆parms.rowTitles
+              ∆,←⊂'RowTitleDepth'n.∆parms.rowTitleDepth
+          :EndIf
+      :EndIf
+      ∆,←⊂'ResizeCols' 1
+      ∆,←⊂'ResizeRows' 1
+      ∆,←⊂'EnterReadOnlyCells' 1
+      ∆,←⊂'AutoExpand'(n.∆parms.autoExpand,0)
+      ∆,←⊂'CurCell'n.∆parms.curCell
+      ∆,←⊂'ClipCells' 1
+      ∆,←⊂'RowTitleFCol'n.∆parms.rowTitleFCol
+      ∆,←⊂'ColTitleFCol'n.∆parms.colTitleFCol
+      ∆,←⊂'CellSelect'n.∆parms.cellSelect
+      ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+      ∆,←⊂'VSCroll'n.∆parms.V_scroll
+      ∆,←⊂'HSCroll'n.∆parms.H_scroll
+      ∆,←⊂'InputMode' 'Scroll'
+      n.Grid←grid←n.∆Form.⎕NEW'Grid'∆
+      n.Grid.Coord←'Pixel'
+      n.Grid.Size[0]←n.∆Form.Size[0]-n.Statusbar.Size[0]
+  ⍝    n.Grid.onGridKeyPress←'OnGridKeyPress'
+  ⍝    n.Grid.onGridPasteError←'OnGridPasteError'
+  ⍝    n.Grid.onCellMove←'OnCellMove'
+      n.Grid.onGridCut←¯1×~n.∆parms.cut
+      n.Grid.onGridCopy←¯1×~n.∆parms.copy
+      n.Grid.onGridPaste←¯1×~n.∆parms.paste
+      n.Grid.onCellDown←'OnCellDown'
+      n.Grid.onCellUp←'OnCellUp'
+  ⍝    n.Grid.onShowComment←'OnShowComments'
+      n.Grid.onContextMenu←'OnContextMenu'
+  ⍝    ⍎'n.Grid.on',(⍕n.∆e.MakeNewCellCurrent),'←''OnMakeNewCellCurrent'''
+  ⍝    n.Grid.onGridDropSel←((↑n.∆parms.moveSelection)∊0 1)⊃'OnGridDropSel'n.∆parms.moveSelection
+  ⍝    n.Grid.onCellChange←'OnCellChange'
+  ⍝    n.Grid.onCellChanged←'OnCellChanged'
+      n.Grid.onGridCopyError←0
+  ⍝    ⍎'n.Grid.on',(⍕n.∆e.SetInputModeToScroll),'←''OnSetInputModeToScroll'''
+  ⍝    ⍎'n.Grid.on',(⍕n.∆e.AfterRowWasAdded),'←''OnAfterRowWasAdded'' ⍬'
+  ⍝    n.Grid.onCellDblClick←(0=≢,n.∆parms.onDblClick)⊃'OnDblClickInCell' 0
+  ⍝    n.Grid.onAddRow←'OnAddRow'
+      :If 1<n.∆g.colTitleHeight
+          grid.TitleHeight←⌈CharSize×0.5+globalParms.colTitleHeight
+      :EndIf
+      :If ¯1≠n.∆parms.titleWidth
+          n.Grid.TitleWidth←6⌈n.∆parms.titleWidth
+      :ElseIf 0≠≢,n.∆parms.rowTitles
+          grid.TitleWidth←GetRowTitleSize grid n.∆parms
+      :EndIf
+      :If ¯1≠n.∆parms.titleHeight
+          grid.TitleHeight←4⌈n.∆parms.titleHeight
+      :EndIf
+    ∇
+
+    ∇ p←CreateParms
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being feed to `Run` or `Create`.
+    ⍝ | Parameter name     |Comment|
+    ⍝ | -------------------|-------|
+    ⍝ | `askNewRowTitle`   | Defaults to `1` but only in case row titles are defined: in case a new row is created the user will be asked for a row title then.|
+    ⍝ | `autoExpand`       | Defaults to `1`. This allows the user to add rows. Suppress this by setting this to `0`.|
+    ⍝ | `addToCaption`     | Defaults to "Table Editor" but only if "caption" is not set. Otherwise there is no default.|
+    ⍝ | `caption`          | No default. Overwrite the global "caption" when specified. |
+    ⍝ | `cellSelect`       | No default. Use this to select a number of rows and columns. Will be ignored if "settings" contains "cellSelect". |
+    ⍝ | `cellWidths`       | No default. The width of the columns is calculated based on the data. Instead you can specify the widths of the columns here. Specify `¯1` if you the default size for a column. Will be ignored if "settings" contains "cellWidths". |
+    ⍝ | `centerIn`         | No default. You can specify a form the form shall be centered within. |
+    ⍝ | `copy`             | `1` |
+    ⍝ | `ctrl_Pos1_End`    | Defaults to "LikeExcel". You can specify an empty vector instead.|
+    ⍝ | `colTitleFCol`     | `0` |
+    ⍝ | `colTitles`        | No defaults. If specified this must be a vector of character vectors with a length mathing the number of columns.|
+    ⍝ | `colTitleDepth`    | `⍬` |
+    ⍝ | `comments`         | No default. Instead this can be a vector with comment definitions. Every item must then be a vector of length 3 with (row, column, char vector). `⋄` is treated as separator within the character vectors.|
+    ⍝ | `comment_Cmds`     | Defaults to `0`. Use this to enable (`1`) or disable (`0`) all comment-related menu items ("Add", "Delete", "Edit") in one go.|
+    ⍝ | `comment_Add`      | Defaults to `¯1`. Use this to disable (`0`) or enable (```) the "Add comment" menu item.|
+    ⍝ | `comment.Edit`     | Defaults to `¯1`. Use this to disable (`0`) or enable (```) the "Edit comment" menu item.|
+    ⍝ | `comment_delete`   | Defaults to `¯1`. Use this to disable (`0`) or enable (```) the "Delete comment" menu item.|
+    ⍝ | `confirmQuit`      | Defaults to `1`. The user will be asked whether she wants to save her changes. Suppress this prompt with 0.|
+    ⍝ | `contextMenu`      | Default to a matrix: `0 2⍴⊂''`. Add commands: (caption fully-qualified-callback-fns). Note that there is a default context menu; additional commands will be appended.|
+    ⍝ | `curCell`          | Defines the cell that has initially the focus. Defaults to `(0 0)`. |
+    ⍝ | `cut`              | Defaults to `1`. This means that the menu "Cut" item is active.|
+    ⍝ | `data`             | Default is `⍬`. You may assign a matrix to it with the same number of rows as the table. This is copied onto `n.∆data`. `Table` then assures that `n.∆data` stays in line with the table when the user performs operations like "move row(s)", "delete row" or "insert row".|
+    ⍝ | `dataTypes`        | Defaults to `''`. Can be a vector of data types. The length must match the number of columns. Populated with `##.Enums.TableDataTypes`.|
+    ⍝ | `debug`            | Defaults to `0`. `1` Enables debug mode. See also `testMode`.|  ⍝TODO⍝
+    ⍝ | `cut`              | Defaults to `1`. This means that the menu "Cut" item is active.|
+    ⍝ | `editMenu`         | Defaults to `1`. Makes the "Edit" menu available. Suppress this with a `0`.|
+    ⍝ | `H_scroll`         | Defaults to `¯3`: the horizontal scroll bar is always visible.|
+    ⍝ | `icon`             | Defaults to `''`. | ⍝TODO⍝
+    ⍝ | `inactiveColor`    | Defaults to `230 230 230`. This color is used for read-only columns.|
+    ⍝ | `index`            | First cell in the top/left corner. Defaults to `0 0`. |
+    ⍝ | `lists`            | Defaults to `⍬`. If not empt every item must be a two-item vector. The first one point to a column (first one = 0), the second one is a list. Naturally this makes sense only for "DD" & "DE".|
+    ⍝ | `lock`             | Defaults to `0`. Specifies the number of columns that should **not** scroll horizontally.|
+    ⍝ | `longNumeric`      | `0` |
+    ⍝ | `maxLength`        | Defaults to `⍬`. If set this must be either a vector matching the number of columns or a matrix with two columns. In the latter case the first column must specify a column number. Specifies the number of characters the user may enter.|
+    ⍝ | `menu`             | `0 2⍴⊂''` |  ⍝TODO⍝
+    ⍝ | `moveSelection`    | The default depends on `paste`. `0` suppresses moving a selection around, `1` allows it. Instead you can specify a callback; see "Help" for details|  ⍝TODO⍝  specify the help page
+    ⍝ | `moveRows`         | Default to `0`. If this is `1` then the user may select one or more rows and move them up or down with Ctrl+Cursor-Up\|Down.|
+    ⍝ | `menubar`          | Defaults to a standard menu; see GetDefaultMenubar for details. For no menubar set this to ''.|
+    ⍝ | `onCellChange`     | Defaults to `''`. If specified this must specify a user-defined callback for the "Change" event. The callback must by dyadic with `⍺=n` and `⍵` the standard message in case of a "Change" event'. Must return a Boolean: suppress=`0`, let pass=`1`.|
+    ⍝ | `onCellChanged`    | Defaults to `''`. If specified this must specify a user-defined callback for the "Changed" event. The callback must by monadic with `⍵=n`. Must return a result which will be ignored.|
+    ⍝ | `onClose`          | Defaults to `''`. If specified this must specify a user-defined callback for the "Close" event.|
+    ⍝ | `onDblClick`       | Defaults to `''`. If specified this must specify a user-defined callback for the "DblCLick" event. Must except a right argument (`n`) and return a result that will be ignored.|
+    ⍝ | `onKeyPress`       | Defaults to `''`. If specified this must specify a user-defined callback for the "KeyPress" event. Such a callback is fed with `⍺=n` and the standard KeyPress message as `⍵`. Must return either a Boolean (0=ignore) or the (possibly modified) KeyPress message.|
+    ⍝ | `onSort`           | Defaults to `''`. If specified this must specify a user-defined callback for the "Sort" event.|   ⍝TODO⍝ : How to qualify? Argument(s)? Result? Sort what exactly?
+    ⍝ | `parmType`         | Constant that is "Table" |
+    ⍝ | `paste`            | Defaults to `1`. This means that the menu "Paste" item is active.|
+    ⍝ | `posn`             | `⍬ ⍬` |
+    ⍝ | `readOnly`         | Defaults to `0`. Set this to `1` to make the whole table read-only, or specify a vector. The length must match the number of columns then.|
+    ⍝ | `rowPrototype`     | There is no default. This can become either an array or a dyadic function returning an array. A function name must be fully qualified. The result is going to be a new row added by "AutoExpand". `⍵` is the `n` namespace.|
+    ⍝ | `row_Cmds`         | Defaults to `1`. Use this to disable all row-related command in one go with `0`.|
+    ⍝ | `row_Del`          | Defaults to `¯1`, meaning that it depends on row_Cmds. If row_Cmds is `1` then you can still disable the "Delete row" menu item by setting this to `0`.|
+    ⍝ | `row_Duplicate`    | Defaults to `¯1`, meaning that it depends on row_Cmds. If row_Cmds is `1` then you can still disable the "Duplicate row" menu item by setting this to `0`.|
+    ⍝ | `row_Insert`       | Defaults to `¯1`, meaning that it depends on row_Cmds. If row_Cmds is `1` then you can still disable the "Insert row" menu item by setting this to `0.|
+    ⍝ | `rowTitleFCol`     | `0` |  ⍝TODO⍝
+    ⍝ | `rowTitles`        | Defaults to `''`. If specified this must be a vector of text vectors. The length must match the number of rows. Can be a vector of text vector or a simple text vector with ";" as separator.|
+    ⍝ | `rowTitleDepth`    | `⍬` |  ⍝TODO⍝
+    ⍝ | `search`           | Defaults to `1`. If you don''t want to offer a "Search" menu cnmmand then set this to `0`.|
+    ⍝ | `selItems`         | Defaults to `⍬`. You can specify a pre-selection by setting this. However, it will be overwritten in case `settings` contains "selItems".|
+    ⍝ | `settings`         | Defaults to `⍬`. This can be used to re-assign the parameters returned via the second item of `Edit`.|
+    ⍝ | `showInput`        | Defaulst to `⍬`. That means that the input is shown for "Time" and "Date" but not for any other data type.|
+    ⍝ | `size`             | `⍬ ⍬` |
+    ⍝ | `statusbar`        | Defaults to `1`. To suppress the status bar set this to `0`.|
+    ⍝ | `testMode`         | Defaults to `0`. If one then any dialogs within `Table` use the autoPress feature. |
+    ⍝ | `testParms`        | Defaults to an empty matrix: `(0 2⍴'')`. Use this to specify parameters for sub-dialogs. For example, by specifying `1 2⍴('AskFor_SaveChanges' ('autoPress' 1))` you can make sure that the "Save your changes?" dialog will press the "No" button.|
+    ⍝ | `titleWidth`       | `¯1` |  ⍝TODO⍝
+    ⍝ | `titleHeight`      | `¯1` |  ⍝TODO⍝
+    ⍝ | `V_scroll`         | Defaults to `¯3`. That means that there is always a vertical scroll bar.|
+⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
+      p←##.APLGuiParameterSpace.Create
+      p.askNewRowTitle←¯1
+      p.autoExpand←1
+      p.addToCaption←¯1
+      p.caption←''
+      p.cellSelect←''
+      p.cellWidths←⍬
+      p.centerIn←''
+      p.copy←1
+      p.ctrl_Pos1_End←'LikeExcel'
+      p.colTitleFCol←0
+      p.colTitles←''
+      p.colTitleDepth←⍬
+      p.comments←''
+      p.comment_Cmds←0
+      p.comment_Add←¯1
+      p.comment_Edit←¯1
+      p.comment_delete←¯1
+      p.confirmQuit←1
+      p.contextMenu←0 2⍴⊂''
+      p.curCell←0 0
+      p.cut←1
+      p.data←⍬
+      p.dataTypes←''
+      p.debug←0
+      p.delete←1
+      p.editMenu←1
+      p.lock←0
+      p.help←''
+      p.H_scroll←¯3
+      p.icon←''
+      p.inactiveColor←230 230 230
+      p.index←0 0
+      p.lists←⍬
+      p.longNumeric←0
+      p.maxLength←⍬
+      p.menu←0 2⍴⊂''
+      p.moveSelection←¯1
+      p.moveRows←0
+      p.menubar←¯1
+      p.onCellChange←''
+      p.onCellChanged←''
+      p.onClose←''
+      p.onDblClick←''
+      p.onKeyPress←''
+      p.onSort←''
+      p.parmType←'Table'
+      p.paste←1
+      p.posn←⍬ ⍬
+      p.readOnly←0
+      p.row_Cmds←1
+      p.row_Del←¯1
+      p.row_Duplicate←¯1
+      p.row_Insert←¯1
+      p.rowPrototype←''
+      p.rowTitleFCol←0
+      p.rowTitles←''
+      p.rowTitleDepth←⍬
+      p.search←1
+      p.selItems←⍬
+      p.settings←⍬
+      p.showInput←⍬
+      p.size←⍬ ⍬
+      p.statusbar←1
+      p.testMode←0
+      p.testParms←0 2⍴''
+      p.titleWidth←¯1
+      p.titleHeight←¯1
+      p.V_scroll←¯3
+    ∇
+
+    ∇ p←CreateParmsForGrid
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being feed to `Table.CreateGrid`.
+      p←##.APLGuiParameterSpace.Create
+      p.askNewRowTitle←¯1
+      p.autoExpand←0
+      p.cellWidths←⍬
+      p.copy←1
+      p.ctrl_Pos1_End←'LikeExcel'
+      p.colTitleFCol←0
+      p.colTitles←''
+      p.colTitleDepth←⍬
+      p.cut←1
+      p.dataTypes←''
+      p.delete←1
+      p.lock←0
+      p.H_scroll←¯3
+      p.inactiveColor←230 230 230
+      p.lists←⍬
+      p.longNumeric←0
+      p.maxLength←⍬
+      p.moveSelection←¯1
+      p.moveRows←0
+      p.onCellChange←''
+      p.onCellChanged←''
+      p.onClose←''
+      p.onDblClick←''
+      p.onKeyPress←''
+      p.onSort←''
+      p.parmType←'Grid'
+      p.paste←1
+      p.posn←⍬ ⍬
+      p.readOnly←0
+      p.row_Cmds←1
+      p.row_Del←¯1
+      p.row_Duplicate←¯1
+      p.row_Insert←¯1
+      p.rowPrototype←''
+      p.rowTitleFCol←0
+      p.rowTitles←''
+      p.rowTitleDepth←⍬
+      p.search←1
+      p.showInput←⍬
+      p.size←⍬ ⍬
+      p.titleWidth←¯1
+      p.titleHeight←¯1
+      p.V_scroll←¯3
+    ∇
+
+    ∇ r←GetDefaultMenubar parms
+    ⍝ Returns a text definition of a menu suitable for a Form that own a `Table grid.
+      :Access Public Shared
+      r←''
+      r,←GetFileMenu parms
+      r,←GetEditMenu parms
+      r,←GetRowsMenu parms
+      r,←GetHelpMenu parms
+      r,←GetDebugMenu parms
+    ∇
+
+    ∇ r←GetHelpMenu parms
+      r←''
+      :If 0≠≢parms.help
+          r,←⊂'[&Help] {helpMenu}'
+ ⍝TODO⍝ ????          r,←⊂' Debup options : OnDebug {debugOptions}'
+ ⍝TODO⍝ ????          r,←⊂' -'
+          r,←(~parms.help)/⊂' Help : OnHelp {help}'    ⍝TODO⍝
+      :EndIf
+    ∇
+
+    ∇ r←GetDebugMenu parms
+      r←''
+      :If (,0)≢,parms.debug
+          r,←⊂'[&Debug]'
+          r,←⊂' ',((0=≢parms.onCellChange)/'~'),'Edit OnCellChange : OnEditHandler {onCellChange}'
+          r,←⊂' ',((0=≢parms.onCellChanged)/'~'),'Edit OnCellChanged : OnEditHandler {onCellChanged}'
+          r,←⊂' ',((0=≢parms.onClose)/'~'),'Edit OnClose : OnEditHandler {onClose}'
+          r,←⊂' ',((0=≢parms.onDblClick)/'~'),'Edit OnDblClick : OnEditHandler {onDblClick}'
+          r,←⊂' ',((0=≢parms.onSort)/'~'),'Edit OnSort : OnEditHandler {onSort}'
+          :If ~(↑parms.moveSelection)∊0 1
+           ⍝TODO⍝  Where is the callback coming from?!
+              r,←⊂' ',((0≠≢parms.onMoveSelection)/'~'),'Edit OnMoveSelection : OnEditHandler {onMoveSelection}'
+          :EndIf
+      :EndIf
+    ∇
+
+      GetFileMenu←{
+          parms←⍵
+          r←''
+          r,←⊂'[&File] {fileMenu}'
+          r,←⊂' -'
+          r,←⊂' Quit=Ctrl+F4 : OnQuit {quit}'
+          r
+      }
+
+      GetEditMenu←{
+          parms←⍵
+          r←''
+          r,←⊂'[&Edit] {editMenu} '
+⍝ ⍝TODO⍝           r,←⊂' ',((~0∊parms.readOnly)/'~'),'Undo=Ctrl+Z : OnUndo {undo}'
+⍝  ⍝TODO⍝           r,←⊂' ~Redo=Ctrl+Y : OnRedo {redo}'
+          r,←⊂' -'
+          r,←⊂' ',((~parms.cut)/'#'),'Cut=Ctrl+X : OnCut {cut}'
+          r,←⊂' ',((~parms.copy)/'~'),'Copy=Ctrl+C : OnCopy {copy}'
+          r,←⊂' ',((~parms.paste)/'~'),'Paste=Ctrl+V : OnPaste {paste}'
+          r,←⊂' -'
+          r,←⊂' ',((~parms.delete)/'~'),'Delete+Del : OnDel {del}'
+          r,←⊂' -'
+          r,←⊂' Search...=Ctrl+F : OnSearch {search}'
+          r,←⊂' ~Continue search=F3 : OnSearch2 {continueSearch}'
+          r,←⊂' -'
+          r,←⊂' Select All=Ctrl+A : OnSelectAll {selectAll}'
+          r,←⊂' Toggle &comments=Ctrl+T : OnToggleComments {toggleComments}'
+          r
+      }
+
+      GetRowsMenu←{
+          parms←⍵
+          r←''
+          r,←⊂'[Rows] {rowsMenu}'
+          r,←⊂' ',((~parms.row_Duplicate)/'~'),'Duplicate : OnRowOptions {rowDuplicate}'
+          r,←⊂' ',((~parms.row_Insert)/'~'),'Insert : OnRowOptions {rowInsert}'
+          r,←⊂' ',((~parms.row_Del)/'~'),'Delete : OnRowOptions {rowDelete}'
+          r,←⊂' -'
+          r,←⊂' ',((~parms.comment_Edit)/'~'),'Edit comment : OnRowOptions {rowEditComment}'
+          r,←⊂' ',((~parms.comment_Add)/'~'),'Add comment : OnRowOptions {rowAddComment}'
+          r,←⊂' ',((~parms.comment_delete)/'~'),'Delete comment : OnRowOptions {rowDeleteComment}'
+          r,←⊂' -'
+          r,←⊂' ',((~parms.moveRows)/'~'),'Move rows up=Ctrl+CursorUp  : OnRowOptions {rowMoveUp}'
+          r,←⊂' ',((~parms.moveRows)/'~'),'Move rows down=Ctrl+CursorDown  : OnRowOptions {rowMoveDown}'
+          r
+      }
+
+    :EndSection Public
+
+
+    :Section Private
+
+    ∇ {r}←DQ ref
+      r←⎕DQ ref
+      ⍝Done
+    ∇
+
+      CalcIndicesFromSelItems←{
+    ⍝ Returns a two-item vector that can be used to index the part
+    ⍝ of the grid with ⌷ that is currently selected
+          rf←⍵                   ⍝ Ref to grid
+          ⍺←rf.CurCell           ⍝ Default is CurCell, but that may be overwritten from the outside
+          f←≡/GetSelItems rf     ⍝ Flag: is only a single cell in the range?
+          f:⍺                    ⍝ Then we return ⍺ which defaults to CurCell
+          sr←SelectedRange rf    ⍝ Selected range
+          ∪¨⊂[0]⊃,sr             ⍝ Indices
+      }
+
+      GetSelItems←{
+    ⍝ This function circumvents bug <00329>:
+    ⍝ Sometimes the smaller part is returned as first,
+    ⍝ the bigger one as second value.
+    ⍝ Should be the other way around since ASSIGNING this is a DOMAIN ERROR.
+          rg←⍵               ⍝ Ref to grid
+          si←rg.SelItems     ⍝ Get "SelItems"
+          si[⍋⊃si]           ⍝ Make sure the lower value comes first
+      }
+
+      SelectedRange←{
+    ⍝ Result is a two-item vector where ...
+    ⍝ [0] is a vector with all rows selected.
+    ⍝ [1] is a vector with all columns.
+    ⍝ To actually index data see CalcIndicesFromSelItems.
+          rg←⍵                           ⍝ Ref to grid.
+          {⍵[0]+⍳1+⊃-/⌽⍵}GetSelItems rg  ⍝ Selected range.
+      }
+
+    ∇ {r}←n ProcessContextMenu menuItems;m;res
+      r←⍬
+      m←n CreateContextMenu menuItems
+      res←DQ m
+      ⍝Done
+    ∇
+
+    ∇ m←n CreateContextMenu menuItems;this;caption;cmd;rf;i
+      m←⎕NEW⊂'Menu'
+      m.n←n
+      i←0
+      :For this :In menuItems
+          (caption cmd)←2↑(⊆this),⊂''
+          :If (,'-')≡,caption
+              rf←m.⎕NEW⊂'Separator'
+              ⍎'Sep_',(¯2↑'00',⍕i),'←rf'
+          :Else
+              rf←m.⎕NEW'MenuItem'(⊂'Caption'({('~'=1↑⍵)↓⍵}caption))
+              ⍎'MenuItem_',(¯2↑'00',⍕i),'←rf'
+              rf.Active←'~'≠1↑caption
+              :If cmd≡'DUP'
+                  rf.Active∧←≡/GetSelItems n.Grid
+              :EndIf
+              rf.∆CMD←cmd
+              rf.onSelect←'OnHandleContextMenu'
+          :EndIf
+          i+←1
+      :EndFor
+    ∇
+
+    ∇ r←GetDefaultContextMenu(col n);flag
+      r←'Cancel' '-'
+      :If 'DA'≡⍕col
+          r,←⊂((≢/n.Grid.SelItems)/'~'),'Show calender' 'SHOW_CAL'
+          r,←⊂,'-'
+      :EndIf
+      :If n.∆parms.row_Cmds
+          r,←n.∆parms.row_Duplicate/⊂'Duplicate' 'DUP'
+          r,←n.∆parms.row_Insert⊂'Insert' 'INS'
+          r,←n.∆parms.row_Del⊂'Delete' 'DEL'
+      :EndIf
+      flag←0∊⍴. ⍝TODO⍝
+      r,←(~flag)/⊂'-' ''
+      :If n.∆parms.moveRows
+          flag←(,'-')≡,↑¯1↑r
+          r,←⊂('Move line',((≡/n.Grid.SelItems)⊃'(s)'(' ',⍕n.Grid.CurCell[0])),' up')'UP'
+          r,←⊂('Move line',((≡/n.Grid.SelItems)⊃'(s)'(' ',⍕n.Grid.CurCell[0])),' up')'DOWN'
+          r,←⊂'-' ''
+      :EndIf
+      :If 0≠≢n.∆parms.onSort
+          r,←⊂'Sort' 'SORT'
+      :EndIf
+      :If n.∆parms.search
+          r,←⊂'Search' 'SEARCH'
+      :EndIf
+      r,←⊂'Show data types...' 'DATATYPE'
+    ∇
+
+    ∇ parms←GetAutoPressInTestModeFor(n parms callersName);ind;data
+      ⍝ This function checks whether we are running in test mode.
+      ⍝ If so we check whether "TestParms" contains parameters for the function in question (⍵[1]).
+      ⍝ If those parameters definem which button to "autoPress" we use it.
+      ⍝ Otherwise we set autoPress to 0 (OK).
+      :If 0=n.∆parms.testMode
+          parms.autoPress←¯1
+      :ElseIf 0=≢n.∆parms.testParms
+          parms.autoPress←0
+      :Else
+          ind←n.∆parms.testParms[;0]⍳⊂callersName
+          :If ind=↑⍴n.∆parms.testParms
+              parms.autoPress←0
+          :Else
+              data←↑n.∆parms.testParms[ind;1]
+              parms.{⍎(↑⍵),'←⍵[1]'}¨data
+          :EndIf
+      :EndIf
+    ∇
+
+      ExternalDataTypes2Internal←{
+          n←⍵
+          ind←##.Enums.TableDataTypes.∆List[;1]⍳n.∆parms.dataTypes
+          r←InternalDataTypes[ind]
+          0∊n.∆parms.readOnly:r
+          0∊n.∆parms.readOnly:.
+          .
+      }
+
+      TranslateDataTypes←{
+      ⍝ Transforms something like  ⊂'CU'  or  'CH' 'NU'  into the external representation:
+      ⍝ (,⊂'Currency') ←  TranslateDataTypes ⊂'CU'
+      ⍝ ('Character' 'Numeric') ←  TranslateDataTypes ⊂'CH' 'NU'
+          r←InternalDataTypes⍳⍵
+          ##.Enums.TableDataTypes.∆List[r;0]
+      }
+
+    ∇ r←InternalDataTypes
+    ⍝ Returns internal data types in strict alphabetical order.
+      r←'CH' 'CU' 'DA' 'DD' 'DE' 'NU' 'TI' 'YN'
+    ∇
+
+    ∇ protoRow←MakeUpRowProtoType n;b
+      protoRow←(1⊃⍴n.Grid.Values)⍴0
+      :If 1∊b←n.∆parms.dataTypes≡¨⊂'CH'
+          (b/protoRow)←⊂''
+      :EndIf
+      :If 1∊b←n.∆parms.dataTypes≡¨⊂'DA'
+          (b/protoRow)←⊂3↑⎕TS
+      :EndIf
+      :If 1∊b←n.∆parms.dataTypes≡¨⊂'TI'
+          (b/protoRow)←3↑3↓⎕TS
+      :EndIf
+    ∇
+
+    ∇ protoRow←GetProtoRow(n row);b
+      :If IsFns n.∆g.rowPrototype
+          :If 1 2 ¯2∊⍨0 1⊃⎕AT n.∆g.rowPrototype
+              protoRow←⍎n.∆g.rowPrototype,' ',⍕row+0.1
+          :Else
+              protoRow←⍎n.∆g.rowPrototype
+          :EndIf
+      :ElseIf 0≠≢n.∆g.rowPrototype
+          protoRow←n.∆g.rowPrototype
+      :Else
+          :If 1≤↑⍴n.Grid.Values
+              protoRow←GetProtoType n.Grid.Values[0;]
+          :Else
+              protoRow←MakeUpRowProtoType n
+          :EndIf
+      :EndIf
+    ∇
+
+      GetProtoType←{
+          r←↑¨0⍴¨⍵
+          ((' '=r)/r)←⊂''
+          r
+      }
+
+    ∇ {r}←ResortData(n from to)
+    ⍝ Used to keep n.∆parms.data in step with "Values" by resorting rows.
+      :If 0≠≢n.∆parms.data
+          n.∆data[to;]←n.∆data[from;]
+      :EndIf
+    ∇
+
+    ∇ {changedFlag}←MoveRowUp n;selItems;shape;moveThis;moveTo
+      changedFlag←0
+      selItems←{⍵[⍋↑¨⍵]}n.Grid.SelItems
+      :If 0<↑↑selItems              ⍝ We can't move up the first line naturally
+          shape←≢n.Grid.Values
+          moveThis←(↑↑selItems)+⍳1+-/⌽↑¨selItems
+          moveThis,←¯1+⌊/moveThis
+          moveTo←¯1⌽moveThis
+          n.Grid.Values[moveTo;]←n.Grid.Values[moveThis;]
+          ResortData n moveThis moveTo
+          selItems-←⊂1 0
+          :If shape[0]=≢n.Grid.RowTitles
+              n.Grid.RowTitles[moveTo]←n.Grid.RowTitles[moveThis]
+          :EndIf
+          :If shape[0]=≢n.Grid.RowTitleFCol
+              n.Grid.RowTitleFCol[moveTo]←n.Grid.RowTitleFCol[moveThis]
+          :EndIf
+          n.Grid.CurCell←0⊃selItems ⍝ [0]-←1
+          n.Grid.SelItems←selItems
+          n ExchangeComments(moveThis moveTo)
+          changedFlag←1
+      :EndIf
+    ∇
+
+    ∇ {changedFlag}←MoveRowDown n;selItems;shape;moveThis;moveTo
+      changedFlag←0
+      selItems←{⍵[⍋↑¨⍵]}n.Grid.SelItems
+      shape←≢n.Grid.Values
+      :If (↑shape)>⌈/↑↑selItems          ⍝ Is there room to move the selection down?
+          moveThis←(↑↑selItems)+⍳1+-/⌽↑¨selItems
+          moveThis,←1+⌈/moveThis
+          moveTo←1⌽moveThis
+          n.Grid.Values[moveTo;]←n.Grid.Values[moveThis;]
+          ResortData n moveThis moveTo
+          :If shape[0]=≢n.Grid.RowTitles
+              n.Grid.RowTitles[moveTo]←n.Grid.RowTitles[moveThis]
+          :EndIf
+          :If shape[0]=≢n.Grid.RowTitleFCol
+              n.GridRowTitleFCol[moveTo]←n.GridRowTitleFCol[moveThis]
+          :EndIf
+          selItems+←⊂1 0
+          n.Grid.CurCell←0⊃selItems ⍝ [0]+←1
+          n.Grid.SelItems←selItems
+          n ExchangeComments moveThis moveTo
+          changedFlag←1
+      :EndIf
+    ∇
+
+    ∇ values←GetResultTable n;b
+      values←n.Grid.Values
+      :If 1∊b←(⊂'DA')≡¨n.∆g.dataTypes
+          (b/values)←(b/n.∆g.origTable)ConvertDateBack¨b/values
+      :EndIf
+      :If 1∊b←(⊂'TI')≡¨n.∆g.dataTypes
+          (b/values)←(b/n.∆g.origTable)ConvertTimeBack¨b/values
+      :EndIf
+    ∇
+
+      ConvertTimeBack←{
+          ' '=1↑0⍴⍺:,'ZI2,<:>,ZI2,<:>,ZI2'⎕FMT,[-0.2]24 60 60⊤⍵
+          3=≢⍺:24 60 60⊤⍵
+          (⎕DR ⍺)∊83 163 323:100⊥24 60 60⊤⍵
+          645=⎕DR ⍺:(100⊥24 60 60⊤⍵)÷1000000
+          ↑⍵
+      }
+
+    ∇ r←old ConvertDateBack new
+      :If ' '=1↑0⍴↑old
+          r←new
+      :ElseIf (≢old)∊3 6 7
+          r←{↑↑(//)⎕VFI ⍵}¨'-'Split new
+      :ElseIf 645=⎕DR old
+          r←↑(//)⎕VFI new~'-'
+      :ElseIf (old>0)∧(old<2958465)
+          r←2 ⎕NQ #'DateToIDN'({↑↑(//)⎕VFI ⍵}¨'-'Split new)
+      :Else
+          r←↑(//)⎕VFI new~'-'
+      :EndIf
+    ∇
+
+    ∇ table←n CheckData table;b
+      :If 0<+/b←'DA'∘≡¨n.∆g.dataTypes
+          (b/table)←UnifyDate¨b/table
+      :EndIf
+      :If 0<+/b←'TI'∘≡¨n.∆g.dataTypes
+          (b/table)←UnifyTime¨b/table
+      :EndIf
+      :If 0<+/b←'YN'∘≡¨n.∆g.dataTypes
+          (b/table)←{⍵⌷'NY'}¨b/table
+      :EndIf
+    ∇
+
+
+      UnifyTime←{
+      ⍝ Convert all supported TI formats to IDN
+          ' '=1↑0⍴⍵:24 60 60⊥100 100 100⊤↑↑(//)⎕VFI ⍵~':'
+          3=≢⍵:24 60 60⊥⍵
+          (⎕DR ⍵)∊83 163 323:24 60 60⊥100 100 100⊤↑⍵
+          645=⎕DR ⍵:24 60 60⊥100 100 100⊤↑⌊1000000×⍵
+          ⍵
+      }
+
+    ∇ r←UnifyDate date
+    ⍝ Convert all supported DA formats to IDF (International Date Format, '2000-10-01')
+      :If 0=≢date~' '
+          r←''
+      :ElseIf 645=⎕DR date
+          r←,Date2IDF 10000 100 100⊤⌊date                         ⍝ Is something like yyyymmdd.hhmmss
+      :ElseIf ' '=1↑0⍴↑date
+          'Invalid date'⎕SIGNAL 11/⍨10≠≢date
+          'Invalid date'⎕SIGNAL 11/⍨8≠≢date~'-'
+          'Invalid date'⎕SIGNAL 11/⍨'--'≢date~⎕D
+          r←date                                                 ⍝ Is already IDF
+      :ElseIf (⎕DR date)∊83 163 323                              ⍝ Is it an integer?
+          :If 1=≢date                                            ⍝ Scalar or one-item vector?
+              :If (date>0)∧(date<2958465)                        ⍝ Is it an IDN?
+                  r←,Date2IDF 3↑2 ⎕NQ #'IDNToDate'date
+              :ElseIf 0>date
+                  'Invalid date'⎕SIGNAL 11
+              :Else
+                  r←,Date2IDF 10000 100 100⊤date
+              :EndIf
+          :ElseIf (≢date)∊3 6 7
+              r←,Date2IDF 3↑date                                 ⍝ A timestamp
+          :Else
+              'Invalid date'⎕SIGNAL 11
+          :EndIf
+      :Else
+          'Invalid date'⎕SIGNAL 11
+      :EndIf
+    ∇
+
+      GetColumnsName←{
+          n←⍺
+          col←⍵
+          0≠≢n.∆parms.colTitles:col⊃n.∆parms.colTitles
+          col⊃⍕¨1+⍳1⊃⍴n.Grid.Values
+      }
+
+      Date2IDF←{
+    ⍝ ⍵ is one of:
+    ⍝ * a three-element vector representing a date (2000 10 1)
+    ⍝ * a matrix with n (number of dates) rows and 3 columns like 2 3⍴2000 10 1
+          3≠¯1↑⍴⍵:'Invalid date'⎕SIGNAL 11
+          'ZI4,<->,ZI2,<->,ZI2'⎕FMT ⍵⍴⍨¯2↑1,≢⍵
+      }
+
+    ∇ {bool}←SelectColumns n;parms;list
+      parms←##.OptionsTool.CreateParms
+      parms.centerIn←n.∆Form
+      parms.caption←'Table: search'
+      parms.info←'Please select the columns you wish to include in the scan:'
+      parms.default←1
+      parms.style←##.Enums.OptionsStyles.check
+      list←(1⊃⍴n.Grid.Values){0=≢⍵:⍳⍺ ⋄ ⍵}n.∆parms.colTitles
+      bool←1⊃n.∆globalParms parms ##.OptionsTool.Run list
+    ∇
+
+    ∇ {r}←Search n;searchParms;hits;parms;msg
+      r←⍬
+      searchParms←AskFor_SearchParms n
+      :If 0≠≢searchParms
+      :AndIf 0≠≢'Search_for'GetFromKeyValuePair searchParms
+          n.∆g.search_for←↑'Search_for'GetFromKeyValuePair searchParms
+          n.∆g.searchCaseSensitive←↑↑'Options'GetFromKeyValuePair searchParms
+          hits←SearchInCol n(↑'Columns'GetFromKeyValuePair searchParms)
+          parms←##.Dialogs.CreateParmsForShowMsg
+          parms.centerIn←n.∆Form
+          parms.caption←'Search results'
+          parms.size←150 300
+          :If 0=≢hits
+              n.∆globalParms parms ##.Dialogs.ShowMsg'Sorry, nothing found'
+          :Else
+              n.∆g.foundHere←hits
+              n.Grid.Index←(↑↑hits[0;1]),0
+              n.Grid.CurCell←{(↑1⊃⍵)(↑↑⍵)}hits[0;]
+              msg←⊂'Number of hits: ',(⍕↑+/≢¨hits[;1]),' in ',(⍕↑⍴hits),' column',((1<↑⍴hits)/'s'),'.'
+              :If 1=↑⍴hits
+                  msg,←⊂((1<≢↑hits[0;1])⊃'Hit was' 'All hits were'),' found in column "',(n GetColumnsName↑hits[;0]),'"'
+              :Else
+                  msg,←⊂'First hit is found in column "',(n GetColumnsName↑hits[;0]),'".'
+              :EndIf
+              n.∆globalParms parms ##.Dialogs.ShowMsg msg
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ r←GetInputDataTypes n
+      r←⍕¨n.Grid.Input
+    ∇
+
+    ∇ {n}←HandleCellTypes n;BCol;idt
+      'Invalid column data type'⎕SIGNAL 11/⍨~n.∆g.dataTypes∊GetInputDataTypes n
+      idt←GetInputDataTypes n
+      n.Grid.CellTypes←(↑⍴n.Grid.Values)⌿,[-0.2]n.∆parms.readOnly+1+idt⍳n.∆g.dataTypes
+      n.∆g.cellTypes←n.Grid.CellTypes[0;] ⍝ we might need this, for example when we insert a row into an empty table.
+      :If ⍬≡n.∆parms.showInput
+          n.∆parms.showInput←idt∊'' 'YN' 'YNL' 'DA' 'DD' 'DE'
+      :ElseIf ⍬≡⍴n.∆parms.showInput
+          n.∆parms.showInput←(⍴n.Grid.Input)⍴0
+      :EndIf
+      n.Grid.ShowInput←n.∆parms.showInput
+      BCol←(≢n.∆parms.showInput)⍴0
+      :If 1=≢n.∆parms.inactiveColor
+      :AndIf 0 1∊⍨≡n.∆parms.inactiveColor
+          (('L'=∊¯1↑¨idt)/BCol)←↑n.∆parms.inactiveColor
+      :Else
+          (('L'=∊¯1↑¨idt)/BCol)←⊂3⍴n.∆parms.inactiveColor
+      :EndIf
+      n.Grid.BCol←BCol  ⍝ Allow telling read-only columns from others.
+    ∇
+
+    ∇ {r}←SetCellWidth n;cw
+      r←⍬
+      :If 0=≢cw←,n.∆parms.cellWidths
+          SetDefaultColSize n
+      :Else
+          '"cellWidths" length error'⎕SIGNAL 5/⍨~(≢cw)∊1,1⊃≢n.Grid.Values
+          cw←(1⊃⍴n.Grid.Values)⍴cw
+          cw{2 ⎕NQ n.Grid'SetColSize'⍵ ⍺}¨⍳≢cw
+      :EndIf
+    ∇
+
+    ∇ {r}←SetDefaultColSize n;b
+      r←⍬
+      ¯3{2 ⎕NQ n.Grid'SetColSize'⍵ ⍺}¨⍳1⊃⍴n.Grid.Values
+      :If 1∊b←'DA'∘≡¨n.∆g.dataTypes
+          (⍸b){2 ⎕NQ n.Grid'SetColSize'⍺ ⍵}1⊃n.Grid.DA.GetTextSize'2010-01-01WW'
+      :EndIf
+    ∇
+
+      GetSizeInPixel←{
+          rf←⍵
+          save←rf.Coord
+          rf.Coord←'Pixel'
+          size←rf.Size
+          rf.Coord←save
+          size
+      }
+
+    ∇ n←CreateForm(globalParms parms);parms2
+      parms2←##.StdForm.CreateParms
+      parms2.(sysMenu maxButton minButton)←1
+      parms2.(posn size)←parms.(posn size)
+      parms2.statusbarMessage←''
+      parms2.sizeable←1
+      parms2.icon←parms.icon{0=≢⍺:⍵ ⋄ ⍺}globalParms.icon
+      parms2.(addToCaption caption)←parms.(addToCaption caption)
+      n←##.StdForm.Create globalParms parms2
+      CopyNamespace parms
+    ∇
+
+    ∇ r←CreateEvents dummy
+      r←⎕NS''
+      r.AfterRowWasAdded←4001
+      r.CheckRowTitles←4002
+      r.MakeNewCellCurrent←4003
+      r.Quit←4004
+      r.QuitDQ←4005
+      r.RowWasMoved←4006
+      r.SetInputModeToAlwasInCell←4007
+      r.SetInputModeToScroll←4008
+      r.DataChange←4009
+      r.ReSelectYN←4010
+    ∇
+
+      FullyQualify←{
+     ⍝TODO⍝
+    ⍝ '' ←→ FullyQualify ''
+    ⍝ '#.qq' ←→ FullyQualify '#.qq'
+    ⍝ 'ww.qq' ←→ 'ww' FullyQualify 'qq'
+          ⍺←(+/∧\(⊂''⎕NS'')≡¨⎕NSI)↓⎕NSI
+          0=≢,⍵:,⍵
+          '#'=↑⍵:,⍵
+          0=≢,⍺:'#.',⍵
+          (↑⍺),'.',⍵
+      }
+
+      GetFromKeyValuePair←{
+       ⍝ ⍵ is a matrix with two columns: a key and a value
+       ⍝ ⍺ is a single name (when simple) or a list of names (when nested)
+       ⍝ ← is always a nested vector.
+       ⍝ Crashes in case ⍺ is not found.
+          names←⊆⍺
+          ⍵[⍵[;0]⍳names;1]
+      }
+
+    ∇ {parms}←CheckCallbacks parms
+      parms.onCellChange←'onCellChange'CheckUserCallback_ parms.onCellChange
+      parms.onCellChanged←'onCellChanged'CheckUserCallback_ parms.onCellChanged
+      parms.onClose←'onClose'CheckUserCallback_ parms.onClose
+      parms.onDblClick←'onDblClick'CheckUserCallback_ parms.onDblClick
+      parms.onKeyPress←'onKeyPress'CheckUserCallback_ parms.onKeyPress
+      parms.onSort←'onSort'CheckUserCallback_ parms.onSort
+      :If ~parms.moveSelection∊0 1 ¯1    ⍝ Then it is a callback of sorts
+          . ⍝TODO⍝
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms(parms table)
+      parms←CheckParms_dataTypes parms table
+      parms←CheckParms_captions parms
+      parms←CheckParms_readOnly parms table
+      parms←CheckParms_maxLength parms table
+      parms.autoExpand←↑∊parms.autoExpand
+      parms←CheckParms_askNewRowTitle parms
+      parms←CheckParms_contextMenu parms
+      parms←CheckParms_menu parms
+      parms.ctrl_Pos1_End←1 ⎕C⍕parms.ctrl_Pos1_End
+      parms←CheckParms_comments parms
+      parms←CheckParms_selItems parms
+      parms←CheckParms_curCell parms
+      parms←CheckParms_moveSelection parms
+      parms←CheckParms_cellSelect parms
+      parms←CheckParms_rowTitles parms
+      parms←CheckParms_debug parms
+      parms←CheckParms_colTitles parms
+      parms←CheckParms_rowTitles parms
+      parms←CheckParms_rowTitleFCol parms table
+      parms←CheckParms_lists parms
+      parms.(row_Duplicate row_Insert row_Del)←parms.row_Cmds{1=⍵:1 ⋄ (⍺=1)∧¯1=⍵:1 ⋄ 0}¨parms.(row_Duplicate row_Insert row_Del)
+    ∇
+
+    ∇ parms←CheckParms_dataTypes(parms table)
+      :If 0≠≢parms.dataTypes
+          'Invalid "dataType"'⎕SIGNAL 11/⍨~∧/parms.dataTypes∊##.Enums.TableDataTypes.∆List[;1]
+      :EndIf
+      :If 0=≢,parms.dataTypes
+          parms.dataTypes←('CH' 'NU')[{∧⌿' '≠↑¨1↑¨0⍴¨⍵}¨⊂[0]table]
+      :EndIf
+      parms.dataTypes←(1⊃⍴table)⍴parms.dataTypes
+    ∇
+
+    ∇ parms←CheckParms_captions parms
+      :If ¯1≡parms.addToCaption
+          parms.addToCaption←(0=≢parms.caption)/'Table Editor'
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_lists parms
+      :If 0≠≢parms.lists
+          'Invalid column in the "lists" parameter'⎕SIGNAL 11/⍨~(↑¨parms.lists)∊⍳1⊃⍴table
+          '"lists" can only be specified for "DropDown" and "DropEdit"'⎕SIGNAL 11/⍨0∊⍴parms.dataTypes
+          '"lists" can onlt be specified for "DropDown" and "DropEdit"'⎕SIGNAL 11/⍨~∧/(parms.dataTypes[↑¨parms.lists])∊'DD' 'DE'
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_rowTitleFCol(parms table)
+      :If 0≠≢,parms.rowTitleFCol parms.rowTitleFCol
+      :AndIf 0 1∊⍨≡parms.rowTitleFCol
+      :AndIf (↑⍴table)≠≢parms.rowTitleFCol
+          parms.rowTitleFCol←,⊂parms.rowTitleFCol
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_colTitles parms
+      :If 0≠≢,parms.colTitles
+          :If 0 1∊⍨≡parms.colTitles
+          :AndIf ';'∊parms.colTitles
+              parms.colTitles←';'(≠⊆⊢)parms.colTitles
+          :EndIf
+      :EndIf
+      parms.colTitles←⊆⍣(0≠≢parms.colTitles)⊣parms.colTitles
+    ∇
+
+    ∇ parms←CheckParms_debug parms
+      :If 0≠≢parms.debug
+      :AndIf (,0)≢,parms.debug
+          :If 0 1∊⍨≡parms.debug
+              parms.debug←,⊂parms.debug
+          :EndIf
+          parms.debug←{0=1↑0⍴⍵:⍵ ⋄ 1 ⎕C ⍵}¨parms.debug
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_rowTitles parms
+      :If 0≠≢,parms.rowTitles
+          :If 0∊1↑¨0⍴¨parms.rowTitles
+              parms.rowTitles←⍕¨parms.rowTitles
+          :EndIf
+          :If 0 1∊⍨≡parms.rowTitles
+          :AndIf ';'∊parms.rowTitles
+              parms.rowTitles←';'(≠⊆⊢)parms.rowTitles
+          :EndIf
+      :EndIf
+      parms.rowTitles←⊆⍣(0≠≢parms.rowTitles)⊣parms.rowTitles
+    ∇
+
+    ∇ parms←CheckParms_cellSelect parms
+      :If 0=≢parms.cellSelect
+          parms.cellSelect←'Rows' 'Columns' 'Whole' 'Partial'
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_moveSelection parms
+      :If ¯1≡parms.moveSelection
+          parms.moveSelection←parms.paste
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_curCell parms
+      :If 0=≢parms.curCell
+          parms.curCell←0 0
+          :If 0≠≢parms.readOnly
+          :AndIf 0∊parms.readOnly
+              :If </parms.readOnly⍳1 0
+                  parms.curCell←1,(,parms.readOnly)⍳0
+              :EndIf
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_selItems parms
+      :If 0≠≢parms.selItems
+          parms.curCell←0⊃parms.selItems
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_comments parms
+      :If parms.comment_Cmds
+          :If ¯1=parms.comment_Add
+              parms.comment_Add←1
+          :EndIf
+          :If ¯1=parms.comment_delete
+              parms.comment_delete←1
+          :EndIf
+          :If ¯1=parms.comment_Edit
+              parms.comment_Edit←1
+          :EndIf
+      :EndIf
+      :If ¯1=parms.comment_Add
+          parms.comment_Add←0
+      :EndIf
+      :If ¯1=parms.comment_delete
+          parms.comment_delete←0
+      :EndIf
+      :If ¯1=parms.comment_Edit
+          parms.comment_Edit←0
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_menu parms
+      :If 2≠⍴⍴parms.menu
+          :If 2=≡parms.menu
+              :If 2=≢parms.menu
+                  parms.menu←1 2⍴parms.menu
+              :EndIf
+          :Else
+              parms.menu←⊃parms.menu
+          :EndIf
+      :EndIf
+      parms.menu[;1]←FullyQualify¨parms.menu[;1]
+    ∇
+
+    ∇ parms←CheckParms_contextMenu parms
+      :If 0≠≢parms.contextMenu
+      :AndIf 2≠⍴⍴parms.contextMenu
+          parms.contextMenu←,[-0.5]parms.contextMenu
+      :EndIf
+      parms.contextMenu[;1]←FullyQualify¨parms.contextMenu[;1]
+    ∇
+
+    ∇ parms←CheckParms_askNewRowTitle parms
+      :If ¯1≡parms.askNewRowTitle
+          parms.askNewRowTitle←0≠≢parms.rowTitles
+      :EndIf
+    ∇
+
+    ∇ parms←CheckParms_maxLength(parms table);bool
+      :If 0≠≢parms.maxLength
+          :If 2=⍴⍴parms.maxLength
+          ⍝ handle here column names and maxlength values:
+              :If 0=≢parms.colTitles parms.colTitles
+                  11 ⎕SIGNAL⍨'2-dim-ary "MaxLength" needs "ColTitles"'
+              :EndIf
+              :If ∨/bool←~parms.maxLength[;0]∊parms.colTitles
+                  11 ⎕SIGNAL⍨'Invalid definition of "MaxLength" (',(1↓∊',',¨bool⌿parms.maxLength[;0]),')'
+              :EndIf
+              parms.maxLength←parms.maxLength[⍋parms.colTitles⍳parms.maxLength[;0];]
+              bool←parms.colTitles∊parms.maxLength[;0]
+              parms.maxLength⍀⍨←bool
+              parms.maxLength[⍸~bool;1]←0
+              parms.maxLength←parms.maxLength[;1]
+          :Else
+              parms.maxLength←(1⊃⍴table)↑parms.maxLength,(1⊃⍴table)⍴0
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ {parms}←CheckParms_readOnly(parms table)
+      :If 1=⍴,parms.readOnly
+          parms.readOnly←(1⊃⍴table)⍴parms.readOnly
+      :ElseIf (1⊃⍴table)≠⍴parms.readOnly
+          '"readOnly" has an invalid length: neither scalar nor matching the number of columns'⎕SIGNAL 11
+      :EndIf
+      :If ∧/parms.readOnly
+          parms.autoExpand←parms.(delete moveSelection paste row_Duplicate row_Insert)←0
+          parms.(row_Del row_Duplicate row_Insert)←0
+      :EndIf
+    ∇
+
+    ∇ {r}←n AddComment(row col comment)
+      r←⍬
+      comment←Split⍣('⋄'∊comment)⊣comment
+      2 ⎕NQ n.Grid'AddComment'row col comment
+    ∇
+
+    ∇ R←CheckTypes Y;Types;Data;This;Type;Check_1;Bool
+      (Types Data)←Y
+      Data←⊂[0]Data
+      R←''
+      Check_1←{0=1↑0⍴⍵:⍵ ⋄ 0∊0⊃a←⎕VFI ⍵:⍵ ⋄ ↑(//a)}
+      :For This Type :In Data{(⊂⍺),⊂⍵}¨Types
+          :Select Type
+          :CaseList 'NU' 'CU' 'DA' 'TI'
+              R,←⊂Check_1¨This
+          :Case 'YN'
+              :If ∧/0 1∊Bool←Check_1¨This
+                  R,←⊂Bool
+              :Else
+                  R,←⊂This
+              :EndIf
+          :Else
+              R,←⊂This
+          :EndSelect
+      :EndFor
+      R←⍉⊃R
+    ∇
+
+    ∇ R←X CompareWith Y
+ ⍝⍝ X sind "alte" Values
+ ⍝⍝ Y sind "neue" Values
+ ⍝⍝ Da die Sortierreihenfolge sich geändert haben kann, reicht ein ≡ nicht aus!
+ ⍝⍝ R wird 1 wenn sich etwas geändert hat.
+      :If X≡Y
+          R←0
+      :Else
+          :If ≢/↑∘⍴¨X Y
+              R←1 ⍝ Länge stimmt nicht, also...
+          :Else
+              R←0∊(⊂[1]X)∊⊂[1]Y
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ {r}←n ConfirmNewRowTitle(row noOf);parms;defMat;info;data
+      r←⍬
+      :If 0≠≢,n.∆parms.rowTitles
+      :AndIf n.∆parms.askNewRowTitle
+          parms←##.Input.CreateParms
+          parms.caption←'Row titles'
+          parms.centerIn←n.∆Form
+          info←'Specify title',((1<noOf)/'s'),' for the new row',((1<noOf)/'s')
+          defMat←1 7⍴'Info'info''##.Enums.InputDataTypes.Label 0 1 0
+          defMat⍪←⊃{('Row_',⍕⍵)''(⍕⍵)##.Enums.InputDataTypes.Character 10 1 0}¨row+1+⍳noOf
+          →(⍬ ⍬≡data←n.∆globalParms parms ##.Input.Run defMat)/0
+          n.Grid.RowTitles←(row↑n.Grid.RowTitles),(,¨data[;1]),row↓n.Grid.RowTitles
+      :EndIf
+    ∇
+
+    ∇ n←CreateInputControls n;∆;SetDF;controls
+      SetDF←{⍵{⍵.⎕DF ⍺}¨⍺⍎¨⍵}
+      controls←''   ⍝ We cannot assign to Grid.Input with ,← due to bug <01035>
+      controls,←(SetDF CreateInputCtrl_Character)n
+      controls,←(SetDF CreateInputCtrl_Numeric)n
+      controls,←(SetDF CreateInputCtrl_Currency)n
+      controls,←(SetDF CreateInputCtrl_Date)n
+      controls,←(SetDF CreateInputCtrl_Time)n
+      controls,←(SetDF CreateInputCtrl_YesNo)n
+      controls,←(SetDF CreateInputCtrl_DropEdit)n
+      controls,←(SetDF CreateInputCtrl_DropDown)n
+      n.Grid.Input←controls
+      n←HandleCellTypes n
+      controls.onContextMenu←⊂'OnContextMenu'
+    ∇
+
+    ∇ refs←(SetDf CreateInputCtrl_Character)n;∆
+      ∆←''
+      ∆,←⊂'FieldType' 'Char'
+      n.Grid.CH←n.Grid.⎕NEW'Edit'∆
+      n.Grid.CH.onKeyPress←'OnInputKeyPress'
+      n.Grid.CH.onMouseDown←'OnInputMouseDown'
+      n.Grid.CH.onMouseDblClick←'OnInputMouseDblClick'
+      n.Grid.CH.onGotFocus←'OnInputGotFocus'
+      n.Grid.CHL←n.Grid.⎕NEW⊂'Label'
+      refs←n.Grid.(CH CHL)
+      n.Grid SetDF'CH' 'CHL'
+    ∇
+
+    ∇ refs←(SetDF CreateInputCtrl_Numeric)n;∆
+      ∆←''
+      :If n.∆parms.longNumeric
+          ∆,←⊂'FieldType' 'LongNumeric'
+      :Else
+          ∆,←⊂'FieldType' 'Numeric'
+      :EndIf
+      n.Grid.NU←n.Grid.⎕NEW'Edit'∆
+      n.Grid.NU.onGotFocus←'OnInputGotFocus'
+      n.Grid.NU.onKeyPress←'OnInputKeyPress'
+      n.Grid.NU.onMouseDown←'OnInputMouseDown'
+      n.Grid.NU.onBadValue←'OnBadValue'
+      n.Grid.NUL←n.Grid.⎕NEW'Label'(⊂'FieldType' 'Numeric')
+      refs←n.Grid.(NU NUL)
+      n.Grid SetDF'NU' 'NUL'
+    ∇
+
+    ∇ refs←(SetDF CreateInputCtrl_Currency)n;∆;Label
+      ∆←''
+      ∆,←⊂'FieldType' 'Currency'
+      n.Grid.CU←n.Grid.⎕NEW'Edit'∆
+      n.Grid.CU.onGotFocus←'OnInputGotFocus'
+      n.Grid.CU.onKeyPress←'OnInputKeyPress'
+      n.Grid.CU.onMouseDown←'OnInputMouseDown'
+      n.Grid.CU.onBadValue←'OnBadValue'
+      n.Grid.CUL←n.Grid.⎕NEW'Label'(⊂'FieldType' 'Currency')
+      refs←n.Grid.(CU CUL)
+      n.Grid SetDF'CU' 'CUL'
+    ∇
+
+    ∇ refs←(SetDF CreateInputCtrl_Date)n;∆
+      ∆←''
+      ∆,←⊂'FieldType' 'Char'
+      ∆,←⊂'ValidIfEmpty' 0
+      ∆,←⊂'MaxLength' 10
+      n.Grid.DA←n.Grid.⎕NEW'Edit'∆
+      n.Grid.DA.onGotFocus←'OnInputGotFocus'
+      n.Grid.DA.onChange←'OnChangeDate'
+      n.Grid.DA.onKeyPress←'OnKeyPressInDate'
+      n.Grid.DAL←n.Grid.⎕NEW⊂'Label'
+      refs←n.Grid.(DA DAL)
+      n.Grid SetDF'DA' 'DAL'
+    ∇
+
+    ∇ refs←(SetDF CreateInputCtrl_Time)n;∆
+      n.Grid.TI←n.Grid.⎕NEW'Edit'(⊂'FieldType' 'Time')
+      n.Grid.TI.onGotFocus←'OnInputGotFocus'
+⍝      n.Grid.TI.onKeyPress←'OnKeyPressInTime'
+⍝     n.Grid.TI.onChange←'OnChangeTime'
+      n.Grid.TI.onMouseDown←'OnInputMouseDown'
+      n.Grid.TI.onMouseDblClick←'OnInputMouseDblClick'
+      n.Grid.TIL←n.Grid.⎕NEW⊂'Label'
+      refs←n.Grid.(TI TIL)
+      n.Grid SetDF'TI' 'TIL'
+    ∇
+
+    ∇ refs←(SetDF CreateInputCtrl_YesNo)n;∆
+      ∆←''
+      ∆,←⊂'MaxLength' 1
+      n.Grid.YN←n.Grid.⎕NEW'Edit'∆
+      n.Grid.YN.onGotFocus←'OnInputGotFocus'
+      n.Grid.YN.onKeyPress←'OnKeyPressInYN'
+      n.Grid.YN.onMouseDown←'OnInputMouseDown'
+      n.Grid.YN.⍎'on',(⍕events.ReSelectYN),'←''OnReSelectYN2'''
+      n.Grid.YNL←n.Grid.⎕NEW'Edit'∆
+      refs←n.Grid.(YN YNL)
+      n.Grid SetDF'YN' 'YNL'
+    ∇
+
+    ∇ refs←(SetDF CreateInputCtrl_DropDown)n;∆
+      ∆←⊂'Style' 'Drop'
+      n.Grid.DD←n.Grid.⎕NEW'Combo'∆
+      ∆,←⊂'Active' 0
+      n.Grid.DDL←n.Grid.⎕NEW'Combo'∆
+⍝      n.Grid.(DD DDL).onKeyPress←⊂'OnInputKeyPress'
+⍝      n.Grid.(DD DDL).onMouseDown←⊂'OnInputMouseDown'
+      refs←n.Grid.(DD DDL)
+      n.Grid SetDF'DD' 'DDL'
+    ∇
+
+    ∇ refs←(SetDF CreateInputCtrl_DropEdit)n;∆
+      ∆←⊂'Style' 'DropEdit'
+      n.Grid.DE←n.Grid.⎕NEW'Combo'∆
+      ∆,←⊂'Active' 0
+      n.Grid.DEL←n.Grid.⎕NEW'Combo'∆
+      n.Grid.(DE DEL).onKeyPress←⊂'OnInputKeyPress'
+      n.Grid.(DE DEL).onMouseDown←⊂'OnInputMouseDown'
+      refs←n.Grid.(DE DEL)
+      n.Grid SetDF'DE' 'DEL'
+    ∇
+
+    ∇ {menubar}←AddMenubar n;∆;Txt;Name;Flag;Item;Callback;i;Posn;parmsMenubar;list
+      menubar←⍬
+      :If 0≠≢n.∆parms.menubar
+          :If ¯1≡n.∆parms.menubar
+              n.∆parms.menubar←GetDefaultMenubar n.∆parms
+          :EndIf
+          parmsMenubar←##.Menubar.CreateParms
+          parmsMenubar.noDevelopersMenu←1
+          parmsMenubar.debug←0
+          menubar←##.Menubar.Create n.∆Form n.∆parms.menubar parmsMenubar(⎕NEW ##.KeyCodes)
+      :EndIf
+    ∇
+
+    ∇ n←CreateStatusFields(n dim);∆;a;Save;sum;formSize;size;∆1
+    ⍝ We are not happy with the default, so we delete all children of the status bar and create new ones.
+      :If parms.statusbar
+          sum←155 40 40 60 40
+          sum←(8×⍴sum)++/sum
+          formSize←GetSizeInPixel n.∆Form
+          size←⍬(0⌈↑formSize[1]-sum)
+          {⍵.Close}¨⎕WN n.Statusbar
+          n.⎕EX'StatusField1'
+          ∆1←⊂'Coord' 'Pixel'
+          ∆←∆1
+          ∆,←⊂'Coord' 'Pixel'
+          ∆,←⊂'Size'size
+          ∆,←⊂('Attach'('Top' 'Left' 'Top' 'Right'))
+          n.SB_Info←n.Statusbar.⎕NEW'StatusField'∆
+          ∆1,←⊂('Attach'('Top' 'Right' 'Top' 'Right'))
+          ∆←∆1
+          ∆,←⊂'Coord' 'Pixel'
+          ∆,←⊂'Size'(⍬ 110)
+          ∆,←⊂'Caption' 'Table: '
+          ∆,←⊂'Text'((⍕↑dim),' ; ',(⍕↑1↓dim))
+          n.SB_Rows←n.Statusbar.⎕NEW'StatusField'∆
+          ∆←∆1
+          ∆,←⊂'Style' 'CapsLock'
+          ∆,←⊂'Size'(⍬ 40)
+          n.SB_CapsLock←n.Statusbar.⎕NEW'StatusField'∆
+          ∆←∆1
+          ∆,←⊂'Style' 'NumLock'
+          ∆,←⊂'Size'(⍬ 40)
+          n.SB_NumLock←n.Statusbar.⎕NEW'StatusField'∆
+          ∆←∆1
+          ∆,←⊂'Style' 'KeyMode'
+          ∆,←⊂'Size'(⍬ 60)
+          n.SB_KeyMode←n.Statusbar.⎕NEW'StatusField'∆
+          ∆←∆1
+          ∆,←⊂'Size'(⍬ 40)
+          ∆,←⊂'Style' 'InsRep'
+          n.SB_InsRep←n.Statusbar.⎕NEW'StatusField'∆
+      :EndIf
+    ∇
+
+    ∇ r←GetCurCellInfo n;curCell;list2;list1
+      curCell←n.Grid.CurCell
+      (list2 list1)←↓⍉#.GUI.Enums.TableDataTypes.∆List
+      r←↑TranslateDataTypes 2↑¨n.∆g.dataTypes[curCell[1]]
+      :If 0≠≢n.∆g.maxLength
+      :AndIf ~''⍬∊⍨n.∆g.maxLength[curCell[1]]
+      :AndIf 0<curCell[0]⊃n.∆g.maxLength
+          r,←'; Max=',(⍕curCell[0]⊃n.∆g.maxLength)
+      :EndIf
+    ∇
+
+    ∇ DisplayFound n;a;Txt
+      :If 0≠≢∆FOUND_HERE
+          a←0⊃∆FOUND_HERE
+          'Grid'⎕WS('Index'(1,⍨↑a))('CurCell'a)
+          :If 0=≢∆FOUND_HERE←1↓∆FOUND_HERE
+              UpdateStatus''
+              'mb.special.search2'⎕WS'Active' 0
+          :Else
+              'mb.special.search2'⎕WS'Active' 1
+              Txt←↑∆LANGUAGE ##.Lang.Get'Table:RemainingHits:'
+              Txt,←⍕≢∆FOUND_HERE
+              UpdateStatus Txt
+          :EndIf
+      :Else
+          'mb.special.search2'⎕WS'Active' 0
+      :EndIf
+    ∇
+
+    ∇ {r}←n ExchangeComments(from to);buff;this;i;current;j;noOfColumns
+      r←⍬
+      noOfColumns←1⊃⍴n.Grid.Values
+      buff←''
+      :For this :In from
+          buff,←⊂this{1≡a←2 ⎕NQ n.Grid'GetComment'⍺ ⍵:'' ⋄ a}¨⍳noOfColumns
+          this{2 ⎕NQ n.Grid'DelComment'⍺ ⍵}¨⍳noOfColumns
+      :EndFor
+      :For i :In ⍳≢to
+          current←↑i⊃to
+          :If 0≠≢∊i⊃buff
+              :For j :In (0<≢¨i⊃buff)/⍳noOfColumns
+                  :If 0≠≢,j⊃i⊃buff
+                      current{2 ⎕NQ n.Grid'AddComment'⍺ j ⍵}2⊃j⊃i⊃buff
+                  :EndIf
+              :EndFor
+          :EndIf
+      :EndFor
+    ∇
+
+    ∇ {r}←ExecuteRowCmds(n row rf);noOf
+      r←⍬
+      :Select rf
+      :Case n.menubar.rowInsert
+          RowInsert n
+      :Case n.menubar.rowDelete
+          RowDelete n
+      :Case n.menubar.rowDuplicate
+          RowDuplicate n
+      :Case n.menubar.rowMoveUp
+          SendMoveRowUp n
+      :Case n.menubar.rowMoveDown
+          SendMoveRowDown n
+      :Case n.menubar.rowEditComment
+          ProcessEditComment n
+      :Case n.menubar.rowAddComment
+          ProcessAddComment n
+      :Case n.menubar.rowDeleteComment
+          ProcessDelComment n
+      :Else
+          .
+      :EndSelect
+    ∇
+
+    ∇ {r}←SendMoveRowDown n
+      r←⍬
+      1 ⎕NQ n.Grid'KeyPress' '' 0 40 2
+    ∇
+    ∇ {r}←SendMoveRowUp n
+      r←⍬
+      1 ⎕NQ n.Grid'KeyPress' '' 0 38 2
+    ∇
+
+    ∇ {r}←RowInsert n;values;protoRow;bool;noOf;row
+      r←⍬
+      (noOf row)←AskFor_BeforeOrAfter n
+      :If ⍬ ⍬≢noOf row
+          :If 0≠≢protoRow←GetProtoRow n row
+              :If 0<+/bool←(⊂'DA')≡¨2↑¨(GetInputDataTypes n)[n.∆g.cellTypes]
+                  protoRow[⍸bool]←⊂Date2IDF 3↑⎕TS
+              :EndIf
+              :If 0<+/bool←(⊂'TI')≡¨2↑¨(GetInputDataTypes n)[n.∆g.cellTypes]
+                  protoRow[⍸bool]←⊂24 60 60⊥3↑3↓⎕TS
+              :EndIf
+              n.Grid.Values←(row↑[0]n.Grid.Values)⍪(⊃noOf⍴⊂protoRow)⍪row↓[0]n.Grid.Values
+              n.Grid.CellTypes←(row↑[0]n.Grid.CellTypes)⍪(⊃noOf⍴⊂n.∆g.cellTypes)⍪row↓[0]n.Grid.CellTypes
+              n.Grid.CurCell[0]←row
+              :If 0≠≢n.∆parms.data
+                  n.∆data←(row↑[0]n.∆data)⍪(⊃noOf⍴⊂GetProtoType n.∆data[0;])⍪row↓[0]n.∆data
+              :EndIf
+              n ConfirmNewRowTitle row noOf
+              ⎕NQ n.Grid n.∆e.CheckRowTitles
+              n.∆g.origTable←(row↑[0]n.∆g.origTable)⍪(⊃noOf⍴⊂protoRow)⍪row↓[0]n.∆g.origTable
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ {r}←InitialComboFill n;a
+    ⍝ This is called at an earlky stage in order to make sure that the first combo (if any)
+    ⍝ will be filled when it gets the focus.
+      r←⍬
+      :If ∨/a←n.∆g.dataTypes∊'DE' 'DD'
+          .
+          ⍳↑⍴n.Grid.Values
+          {n FillCombo ⍵ 4}a
+      :EndIf
+    ∇
+
+    ∇ {r}←n FillCombo(row col);inputControl
+    ⍝ Fill Combos with proper data when needed (= at runtime)
+      r←⍬
+      :If n.Grid.CurCell≢row col
+      :AndIf n.∆g.dataTypes[col]∊'DE' 'DD'
+          inputControl←n.Grid.Input[¯1+(row,col)⌷n.Grid.CellTypes]
+          inputControl.Items←1⊃((,↑¨n.∆parms.lists)⍳col)⊃,n.∆parms.lists
+          inputControl.SelItems←inputControl.Items≡¨n.Grid.CurCell⌷n.Grid.Values
+      :EndIf
+    ∇
+
+    ∇ {r}←RowDelete n;selItems;lines
+      r←⍬
+      :If n.Grid.SelItems≡(0 0)(0 0)
+          lines←,n.Grid.CurCell[0]
+      :Else
+          selItems←{⍵[⍋⍵]}↑¨n.Grid.SelItems
+          lines←{⍵[0]+⍳1+-/⌽⍵}selItems
+      :EndIf
+      (0 1⊃n.Grid.SelItems)←0
+      (1 1⊃n.Grid.SelItems)←1⊃⍴n.Grid.Values
+      :If (≢lines)AskFor_RowsToBeDeleted n
+          {1 ⎕NQ n.Grid'DelRow'⍵ 1}¨lines[⍒lines]
+          :If 0≠≢n.∆parms.data
+              n.∆data←n.∆data[(⍳↑≢n.∆data)~lines;]
+          :EndIf
+          n.∆g.origTable←n.∆g.origTable[(⍳↑≢n.∆g.origTable)~lines;]
+          ⎕NQ n.Grid n.∆e.CheckRowTitles
+      :EndIf
+    ∇
+
+    ∇ {r}←RowDuplicate n;lines;parms;data
+    ⍝ The context menu code makes sure that this is not called when more than one row is selected.
+    ⍝ However, the user might still call it via the menubar, so the check is needed!
+      r←⍬
+      :If ≡/↑¨n.Grid.SelItems
+          lines←(-n.Grid.CurCell[0])⌽n.Grid.CurCell[0],n.Grid.CurCell[0]⌽⍳↑≢n.Grid.Values
+          n.Grid.Values←n.Grid.Values[lines;]
+          :If 0≠≢n.∆parms.data
+              n.∆data←n.∆data[lines;]
+          :EndIf
+          n.Grid.CellTypes←n.Grid.CellTypes[lines;]
+          :If 0≠≢,n.Grid.RowTitles
+              n.Grid.RowTitles←n.Grid.RowTitles[lines]
+          :EndIf
+          n.∆g.origTable←n.∆g.origTable[lines;]
+          ⎕NQ n.Grid n.∆e.CheckRowTitles  ⍝ Give the user a chance to make amendments
+      :Else
+          parms←##.Dialogs.CreateParmsForShowMsg
+          parms.caption←'Duplicating multiple rows'
+          parms.centerIn←n.∆Form
+          n.∆globalParms parms ##.Dialogs.ShowMsg'Sorry, but duplicating multiple rows is not supported.'
+      :EndIf
+    ∇
+
+    ∇ r←GetAllComments n;shape;i;buff;bool
+    ⍝ r gets a vector with all comments (might be empty).
+    ⍝ Every item is a vector of length 3: row, col, comment
+      r←⍬
+      :If 0<+/n.∆parms.(comment_Cmds comment_Add comment_delete comment_Edit)
+          shape←≢n.Grid.Values
+          :For i :In ⍳↑shape
+              buff←i{1≡a←2 ⎕NQ n.Grid'GetComment'⍺ ⍵:'' ⋄ a}¨⍳shape[1]
+              :If ∨/bool←0<≢¨buff
+                  r,←{⍵[0 1],{1=≡⍵:⊂⍵ ⋄ ⊂1↓↑,/'⋄',¨⍵}2⊃⍵}¨3↑¨bool/buff
+              :EndIf
+          :EndFor
+      :EndIf
+    ∇
+
+    ∇ r←GetClipboardContents dummy;cl
+      cl←⎕NEW⊂'Clipboard'
+      r←''
+      :Trap 11
+          :If 0 1∊⍨≡r←cl.Array
+              :Trap ⍬
+                  r←cl.Text
+              :Else
+                  r←''
+              :EndTrap
+          :EndIf
+      :Else
+          :Trap 11
+              r←cl.Text
+          :EndTrap
+      :EndTrap
+    ∇
+
+    ∇ r←GetRowTitleSize(grid parms);i
+      :If 0=≢,parms.rowTitleDepth
+          r←10+1⊃⌈⌿⊃grid.GetTextSize¨parms.rowTitles
+      :Else
+          r←0
+          :For i :In ∪parms.rowTitleDepth
+              r←r⌈10+1⊃grid.GetTextSize(⊃(parms.rowTitleDepth=i)/parms.rowTitles)
+          :EndFor
+          r×←≢∪parms.rowTitleDepth
+      :EndIf
+    ∇
+
+    ∇ HandleColOptions Row;Parms;Line;What;Options;What;Type
+      (Options Type Parms)←⊂[0]⊃ColOptions
+      :If 0<+/Parms
+          Parms←⊂'Active'Parms
+          Parms,←⊂'KeyWords'Type
+          Parms,←⊂'Language'∆LANGUAGE
+          (Line What)←Parms('Dlgs.DisplayPopupMenu'Exec)Options
+          ExecuteColCmds(Row Line What)
+      :EndIf
+    ∇
+
+    ∇ {r}←HandleComments n;list
+      r←⍬
+      :If 0≠≢n.∆parms.settings
+      :AndIf 0<n.∆parms.settings.⎕NC'comments'
+      :AndIf 0≠≢n.∆parms.settings.comments
+          n AddComment¨n.∆parms.settings.comments
+      :EndIf
+      :If 0≠≢,n.∆parms.comments
+          n AddComment¨n.∆parms.comments
+      :EndIf
+    ∇
+
+    ∇ R←{Msg}HandleRowOptions Row;Options;Type;Parms;Line;What;X;Y
+      (Options Type Parms)←⊂[0]⊃RowOptions
+      :If 0<+/Parms
+          Parms←⊂'Active'Parms
+          Parms,←⊂'KeyWords'Type
+          Parms,←⊂'Language'∆LANGUAGE
+          (Y X)←Msg[2 3]
+          :If 1=×Y
+          :AndIf ¯1=×X
+          :AndIf ~Row∊↑{∊⍺+⍳⍵-⍺}/¯1 0+↑¨'Grid'⎕WG'SelItems'
+              1 ⎕NQ'Grid' 'CellMove'Row 1
+          :EndIf
+          (Line What)←Parms('Dlgs.DisplayPopupMenu'Exec)Options
+          ExecuteRowCmds(Row Line What)
+      :ElseIf 2=⎕NC'Msg'
+          Msg[2 3 6 7]←1
+          1 ⎕NQ Msg
+      :EndIf
+    ∇
+
+    ∇ {r}←n HandleSettings settings
+      r←⍬
+      :If 0≠≢settings
+          :If 0<settings.⎕NC'cellWidths'
+              n.Grid.CellWidths←settings.cellWidths
+          :EndIf
+          :If 0<settings.⎕NC'comments'
+          :AndIf 0≠≢settings.comments
+              n∘AddComment¨settings.comments
+          :EndIf
+          :If 0<settings.⎕NC'curCell'
+              .
+          :EndIf
+          :If 0<settings.⎕NC'index'
+              .
+          :EndIf
+          :If 0<settings.⎕NC'selItems'
+              .
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ g←CreateGlobals(n table)
+      g←⎕NS''
+      g.searchFor←''
+      g.searchCaseSensitive←1
+      :If 0=≢g.searchCols←n.∆parms.rowTitles
+          g.searchCols←⍕¨1+⍳(1⊃⍴table)
+      :EndIf
+      g.foundHere←''
+      g.origTable←table
+      g.badValueFlag←0
+      g.badControl←⍬
+      g.ignoreEnter←0
+      g.colTitleHeight←1 ⍝ default is one line
+      g.dataTypes←n.∆parms.dataTypes ⍝  ⍝TODO⍝  delete: ExternalDataTypes2Internal n
+      g.rowPrototype←n.∆parms.rowPrototype
+      g.maxLength←n.∆parms.maxLength
+    ∇
+
+      IsFns←{
+          0::0
+          3=⎕NC ⍵
+      }
+
+    ∇ ProcessAddComment Y;Row;Col;Parms;Key;Buff
+      (Row Col)←Y
+      Parms←''
+      Parms,←⊂'Caption'(((↑∆LANGUAGE ##.Lang.Get'Comment'),' ('),(⍕Row),';',(⍕Col),'')
+      Parms,←⊂'Size'(150 250)
+      Parms,←⊂'CenterIn'(''⎕NS'')
+      (Key Buff)←Parms('Dlgs.Notepad'Exec)''
+      :If 'OK'≡Key
+      :AndIf 0≠≢,Buff
+          2 ⎕NQ'Grid' 'AddComment'Row Col Buff
+          ⎕NQ'Grid' 'ShowComment'Row Col
+      :EndIf
+    ∇
+
+    ∇ {All}ProcessDelComment Y;Parms;Row;Col
+      :If 0=⎕NC'All'
+          All←GetAllComments'Grid'
+      :EndIf
+      (Row Col)←Y
+      Parms←''
+      Parms,←⊂'AddToCaption'(↑∆LANGUAGE ##.Lang.Get'Table:DelComments')
+      Parms,←⊂'Button1'(↑∆LANGUAGE ##.Lang.Get'Table:This')
+      Parms,←⊂'Button2'(↑∆LANGUAGE ##.Lang.Get'Table:ALL!')
+      Parms,←⊂'Button3'(↑∆LANGUAGE ##.Lang.Get'Table:None')
+      Parms,←⊂'Active'((0<+/All[;0 1]∧.=Row,Col),(0≠≢All),1)
+      Parms,←⊂'CenterIn'(''⎕NS'')
+      :Select Parms('Dlgs.Question'Exec)(↑∆LANGUAGE ##.Lang.Get'Table:WhatToDel')
+      :Case 1
+          2 ⎕NQ'Grid' 'DelComment'Row Col
+      :Case 2
+          2 ⎕NQ'Grid' 'DelComment' ⍝ All
+      :EndSelect
+    ∇
+
+    ∇ ProcessEditComment Y;Row;Col;Buff;Parms;Key
+      (Row Col)←Y
+      Buff←{1≡a←2 ⎕NQ'Grid' 'GetComment',⍵:'' ⋄ 2⊃a}Row Col
+      Parms←''
+      Parms,←⊂'Caption'(((↑∆LANGUAGE ##.Lang.Get'Comment'),' ('),(⍕Row),';',(⍕Col),'')
+      Parms,←⊂'Size'(150 250)
+      Parms,←⊂'CenterIn'(''⎕NS'')
+      (Key Buff)←Parms('Dlgs.Notepad'Exec)Buff
+      :If 'OK'≡Key
+          :If 0=≢∊Buff
+              2 ⎕NQ'Grid' 'DelComment'Row Col
+          :Else
+              2 ⎕NQ'Grid' 'AddComment'Row Col Buff
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ r←SearchInCol(n cols);values;searchFor;charFlag;col;i;types;type;value;where;index
+      cols←{(1⊃⍴n.Grid.Values)⍴⍵}(↑1=⍴,cols)⊣cols
+      values←cols/n.Grid.Values
+      types←cols/n.∆g.dataTypes
+      :If ~n.∆g.searchCaseSensitive
+          searchFor←1 ⎕C n.∆g.search_for
+          charFlag←' '=↑¨0⍴¨values[0;]
+          values[;⍸charFlag]←1 ⎕C⍕¨values[;⍸charFlag]
+      :Else
+          searchFor←n.∆g.search_for
+      :EndIf
+      r←⍬
+      :For value type index :InEach (↓⍉values)types(⍸cols)
+          :If (⊂type)∊'NU' 'NUL'
+              ((searchFor='-')/searchFor)←'¯'
+          :EndIf
+          :If ' '=↑1↑0⍴↑value
+              where←∨/searchFor⍷(⎕UCS 13),⊃value
+          :Else
+              value←(⎕UCS 13),⎕FMT⍪value
+              where←∨/searchFor⍷value
+          :EndIf
+          r,←⊂index(⍸,where)
+      :EndFor
+      :If 0≠≢r←⊃r
+          r←(0<≢¨r[;1])⌿r
+      :EndIf
+    ∇
+
+    ∇ {r}←n SetInputModeTo type
+      r←⍬
+      :Select type
+      :Case 'Scroll'
+          n.Grid.InputMode←'Scroll'
+          n.Grid.Cursor←0
+      :Case 'AlwaysInCell'
+          n.Grid.InputMode←'AlwaysInCell'
+          n.Grid.Cursor←3
+      :EndSelect
+    ∇
+
+    ∇ R←{Alph}SortIndex Array
+ ⍝⍝ Returns an index vector useful to sort an array
+ ⍝⍝ Default sort alphabet is "German", but you may
+ ⍝⍝ specify your own sort alphabet via the left argument.
+ ⍝⍝ In case of an error an interrupt is signalled.
+ ⍝S Array may be a string, a vector of strings, or a character matrix
+      :If 0=⎕NC'Alpha'
+          Alph←'#⍙∆AÄBCDEFGHIJKLMNOÖPQRSTUÜVWXYZ0123456789 ',[-0.2]'#∆⍙aäbcdefghijklmnoöpqrstuüvwxyz0123456789 '
+      :EndIf
+      :Select ↑≡Array
+      :Case 1
+          :If ' '=↑1↑0⍴Array
+              :Select ↑⍴⍴Array
+              :Case 1
+                  R←Alph⍋Array
+              :Case 2
+                  R←Alph⍋Array
+              :Else
+                  ⎕SIGNAL 11
+              :EndSelect
+          :EndIf
+      :Case 2
+          R←Alph⍋⊃Array
+      :Else
+          ⎕SIGNAL 11
+      :EndSelect
+    ∇
+
+    ∇ {r}←{shape}UpdateStatus(n msg);txt;buffer
+      r←⍬
+      :If n.∆parms.statusbar
+          shape←(⍴n.Grid.Values){0<⎕NC ⍵:⍎⍵ ⋄ ⍺}'shape'
+          n.SB_Info.Text←msg
+          txt←(⍕↑shape),' ; ',(⍕1⊃shape)
+          n.SB_Rows.Text←txt
+      :EndIf
+    ∇
+
+    :EndSection Private
+
+    :Section Callbacks
+
+      OnKeyPressInDate←{
+          n←GetRefTo_n↑⍵
+          key←2⊃⍵
+          1≠≢key:1
+          key∊⎕D,'-'
+      }
+
+      OnKeyPressInTime←{
+          rf←↑⍵
+          n←GetRefTo_n rf
+          key←2⊃⍵
+          1≠≢key:1
+          key∊⎕D,':'
+      }
+
+    ∇ r←OnChangeDate msg;rf;n;buff;val
+      rf←↑msg
+      n←GetRefTo_n rf
+      :If 0≠≢,rf.Text
+      :AndIf 3=≢buff←'-'Split rf.Text
+      :AndIf ∧/↑¨⎕VFI¨buff
+          r←1
+      :Else
+          r←0
+          .  ⍝TODO⍝  Forcing the focus back does not work
+          Tell_DateIsInvalid n
+          ⎕NQ rf'GotFocus'
+      :EndIf
+    ∇
+
+    ∇ r←OnChangeTime msg;buff;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      →(0=≢rf.Text)/0   ⍝TODO⍝ Provide info in statusbar
+      buff←':'Split rf.Text
+      :If 1=⍴buff
+          .
+      :ElseIf 2=≢buff
+          .
+      :Else
+          .
+      :EndIf
+    ∇
+
+      OnCellDown←{
+          (rf mb row col)←⍵[0 4 6 7]                    ⍝ Grid, mouse button, row, col
+          rmb←2=mb                                      ⍝ Right mouse button clicked?
+          (~rmb)∧(⊂'MultiRows')∊rf.CellSelect:1         ⍝ Forget it.
+          _←rf{⎕NQ ⍺'ContextMenu' ''⍬ ⍬}⍣rmb⊣⍬          ⍝ Send a "ContextMenu" event in case of a right-click
+          ~rmb∧∧/(row,col)∊¨CalcIndicesFromSelItems rf  ⍝ Is clicked cell not part of selection?Done.
+      }
+
+      OnCellUp←{
+          (rf row col)←⍵[0 6 7]                         ⍝ Grid, row, col
+          ¯1∊row,col:1                                  ⍝ Ignore clicks on row or col title
+          rf.CurCell≡row,col
+      }
+
+    ∇ OnReSelectYN2 msg;rf
+      :Access Public Shared
+      rf←↑msg
+      rf.SelText←0 2
+      .
+    ∇
+
+    ∇ msg←OnKeyPressInYN msg;n;key;rf
+      rf←↑msg
+      n←GetRefTo_n rf
+      key←2⊃msg
+      :If 1=≢key
+          :If key∊'YyNn'
+              key←('YyNn'⍳key)⌷'YYNN'
+              (2⊃msg)←key
+          :EndIf
+      :Else
+          :If (⊂key)∊'DI' 'DB'  ⍝ DEL and Backspace both translate into "No".
+              (2⊃msg)←'N'
+          :EndIf
+      :EndIf
+      ⎕NQ rf n.∆e.ReSelectYN
+    ∇
+
+    ∇ OnHandleContextMenu msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      :If 0≠≢rf.∆CMD
+          :Select rf.∆CMD
+          :Case 'DUP'
+              RowDuplicate n
+          :Case 'INS'
+              RowInsert n
+          :Case 'DEL'
+              RowDelete n
+          :Case 'SORT'
+              SortByColumn n
+          :Case 'SEARCH'
+              Search n
+          :Case 'DATATYPE'
+              ShowColumnDataTypes n
+          :Case 'SHOW_CAL'
+              ShowCalender n
+          :Else ⍝ User define context menu items
+              .   ⍝TODO⍝
+          :EndSelect
+      :EndIf
+    ∇
+
+    ∇ r←OnContextMenu msg;rf;n;menuItems
+      :Access Public Shared
+      r←0         ⍝ Suppress the built-in context menu
+      rf←↑msg
+      n←GetRefTo_n rf
+      menuItems←GetDefaultContextMenu rf n
+      :If 0≠≢n.∆parms.contextMenu
+          menuItems,←'-'
+          menuItems,←n.∆parms.contextMenu
+      :EndIf
+      n ProcessContextMenu menuItems
+    ∇
+
+    ∇ OnAfterRowWasAdded msg;rf;protoType;n
+      (rf protoType)←msg[0 2]
+      n←GetRefTo_n rf
+      n.Grid.Values[¯1+↑⍴n.Grid.Values;]←protoType
+      ⍬
+    ∇
+
+    ∇ r←OnEditHandler msg;rf;n;name;callbackName;def
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      callbackName←1⊃' 'Split rf.Caption
+      def←⍎'n.∆parms.o',1↓callbackName
+      ((↑def).⎕ED⍠('EditName' 'Disallow'))1⊃def
+    ∇
+
+    ∇ r←OnAddRow msg;rf;n;newRowNo;isFnsFlag;prototype
+      rf←↑msg
+      n←GetRefTo_n rf
+      :If r←0=n.∆g.ignoreEnter
+          newRowNo←2⊃msg
+          :If 0=≢,n.∆g.rowPrototype
+              prototype←MakeUpRowProtoType n
+              ⎕NQ n.Grid n.∆e.AfterRowWasAdded prototype
+              ⎕NQ n.Grid n.∆e.MakeNewCellCurrent
+              ⎕NQ n.Grid n.∆e.CheckRowTitles
+          :Else
+              :Trap 0
+                  isFnsFlag←IsFns n.∆g.rowPrototype
+              :Else
+                  isFnsFlag←0
+              :EndTrap
+              :If isFnsFlag
+                  prototype←⍎n.∆g.rowPrototype,' n'
+              :Else
+                  :Trap 0
+                      prototype←n.∆g.rowPrototype
+                  :Else
+                      ⍝ for tracer only
+                  :EndTrap
+              :EndIf
+              :If 0=≢prototype ⍝ AutoExpand for any reason disabled?
+                  r←0
+              :Else
+                  ⎕NQ n.Grid n.∆e.AfterRowWasAdded prototype
+                  ⎕NQ n.Grid'CellMove'newRowNo 1
+                  ⎕NQ n.Grid n.∆e.CheckRowTitles
+                  r←1
+              :EndIf
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ OnBadValue msg;n;rf
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.∆g.badControl←rf
+      n.∆g.badValueFlag←1
+      n.∆g.ignoreEnter←¯1
+    ∇
+
+    ∇ r←OnCellChange msg;m;n;row;parent;name;fns
+      m←⎕NS''
+      m.(rf event x y newData newObject newX newY)←8↑msg,(≢msg)↓8⍴⊂''
+      n←GetRefTo_n m.rf
+      r←1
+      :If 0≠≢,n.∆parms.onCellChange
+          (parent name)←n.∆parms.onCellChange
+          fns←parent.⍎name
+          r←n fns msg
+          {2 ⎕NQ m.rf'CellMove'm.x m.y}⍣(~r)⊣⍬
+      :EndIf
+      .
+    ∇
+
+    ∇ OnCellChanged msg;rf;n;fns;name;parent
+      rf←↑msg
+      n←GetRefTo_n rf
+      :If 0≠≢,n.∆parms.onCellChanged
+          (parent name)←n.∆parms.onCellChanged
+          fns←parent.⍎name
+          {}fns n
+      :EndIf
+    ∇
+
+    ∇ r←OnCellErrorInGrid msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      .
+      (ObjName Event X Y Data NewObject NewX NewY)←8↑Msg
+      R←1 ⍝ suppresses sound bell
+      :If 'Grid'≡NewObject
+ ⍝  2 ⎕NQ ObjName'CellMove',('Grid'⎕WG'CurCell')
+      :EndIf
+    ∇
+
+    ∇ r←OnCellMove msg;n;m;curCell;focusHas
+      m←⎕NS''
+      m.(rf eventCode newRow newCol scrollFlag selectionFlag mouseFlag)←7↑msg,7⍴⊂''
+      n←GetRefTo_n m.rf
+      n SetInputModeTo'Scroll'
+      n.Grid.CellSelect←n.∆parms.cellSelect
+      focusHas←2 ⎕NQ #'GetFocusObj'
+      :If n.∆g.badValueFlag
+          r←n.∆g.badValueFlag←0
+          2 ⎕NQ n.∆g.badControl'GotFocus'
+      :Else
+          r←1
+          :If 0=≢,m.newCol
+              m.newCol←1⊃n.Grid.CurCell
+          :EndIf
+      :EndIf
+      n FillCombo m.(newRow newCol)
+    ∇
+
+    ∇ r←OnClose msg;rf;n;fns;parent;name
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.∆result←GetResultTable n
+      :If n.∆result≡n.∆g.origTable              ⍝ No change and ...
+      :AndIf 0=≢n.∆parms.onClose                ⍝ ...no user-callback =
+          r←1                                   ⍝ Allow Close
+      :EndIf
+      :If n.∆parms.confirmQuit                  ⍝ Do we need to ask the user?
+          :Select AskFor_SaveChanges n          ⍝ Yes
+          :Case ¯1                              ⍝ Cancelled (user wants continue editing)
+              n.∆result←⍬                       ⍝ Reset
+              r←0                               ⍝ Reject "Close"
+          :Case 1                               ⍝ Yes, save changes
+              r←1                               ⍝ n.∆result is already set
+          :Case 0                               ⍝ Abandon...
+              n.∆result←⍬                       ⍝ ... changes...
+              r←1                               ⍝ ... but allow "Close"
+          :EndSelect
+      :EndIf
+      :If 0=≢n.∆parms.onClose                   ⍝ No user-defined callback for "Close"?
+          r←1                                   ⍝ Allow through
+      :Else
+          (parent name)←n.∆parms.onClose        ⍝ Execute...
+          fns←parent.⍎name                      ⍝ ... the user-defined ...
+          r←fns n                               ⍝ ... "OnClose" callback.
+      :EndIf
+      :If r                                     ⍝ Not rejected?
+          n.∆settings←⎕NS''                     ⍝ Collect other data
+          n.∆settings.(index selItems curCell cellWidths)←n.Grid.(Index SelItems CurCell CellWidths)
+          n.∆settings.comments←GetAllComments n
+      :EndIf
+    ∇
+
+    ∇ OnColOptions msg;rf;n
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.∆g.foundHere←''
+      UpdateStatus n''
+      :If ⍬≢n.Grid.CurCell
+          ExecuteColCmds rf n
+      :EndIf
+    ∇
+
+    ∇ OnCopy msg;rf;n
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      1 ⎕NQ n.Grid'KeyPress' 'CP'
+      UpdateStatus n''
+    ∇
+
+    ∇ OnCut msg;n;rf;cl;b;dataTypes;rows;cols
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.∆g.foundHere←''
+      :If 'Scroll'≡n.Grid.InputMode
+          dataTypes←n.∆g.dataTypes[{(↑⍵)+⍳1+-/⌽⍵}1⊃¨n.Grid.SelItems]
+          :If 0∊b←dataTypes∊'CH' 'NU' 'CU'
+              n Tell_CutDoesNotWorkHere(##.Enums.TableDataTypes.∆List{(⍺[;1]∊⍵)⌿⍺[;0]}(~b)/dataTypes)
+              :Return
+          :ElseIf ≡/n.Grid.SelItems
+              ⍝ This is a circumvention for bug <01043>:
+              ⍝ Ctrl+X on a single cell does not really work in "Scroll" mode.
+              cl←⎕NEW⊂'Clipboard'
+              cl.Array←n.Grid.CurCell⌷n.Grid.Values
+              rows←{(↑⍵)+⍳1+-/⌽⍵}0⊃¨n.Grid.SelItems
+              cols←{(↑⍵)+⍳1+-/⌽⍵}1⊃¨n.Grid.SelItems
+              .
+          :Else
+              1 ⎕NQ n.Grid'KeyPress' 'CT'
+          :EndIf
+      :EndIf
+      UpdateStatus n''
+    ∇
+
+    ∇ OnPaste msg;rf;n
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.∆g.foundHere←''
+      1 ⎕NQ n.Grid'KeyPress' 'PT'
+      UpdateStatus n''
+    ∇
+
+    ∇ OnDblClickInCell msg;n;rf;fns;name;parent
+      rf←↑msg
+      n←GetRefTo_n rf
+      (parent name)←n.∆parms.onCellChanged
+      fns←parent.⍎name
+      {}fns n
+    ∇
+
+    ∇ OnDebug msg;n;rf
+      rf←↑msg
+      n←GetRefTo_n rf
+      .
+      :Select ↑∆LANGUAGE
+      :Case 1
+          Optionen←'Stop on line 1 in every Callback Fns' 'Display Message of certain Callback'
+      :Case 2
+          Optionen←'Stop auf Zeile 1 jeder Callback' 'Zeige Msg in Callbacks an'
+      :EndSelect
+      P←''
+      P,←⊂'Caption'(∆LANGUAGE⊃'Debug Options for the Table Editor' 'Debug-Optionen für Tabelleneditor')
+      P,←⊂'Size'⍬ ⍬
+      P,←⊂'Posn'(CenterIn''⎕NS'')
+      P,←⊂'Style' 'Check'
+      P,←⊂'Default'('STOPCALLBACKS' '****'∊∆DEBUG)
+      P,←⊂'Ontop'∆ONTOP
+      (Key Bool)←P('Dlgs.Options'Exec)Optionen
+      :If 'OK'≡Key
+          ∆DEBUG←''
+          ∆DEBUG,←,Bool[0]/⊂'STOPCALLBACKS'
+          ∆DEBUG,←,Bool[1]/⊂'SHOWEVENTS'
+      :EndIf
+      HandleStopVectorsInCallbacks
+    ∇
+
+    ∇ r←OnDel msg;n;rf
+      rf←↑msg
+      n←GetRefTo_n rf
+      .
+      R←0
+      Obj←'Grid'
+      SelItems←Obj ⎕WG'SelItems'
+      FocusHas←2 ⎕NQ #'GetFocusObj'
+      :If ≢/SelItems
+      :OrIf 'Scroll'≡'Grid'⎕WG'InputMode'
+          1 ⎕NQ Obj'GridDelete'(0⊃SelItems)(1⊃SelItems)
+      :Else
+          :If (⊂'Grid'⎕WG'InputMode')∊'InCell' 'AlwaysInCell'
+              SelText←FocusHas ⎕WG'SelText'
+              Text←FocusHas ⎕WG'Text'
+              :If ≢/SelText
+                  Text←((SelText[0]-1)↑Text),(SelText[0]+¯1+-/⌽SelText)↓Text
+              :ElseIf SelText[0]≠1+≢Text
+                  Text←(-SelText[0]-1)⌽1↓(SelText[0]-1)⌽Text
+              :EndIf
+              CurCell←'Grid'⎕WG'CurCell'
+              1 ⎕NQ'Grid' 'CellChange',CurCell,⊂Text
+              SelText←2⍴↑SelText
+              FocusHas ⎕WS'SelText'SelText
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ r←CallbackName OnGridDropSel msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      .
+      . ⍝TODO⍝  ⍝TODO⍝
+      R←1
+      :If 0=0 0⊃⎕AT CallbackName
+          ⍎CallbackName,(1≤|0 1⊃⎕AT CallbackName)/' Msg'
+      :Else
+          ⍎'R←',CallbackName,(1≤|0 1⊃⎕AT CallbackName)/' Msg'
+      :EndIf
+    ∇
+
+    ∇ r←OnGridKeyPress msg;m;n;noOfCols;selItems;max;changedFlag;shape;moveThis;moveTo
+      m←⎕NS''
+      m.(rf event key asciiCode keyNo shiftState)←6↑msg
+      n←GetRefTo_n m.rf
+      r←1
+      :If 0 107 2≡m.(asciiCode keyNo shiftState)            ⍝ Ctrl+Num-Plus
+          SetDefaultColSize n
+      :ElseIf n.∆parms.moveRows
+          changedFlag←0
+          :If m.(asciiCode keyNo shiftState)≡0 40 2         ⍝ Ctrl+↓)
+              changedFlag←MoveRowDown n
+              r←0
+          :ElseIf m.(asciiCode keyNo shiftState)≡0 38 2     ⍝ Shift+↑
+              changedFlag←MoveRowUp n
+              r←0
+          :EndIf
+          {⎕NQ n.Grid n.∆e.CheckRowTitles}⍣changedFlag⊣⍬
+      :EndIf
+    ∇
+
+    ∇ OnGridPasteError msg;p;txt;posn;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      p←#.GUI.Dialogs.CreateParmsForShowMsg
+      p.caption←n.∆Form.caption
+      p.centerIn←n.∆Form
+      txt←'Inserting the clipboard failed.'
+      n.∆globalParms p #.GUI.Dialogs.ShowMsg txt
+    ∇
+
+    OnInputGotFocus←{n←GetRefTo_n ↑⍵ ⋄ info←GetCurCellInfo n ⋄ _←UpdateStatus n info ⋄ 1}
+
+    ∇ r←OnInputKeyPress msg
+      r←OnInputKeyPress_ msg
+    ∇
+
+    ∇ r←OnInputKeyPress_ msg;m;n;value;parent;name;fns
+      m←⎕NS''
+      m.(rf eventNo key ascii keyNo shiftState)←6↑msg,(≢msg)↓'' '' '' 0 0 0
+      n←GetRefTo_n m.rf
+      r←1
+      n.∆g.ignoreEnter←¯1=n.∆g.ignoreEnter
+      :If 1=≢m.key
+          n.Grid.InputMode←'AlwaysInCell'
+      :ElseIf (⊂m.key)∊'UC' 'DC'                ⍝ Cursor Up and Cursor Down
+          n.Grid.InputMode←'Scroll'
+      :ElseIf 0 ⍝ (⊂m.key)∊'DS' 'US' 'UL' 'DL'  ⍝ DS=PgDown, US=PgUp, UL=Ctrl+Home, DL=Ctrl+End  ⍝TODO⍝  ??
+          r←msg
+      :ElseIf 'EP'≡m.key                        ⍝ Escape
+          :If ~(⊂⍕m.rf)∊'DD' 'DE'
+              r←0
+              value←↑n.Grid.Values[⊂n.Grid.CurCell]
+              :Trap ⍬   ⍝TODO⍝  was 0 - what should it be?
+                  :If 0=↑0⍴value
+                      m.rf.Value←value
+                  :Else
+                      m.rf.Text←value
+                  :EndIf
+              :EndTrap
+          :EndIf
+      :EndIf
+      :If 2≠≢m.key
+      :AndIf 0≠≢n.∆parms.onKeyPress
+          (parent name)←n.∆parms.onKeyPress
+          fns←parent.⍎name
+          r←n fns msg
+      :EndIf
+    ∇
+
+    ∇ r←{callback}OnInputMouseDblClick msg;m;n
+      m←⎕NS''
+      .  ⍝TODO⍝  ⍝TODO⍝  ⍝TODO⍝
+      m.(rf eventCode y x btn shiftState row col titleIndex)←9↑msg
+      n←GetRefTo_n m.rf
+      r←1
+      SetInputModeTo'AlwaysInCell'
+      'Grid'⎕WS'CellSelect'('Rows' 'Columns' 'Whole')
+    ∇
+
+    ∇ r←OnInputMouseDown msg;m;n
+      m←⎕NS''
+      m.(rf eventNo x y mouseBtn shiftState)←6↑msg
+      n←GetRefTo_n m.rf
+      n SetInputModeTo'AlwaysInCell'
+      n.Grid.CellSelect←'Any'
+      r←1
+    ∇
+
+    ∇ OnMakeNewCellCurrent msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      ⎕NQ n.Grid'CellMove'(1+↑n.Grid.CurCell)1
+    ∇
+
+    ∇ x OnMenu msg;rf;n
+    ⍝ This function is called when a user defined menu command was selected by the user.
+    ⍝ See ∆MENU for the parameters coming from outside.
+    ⍝ The user defined handler is fired and gets a right argument with:
+    ⍝ [0] The caption of the menu
+    ⍝ [1] The number of the menu (index pointing into ∆MENU
+    ⍝ [2] Keyword "MENU". Useful to distinguesh between call coming from a menubar/popup menu
+      rf←↑msg
+      n←GetRefTo_n rf
+      .
+      (No Callback)←X
+      ∆FOUND_HERE←''
+      UpdateStatus''
+      :If 3=⎕NC Callback
+          CurCell←'Grid'⎕WG'CurCell'
+          :If 2=|0 1⊃⎕AT Callback
+              ⍎(⍕CurCell),' ',Callback,'(',(⍕No),' ''',(0⊃∆MENU[No;]),''' ''MENU''),⊂((''''⎕ns''''),''.Grid'')'
+          :Else
+              ⍎Callback,'(',(⍕No),' ''',(0⊃∆MENU[No;]),''' ''MENU''),⊂((''''⎕ns''''),''.Grid'')'
+          :EndIf
+      :Else
+          6 ⎕SIGNAL⍨'Is not a function: ',Callback
+      :EndIf
+    ∇
+
+    ∇ OnRowOptions msg;rf;n;row
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.∆g.foundHere←''  ⍝ Because that's now potentially invalid
+      UpdateStatus n''
+      :If ⍬≢row←↑n.Grid.CurCell
+          ExecuteRowCmds(n row rf)
+      :EndIf
+    ∇
+
+    ∇ OnSearch msg;rf;∆;n
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      Search n
+    ∇
+
+    ∇ OnSearch2 msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      DisplayFound n
+    ∇
+
+    ∇ OnSelectAll msg;rf;n
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.Grid.SelItems←(1 1)(⍴n.Grid.Values)
+    ∇
+
+    ∇ OnSetInputModeToScroll msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      n SetInputModeTo'Scroll'
+    ∇
+
+    ∇ OnSetItemsInCombo msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      .
+      :If 0
+          Obj←0⊃Msg
+          CurCol←1⊃CurCell←'Grid'⎕WG'CurCell'
+          CellTypes←('Grid'⎕WG'CellTypes')[0;]
+          InputList←{⍵↓⍨⍵⍳'.'}¨'Grid'⎕WG'Input'
+          Combos←⍸CellTypes∊⍸InputList∊'DD' 'DE' ⍝ where are the combos?!
+          :If CurCol∊Combos
+              No←Combos⍳CurCol
+              :If 0=⎕NC Name←'∆LIST_',⍕No
+                  ⍎Name,'←∪(''Grid''⎕wg ''Values'')[;CurCol]'
+              :EndIf
+              List←⍎Name
+              List⌿⍨←0<≢¨List
+              List/⍨←(⊃List)∨.≠' '
+              :If 0≠≢List
+                  :If ' '=↑1↑0⍴0⊃List
+                      List←List[SortIndex List]
+                  :Else
+                      List←List[⍋List]
+                  :EndIf
+                  Obj ⎕WS'Items'List
+              :EndIf
+              Data←'Grid'⎕WG'Values'
+              Item←↑Data[0⊃CurCell;1⊃CurCell]
+              Bool←List≡¨⊂⍕Item
+              Obj ⎕WS'SelItems'Bool
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ r←OnShowComments msg;rf;n
+      rf←↑msg
+      n←GetRefTo_n rf
+      :If r←n.menubar.toggleComments.Checked
+          r←msg
+      :EndIf
+    ∇
+
+    ∇ OnToggleComments msg;rf;n
+      :Access Public Shared
+      rf←↑msg
+      n←GetRefTo_n rf
+      n.menubar.toggleComments.Checked←~n.menubar.toggleComments.Checked
+    ∇
+
+    ∇ OnUndo msg;rf;n;old;new;where
+      :Access Public Shared
+      :Return  ⍝TODO⍝ Built-in Undo does not keep ∆data in sync!
+      rf←↑msg
+      n←GetRefTo_n rf
+      old←n.Grid.Values
+      1 ⎕NQ n.Grid'Undo' 1
+      new←n.Grid.Values
+      :If (1⊃⍴old)>1⊃⍴new
+          where←0⍳⍨(⊂[0]old)∊⊂[0]new
+          .
+          :If 0≠≢,n.∆g.rowPrototype
+              n.∆g.rowPrototype←n.∆g.rowPrototype[where~⍨⍳≢n.∆g.rowPrototype]
+          :EndIf
+          ∆TYPE←∆TYPE[where~⍨⍳≢∆TYPE]
+          ∆MAXLENGTH←∆MAXLENGTH[where~⍨⍳≢∆MAXLENGTH]
+      :EndIf
+    ∇
+
+    :EndSection Callbacks
+
+    :Section Show
+
+    ∇ {r}←Tell_DateIsInvalid n;parms;msg
+      r←⍬
+      parms←##.Dialogs.CreateParmsForShowMsg
+      parms.centerIn←n.∆Form
+      parms.addToCaption←'Invalid date'
+      msg←'This is not a valid date'
+      n.∆globalParms parms ##.Dialogs.ShowMsg msg
+    ∇
+
+    ∇ {r}←n Tell_CutDoesNotWorkHere nonTypes;parms;msg
+      parms←##.Dialogs.CreateParmsForShowMsg
+      parms.caption←'Ctrl+X not supported here'
+      parms.centerIn←n.∆Form
+      msg←⊂'"Cut" is supported only for columns of type Character, Numeric and Currency'
+      msg,←⊂'but not for ',↑{⍺,', ',⍵}/nonTypes
+      r←n.∆globalParms parms ##.Dialogs.ShowMsg msg
+    ∇
+
+    ∇ {r}←ShowCalender n;list;parms;row;col;newDate;flag
+      r←⍬
+      parms←##.Request.CreateParmsForDate
+      parms.centerIn←n.∆Form
+      parms.addToCaption←'Enter Date'
+      row←{0=≢⍵.RowTitles:'no. ',⍕1+⍵.CurCell[0] ⋄ '"',(⍵.CurCell[0]⊃⍵.RowTitles),'"'}n.Grid
+      col←{0=≢⍵.ColTitles:'no. ',⍵.CurCell[1] ⋄ '"',(⍵.CurCell[1]⊃⍵.ColTitles),'"'}n.Grid
+      parms.question←'Date for row ',(row),' / column ',col,':'
+      (flag newDate)←n.∆globalParms parms ##.Request.AskForDate{↑↑(//)⎕VFI ⍵}¨'-'Split↑n.Grid.CurCell⌷n.Grid.Values
+      :If flag
+          (n.Grid.CurCell⌷n.Grid.Values)←⊂,Date2IDF newDate
+      :EndIf
+    ∇
+
+    ∇ {r}←ShowColumnDataTypes n;parms;list
+      r←⍬
+      parms←##.Dialogs.CreateParmsForShowLongMsg
+      parms.caption←'Data types of all columns'
+      parms.centerIn←n.∆Form
+      parms.size←400 300
+      parms.(hasStatusbar hasProgressbar)←0
+      :If 0=≢n.Grid.ColTitles
+          list←⊂¨'Col '∘,¨(⍕¨1+⍳1⊃⍴n.Grid.Values),¨⊂': '
+      :Else
+          list←⊂¨n.Grid.ColTitles
+      :EndIf
+      list←{(0⊃⍵),' ',(1⊃⍵)}¨list,¨⊂¨##.Enums.TableDataTypes.∆List{⍺[⍺[;1]⍳⍵;0]}⍕¨n.Grid.Input[¯1+,1↑n.Grid.CellTypes]
+      {}n.∆globalParms parms ##.Dialogs.ShowLongMsg list
+    ∇
+
+    :EndSection Show
+
+    :Section AskFor
+
+    ∇ r←AskFor_SaveChanges n;parms
+      parms←##.Dialogs.CreateParmsForYesNoCancel
+      parms.caption←'Save changes'
+      parms.centerIn←n.∆Form
+      parms←GetAutoPressInTestModeFor n parms(↑⎕SI)
+      r←n.∆globalParms parms ##.Dialogs.YesNoCancel'Would you like to save your changes?'
+    ∇
+
+    ∇ r←n AskFor_BeingSure question;parms
+      parms←##.Dialogs.CreateParmsForYesOrNo
+      parms.caption←'Attention!'
+      parms.centerIn←n.∆Form
+      r←n.∆globalParms parms ##.Dialogs.YesOrNo question
+    ∇
+
+    ∇ bool←noOf AskFor_RowsToBeDeleted n;parms;flag;msg
+      parms←##.Dialogs.CreateParmsForYesOrNo
+      parms.caption←'Delete rows'
+      parms.centerIn←n.∆Form
+      parms.minSize←200 400
+      parms.autoPress{⍵:0 ⋄ ⍺}←n.∆parms.testMode
+      msg←'Are your sure that you want to delete ',(⍕noOf),' row',((1<noOf)/'s'),'?'
+      bool←n.∆globalParms parms ##.Dialogs.YesOrNo msg
+    ∇
+
+    ∇ {r}←AskFor_SearchParms n;defMat;parms;DT;cols
+      r←⍬
+      DT←##.Enums.InputDataTypes
+      defMat←0 5⍴⍬
+      defMat⍪←'Search_for' ''n.∆g.searchFor DT.Character(20 50)
+      defMat⍪←'Options' 'Case sensitive⋄Scan all columns'(n.∆g.searchCaseSensitive,1)DT.YesNo 0
+      parms←##.Input.CreateParms
+      parms.caption←'Table editor: Search'
+      parms.centerIn←n.∆Form
+      parms.size←200 350
+      :If 0≠≢r←n.∆globalParms parms ##.Input.Run defMat
+          :If 0=1 1⊃r[r[;0]⍳⊂'Options';]
+              :If 0=≢cols←SelectColumns n
+                  r←⍬
+                  :Return
+              :Else
+                  r⍪←'Columns'cols
+              :EndIf
+          :Else
+              r⍪←'Columns' 1
+          :EndIf
+      :EndIf
+    ∇
+
+    ∇ {r}←AskFor_BeforeOrAfter n;before;after;parms;options;defMat;flag;data
+    ⍝ Returns either (⍬ ⍬) (cancelled) or a vector of two integers.
+    ⍝ [0] is number of rows to be inserted
+    ⍝ [1] is the row AFTER which the new rows are to be inserted.
+      r←⍬ ⍬
+      :If n.Grid.SelItems≡(0 0)(0 0)
+          (before after)←0 1+n.Grid.CurCell[0]
+      :Else
+          (before after)←0 1+{⍵[⍋⍵]}↑¨n.Grid.SelItems
+      :EndIf
+      parms←##.Input.CreateParms
+      parms.caption←'Insert row(s)'
+      parms.centerIn←n.∆Form
+      :If parms.testMode←n.∆parms.testMode
+          parms.timeout←0.1
+          parms.autoPress←0
+      :EndIf
+      defMat←1 7⍴'NoOf' 'How many rows would you like to insert:'(1+⍳10)##.Enums.InputDataTypes.Spinner 10 1 1
+      options←'&Insert...⋄before row ',(⍕before+1),'⋄after row ',(⍕after)
+      defMat⍪←'Options'options 0 ##.Enums.InputDataTypes.Radio 0 1 1
+      :If 0≠≢data←n.∆globalParms parms ##.Input.Run defMat
+          r←↑data[0;1]
+          r,←(1 0≡1⊃data[1;])⊃after before
+      :EndIf
+    ∇
+
+    :EndSection AskFor
+
+:EndClass

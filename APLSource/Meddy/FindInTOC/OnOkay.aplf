@@ -5,11 +5,11 @@
  :If 'Find'≡n2.∆OK.Caption~'&'
      ∆Case←n2.Case.State
      ∆StartAtTop←n2.StartTop.State
-     items←A.Lowercase⍣(~∆Case)⊣n.Toc.Items
+     items←⎕C⍣(~∆Case)⊣n.Toc.Items
      :If ~∆StartAtTop
          ((n.Toc.SelItems⍳1)↑items)←⊂''
      :EndIf
-     ∆SearchString←A.Lowercase⍣(~n2.Case.State)⊣n2.SearchString.Text
+     ∆SearchString←⎕C⍣(~n2.Case.State)⊣n2.SearchString.Text
      ∆Hits←∨/¨∆SearchString∘⍷¨items
      :If 0=+/∆Hits
          n2.StatusField1.Text←'No Hits'

@@ -28,10 +28,10 @@
 
      ⍝⍝⍝⍝ Policy change: we now show the full TOC all the time  ⍝TODO⍝
      :If 1
-         {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍳≢n.Toc.Depth   ⍝ A.Where n.Toc.Depth∊0 1
+         {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍳≢n.Toc.Depth   ⍝ ⍸ n.Toc.Depth∊0 1
      :Else
          :If 0=≢allStates
-             {}{2 ⎕NQ n.Toc'Expanding'⍵}¨A.Where n.Toc.Depth∊0 1
+             {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍸n.Toc.Depth∊0 1
          :ElseIf ~0=≢was←↓(5⊃¨allStates)⌿was
              now←↓n.Toc.(Depth,[0.5]Items)
          :AndIf ~0=≢was←(was∊now)/was
@@ -41,7 +41,7 @@
 
      toc[;1]←(,¨'“”')⎕R(,¨'""')⊣toc[;1]
      n.Toc.∆Toc←toc
-     :If 0≠≢invalid←A.Where 0,2{(⍺+1)≥⍵:0 ⋄ 1}/toc[;0]
+     :If 0≠≢invalid←⍸0,2{(⍺+1)≥⍵:0 ⋄ 1}/toc[;0]
          states←n.Toc GetState¨invalid
          (4⊃¨states)←0                  ⍝ Reset
          :If ~0=≢invalid

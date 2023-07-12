@@ -34,7 +34,7 @@
  :AndIf ⍬≢⍬ n.∆INI.Get'Help:title'
  :AndIf n.∆INI.Exist'Help:file'
  :AndIf ⍬≢⍬ n.∆INI.Get'Help:file'
-     n.∆Menubar.userhelp←n.∆Menubar.help.⎕NEW'MenuItem'(('Caption'(↑n.∆INI.Get'Help:title'))('Posn'(1+¯1↑A.Where{'Separator'≡⍵.Type}¨⎕WN n.∆Menubar.help)))
+     n.∆Menubar.userhelp←n.∆Menubar.help.⎕NEW'MenuItem'(('Caption'(↑n.∆INI.Get'Help:title'))('Posn'(1+¯1↑⍸{'Separator'≡⍵.Type}¨⎕WN n.∆Menubar.help)))
      n.∆Menubar.userhelp.onSelect←'OnUserHelp'
  :EndIf
  :If 1=n.∆INI.Exist'Config:allowPreferences'

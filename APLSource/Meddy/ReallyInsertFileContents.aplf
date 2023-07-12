@@ -11,5 +11,5 @@
  :EndIf
  list,←⊂'Replace whole contents'
  (ok bool)←n.∆globalParms parms G.OptionsTool.Run list
- option←ok/A.Where bool
+ option←ok/⍸bool
 ⍝Done

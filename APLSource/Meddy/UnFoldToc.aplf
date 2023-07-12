@@ -1,8 +1,8 @@
  UnFoldToc←{
  ⍝ Called when the user has pressed "+" in the TOC
      n←⍵
-     row←A.Where n.Toc.SelItems
-     0=≢ind←A.Where 2{⍺<⍵}/n.Toc.Depth:0
+     row←⍸n.Toc.SelItems
+     0=≢ind←⍸2{⍺<⍵}/n.Toc.Depth:0
      _←{2 ⎕NQ n.Toc'Expanding'⍵}¨ind
      0=≢row:0
      _←⎕NQ n.Toc'ItemUp'row

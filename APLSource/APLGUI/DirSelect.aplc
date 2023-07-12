@@ -1,0 +1,531 @@
+:Class DirSelect
+⍝ Allows the user to select a directory.\\
+⍝ By default the user is free to switch freely between disk as well as folders. By setting `fixDrive` to 1 she
+⍝ can be prevented from switching to another disk and by setting `fixDefaultDir` she can also be prevented
+⍝ from switching folders. Naturally setting `fixDefaultDir` to 1 implies that `fixDefaultDrive` gets 1 as well.\\
+⍝ Author: Kai Jaeger ⋄ Copyright: APL Team Ltd
+
+    :Include APLGuiUtils
+
+    :Field Shared ReadOnly RefreshEvent←9999
+    :Field Shared ReadOnly QuitEvent←9998
+    :Field Shared ReadOnly WritePathToStatusbarEvent←9997
+
+    ∇ n←{x}Create startDir;globalParms;parms
+    ⍝ This creates the GUI and populates it.\\
+    ⍝ Returns a namespace with references to all the controls created. The
+    ⍝ form lives as long as that namespace exists if no other refs were
+    ⍝ created later.\\
+    ⍝ The right argument may either be empty or point to a certain directory.
+    ⍝ In the latter case that directory will be pre-selected. Note that by default
+    ⍝ the user is still able to move elsewhere.\\
+    ⍝ The optional left argument can be either a parameter space, typically
+    ⍝ created by `CreateParms`, or a global parameter space (see `APLGuiGlobalParms`)
+    ⍝ or both.
+      :Access Public Shared
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ''}'x'
+      startDir←(-'/\'∊⍨↑⌽startDir)↓startDir
+      (globalParms parms)←CreateParms GetParms x
+      parms.(size minSize)←⌊(1 1)(0.75 0.75)×30×2⍴(parms.fontStandard{0=≢⍺:⍵ ⋄ ⍺}globalParms.fontStandard).Size
+      parms.regKey2←''
+      parms.sysMenu←1
+      parms.(maxButton minButton)←1
+      parms.sizeable←1
+      parms.hasStatusbar←1
+      n←##.StdForm.Create globalParms parms
+      n.∆Form.CursorObj←1
+      n(PolishParms)←startDir
+      n.∆Form.⎕WS'Event'QuitEvent 1
+      n.∆Form.onClose←'OnClose'
+      n.∆result←''
+      n.menubar←##.Menubar.Create n.∆Form(CreateMenuDefinition ⍬)⍬(⎕NEW ##.KeyCodes)
+      n.menubar.⎕DF'[Menubar namespace]'
+      n(CreateInfo)←parms.info
+      n(CreateDriveCombo)←n.∆startDrive
+      n←##.StdForm.AddButtons(n('OK' 'Cancel'))
+      2 ⎕NQ n.∆Form'Flush'
+      n.Tree←CreateTree n
+      PopulateTree n
+      n.∆buttons.onSelect←⊂'OnButtonPressed'
+      n.∆Form ##.APLGuiHelpers.CenterIn n GetParm'centerIn'
+      {}CheckPosition n.∆Form
+      n←PositionButtons n
+      n.∆Form.CursorObj←0
+     ⍝Done
+    ∇
+
+    ∇ r←CreateParms
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings.
+      r←##.APLGuiParameterSpace.Create
+      r.allowCreate←0
+      r.allowRemove←0
+      r.addToCaption←'Select directory'
+      r.alignButtons←##.Enums.Align.Left
+      r.caption←''
+      r.centerIn←''
+      r.defaultDrive←¯1
+      r.driveList←¯1
+      r.fixDefaultDir←0
+      r.fixDefaultDrive←0
+      r.(fontAPL fontInput fontLabel fontStandard)←⊂''
+      r.hasProgressbar←0
+      r.hasStatusbar←0
+      r.hasVersionField←0
+      r.hGap←¯1
+      r.icon←''
+      r.initialVgap←¯1
+      r.info←'Please select directory:'
+      r.noCDROM←1
+      r.parent←''
+      r.parmType←'SelectDir'
+      r.posn←⍬ ⍬
+      r.size←⍬ ⍬
+      r.statusbarMessage←''
+      r.testMode←¯1
+      r.vGap←¯1
+     ⍝Done
+    ∇
+
+    ∇ r←{x}Run startDir;n
+      :Access Public Shared
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      n←x Create startDir
+      r←ModalWait n
+    ∇
+
+    ∇ r←ModalWait n
+    ⍝ Takes a ref pointing to a form created by this class.
+    ⍝ Returns:
+    ⍝ | Name    | Meaning
+    ⍝ |-|-
+    ⍝ | `okFlag`  | 1 in case the "OK" button was pressed and 0 otherwise.
+    ⍝ | `boolean` | A vector of Booleans representing the selection.
+    ⍝           0=+/boolean holds true in case okFlag is 0.
+      :Access Public Shared
+      r←''
+      {}⎕NQ n.Tree'GotFocus' ⋄ ⎕DQ n.∆Form
+      :If 0=n.∆Form.∆closed
+          :If n.∆buttonPressed.Default
+              r←n.∆result
+          :EndIf
+          n.∆CloseForm
+      :EndIf
+    ∇
+
+    ∇ path←n GetPathFromTreeItems bool;buf;ind;item
+      :Access Public Shared
+    ⍝ `bool"` is typically (but not necessarily) `n.Tree.SelItems`⍝
+      :If 0=+/bool
+          path←''
+      :Else
+          ind←bool⍳1
+          path←ind⊃n.Tree.Items
+          :Repeat
+              :If ¯1≡ind←2 ⎕NQ n.Tree'GetParentItem'ind
+                  path←↑n.Tree.Items
+                  :Return
+              :EndIf
+              :If '\'∊item←ind⊃n.Tree.Items
+                  path←item,'\',path
+              :Else
+                  path←item,'\',path
+              :EndIf
+          :Until 0=ind⊃n.Tree.Depth
+      :EndIf
+      path←RefToFilesAndDirs.NormalizePath path
+    ∇
+
+⍝⍝⍝⍝ Private stuff
+
+      CreateMenuDefinition←{
+          ∆←''
+          ∆,←⊂'[File]'
+          ∆,←⊂' Quit=Ctrl+W : →                               {quit}'
+          ∆,←⊂'[Edit]'
+          f1←n.∆parms.allowCreate
+          f2←n.∆parms.allowRemove
+          ∆,←⊂' ',((~f1)/'~'),'Create directory...     : OnCreateDirectory   {createDir}   '
+          ∆,←⊂' ',((~f2)/'~'),'Remove directory...     : OnRemoveDirectory   {removeDir}   '
+          ∆,←⊂' -'
+          ∆,←⊂' Copy full path          : OnCopyFullPath      {copyPath}        ; Copies the full path of the currently selected directory'
+          ∆,←⊂' -'
+          ∆,←⊂' Refresh=F5              : OnRefresh           {globalRefresh}   ; Refresh the parent of the currently selected directory'
+          ∆
+      }
+
+    ∇ {r}←OnExpandTree msg;n;in;path;d;_;depth;items;saveCursorObj;hasSubDirs
+      r←1
+      n←GetRefTo_n↑msg
+      saveCursorObj←n.∆Form.CursorObj
+      n.∆Form.CursorObj←1
+      in←2⊃msg
+      n.Tree.SelItems[]←0
+      n.Tree.SelItems[in]←1
+      path←n GetPathFromTreeItems n.Tree.SelItems
+      items←RefToFilesAndDirs.ListDirs path,'\*'            ⍝ List of sub dirs
+      :If 0=≢items
+          {}DeleteChildren n.Tree in                        ⍝ There are no sub dirs, so let's delete "dummy"
+      :Else
+          items←Sort items
+          {}DeleteChildren n.Tree in
+          {}2 ⎕NQ n.Tree'AddChildren'in('\'##.APLTreeUtils2.Last¨items)0
+          {}2 ⎕NQ n.Tree'Expanding'in
+      :EndIf
+      :If 0<≢items
+      :AndIf 0<≢hasSubDirs←0<≢¨RefToFilesAndDirs.ListDirs¨items
+      :AndIf 1<+/hasSubDirs
+          {2 ⎕NQ n.Tree'AddChildren'⍵(⊂'dummy')0}¨in+1+⌽⍸hasSubDirs
+      :EndIf
+      n.∆Form.CursorObj←saveCursorObj
+    ∇
+
+    ∇ r←OnRetracting msg;n
+      r←1
+      n←GetRefTo_n↑msg
+      ⎕NQ(↑msg)9999(msg[2])
+    ∇
+
+      On9999OnTree←{
+          n←GetRefTo_n↑⍵
+          n.Tree.SelItems[]←0
+          n.Tree.SelItems[⍵[2]]←1
+          0
+      }
+
+      CreateInfo←{
+          n←⍺
+          info←⍵
+          ∆←''
+          ∆,←⊂'Caption'info
+          ∆,←⊂'Posn'n.(∆initialVgap ∆Hgap)
+          ∆,←⊂'Size'(⍬ ⍬)
+          ∆,←⊂'Attach'(4⍴'Top' 'Left')
+          n.Info←n.∆Form.⎕NEW'Label'∆
+          _←n.Info.⎕DF'[Labe;l]:info'
+          0=≢info:n⊣n.Info.Posn[0]←n.Info.Size[0]←0
+          width←1⊃{⍵.GetTextSize ⍵.Caption}n.Info
+          n.∆Form.Size⌈←(2×n.∆Vgap)+width
+          n.Info.Size[1]←width
+          n
+      }
+
+      CreateDriveCombo←{
+          n←⍺
+          startDir←⍵
+          drives←##.##.WinSys.GetDriveAndType
+          drives{⍵:⍺⌿⍨'CD-ROM'∘≢¨⍺[;2] ⋄ ⍺}←n.∆parms.noCDROM
+          drives⍪⍨←(~(⊂startDir)∊drives[;0])⌿⍉⍪startDir ¯1 'UNC path'
+          ∆←''
+          ∆,←⊂'Posn'((n.∆Vgap+↑+⌿⊃n.Info.(Size Posn)),n.∆Hgap)
+          ∆,←⊂'Items'(↑¨,/¨{⍺,' (',⍵,')'}/¨↓{⍵[;0 2]}drives)
+          ∆,←⊂'Active'(~n.∆parms.fixDefaultDrive)
+          ∆,←⊂'Attach'(4⍴'Top' 'Left')
+          n.Drives←n.∆Form.⎕NEW'Combo'∆
+          n.Drives.Size[1]←40+⌈/1⊃∘n.Drives.GetTextSize¨n.Drives.Items   ⍝TODO⍝  We would like to calculate the size of the triangle box
+          _←n.Drives.⎕DF'[Combo]:Drives'
+          n.Drives.onSelect←'OnSelectDrive'
+          0=≢startDir:Make_C_DefaultDrive n
+          n.Drives.SelItems←(⍳0⊃⍴drives)=(↑¨drives[;0])⍳↑startDir
+          n
+      }
+
+      OnButtonPressed←{
+          rf←↑⍵
+          n←GetRefTo_n rf
+          n.∆buttonPressed←rf
+          n.Btn_00≢rf:⍬⊣⎕NQ n.∆Form QuitEvent
+          n.∆result←n GetPathFromTreeItems n.Tree.SelItems
+          ⍬⊣⎕NQ n.∆Form QuitEvent
+      }
+
+      OnClose←{
+          rf←0⊃⍵
+          ⊢rf.n.∆Form.∆closed←1
+      }
+
+      OnSelectDrive←{
+          n←GetRefTo_n↑⍵
+          drive←n.Drives.((SelItems⍳1)⊃Items)
+          path←n GetPathFromTreeItems n.Tree.SelItems
+          drive←{'//'≡2⍴⍵:⍵↑⍨⍵⍳' ' ⋄ (↑⍵),':\'}drive
+          n.∆startDir≡drive:0
+          n.∆startDir←drive
+          items←RefToFilesAndDirs.ListDirs n.∆startDir
+          _←PopulateTree_ n.Tree n.∆startDir items
+          1
+      }
+
+      CreateTree←{
+          n←⍵
+          ∆←''
+          ∆,←⊂'Posn'(0 0)
+          ∆,←⊂'Size'(100 100)
+          ∆,←⊂'Coord' 'Prop'
+          ∆,←⊂'Visible' 0
+          ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+          ref←n.∆Form.⎕NEW'TreeView'∆
+          _←ref.⎕DF'[TreeView]'
+          top←n.∆Vgap+↑+⌿⊃n.Drives.(Posn Size)
+          ref.Coord←'Pixel'
+          ref.Posn[0]+←top
+          ref.Size[0]←0⌈(↑n.Btn_00.Posn)-top+n.∆Vgap
+          ref.Posn[1]+←n.∆Hgap
+          ref.Size[1]-←2×n.∆Hgap
+          ref.onExpanding←'OnExpandTree'
+          ref.onRetracting←'OnRetracting'
+          ref.on9999←'On9999OnTree'
+          ref.onContextMenu←'OnContextMenuOnTree'
+          ref.onItemUp←'OnItemUpInTree'
+          ref.onKeyPress←'OnKeyPressInTree'
+          _←⍎'ref.on',(⍕WritePathToStatusbarEvent),'←''OnWritePathToStatusbar'''
+          ref
+      }
+
+      DeleteChildren←{
+          (rf in)←⍵                                             ⍝ [1]: Ref pointing to the TreeView; [2] Item number
+          0=noOf←{+/∧\(↑⍵)≤1↓⍵}in↓n.Tree.Depth:⍬
+          _←2 ⎕NQ n.Tree'DeleteItems'(in+1)noOf
+          ⍬
+      }
+
+    ∇ {r}←PopulateTree n;paths;path;i;bool;items;in;itemsLC;noOf;firstFlag;depth;hasSubDirs
+      r←⍬
+      :If n.∆parms.fixDefaultDir
+          paths←,⊂n.∆startDrive,n.∆startDir
+      :Else
+          paths←(⊂n.∆startDrive),{0=≢⍵:⍵ ⋄ '\'Split ⍵}n.∆startDir
+      :EndIf
+      depth←in←0
+      2 ⎕NQ n.Tree'AddChildren' 0(1↑paths)0
+      firstFlag←1
+      :For i :In ⍳≢paths
+          path←↑{⍺,(('\'≠¯1↑⍺)/'\'),⍵}/(i+1)↑paths
+          items←RefToFilesAndDirs.ListDirs path,'\'
+          :If ~firstFlag
+              in←⍸(n.Tree.Depth=depth)∧(⎕C n.Tree.Items)≡¨⎕C paths[i]
+              2 ⎕NQ n.Tree'DeleteChildren'in
+          :EndIf
+          :If 0<≢items
+              2 ⎕NQ n.Tree'AddChildren'in('\'##.APLTreeUtils2.Last¨items)((≢items)⍴0)
+              2 ⎕NQ n.Tree'Expanding'in
+          :EndIf
+          :If 0<≢items
+              hasSubDirs←0<≢¨RefToFilesAndDirs.ListDirs¨items
+              {2 ⎕NQ n.Tree'AddChildren'⍵(⊂'dummy')0}¨in+1+⌽⍸hasSubDirs
+          :EndIf
+          firstFlag←0
+          depth+←1
+      :EndFor
+      n.Tree.SelItems←(≢n.Tree.Items)⍴0
+      n.Tree.SelItems[in]←1
+      n.Tree.Visible←1
+    ∇
+
+      PopulateTree_←{
+          (Tree path items)←⍵
+          bool←{0≠≢⍵ RefToFilesAndDirs.ListDirs ⍵}¨items
+          items←⊂¨'\'##.APLTreeUtils2.Last¨items
+          (bool/items)←(bool/items),¨⊂⊂'dummy'
+          Tree.Items←(⊂path),↑,/items
+          (bool/bool)←⊂0 1
+          Tree.Depth←0,1+∊bool
+          _←2 ⎕NQ Tree'Expanding' 0
+          ⍬
+      }
+
+    ∇ {n}←n PolishParms startDir;noOf
+      n.∆parms.fixDefaultDrive∨←n.∆parms.fixDefaultDir
+      :If 0≠≢n.∆startDir←startDir
+          :If '//'≡2↑startDir
+              noOf←+/4>+\startDir='/'
+              n.∆startDrive←noOf↑startDir
+              n.∆startDir←(1+noOf)↓startDir
+          :Else
+              :If {(2=≢⍵)∧':'=1⊃⍵}n.∆startDir
+                  n.∆startDrive←n.∆startDir,'\'
+                  n.∆startDir←''
+              :Else
+                  n.∆startDrive←{'\'∊⍵:⍵↑⍨1+⍵⍳'\' ⋄ ''}n.∆startDir
+                  n.∆startDir←{'\'∊⍵:⍵↓⍨1+⍵⍳'\' ⋄ ⍵}n.∆startDir
+              :EndIf
+          :EndIf
+      :Else
+          :If ¯1≡n.∆parms.defaultDrive
+              n.∆startDrive←''
+          :Else
+              n.∆startDrive←n.∆parms.defaultDrive
+          :EndIf
+      :EndIf
+    ∇
+
+      Make_C_DefaultDrive←{
+          n←⍵
+          n.Drives.SelItems←'C'=↑¨n.Drives.Items
+          n.∆startDir←''
+          n.∆startDrive←'C:\'
+          n
+      }
+
+      OnContextMenuOnTree←{
+          n←GetRefTo_n↑⍵
+          0=+/n.Tree.SelItems:0⊣NoItemIsSelected n ⍝ Yes, this DOES happen, although rarely
+          in←n.Tree.SelItems⍳1
+          n2←⎕NS''
+          n2.ContextMenu←n.∆Form.⎕NEW⊂'Menu'
+          n2.GetPath←n2.ContextMenu.⎕NEW'MenuItem'(⊂('Caption' 'Copy full path to clipboard'))
+          f1←n.∆parms.allowCreate
+          f2←n.∆parms.allowRemove
+          _←{n2.Sep2←n2.ContextMenu.⎕NEW⊂'Separator'}⍣(f1∨f2)⍬
+          n2.MakeDir←{⍵:n2.ContextMenu.⎕NEW'MenuItem'(⊂('Caption'('Create directory in <',(in⊃n.Tree.Items),'>...'))) ⋄ ⍬}f1
+          n2.RmDir←{⍵:n2.ContextMenu.⎕NEW'MenuItem'(⊂('Caption'('Remove directory <',(in⊃n.Tree.Items),'>...'))) ⋄ ⍬}f2
+          (n2.GetPath,(f1/n2.MakeDir),(f2/n2.RmDir)).onSelect←⊂'OnContextMenuHandler'n2
+          0⊣⎕DQ n2.ContextMenu
+      }
+
+
+    ∇ {r}←n2 OnContextMenuHandler msg;n
+      r←⍬
+      n←GetRefTo_n↑msg
+      :Select ↑msg
+      :Case n2.GetPath
+          CopyFullPathToClipboard n
+      :Case n2.MakeDir
+          {}CreateDirectory n
+      :Case n2.RmDir
+          {}RemoveDirectory n
+      :EndSelect
+    ∇
+
+    ∇ {r}←CopyFullPathToClipboard n;ind;buf;item;cl;parms;path
+      r←⍬
+      :If 0<+/n.Tree.SelItems
+          ind←n.Tree.SelItems⍳1
+          path←n GetPathFromTreeItems n.Tree.SelItems
+          cl←⎕NEW⊂'Clipboard'
+          cl.Text←path
+          parms←##.Dialogs.CreateParmsForShowMsg
+          parms.addToCaption←n.∆parms.addToCaption
+          parms.centerIn←n.∆Form
+          {}n.∆globalParms parms ##.Dialogs.ShowMsg'Path:'path'copied to the clipboard.'
+      :EndIf
+    ∇
+
+      CreateDirectory←{
+          n←⍵
+          parms←##.Request.CreateParmsForString
+          parms.addToCaption←'Create Directory'
+          parms.centerIn←n.∆Form
+          parentPath←n GetPathFromTreeItems n.Tree.SelItems
+          msg←'The new directory will be situated within:'parentPath
+          msg,←'' 'Specify a valid name for the new directory:'
+          (f name)←n.∆globalParms parms ##.Request.AskForString msg
+          0=f:⍬
+          {0::1 ⋄ 0⊣⎕MKDIR ⍵}parentPath,'\',name:⍬⊣n.∆globalParms ##.Dialogs.ShowMsg 0⊃⎕DM
+          ind←n.Tree.SelItems⍳1
+          new←2 ⎕NQ n.Tree'AddChildren'ind(⊂name)0
+          n.Tree.SelItems[]←0
+          _←1 ⎕NQ n.Tree'Expanding'ind
+          n.Tree.SelItems[new]←1
+          ⍬
+      }
+
+      RemoveDirectory←{
+          n←⍵
+          path←n GetPathFromTreeItems n.Tree.SelItems
+          parms←##.Dialogs.CreateParmsForYesOrNo
+          parms.centerIn←n.∆Form
+          ¯1=ef←0=≢↑RefToFilesAndDirs.Dir path,'\':⍬  ⍝ Empty flag; ¯1=does not exist
+          msg←'The directory:'path
+          msg,←⊂'is ',((~ef)/'NOT '),' empty.'
+          msg,←⊂'Are you sure that you want to remove it?'
+          0=n.∆globalParms parms ##.Dialogs.YesOrNo msg:⍬
+          (rc en more)←RefToFilesAndDirs.RmDir path
+          rc≠0:⍬⊣##.Dialogs.ShowMsg('Removing directory <',path,'> failed; rc=',⍕rc)more
+          ind←n.Tree.SelItems⍳1
+          _←2 ⎕NQ n.Tree'DeleteItems'ind
+          n.Tree.SelItems[]←0
+          n.Tree.SelItems[ind-1]←1
+          ⍬
+      }
+
+      OnItemUpInTree←{
+          ⍬⊣⎕NQ(↑⍵)WritePathToStatusbarEvent
+      }
+
+      OnWritePathToStatusbar←{
+          n←GetRefTo_n↑⍵
+          n.StatusField1.Text←n GetPathFromTreeItems n.Tree.SelItems
+          ⍬
+      }
+
+      OnKeyPressInTree←{
+          key←↑2⊃⍵
+          ~key∊'+-':1
+          n←GetRefTo_n↑⍵
+          '+'=↑key:0⊣⎕NQ n.Tree'Expanding'(n.Tree.SelItems⍳1)
+          '-'=↑key:0⊣⎕NQ n.Tree'Retracting'(n.Tree.SelItems⍳1)
+          . ⍝ Huuh?!
+      }
+
+    ∇ {r}←OnRefresh msg;n;parms;q
+      :Access Public Shared
+      r←⍬
+      n←GetRefTo_n↑msg
+      PerformRefresh n
+    ∇
+
+    ∇ {r}←OnCreateDirectory msg;n
+      :Access Public Shared
+      r←⍬
+      n←GetRefTo_n↑msg
+      {}CreateDirectory n
+    ∇
+
+    ∇ {r}←OnRemoveDirectory msg;n
+      :Access Public Shared
+      r←⍬
+      n←GetRefTo_n↑msg
+      {}RemoveDirectory n
+    ∇
+
+    ∇ {r}←OnCopyFullPath msg;n
+      :Access Public Shared
+      r←⍬
+      n←GetRefTo_n↑msg
+      :If 0=+/n.Tree.SelItems
+          NoItemIsSelected n
+      :Else
+          CopyFullPathToClipboard n
+      :EndIf
+    ∇
+
+      NoItemIsSelected←{
+          ⍺←'Nothing selected'
+          n←⍵
+          parms←##.Dialogs.CreateParmsForShowMsg
+          parms.addToCaption←⍺
+          parms.centerIn←n.∆Form
+          msg←'First please select a directory'
+          _←n.∆globalParms parms ##.Dialogs.ShowMsg msg
+          ⍬
+      }
+
+    ∇ {r}←PerformRefresh n;path;in
+    ⍝ Stricly speaking retracting/extracting an item implicitly refreshes that branch.
+    ⍝ Therefore we simply retract and then expand again and we are done.
+      path←n GetPathFromTreeItems n.Tree.SelItems
+      :If 0=≢path
+          NoItemIsSelected n
+      :Else
+          in←n.Tree.SelItems⍳1
+          1 ⎕NQ n.Tree'Retracting'in
+          1 ⎕NQ n.Tree'Expanding'in
+      :EndIf
+    ∇
+
+      Sort←{
+          ⍵[⍋⎕C⊃⍵]
+      }
+
+:EndClass

@@ -33,7 +33,7 @@
                  :Else
                  ⍝ More than one hit. We choose the one that is closest to the current row in Toc.
                  ⍝ Not 100% save but it will almost certainly work just fine.
-                     row←({⍵⊃⍨{{⍵⍳⌊/⍵}|⍵}⍵-currentToc}(A.Where bool))
+                     row←({⍵⊃⍨{{⍵⍳⌊/⍵}|⍵}⍵-currentToc}(⍸bool))
                      bool2←(≢bool)⍴0
                      bool2[row]←1
                      n.Toc.SelItems←bool2

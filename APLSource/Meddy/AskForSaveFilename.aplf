@@ -23,7 +23,7 @@
          :Return
      :EndIf
      extension←↑¯1↑⎕NPARTS filename
-     :If (⊂A.Lowercase extension)∊'.md' '.markdown'
+     :If (⊂⎕C extension)∊'.md' '.markdown'
          flag←1
      :ElseIf 0=≢extension
          filename,←'.md'

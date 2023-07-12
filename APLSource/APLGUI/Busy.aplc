@@ -1,0 +1,257 @@
+:Class Busy
+⍝ Creates a Form that displays a progress bar, optionally with:
+⍝ * A message, which might have one or more lines.
+⍝ * An "Abort" button.
+⍝ * A "Keep on top" check box in case the `onTop` property is 1.
+⍝
+⍝ When the "Abort" button is pressed then the variable `n.∆ABORTED` is set to 1.\\
+⍝ Note that the `Create` method will create the from in a separate
+⍝ thread, and it will also `⎕DQ` the Form in this thread. This is a must
+⍝ because otherwise the callback associated with the "Abort" button would not run.
+
+    :Include APLGuiUtils
+
+    ∇ n←{x}Create msg;defaults;globalParms;parms
+    ⍝ `msg` must be either a char vector or a vector of char vectors.\\
+    ⍝ `x` is optional and might be either `parms` or `globalParms` or both.\\
+    ⍝ The result is the `n` namespace of the Progressbar form.
+      :Access Public Shared
+      ⎕TRAP←(APLGuiError'E'('⎕DMX.EM ⎕SIGNAL ',⍕APLGuiError))(0 'N')
+      x←{(0<⎕NC ⍵):⍎⍵ ⋄ ⍬}'x'
+      defaults←CreateParms
+      (globalParms parms)←defaults GetParms x
+      n←##.FormRefNamespace.Create parms.addToCaption
+      n.∆TID←Create_&msg n globalParms parms
+      ⎕DL 0.2
+    ∇
+
+    ∇ {r}←Create_(msg n globalParms parms);parmsStd
+    ⍝ Called by `Create` but runs in a separate thread.
+      r←⍬
+      parmsStd←##.StdForm.CreateParms
+      parmsStd.(hasProgressbar hasStatusbar maxButton minButton sizeable)←0
+      parmsStd.(addToCaption caption icon hGap vGap posn)←parms.(addToCaption caption icon vGap hGap posn)
+      n←n ##.StdForm.Create globalParms parmsStd
+      n.∆Form.OnTop←parms.onTop
+      n.∆parms←n.∆parms.∆MergeParms parms
+      n.∆parms.parmType←'Busy'
+      n.⎕FX' {r}←∆CloseForm' 'r←⍬' ' :Trap 6 ⋄ 2 ⎕NQ ∆Form''Close'' ⋄ ∆Form.∆closed←1 ⋄ :EndTrap' '⎕TKILL ∆TID'
+      msg←,⊆msg
+      n←CreateMsg n msg
+      n←CreateProgressbar n
+      n←CreateAutoTimer n
+      n←CreateAbortButton n
+      n←CreateOnTopBox n
+      n←AdjustSize n
+      n←AdjustPosn n
+      n←AdjustProgressbar n
+      n←AdjustButtonPosn n
+      n←AdjustOnTopPosn n
+      n←AdjustMsgPosn n
+      n.∆ABORTED←0
+      ⎕DQ n.∆Form
+    ⍝Done
+    ∇
+
+    ∇ r←CreateParms
+      :Access Public Shared
+    ⍝ Returns a parameter namespace with default settings for being fed to.
+      r←##.APLGuiParameterSpace.Create
+      r.addToCaption←''
+      r.align←##.Enums.Align.Left
+      r.wrap←0
+      r.caption←''
+      r.centerIn←''
+      r.(fontAPL fontInput fontLabel fontStandard)←⊂''
+      r.hasAbortButton←0
+      r.hGap←¯1
+      r.icon←''
+      r.onTop←0
+      r.parent←''
+      r.parmType←'Busy'
+      r.posn←(⍬ ⍬)
+      r.showOnTop←0
+      r.size←(⍬ ⍬)
+      r.vGap←¯1
+      ⍝Done
+    ∇
+
+    ∇ {r}←n SetPercent value;top
+      :Access Public Shared
+    ⍝ Accepts value from 0 to 100.
+    ⍝ `n` is the namespaces returned by the `Create` method.
+      'Invalid right argument'⎕SIGNAL 11/⍨{⍵:0 ⋄ ~(⌊value)∊⍳101}n.∆parms.wrap
+      :Trap 6           ⍝ User might have closed the form
+          n.ProgressBar.Thumb←1⌈value
+          top←n.∆Form.⍎1↓↑,/{(⊂'.##')⍴⍨1+'.'+.=⍵↑⍨⍵⍳'['}⍕n.∆Form ⍝ Either # or ⎕SE
+          ⎕NQ top'Flush'
+      :EndTrap
+    ∇
+
+    ∇ {r}←Close n
+    ⍝ Use this to finish off an instance of `Busy`. This is needed because any `Busy` instance runs in its
+    ⍝ own thread, so just closing the form is not enough at all.
+      :Access Public Shared
+      r←⍬
+      :Trap 0 ⋄ n.∆Form.Close ⋄ :EndTrap
+      .
+    ∇
+
+    ∇ OnSelectOnTopStatus msg;n
+      :Access Public Shared
+      n←GetRefTo_n↑msg
+      n.∆Form.OnTop←n.OnTop.State
+    ∇
+
+    ∇ OnSelectAbort msg;n;ref
+      :Access Public Shared
+     
+      n←GetRefTo_n ref←↑msg
+      n.∆ABORTED←1
+      {6:: ⋄ ⍵.Active←0}ref
+      {6:: ⋄ ⍵.Caption←'Aborting...'}ref
+    ∇
+
+    ∇ OnAutoTimer msg;rf;n
+      :Access Public Shared
+      n←GetRefTo_n↑msg
+      :Trap 6
+          n.ProgressBar.Thumb+←3
+      :EndTrap
+    ∇
+
+⍝⍝⍝⍝⍝ Private stuff
+
+    ∇ n←CreateMsg(n msg);parms;globalParms;∆;startPosn;para;question;i;height;sizes
+      (parms globalParms)←n.(∆parms ∆globalParms)
+      ∆←''
+      i←0
+      n.Msg←⍬      ⍝ Keeps a vector with refs to all labels.
+      startPosn←n.(∆Vgap ∆Hgap)
+      :For para :In msg
+          ∆,←⊂'Caption'para
+          ∆,←⊂'Attach'(4⍴'Top' 'Left')
+          ∆,←⊂'Font'(n GetParm ##.Enums.Fonts.Standard)
+          n.Msg,←n.∆Form.⎕NEW'Label'∆
+          i+←1
+      :EndFor
+      '[Label]:Msg'∘{⍵.⎕DF ⍺}¨n.Msg
+      sizes←n.Msg.GetTextSize msg
+      height←↑0⊃sizes
+      :If n.∆parms.align=##.Enums.Align.Center
+          n.Msg.Posn←(⌊0.5×{(⌈/⍵)-⍵}1⊃¨sizes){startPosn+(⍵×5+height),⍺}¨⍳i
+      :Else
+          n.Msg.Posn←startPosn∘{⍺+(⍵×5+height),0}¨⍳i
+      :EndIf
+    ⍝Done
+    ∇
+
+    ∇ n←CreateProgressbar n;∆
+      ∆←''
+      ∆,←⊂'Posn'(((2×n.∆Vgap)+↑+⌿⊃(↑¯1↑n.Msg).(Posn Size)),n.∆Hgap)
+      ∆,←⊂'Interval' 1000
+      ∆,←⊂'Size'(⍬ 400)
+      ∆,←⊂'Wrap'n.∆parms.wrap
+      ∆,←⊂'Thumb' 1
+      :If n.∆parms.wrap
+          ∆,←⊂'Step' 1
+          ∆,←⊂'Limits'(0 10)
+      :Else
+          ∆,←⊂'Limits'(0 100)
+      :EndIf
+      n.ProgressBar←n.∆Form.⎕NEW'ProgressBar'∆
+      n.ProgressBar.⎕DF'[ProgressBar]:ProgressBar'
+    ∇
+
+      CreateAbortButton←{
+          n←⍵
+          0=n.∆parms.hasAbortButton:n
+          ∆←''
+          ∆,←⊂'Posn'(((2×n.∆Vgap)+↑+⌿⊃(↑¯1↑n.ProgressBar).(Posn Size)),n.∆Hgap)
+          ∆,←⊂'Caption' 'Abort'
+          n.AbortBtn←n.∆Form.⎕NEW'Button'∆
+          _←n.AbortBtn.⎕DF'[Button]:AbortBtn'
+          n.AbortBtn.onSelect←'OnSelectAbort&'
+          n.AbortBtn.Size[1]←1⊃n.AbortBtn.GetTextSize{⍺⍺'W'⍴⍨4+2×⍴⍵}'Abort'
+          n
+      }
+
+      CreateOnTopBox←{
+          n←⍵
+          0=n.∆parms.onTop+n.∆parms.showOnTop:n
+          ∆←⊂'Style' 'Check'
+          ∆,←⊂'Caption' 'Keep on top'
+          ∆,←⊂'State'n.∆parms.onTop
+          n.OnTop←n.∆Form.⎕NEW'Button'∆
+          _←n.OnTop.⎕DF'[CheckBox]:OnTop'
+          n.OnTop.Posn←(n.∆Vgap+↑+⌿⊃{⍵.(Posn Size)}{9=⍵.⎕NC'AbortBtn':⍵.AbortBtn ⋄ ⍵.ProgressBar}n),n.∆Hgap
+          n.OnTop.onSelect←'OnSelectOnTopStatus'
+          n
+      }
+
+      CreateAutoTimer←{
+          n←⍵
+          0=n.∆parms.wrap:n
+          n.timer←n.∆Form.⎕NEW'Timer'(⊂('Interval' 1000))
+          _←n.timer.⎕DF'[Timer]:timer'
+          n.timer.onTimer←'OnAutoTimer'
+          n
+      }
+
+      AdjustSize←{
+          n←⍵
+          width←⌈/1⊃¨{+⌿⊃⍵}¨n.Msg.(Posn Size)
+          width⌈←1⊃+/⊃n.ProgressBar.(Posn Size)
+          width⌈←n{⍵:1⊃+⌿⊃n.AbortBtn.(Posn Size) ⋄ 0}n.∆parms.hasAbortButton
+          width⌈←n{⍵:1⊃+⌿⊃n.OnTop.(Posn Size) ⋄ 0}n.∆parms.(onTop∨showOnTop)
+          width+←n.∆Hgap
+          height←↑+⌿⊃{⍵.(Posn Size)}GetLastControl n
+          height+←(1+n.∆parms.hasAbortButton)×n.∆Vgap
+          oldSize←n.∆Form.Size
+          n.∆Form.Size←height,width
+          n
+      }
+
+      AdjustPosn←{
+          n←⍵
+          0≠≢n.∆parms.centerIn:n⊣n.∆Form ##.APLGuiHelpers.CenterIn n.∆parms.centerIn
+          0≠≢n.∆globalParms.centerIn:n⊣n.∆Form ##.APLGuiHelpers.CenterIn n.∆globalParms.centerIn
+          n
+      }
+
+      AdjustProgressbar←{
+          n←⍵
+          n.∆parms.align≠##.Enums.Align.Center:n
+          n.ProgressBar.Posn[1]←⌊0.5×n.∆Form.Size[1]-1⊃n.ProgressBar.Size
+          n
+      }
+
+      AdjustButtonPosn←{
+          n←⍵
+          0=n.∆parms.hasAbortButton:n
+          n.AbortBtn.Posn[1]←⌊0.5×n.∆Form.Size[1]-n.AbortBtn.Size[1]
+          n
+      }
+
+      AdjustOnTopPosn←{
+          n←⍵
+          0=n.∆parms.onTop:n
+          n.∆parms.align≠##.Enums.Align.Center:n
+          n.OnTop.Posn[1]←⌊0.5×n.∆Form.Size[1]-n.OnTop.Size[1]
+          n
+      }
+
+      AdjustMsgPosn←{
+          n←⍵
+          n.Msg.Posn←(↑¨n.Msg.Posn),¨⌊0.5×n.∆Form.Size[1]-1⊃¨n.Msg.Size
+          n
+      }
+
+      GetLastControl←{
+          n←⍵
+          (n.∆parms.(onTop∨showOnTop)):n.OnTop
+          n.∆parms.hasAbortButton:n.AbortBtn
+          n.ProgressBar
+      }
+
+:EndClass

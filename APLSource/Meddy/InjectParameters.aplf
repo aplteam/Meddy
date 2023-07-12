@@ -5,7 +5,7 @@
  list←ps.∆List[;0]
  list~←'inputFilename' 'outputFilename' 'compileFunctions' 'debug' 'homeFolder' 'verbose' ⍝ These parameters should not be embedded by the user
  :If 0<noOf←+/∧\'['=↑¨,n.Markdown.Text
-     list~←{{⍵↑⍨⍵⍳'='}(≢'[parm]:')↓⍵}¨{⍵/⍨'[parm]:'∘{⍺≡A.Lowercase(≢⍺)↑⍵}¨⍵}noOf↑,n.Markdown.Text
+     list~←{{⍵↑⍨⍵⍳'='}(≢'[parm]:')↓⍵}¨{⍵/⍨'[parm]:'∘{⍺≡⎕C(≢⍺)↑⍵}¨⍵}noOf↑,n.Markdown.Text
  :EndIf
  (alreadyDefined comments)←GetEmbeddedParms n.Markdown.Text
  list~←{⍵↑⍨⌊/⍵⍳' ='}¨(≢'[parm]:')↓¨alreadyDefined

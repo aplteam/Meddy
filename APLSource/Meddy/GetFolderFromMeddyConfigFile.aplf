@@ -7,7 +7,7 @@
      0=##.FilesAndDirs.IsFile folder,'.Meddy':''
      data←A.Nest⊃F.NGET(↑⎕NPARTS n.∆Filename),'.Meddy'
      data←⊃'='A.Split¨,data
-     bool←(' '~¨⍨A.Lowercase data[;0])≡¨⊂'outputpath'
+     bool←(' '~¨⍨⎕C data[;0])≡¨⊂'outputpath'
      0=+/bool:''
      target←1↓¯1↓A.DMB↑bool/data[;1]
      {(':'∊⍵)∨('\\'≡2⍴⍵)∨('/'=1⍴⍵)}target:'expand'##.FilesAndDirs.NormalizePath target,'/',filename,'.html'           ⍝ Absolute path? Done!
