@@ -3,6 +3,7 @@
 ⍝ By default `msg` is assigned to `Text`. By passing ⍺←1 you can enforce `Caption` instead.
  r←⍬
  captionFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'captionFlag'
+ n.StatusField1.FCol←0 0 0
  :If captionFlag
      n.StatusField1.Caption←(≢n.StatusField1.Text){0=≢⍵:⍵ ⋄ 0=⍺:⍵ ⋄ ⍵,' --- '}msg
  :Else

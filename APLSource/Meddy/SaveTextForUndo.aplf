@@ -1,12 +1,16 @@
  {r}←SaveTextForUndo n;wa;noOf
- r←⍬
- n.Markdown.Tip←''
- noOf←'?'n.∆CommitUndoRedo ⎕NULL
- {6::r←⍬ ⋄ {}'≠'n.∆CommitUndoRedo ⍵}n.Markdown.Text n.Markdown.SelText  ⍝ Sometimes result, sometimes not.
- :If noOf≢'?'n.∆CommitUndoRedo ⎕NULL
-     n.∆LastSelText←n.Markdown.SelText
-     :If 6>⌊(2000⌶0)÷1000000 ⍝ Just 5MB memory left?!   ⍝ 2000⌶0 is a quick ⎕WA - no garbage collection
-         {}'↑'n.∆CommitUndoRedo 1⊃noOf-⌈noOf×0.25
+ r←0
+ :If 0=∆SKIP_SAVE_FOR_UNDO
+     n.Markdown.Tip←''
+     noOf←'?'n.∆CommitUndoRedo ⎕NULL
+     {6::r←⍬ ⋄ {}'≠'n.∆CommitUndoRedo ⍵}n.Markdown.Text n.Markdown.SelText  ⍝ Sometimes result, sometimes not.
+     :If noOf≢'?'n.∆CommitUndoRedo ⎕NULL
+         n.∆LastSelText←n.Markdown.SelText
+         :If 6>⌊(2000⌶0)÷1000000 ⍝ Just 5MB memory left?!   ⍝ 2000⌶0 is a quick ⎕WA - no garbage collection
+             {}'↑'n.∆CommitUndoRedo 1⊃noOf-⌈noOf×0.25
+         :EndIf
      :EndIf
+     r←1
  :EndIf
+ ∆SKIP_SAVE_FOR_UNDO←0
 ⍝Done

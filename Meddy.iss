@@ -1,9 +1,9 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "2.11.2.428"
+#define MyAppVersion "3.0.0+429"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
-#define MyAppPublisher "APL Team Ltd"
+#define MyAppPublisher "Kai Jaeger"
 #define MyAppURL "https://github.com/aplteam/Meddy"
 #define MyAppIcoName "Meddy2.ico"
 #define MyBlank " "
@@ -20,7 +20,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf32}\{#MyAppPublisher}\{#MyAppName}
+DefaultDirName={commonpf32}\{#MyAppPublisher}\{#MyAppName}
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 AllowNoIcons=yes
 OutputDir=C:/Users/kai/AppData/Local/Temp/InnoTempDir
@@ -52,39 +52,23 @@ Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; Val
 Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
 
 [Files]
-; Source: "MarkAPL.dyalog"; DestDir: "{commonappdata}\{#MyAppName}";
-Source: "MarkAPL.html"; DestDir: "{app}";
-Source: "MarkAPL_CheatSheet.html"; DestDir: "{app}";
-Source: "LeanPubExtensions.html"; DestDir: "{app}";
-Source: "QuickIntro.html"; DestDir: "{app}";
-Source: "Styles.html"; DestDir: "{app}";
-Source: "Presentations.html"; DestDir: "{app}";
-Source: "CSS/MarkAPL_print.css"; DestDir: "{app}/CSS";
-Source: "CSS/MarkAPL_screen.css"; DestDir: "{app}/CSS";
-Source: "CSS/BlackOnWhite_print.css"; DestDir: "{app}/CSS";
-Source: "CSS/BlackOnWhite_screen.css"; DestDir: "{app}/CSS";
-Source: "CSS/PresentAPL_Blue.css"; DestDir: "{app}/CSS";
-Source: "CSS/PresentAPL_Green.css"; DestDir: "{app}/CSS"; 
 
-; The Conga DLLs are needed for "Check for updates" (and potentially a Ride)
-Source: "conga33ssl32.dll"; DestDir: "{app}";
-Source: "conga33_32.dll"; DestDir: "{app}";
-
-; These files are needed for the "Check for updates" command via .NET:
-Source: "bridge180_unicode.dll"; DestDir: "{app}";
-Source: "dyalognet.dll"; DestDir: "{app}"     
-
-;Source: "Dyalog.Net.Bridge.dll"; DestDir: "{app}"          ; Only needed for .NET 
-;Source: "Dyalog.Net.Bridge.Host.dll"; DestDir: "{app}"     ; Only needed for .NET 
-
+; The Conga DLLs are required for "Check for updates" (and potentially a Ride)
+Source: "conga34ssl32.dll"; DestDir: "{app}";
+Source: "conga34_32.dll"; DestDir: "{app}";
+;Source: "dyalognet.dll"; DestDir: "{app}"     
 Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
-Source: "ReadMe.html"; DestDir: "{app}";
-Source: "ReleaseNotes.html"; DestDir: "{app}";
+;Source: "HTML\ReadMe.html"; DestDir: "{app}";
+;Source: "HTML\ReleaseNotes.html"; DestDir: "{app}";
+;Source: "HTML\Presentations.html"; DestDir: "{app}";
+Source: "CSS\*"; DestDir: "{app}\CSS";
+Source: "HTML\*"; DestDir: "{app}\HTML";
+Source: "packages\*"; DestDir: "{app}\packages"; Flags: createallsubdirs recursesubdirs
 Source: "Meddy2.ico"; DestDir: "{app}";
 Source: "app.ini.remove_me"; DestDir: "{app}"; DestName:"app.ini"; Flags: onlyifdoesntexist;
 Source: "specialchars.ini.remove_me"; DestDir: "{app}"; DestName:"specialchars.ini"; Flags: onlyifdoesntexist;
 Source: {#MyAppIcoName}; DestDir: "{app}";
-Source: "C:\Windows\Fonts\apl385.ttf"; DestDir: "{fonts}"; FontInstall: "APL385 Unicode"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "C:\Windows\Fonts\apl385.ttf"; DestDir: "{commonfonts}"; FontInstall: "APL385 Unicode"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "LICENSE"; DestDir: "{app}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -94,8 +78,8 @@ Name: "{group}\Start Meddy"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{ap
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\ReadMe.html"; Description: "View the README file"; Flags: postinstall shellexec skipifsilent
-Filename: "{app}\ReleaseNotes.html"; Description: "View the Release Notes"; Flags: postinstall shellexec skipifsilent
+Filename: "{app}\HTML\ReadMe.html"; Description: "View the README file"; Flags: postinstall shellexec skipifsilent
+Filename: "{app}\HTML\ReleaseNotes.html"; Description: "View the Release Notes"; Flags: postinstall shellexec skipifsilent
 Filename: "{app}\{#MyAppExeName}"; Description: "Launch Meddy"; Flags: postinstall skipifsilent nowait
 
 ; Strangely sometimes (rarely) this seems to be required in order to be able to Ride into Meddy:

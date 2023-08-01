@@ -1,8 +1,8 @@
  {r}←CheckForUpdates n;tag;msg;dmx;api;flag;url
  r←⍬
- api←⎕NEW ##.GitHubAPIv3(,⊂'aplteam')
+ api←⎕NEW GitHubAPIv3(,⊂'aplteam')
  tag←api.GetLatestTag'Meddy'
- flag←api.CheckForUpdate'Meddy'(1⊃Version)
+ flag←0<≢api.CheckForUpdate'Meddy'({⍵↑⍨⌊/⍵⍳'+-'}1⊃Version)
  :If ~flag
      TellMeddyIsUp2Date n
  :Else
@@ -19,7 +19,7 @@
          :If 0=≢url
              n TellErrorWhileCheckingForBetterVersion''
          :Else
-             ##.APLTreeUtils2.GoToWebPage url
+             APLTreeUtils2.GoToWebPage url
          :EndIf
      :EndIf
  :EndIf

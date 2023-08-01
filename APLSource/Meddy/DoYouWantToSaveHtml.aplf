@@ -1,19 +1,14 @@
- saveHTML←{saveHTML}DoYouWantToSaveHtml n;parms;result;btn;flag
+ saveHTML←{saveHTML}DoYouWantToSaveHtml n;parms;noOf;bool
 ⍝ `saveHTML` will be one of SaveHTMLValues.∆All
- saveHTML←SaveHTMLValues.YesButKeepAsking{0<⎕NC ⍵:⍎⍵ ⋄ ⍺}'saveHTML'
- parms←G.OptionsTool.CreateParms
- parms.addToCaption←'HTML'
- parms.info←'Would you like to save the HTML as well?'
- parms.default←saveHTML=SaveHTMLValues.∆All
- parms.parent←n.∆Form
- flag←0
- :Repeat
-     (btn result)←n.∆globalParms parms G.OptionsTool.Run'Never' 'Always' 'Yes, and keep asking' 'No, but keep asking'
-     :If 1=btn
-         saveHTML←⍸result
-         flag←1
+ :If 0=⎕NC'saveHTML'
+     :If 0<noOf←'[parm]'{+/∧\⍺∘≡¨(≢⍺)↑¨⍵}n.Markdown.Text
+     :AndIf ∨/bool←{∨/¨':saveHTML'∘⍷¨⍵}noOf↑n.Markdown.Text
+         saveHTML←1=↑↑(//)⎕VFI{⍵↓⍨1+⍵⍳'='}↑bool/n.Markdown.Text
      :Else
-         TellMustSelectOption n
+         parms←G.Dialogs.CreateParmsForYesOrNo
+         parms.parent←n.∆Form
+         parms.addToCaption←'Save HTML'
+         saveHTML←(n.∆globalParms parms)G.Dialogs.YesOrNo'Would you like to save the HTML as well?'
      :EndIf
- :Until flag
+ :EndIf
 ⍝Done

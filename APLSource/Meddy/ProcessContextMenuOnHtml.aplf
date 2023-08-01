@@ -11,14 +11,6 @@
          :Else
              1 ⎕NQ n.HTML'KeyPress' 'CP'
          :EndIf
-     :Case contextMenu.Save
-         WarnAboutCSS n
-         SaveMarkdownAsHTML n
-     :Case contextMenu.SaveAs
-         WarnAboutCSS n
-         'ASK'SaveMarkdownAsHTML n
-     :Case contextMenu.Search
-         SearchInHTML n
      :Else
          ∘∘∘ ⍝ Huuh?!
      :EndSelect

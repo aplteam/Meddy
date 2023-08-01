@@ -1,0 +1,9 @@
+ r←row SplitTableRows row2;b;⎕ML;⎕IO
+⍝ Split table row `row` according to pipe symbols in `row2`
+⍝ `row2` differs from `row` insofar as it has escaped pipe symbols and code replaced by spaces
+ ⎕IO←1 ⋄ ⎕ML←1
+ b←'|'=¨row2     ⍝ This is more efficient in terms of memory then doing it one one line
+ r←b⊂¨row
+ r←1↓¨¨r
+ r←¯1↓¨r
+⍝Done

@@ -1,0 +1,25 @@
+ {r}←upDown MoveRow n;ind;row;table;row2;selText;add;flag
+ r←0
+ upDown←⎕C upDown
+ row←¯1+0 0⊃n.Markdown.SelText                  ⍝ Where is the cursor?
+ :If n CursorIsInTable row                      ⍝ Is it inside a table?
+ :AndIf =/↑¨n.Markdown.SelText
+     ind←GetTableRows row n
+     row2←ind⍳row
+     table←n.Markdown.Text[ind]
+     :If flag←upDown≡'up'
+     :AndIf flag←row2>0
+         table[row2+0 ¯1]←⌽table[row2+0 ¯1]
+         add←¯1
+     :ElseIf flag←upDown≡'down'
+     :AndIf flag←(row2+1)<≢ind
+         table[row2+0 1]←⌽table[row2+0 1]
+         add←1
+     :EndIf
+     :If flag
+         selText←n.Markdown.SelText
+         n.Markdown.Text[ind]←table
+         n.Markdown.SelText←2⍴⊂(add+↑↑selText),1
+     :EndIf
+ :EndIf
+ ⍝Done

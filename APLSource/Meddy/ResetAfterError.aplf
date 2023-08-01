@@ -5,7 +5,7 @@
  n.Toc.Depth←⍬
  n.Toc.Items←''
  n.∆Form.Caption←n.∆globalParms.caption
- n.∆HtmlFilename←n.∆Filename←''
+ n.⎕EX'myFile'
  ResetMarkdownAndPreview n
  n.∆Hits←⍬
  n.∆LastSelText←(1 1)(1 1)

@@ -3,7 +3,7 @@
  ⍝ Ignores comment lines and single empty lines between any lines that carry `[parm]:`.
      markdown←,⍵
      mayBeParms←((≢markdown)⌊1⍳⍨1 1⍷¯1↓(0=≢¨markdown~¨' '),1 1)↑markdown  ⍝ The first two consecutive lines break any [parm]: definition
-     bool←~⍸IsLeanPubEncodingLine mayBeParms
+     bool←~WhereIsLeanPubEncodingLine mayBeParms
      buff←↑¨bool/mayBeParms
      0=+/isParm←'['=buff:markdown''
      ~↑isParm:markdown''

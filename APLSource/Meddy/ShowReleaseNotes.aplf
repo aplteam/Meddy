@@ -1,6 +1,6 @@
  ShowReleaseNotes←{
      n←⍵
-     filename←F.PWD,'\ReleaseNotes.html'
+     filename←F.PWD,'\HTML\ReleaseNotes.html'
      0=F.IsFile filename:n TellFileDoesNotExist filename
      rc←n OpenInDefaultBrowser filename
      1:rc←rc

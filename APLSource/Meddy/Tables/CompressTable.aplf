@@ -1,0 +1,25 @@
+ table_←CompressTable(table alignment dataRows hasColHeaders hasFooter headerRow footerRow);col;buff;newWidths
+ table_←(⍴table)⍴''
+ :For col :In ⍳1⊃⍴table
+     buff←⊃table[;col]
+     :If ∧/,' '=buff[dataRows;]
+         table_[dataRows;col]←↓buff[dataRows;]      ⍝ In case it is completely empty we don't touch it
+     :Else
+         :Select col⊃alignment
+         :Case 'L'
+             table_[dataRows;col]←↓{⍵↑[1]⍨+/~∧⌿' '=⌽⍵}buff[dataRows;]
+         :Case 'C'
+             table_[dataRows;col]←↓buff[dataRows;]  ⍝ Does not require any action
+         :Case 'R'
+             table_[dataRows;col]←↓{⍵↓[1]⍨+/∧⌿' '=⍵}buff[dataRows;]
+         :EndSelect
+     :EndIf
+ :EndFor
+ newWidths←≢¨table_[↑dataRows;]
+ :If hasColHeaders
+     table_[headerRow;]←newWidths↑¨table[headerRow;]
+ :EndIf
+ :If hasFooter
+     table_[footerRow;]←newWidths↑¨table[footerRow;]
+ :EndIf
+⍝Done

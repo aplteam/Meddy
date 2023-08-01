@@ -1,4 +1,4 @@
- {r}←flag ProcessFilename filename
+ {r}←ProcessFilename(n flag filename)
 ⍝ Loads the markdown in case `filename` is not empty and the file exists.\\
 ⍝ Otherwise it tells the user.\\
 ⍝ Returns 1 in case a file was loaded, otherwose 0.
@@ -6,7 +6,7 @@
  :If 0=flag
      :If 0<≢filename
          :If F.Exists filename
-             OpenFile_ n filename
+             filename LoadFile n
              r←1
          :Else
              {}n TellFileDoesNotExist filename

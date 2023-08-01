@@ -1,6 +1,6 @@
  {r}←HandleCommandLineParms n;buff;filename;folder;msg;parms;path
 ⍝ This function checks the command line and, if anything valid is specified, takes it into account.\\
-⍝ Anything spcified on the command line takes precedende.\\
+⍝ Anything specified on the command line takes precedence.\\
 ⍝ The function returns 1 in case a filename was specified on the command line, otherwise 0.\\
 ⍝ Note that some parameters (like "-posn=") are taken into account earlier.\\
  r←0
@@ -10,16 +10,17 @@
      n.∆Path←↑buff
  :EndIf
 
- :If 0≠≢buff←'-file='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
+ buff←'-file='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
+ :If 0≠≢buff
      r←1
-     :If ##.FilesAndDirs.Exists filename←↑¯1↑buff
-         OpenFile_ n filename
+     :If FilesAndDirs.Exists filename←↑¯1↑buff
+         filename LoadFile n
      :Else
          :If n.∆INI.Exist'Config:WorkDir'
          :AndIf 0<≢path←↑n.∆INI.Get'Config:WorkDir'
          :AndIf F.IsFile path,filename
              filename←path,filename
-             OpenFile_ n filename
+             filename LoadFile n
          :Else
              {}n TellFileDoesNotExist filename
          :EndIf
@@ -29,8 +30,8 @@
  :ElseIf 2=≢#.GetCommandLineArgs
      filename←↑¯1↑#.GetCommandLineArgs
  :AndIf (⎕C ¯1↑⎕NPARTS filename)∊'.md' '.markdown'
-     :If ##.FilesAndDirs.Exists filename
-         OpenFile_ n filename
+     :If FilesAndDirs.Exists filename
+         filename LoadFile n
      :Else
          {}n TellFileDoesNotExist filename
      :EndIf

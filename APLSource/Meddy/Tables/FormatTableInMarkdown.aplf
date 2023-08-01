@@ -1,0 +1,100 @@
+ {r}←{leftRight}FormatTableInMarkdown n;curPos;ind;table;table2;headerRow;hasColHeaders;dataRows;noOfCols;widths;hasFooter;colHeader;i;col;table3;direction;row;table4;footerRow;alignment
+⍝ If the cursor is inside a table the table is formatted, and the table as well as the index top the markdown items is returned.
+⍝ If the cursor is not in a table nothing happens and `⍬ ⍬` is returned.
+⍝ If the optional `⍺` is provided, a new column is added. `⍺` must be either "left" or "right".
+⍝ The new column is added either to the left or the right of the cursor.
+ r←⍬ ⍬
+ curPos←¯1+0 0⊃n.Markdown.SelText                               ⍝ Where is the cursor?
+ :If n CursorIsInTable curPos
+     ind←GetTableRows curPos n
+     table←n.Markdown.Text[ind]                                 ⍝ That's possibly a table
+     table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces
+     table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces
+ :AndIf ∧/'|'∊¨table2                                           ⍝ Indeed all are table rows?
+     table←{'|'=↑⍵:⍵ ⋄ '|',⍵}¨table                             ⍝ Add leading pipe where required
+     table←##.A.DTB table
+     table←{'|'=↑¯1↑⍵:⍵ ⋄ ⍵,'|'}¨table                          ⍝ Add trailing pipe where required
+     table←##.TAB ⎕R'    '⊣table                                ⍝ Replace TABs by four spaces
+     table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces (again)
+     table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces (again)
+     headerRow←1                                                ⍝ Index of the column devider (MarkAPL allows the absence of col headers)
+     :If 0=hasColHeaders←((headerRow⊃table)~'| :')∧.='-'        ⍝ Does the table have column headers?
+         headerRow←0
+         hasColHeaders←((headerRow⊃table)~'| :')∧.='-'          ⍝ In case there are no column headers but column deviders for alignment
+     :EndIf
+     :If hasFooter←2<≢table                                     ⍝ Does the table
+     :AndIf ~hasFooter←(((footerRow←¯2+≢table2)⊃table)~'| ')∧.='=' ⍝ ... has somewhere ...
+         hasFooter←(((footerRow←¯1+≢table2)⊃table)~'| ')∧.='='  ⍝ ... a footer?
+     :EndIf
+     dataRows←(⍳≢table)~(hasColHeaders/headerRow),(hasFooter/footerRow) ⍝ Pure data rows (without header & footer deviders)
+     noOfCols←table2+.=¨'|'                                     ⍝ No of columns in each row
+     table,¨←((⌈/noOfCols)-noOfCols)⍴¨'|'                       ⍝ Add column where required
+     table←⊃table SplitTableRows table2                         ⍝ Split and reformat
+     table←{⍵∧.=' ':⍵ ⋄ ##.A.DLB ⍵}¨table                       ⍝ Remove leading spaces unless a cell is empty
+     widths←⌈⌿≢¨table[dataRows;]                                ⍝ Column widths
+     :If hasColHeaders
+         table[headerRow;]←widths EnlargeColHeader¨table[headerRow;] ⍝ Beef up the column headers but save the colons, if any
+     :EndIf
+     :If hasFooter
+         table[footerRow;]←widths⍴¨'='
+     :EndIf
+     alignment←⍬
+     :For i :In ⍳1⊃⍴table
+         colHeader←↑table[headerRow;i]
+         :If ':'∊colHeader                                      ⍝ Did the user define the alignment
+             :If '::'≡2⍴¯1⌽colHeader                            ⍝ Centered?
+                 table[dataRows;i]←widths[i]{⍵,⍨¨' '⍴⍨¨⌊0.5×⍺-≢¨⍵}##.A.DTB table[dataRows;i]
+                 alignment,←'C'
+             :ElseIf ':'=¯1↑colHeader                           ⍝ Right-aligned?
+                 table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
+                 alignment,←'R'
+             :EndIf
+         :ElseIf ∧/{0=≢⍵:1 ⋄ ↑↑⎕VFI ⍵}¨headerRow↓table[dataRows;i] ⍝ All cells contain something that is numeric? (ignores col headers & empty cells)
+             table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
+             alignment,←'R'
+         :Else
+             alignment,←'L'
+         :EndIf
+     :EndFor
+     table←CompressTable table alignment dataRows hasColHeaders hasFooter headerRow footerRow
+     :If 0<⎕NC'leftRight'
+         :If 0<≢row←##.A.DLB(¯1+0 1⊃n.Markdown.SelText)↑curPos⊃n.Markdown.Text
+             row←{' '@(1+⍸'\|'⍷⍵)⊣⍵}row
+             row←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}row
+         :EndIf
+         :If leftRight≡'left'
+             col←0⌈¯1+'|'+.=row
+             direction←¯1
+         :ElseIf leftRight≡'right'
+             col←(1⊃⍴table)⌊'|'+.=row
+             direction←1
+         :EndIf
+         table3←((≢table),0)⍴''
+         :If col>0
+             table3,←col↑[1]table
+         :EndIf
+         table3,←⊂'    '
+         :If (1⊃⍴table)>col
+             table3,←col↓[1]table
+         :EndIf
+         table3[headerRow;col]←⊂'----'
+         :If hasFooter
+             table3[footerRow;col]←⊂'===='
+         :EndIf
+     :Else
+         table3←table
+     :EndIf
+     table4←↓'|',(⊃⊃{⍺,'|',⍵}/¨↓⊃¨↓⍉table3),'|'
+     :If n.Markdown.Text[ind]≢table4
+         ##.SaveTextForUndo n
+         ##.∆SKIP_SAVE_FOR_UNDO←1
+         n.Markdown.Text[ind]←table4
+         :If 0=⎕NC'leftRight'
+             n.Markdown.SelText←2⍴⊂(1+curPos),2
+         :Else
+             n.Markdown.SelText←2⍴⊂(1+curPos),2++/col≥+\'|'=1⊃table4
+         :EndIf
+     :EndIf
+     r←table3 ind
+ :EndIf
+⍝Done

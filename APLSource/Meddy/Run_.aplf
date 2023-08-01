@@ -8,7 +8,7 @@
  APLVersion←# ⎕WG'APLVersion'
  'This application requires to run under Dyalog''s 32 bit version'⎕SIGNAL 11/⍨∨/'-64'⍷↑APLVersion
  minVersion←17.1
- :If minVersion>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'##.APLTreeUtils2.Split ⍵)÷1 10}1⊃APLVersion
+ :If minVersion>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'APLTreeUtils2.Split ⍵)÷1 10}1⊃APLVersion
      11 ⎕SIGNAL⍨'This application requires to run under at least Dyalog ',4 1⍕minVersion
  :EndIf
  ⎕TRAP←(~testFlag)/SetTrap ⍬
@@ -18,11 +18,9 @@
  ⎕TRAP←(n.∆INI.Get'Config:trap')SetTrap ⍬
  AllowRide n
  n←testFlag CreateGui n
- n.∆TIE_NO←⍬
- GetMarkAPLScriptIntoWS n
  flag←HandleCommandLineParms n
  savePathInReg←HandlePath flag n
- flag ProcessFilename filename
+ ProcessFilename n flag filename
  1{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
  n.∆Form.Visible←1
  n.∆Form.CursorObj←0

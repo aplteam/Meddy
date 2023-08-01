@@ -12,7 +12,6 @@
  ⍝ [caption](url | title){special attrs}
  result←n.∆globalParms parms G.Input.Run def
  :If 0≠≢result
-     SaveTextForUndo n
      2 ⎕NQ n.Markdown'KeyPress' 'CT'
      :Select ↑⍸1⊃result[0;]
      :Case 0 ⍝ Image by URL

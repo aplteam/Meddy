@@ -1,4 +1,6 @@
  {r}←ExpandAll n
  r←⍬
- {}n.Toc{2 ⎕NQ ⍺'Expanding'⍵}¨⍳≢n.Toc.∆Toc
+ :If 0<n.Toc.⎕NC'∆Toc'
+     {}n.Toc{2 ⎕NQ ⍺'Expanding'⍵}¨⍳≢n.Toc.∆Toc
+ :EndIf
 ⍝Done

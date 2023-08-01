@@ -41,7 +41,7 @@
  md,←⊂'## Typopgraphical sugar'
  md,←⊂'* Leicester -- Arsenal 3:2'
  md,←⊂'* This is --- really --- great!'
- md,←⊂'* (c) by APL Team Ltd'
+ md,←⊂'* (c) by John Doe'
  md,←⊂'* Mirosoft Word (tm)'
  md,←⊂'* Correct "apostrophes" (setting of `lang` might have an influence!)'
  md,←⊂'* The <<APL>> wiki'

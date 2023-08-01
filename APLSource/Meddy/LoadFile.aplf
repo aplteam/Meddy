@@ -1,0 +1,48 @@
+ {success}←{filename}LoadFile n;saveCursor;parms;msg;path;htmlFilename;hasMeddyConfigFile;flag
+ success←0
+ saveCursor←#.CursorObj
+ #.CursorObj←1
+ :If flag←0<⎕NC'filename'
+     n.myFile←CreateMyFileObject ⍬
+     n.myFile.filenameMarkdown←filename
+     n.myFile.isTempFile←0
+     n.myFile.firstFlag←0
+ :EndIf
+ :If 0=ReadFile n saveCursor
+     UpdateFilename n n.myFile.filenameMarkdown
+     path←GetFolderFromMeddyConfigFile n
+     :If hasMeddyConfigFile←0<≢path
+         htmlFilename←F.NormalizePath(↑⎕NPARTS path),'/',(1⊃⎕NPARTS n.myFile.filenameMarkdown),'.html'
+     :Else
+         htmlFilename←(⊃,/2↑⎕NPARTS n.myFile.filenameMarkdown),'.html'
+     :EndIf
+     :If ~flag
+         n.myFile.firstFlag←1
+     :EndIf
+     :If ~hasMeddyConfigFile
+     :AndIf 0=n.myFile.saveHtml←⎕NEXISTS htmlFilename
+         :If n.myFile.saveHtml←n WantToSaveHtml ⍬
+             :If SaveHtmlAlongMarkdown n
+                 n.myFile.filenameHtml←n.myFile.filenameHtml(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
+             :Else
+                 n.myFile.filenameHtml←AskForSaveHtmlFilename n
+             :EndIf
+         :EndIf
+     :ElseIf 0<≢n.myFile.filenameHtml←htmlFilename
+         n.myFile.saveHtml←1
+     :EndIf
+     n←InitialUndoRedoStack n
+ :AndIf success←1 RefreshPreview n
+     1 ⎕NQ n.TabBtn1'Select'
+     n.Left.Visible←1
+     ToggleControlsAndCommands n 1
+     {}n AddFileToRecentFileList n.myFile.filenameMarkdown
+     n.Markdown.∆LastSavedVersion←n.Markdown.Text
+     #.CursorObj←saveCursor
+     n.(Row Col).Caption←'Row:' 'Col:'
+     n.(Row Col).Text←'1'
+     ExpandAll n
+     0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
+     ⎕NQ n.Markdown'GotFocus'
+ :EndIf
+⍝Done

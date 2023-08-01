@@ -1,6 +1,6 @@
  OpenInDefaultBrowser←{
      filename←⍵
-     0=##.FilesAndDirs.IsFile{(⍵⍳'#')↑⍵}filename:n TellFileDoesNotExist{(⍵⍳'#')↑⍵}filename
+     0=FilesAndDirs.IsFile{(⍵⍳'#')↑⍵}filename:n TellFileDoesNotExist{(⍵⍳'#')↑⍵}filename
      _←'wsh'⎕WC'OLEClient' 'WScript.Shell'
      _←wsh.Run⊂'"',filename,'"'
      1:r←0

@@ -1,0 +1,9 @@
+ r←GetTempFilenameForMeddy extension;folder
+ r←extension F.GetTempFilename2''
+ F.DeleteFile r
+ r←↑,/1↓⎕NPARTS r
+ folder←F.GetTempPath,'Meddy-files'
+ 'Create!'F.CheckPath folder
+ r←folder,'\',r
+ (⊂'')F.NPUT r
+⍝Done

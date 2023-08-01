@@ -17,7 +17,9 @@ Purpose
 
 Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are specific to MarkAPL.
 
-The application was created with Dyalog 17.1 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
+Another feature worth mentioning is Meddy's advanced table editing capability: commands are available for formatting tables in the Markdown, inserting columns, moving rows and columns and jumping from column to column.
+
+The application was created with Dyalog 18.2 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
 
 
 Usage
@@ -31,6 +33,8 @@ You can also start it from the command line with one of these statements in orde
       Meddy.exe -file="{/path/To/MarkdownFile.md}
       Meddy.exe -new
 ~~~
+
+You can also use drag-and-drop, either by dragging a markdown document onto the `Meddy.exe` file or by starting Meddy and than dragging a markdown document over its GUI.
 
 Once a document is loaded (or created) there are three panes available in the main GUI:
 
@@ -78,7 +82,7 @@ You can also embed a parameter into any markdown document explicitly defining th
 
 The CSS defined in the style sheet is by default compressed and injected into the resulting HTML page. That makes the HTML fully independent from anything, at least as long as you do not, say, embed images.
 
-Instead of creating a stand-alone HTML page you might want to create one that links to one or more style sheets, for example in order to create a book-like website. In order to make that possible you have to tell Meddy where to save the resulting HTML page, and which style sheets to use.
+Instead of creating a stand-alone HTML page you might want to create one that links to one or more style sheets, for example in order to create a book-like website. In order to make that possible you have to tell Meddy which style sheets to use etc.
 
 This can be achieved by setting these parameters:
 
@@ -114,13 +118,11 @@ There is a document "LeanPubExtensions.html" available in the Meddy install dire
 Converting to and saving as HTML file
 -------------------------------------
 
-When a Markdown file is saved by Meddy then it will ask you whether you want to save an HTML file as well. In the dialog box you have three options:
+When a Markdown file is saved by Meddy for the first time then it will ask you whether you want to save an HTML file as well along with the Markdown file. 
 
-* always save HTML as well
-* never save HTML
-* keep asking
+If you answer that with a "Y" then Meddy will always save the HTML in its own file whenever you save the Markdown during the current session.
 
-The choice is valid for as long the document is not closed.
+If you originally said "no" but change your mind later, you can execute the menu command "Save HTML" from the "File" menu.
 
 If you don't want the HTML file to be saved as a sibling of the Markdown file but somewhere else then you can add a file `.meddy` to the folder where the Markdown file lives. 
 
@@ -139,17 +141,15 @@ outputPath = 'C:\My_HTML'
 ~~~
 
 You can embed `saveHTML` as a parameter and specify it as...
+
 * 0 for **never** saving an HTML file
 * 1 for **always** saving an HTML file
-* 2 for asking the user what to do
 
 
 INI Files
 ---------
 
 ### app.ini
-
-
 
 Meddy relies on the INI file `app.ini`: if that cannot be found then Meddy cannot run.
 
@@ -162,12 +162,12 @@ In order to make Meddy process --- and honour --- it, remove the `.optional` par
 
 In case you wonder about those parameters: picture a situation were you want use Meddy as an editor for certain Markdown files that are part of a particular application. In such a scenario you might want to...
 
-* enforce a specific working directory.
-* disallow the user to enter the "Preferences" dialog (because those would be ignored anyway).
-* disallow (or enforce) saving an HTML file when the Markdown is saved.
-* specify particular CSS files.
-* enable LeanPub extension (they are disabled by default).
-* enforce that any conversion errors provided by MarkAPL are shown to the user; by default theu are not.
+* enforce a specific working directory
+* disallow the user to enter the "Preferences" dialog (because those would be ignored anyway)
+* disallow (or enforce) saving an HTML file when the Markdown is saved
+* specify particular CSS files
+* enable LeanPub extension (they are disabled by default)
+* enforce that any conversion errors provided by MarkAPL are shown to the user; by default they are not
 
 Therefore the INI file would most likely go into another's application folder rather than stay (like `special.ini`) in the Meddy installation folder.
 
@@ -215,7 +215,7 @@ If there is such an INI file then a bar with those characters is displayed right
 
 The user may inject any of them into the markdown document at the cursor position by simply clicking at them.
 
-This is a necessary measure because Dyalog's "Edit" control does not allow entering Unicode symbols by pressing <Alt> with a certain numeric code.
+This is a necessary measure because Dyalog's "Edit" control does not allow entering Unicode symbols by pressing `<Alt>` with a certain numeric code.
 
 
 Command line parameters
@@ -225,11 +225,11 @@ You can set a number of command line parameters:
 
 `-file=`
 
-: Use this to specify a Markdown file. Meddy will open that file straight away' 
+: Use this to specify a Markdown file: Meddy will open that file straight away
 
 `-new`
 
-: This makes Meddy create a new (empty) Markdown file on start-up'
+: This makes Meddy create a new (empty) Markdown file on start-up
 
 `-ini=`
 
@@ -237,7 +237,7 @@ You can set a number of command line parameters:
 
 `-dir=`
 
-: Use this to specify a directory that will become Meddy's working directory'.
+: Use this to specify a directory that will become Meddy's working directory'
 
 : If specified this takes precedence over any `workdir` settings in an INI file.
 
@@ -249,22 +249,15 @@ You can set a number of command line parameters:
 
 : Use this to "give Meddy a Ride". The value assigned to `-ride` is interpreted as the Ride port number.
 
-: Without specifing this you cannot Ride into Meddy. By specyfing it you _must_ Ride into it. That means what when you set this parameter and then start Meddy nothing seems to happen. This is because Meddy then enters an endless loop waiting for a Ride. 
+: By specyfing this you _must_ Ride into Meddy. That means that when you set this parameter and then start Meddy nothing seems to happen. This is because Meddy then enters an endless loop waiting for a Ride. 
 
 Note that in case a parameter is specified both in a user INI file and on the command line the latter one wins.
 
 
-Update MarkAPL
+Regarding MarkAPL
 -------------
 
-Meddy comes with a particular version of `MarkAPL.dyalog`.
-
-However, when Meddy is started it checks the folder `%PROGRAMDATA%\Meddy` for hosting a script `MarkAPL.dyalog`.
-
-* In case it finds a "better" version this version is loaded without further ado.
-* In case it finds an older version Meddy will ask whether this older version should be loaded.
-
-This mechanism allows you to easily update MarkAPL without re-installing Meddy but also to go back to an older version if you want to.
+Meddy comes with a particular version of `MarkAPL.dyalog`. You cannot update MarkAPL in any way, for that a new version of Meddy needs to be compiled.
 
 You can find out  which version of MarkAPL Meddy is currently using via the "About" command from the "Help" menu.
 
@@ -315,8 +308,9 @@ Misc
 
 Meddy is free software. It may be distributed freely but must not be sold. Also, the code of the application must not be re-engineered and/or used for other purposes.
 
-Meddy was originally written by Kai Jaeger --- [APL Team Ltd](https://aplteam/github.io)
+Meddy was originally written by Kai Jaeger
 
 | Created     | 2017-10-23 |
-| Version     | 2.11       |
-| Last update | 2020-07-31 |
+| Version     | 3.0        |
+| Last update | 2022-07-31 |
+

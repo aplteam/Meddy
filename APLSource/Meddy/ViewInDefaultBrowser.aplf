@@ -3,14 +3,14 @@
  :If MarkdownHasChanged n
      'Show in default browser'TellMarkdownNeedsSaving n
  :Else
-     :If 0=≢n.∆HtmlFilename
-         :If ~0∊≢n.∆Filename
-             htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
+     :If 0=≢n.myFile.filenameHtml
+         :If ~0∊≢n.myFile.filenameMarkdown
+             htmlFilename←(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
          :Else
              htmlFilename←''
          :EndIf
      :Else
-         htmlFilename←n.∆HtmlFilename
+         htmlFilename←n.myFile.filenameHtml
      :EndIf
      :If 0∊≢htmlFilename
          TellHtmlNeedsSavingFirst n
@@ -32,7 +32,7 @@
                  :Return
              :EndIf
          :EndIf
-         ##.OS.WinExecute'"',htmlFilename,'"'
+         OS.WinExecute'"',htmlFilename,'"'
      :EndIf
  :EndIf
 ⍝Done

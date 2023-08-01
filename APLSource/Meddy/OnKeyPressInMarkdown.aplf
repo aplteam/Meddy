@@ -15,6 +15,26 @@
          n ChangeFontSize 1
      :ElseIf 109 2≡msg[4 5]         ⍝ Ctrl+-?!
          n ChangeFontSize ¯1
+     :ElseIf 9 2≡msg[4 5]           ⍝ Ctrl+Tab
+         r←'Right'Tables.JumpOneColumn n
+     :ElseIf 9 3≡msg[4 5]           ⍝ Ctrl+Shift+Tab
+         r←'Left'Tables.JumpOneColumn n
+     :ElseIf 120 2≡msg[4 5]         ⍝ Ctrl+F9 (insert column)
+         r←'Right'Tables.InsertColumn n
+     :ElseIf 120 3≡msg[4 5]         ⍝ Ctrl+Shift+F9 (insert column)
+         r←'Left'Tables.InsertColumn n
+     :ElseIf 38 3≡msg[4 5]          ⍝ Ctrl+Shift+<up>
+         r←'Up'Tables.MoveRow n
+     :ElseIf 40 3≡msg[4 5]          ⍝ Ctrl+Shift+<down>
+         r←'Down'Tables.MoveRow n
+     :ElseIf 116 2≡msg[4 5]         ⍝ Ctrl+F5
+         r←'Right'Tables.MoveCol n
+     :ElseIf 115 2≡msg[4 5]         ⍝ Ctrl+F4
+         r←'Left'Tables.MoveCol n
+     :ElseIf 86 3≡msg[4 5]          ⍝ Ctrl+Shift+V
+         r←Tables.PasteTable n
+     :ElseIf 69 3≡msg[4 5]          ⍝ Ctrl+Shift+E
+         r←Tables.ExtendCurrentLine n
      :ElseIf 2=≢key
          :Select key
          :Case 'HT'
@@ -28,14 +48,14 @@
              PolishClipboard ⍬
          :EndSelect
      :ElseIf 0=≢key
-         r←4=msg[5]  ⍝ "Alt" key?!
+         r←4=msg[5]                 ⍝ "Alt" key?!
      :EndIf
      n.StatusField1.Text←''
      n.StatusField1.BCol←0
  :EndIf
  :If 3=≢msg
- :OrIf 4≠5⊃msg                    ⍝ Ony when no ALT key is pressed
+ :OrIf 4≠5⊃msg                      ⍝ Ony when no ALT key is pressed
      :Trap 0 ⋄ ⎕NQ hasFocus'GotFocus' ⋄ :EndTrap
-     ⎕NQ n.∆Form 9999           ⍝ Sets Row and Col in Statusbar, preserve data for undo/redo
+     ⎕NQ n.∆Form 9999               ⍝ Sets Row and Col in Statusbar, preserve data for undo/redo
  :EndIf
 ⍝Done

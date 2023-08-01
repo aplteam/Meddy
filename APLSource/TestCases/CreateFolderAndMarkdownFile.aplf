@@ -1,6 +1,6 @@
  CreateFolderAndMarkdownFile←{
-     folder←##.FilesAndDirs.GetTempPath,↑1↓⎕SI
-     _←'Create!'##.FilesAndDirs.CheckPath folder
+     folder←FilesAndDirs.GetTempPath,↑1↓⎕SI
+     _←'Create!'FilesAndDirs.CheckPath folder
      _←(⊂,⍵)⎕NPUT(folder,'/.meddy')1
      _←(⊂,⍵)⎕NPUT(folder,'/my.md')1
      folder

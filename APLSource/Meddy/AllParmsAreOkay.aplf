@@ -1,6 +1,6 @@
- success←AllParmsAreOkay(n parms);this;report
+ success←AllParmsAreOkay (n embeddedParms);this;report
  report←''
- :For this :In parms
+ :For this :In embeddedParms
      :Trap 6
          :If 0=CheckParameter this
              report,←⊂'Invalid: "',(↑this),'"'

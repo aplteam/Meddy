@@ -3,14 +3,14 @@
 ⍝ Usually `filename` is empty but it can be the name of a markdown file.
 ⍝ If it is then that file it loaded straight away.
 ⍝ `iniFile` is only to be used for test cases/development.
-⍝ It allows to simulate a command line  parameter -ini={filename}
+⍝ It allows to simulate a command line parameter -ini={filename}
 ⍝ Always returns ⍬.
  r←⍬
  ⎕IO←0 ⋄ ⎕ML←3
- A←##.APLTreeUtils2 ⋄ F←##.FilesAndDirs ⋄ G←##.APLGUI
- :If 0<##.⎕NC'CiderConfig'
+ A←APLTreeUtils2 ⋄ F←FilesAndDirs ⋄ G←APLGUI
+ :If 0<##.⎕NC'CiderConfig'  ⍝ Running as a project?
      {}F.Cd ##.CiderConfig.HOME
- :Else
+ :Else                      ⍝ Running as a stand-alone EXE
      F.PolishCurrentDir
  :EndIf
  #.⎕SHADOW'ErrParms'

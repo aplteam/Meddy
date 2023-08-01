@@ -1,6 +1,6 @@
  ShowMarkAPL_Reference←{
      n←⍵
-     filename←F.PWD,'\MarkAPL.html'
+     filename←MarkAPL.##.TatinVars.GetFullPath2AssetsFolder,'\MarkAPL.html'
      0=F.IsFile filename:n TellFileDoesNotExist filename
      rc←n OpenInDefaultBrowser filename
      1:rc←rc

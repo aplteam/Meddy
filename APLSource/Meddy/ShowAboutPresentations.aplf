@@ -1,7 +1,9 @@
- ShowAboutPresentations←{
-     n←⍵
-     filename←F.PWD,'\Presentations.html'
-     0=F.IsFile filename:n TellFileDoesNotExist filename
+ rc←ShowAboutPresentations n;filename
+ rc←1
+ filename←F.PWD,'/HTML/Presentations.html'
+ :If F.IsFile filename
      rc←n OpenInDefaultBrowser filename
-     1:rc←rc
- }
+ :Else
+     n TellFileDoesNotExist filename
+ :EndIf
+⍝Done

@@ -1,0 +1,44 @@
+ {r}←ExtendCurrentLine n;cursPos;row;flag;buff;new;selText;glyph
+⍝ Takes the current line and extends it to the format of the table.\\
+⍝ If the current line is ...
+⍝ * just a `|` it is going to be a data row
+⍝ * reads `|-` it is going to be a header separator
+⍝ * reads `|=` it is going to be a footer separator
+ r←0
+ cursPos←¯1+↑↑selText←n.Markdown.SelText
+ row←,cursPos⊃n.Markdown.Text
+ :If flag←(,'|')≡row
+     glyph←' '
+     :If 0<cursPos
+     :AndIf '|'∊buff←(cursPos-1)⊃n.Markdown.Text
+         flag←1
+     :ElseIf (≢n.Markdown.Text)>cursPos+1
+         flag←'|'∊buff←(cursPos+1)⊃n.Markdown.Text
+     :Else
+         flag←1←0
+     :EndIf
+ :ElseIf '|-'≡row
+     glyph←'-'
+     :If 0<cursPos
+     :AndIf '|'∊buff←(cursPos-1)⊃n.Markdown.Text
+         flag←1
+     :ElseIf (≢n.Markdown.Text)>cursPos+1
+         flag←'|'∊buff←(cursPos+1)⊃n.Markdown.Text
+     :Else
+         flag←0
+     :EndIf
+ :ElseIf flag←'|='≡row
+     glyph←'='
+     :If flag←(≢n.Markdown.Text)>cursPos+1
+         buff←(cursPos+1)⊃n.Markdown.Text
+     :ElseIf flag←0≤cursPos-1
+         buff←(cursPos-1)⊃n.Markdown.Text
+     :Else
+         flag←0
+     :EndIf
+ :EndIf
+ :If flag
+     new←glyph{⍺@(⍸~⍵∊'|',⍺)⊣⍵}buff
+     n.Markdown.Text←(cursPos↑n.Markdown.Text),(⊂new),(cursPos+1)↓n.Markdown.Text
+     n.Markdown.SelText←selText
+ :EndIf

@@ -1,7 +1,7 @@
  GetEmbeddedParms←{
 ⍝ returns the leading parameters: all leading lines that start with `[parm]:`
      md←⍵
-     bool←~⍸IsLeanPubEncodingLine md
+     bool←~WhereIsLeanPubEncodingLine md
      firstChars←↑¨bool/md
      noOf←+/∧\firstChars∊'[⍝'
      0=noOf:'' ''

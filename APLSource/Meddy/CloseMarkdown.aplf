@@ -17,7 +17,7 @@
      {}2 ⎕NQ n.∆Form'GotFocus'
      n.∆Form.Caption←n.∆globalParms.caption
      {⍵.(Text Caption)←⊂''}¨'StatusField'⎕WN n.Statusbar
-     n.∆HtmlFilename←n.∆Filename←''
+     n.⎕EX'myFile'
      ResetMarkdownAndPreview n
      n.∆Hits←⍬
      n.∆Report←''
@@ -25,6 +25,4 @@
      n.Markdown.⎕EX'∆LastSavedVersion'
      1{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
      '↑'n.∆CommitUndoRedo 0  ⍝ Clear
-     ⎕NUNTIE n.∆TIE_NO
-     n.∆TIE_NO←⍬
  :EndIf

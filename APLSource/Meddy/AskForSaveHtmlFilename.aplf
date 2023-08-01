@@ -1,12 +1,12 @@
- filename←{filename}AskForSaveHtmlFilename n;parms;path
+ filename←AskForSaveHtmlFilename n;parms;path
  parms←G.FileBox.CreateParms
  parms.fileMode←'Write'
- :If 0=⎕NC'filename'
-     parms.file←↑,/1↓⎕NPARTS n.∆HtmlFilename
-     path←↑⎕NPARTS n.∆HtmlFilename
+ :If 0<≢n.myFile.filenameHtml
+     parms.file←↑,/1↓⎕NPARTS n.myFile.filenameHtml
+     path←↑⎕NPARTS n.myFile.filenameHtml
  :Else
-     parms.file←↑,/1↓⎕NPARTS filename
-     path←↑⎕NPARTS filename
+     parms.file←(1⊃⎕NPARTS n.myFile.filenameMarkdown),'.html'
+     path←↑⎕NPARTS n.myFile.filenameMarkdown
  :EndIf
  parms.addToCaption←'Save HTML file'
  parms.filters←⊂'*.html' 'HTML file'

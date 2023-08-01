@@ -1,19 +1,28 @@
- {r}←OpenFile n;parms;filename;_;cmd;workdir
+ {r}←OpenFile n;parms;_;cmd;workdir;filename
  r←⍬
  parms←G.FileBox.CreateParms
  parms.addToCaption←'Select Markdown file'
  parms.filters←('*.md' 'Markdown files')('*.txt' 'Text files')('*.*' 'All files')
  parms.style←G.Enums.SelectionStyles.single
  workdir←n.∆Path
- :If 0≠≢filename←n.∆globalParms parms G.FileBox.Run workdir,'\'
-     :If 0=≢∊n.HTML.Text
-         OpenFile_ n filename
+ :If 0<≢filename←n.∆globalParms parms G.FileBox.Run workdir,'\'
+     :If 0=n.⎕NC'myFile'
+         n.myFile←CreateMyFileObject ⍬
+         :If n.myFile.isTempFile
+             n.myFile.filenameMarkdown←filename
+             LoadFile n
+             n.myFile.firstFlag←0
+             n.myFile.isTempFile←0
+         :EndIf
      :Else
-         cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
-         cmd,←'-file="',filename,'" '
-         cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
-         cmd,←A.IsDevelopment/'"',⎕WSID,'" '
-         ##.OS.ShellExecute cmd
+         :If A.IsDevelopment
+             ⎕←'Normally an additional instance of Meddy would be started here...'
+         :Else
+             cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+             cmd,←'-file="',(filename~'"'),'" '
+             cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
+             {}OS.WinExecBatch cmd
+         :EndIf
      :EndIf
  :EndIf
 ⍝Done

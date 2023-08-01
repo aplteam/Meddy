@@ -1,5 +1,5 @@
- R←Test_ZZZ_999(stopFlag batchFlag);⎕IO;⎕ML;v;n;d;xml;rf;f1;f2;⎕TRAP
-⍝ Check the "Version" function and publish.config.
+ R←Test_ZZZ_999(stopFlag batchFlag);⎕IO;⎕ML;v;n;d;rf;f1;⎕TRAP
+⍝ Check the "Version" function
  ⎕IO←1 ⋄ ⎕ML←1
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
@@ -8,6 +8,7 @@
 
 ⍝ First we check whether "Version" returns a valid result:
  (n v d)←rf.Version
+ v←{⍵↑⍨⌊/¯1+⍵⍳'+-'}v
  d←{⍵/⍨3>+\'-'=⍵}d      ⍝ Remove trailing stuff like "-beta"
  v←{⍵/⍨3>+\'.'=⍵}v      ⍝ Remove build ID
  f1←~5≤⍴v
@@ -18,18 +19,10 @@
  f1∨←d[5 8]∨.≠'-'
  f1∨←~∧/⎕D∊⍨d~'-'
 
-⍝ publish.config must be in line with what "Version" returns of course:
- xml←⎕XML⊃⎕NGET'publish.config'
- f2←v≢3⊃xml[xml[;2]⍳⊂'version';]
- f2∨←d≢3⊃xml[xml[;2]⍳⊂'date';]
-
  :If f1
      ⎕←'Result of the "Version" function is invalid.'
  :EndIf
- :If f2
-     ⎕←'The contents of "publish.config" is not in line with "Version".'
- :EndIf
 
- →T.FailsIf f1∨f2
+ →T.FailsIf f1
 
  R←T._OK

@@ -1,4 +1,4 @@
- parms←CompileParmsForMarkAPL(n parms embeddedParms);ind;name;value
+ parms←CompileParmsForMarkAPL(n parms);ind;name;value;embeddedParms
 ⍝ Returns the leading parameters: all leading lines that start with `[parm]:`
  parms.createFullHtmlPage←n.FullHtmlDocument.State
  parms.title←'Meddy'
@@ -7,10 +7,11 @@
  parms.verbose←0
  parms.checkFootnotes←1
  parms.checkLinks←1
- parms←parms InjectConfigFile n.∆Filename
+ parms←parms InjectConfigFile n.myFile.filenameMarkdown
  parms.width←n.∆Prefs.Width
  parms.leanpubExtensions←n.∆Prefs.LeanpubExtensions
  parms.leanpubExtensions←parms.leanpubExtensions n.∆INI.Get'CONFIG:leanpubExtensions'
+ embeddedParms←n.∆parms.embeddedParms
  :If 0≠≢embeddedParms←⊃embeddedParms
      :If (≢embeddedParms)≠ind←embeddedParms[;0]⍳⊂'screenCSS'
          parms.screenCSS←''''~⍨1⊃embeddedParms[ind;]

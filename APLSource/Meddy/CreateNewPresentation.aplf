@@ -3,12 +3,15 @@
  :If 0=≢∊n.HTML.Text
      CreateNewPresentation_ n
  :Else
-     cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
-     cmd,←'-new '
-     cmd,←'-presentation '
-     cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
-     cmd,←A.IsDevelopment/'"',⎕WSID,'" '
-     ##.OS.ShellExecute cmd
+     :If A.IsDevelopment
+         ⎕←'Normally a new instance of Meddy would be started here...'
+     :Else
+         cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+         cmd,←'-new '
+         cmd,←'-presentation '
+         cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
+         OS.WinExecBatch cmd
+     :EndIf
  :EndIf
  0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
 ⍝Done

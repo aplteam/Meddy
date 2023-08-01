@@ -32,8 +32,6 @@
      CloseMarkdown n
  :Case n.∆Menubar.export
      SaveMarkdownAsHTML n
- :Case n.∆Menubar.exportAs
-     'ask'SaveMarkdownAsHTML n
  :Case n.∆Menubar.find
      FindInMarkdown n
  :Case n.∆Menubar.preferences
@@ -72,8 +70,10 @@
      ShowAboutPresentations n
  :Case n.∆Menubar.viewClipboard
      ViewClipboard n
- :Case n.∆Menubar.spliAt50
+ :Case n.∆Menubar.splitAt50
      n.Splitter2.Posn[1]←⌈n.LeftAndRight.Size[1]÷2
+ :Case n.∆Menubar.formatTable
+     Tables.FormatTableInMarkdown n
  :Case n.∆Menubar.findInTOC
      FindInTOC.Run n
  :Case n.∆Menubar.meddyOnGitHub

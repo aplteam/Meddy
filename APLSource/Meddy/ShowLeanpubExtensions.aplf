@@ -1,6 +1,6 @@
  ShowLeanpubExtensions←{
      n←⍵
-     filename←F.PWD,'\LeanPubExtensions.html'
+     filename←MarkAPL.##.TatinVars.GetFullPath2AssetsFolder,'\LeanPubExtensions.html'
      0=F.IsFile filename:n TellFileDoesNotExist filename
      rc←n OpenInDefaultBrowser filename
      1:rc←rc

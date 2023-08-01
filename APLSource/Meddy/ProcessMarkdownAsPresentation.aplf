@@ -4,7 +4,7 @@
  (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
  :If AllParmsAreOkay n embeddedParms
      :Trap 1 2 3 4 5 10 11 22
-         parms←##.PresentAPL.CreateParms
+         parms←PresentAPL.CreateParms
          parms.head←'<meta name="author" content="',⎕AN,'">'
          :If 0≠≢embeddedParms
              parms.{⍎⍺,'←',⍕⍵}/¨embeddedParms
@@ -18,11 +18,11 @@
              parms.cssURL,←'\CSS\'
          :EndIf
          parms.cssURL←'expand'F.NormalizePath parms.cssURL
-         parms.screenCSS←'expand'F.NormalizePath parms.screenCSS
-         parms.printCSS←'expand'F.NormalizePath parms.printCSS
+⍝         parms.screenCSS←'expand'F.NormalizePath parms.screenCSS
+⍝         parms.printCSS←'expand'F.NormalizePath parms.printCSS
          parms.toc←0
          parms.verbose←0
-         (html ns)←##.PresentAPL.MakePresentationFromMarkdown(⊆markdown)parms
+         (html ns)←PresentAPL.MakePresentationFromMarkdown(⊆markdown)parms
          n.HTML.∆HTML←html
          n.HTML.∆ns←ns
          n.HideCSS.State ProcessHTML n

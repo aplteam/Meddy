@@ -1,9 +1,11 @@
  r←SaveHTML n
+⍝ See also SaveText
  r←0
- :Trap ##.EventCodes.(FILE_ACCESS_ERROR FILE_DAMAGED FILE_NAME_ERROR FILE_SYSTEM_NO_SPACE FILE_TIE_ERROR FILE_TIE_QUOTA_USED_UP FILE_TIED)
-     (⊂n.HTML.Text0 F.NPUT n.∆HtmlFilename
+ :Trap EventCodes.(FILE_ACCESS_ERROR FILE_DAMAGED FILE_NAME_ERROR FILE_SYSTEM_NO_SPACE FILE_TIE_ERROR FILE_TIE_QUOTA_USED_UP FILE_TIED)
+     (⊂,n.HTML.Text)F.NPUT n.myFile.filenameHtml 1
+     n.∆Menubar.export.Active←0
  :Else
-     TellFileSaveError n.∆HtmlFilename
+     TellFileSaveError n.myFile.filenameHtml
      r←⎕EN
  :EndTrap
 ⍝Done

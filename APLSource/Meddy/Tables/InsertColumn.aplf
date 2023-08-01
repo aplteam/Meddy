@@ -1,0 +1,8 @@
+ {r}←leftRight InsertColumn n;curPos
+ r←0
+ leftRight←⎕C leftRight
+ :If =/↑¨n.Markdown.SelText                     ⍝ Cursor must be in a single spot
+     curPos←¯1+0 0⊃n.Markdown.SelText           ⍝ Where is the cursor?
+ :AndIf n CursorIsInTable curPos                ⍝ Is it inside a table?
+     leftRight FormatTableInMarkdown n
+ :EndIf

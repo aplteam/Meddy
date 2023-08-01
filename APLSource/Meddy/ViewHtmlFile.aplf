@@ -1,6 +1,6 @@
  {r}←{filename}ViewHtmlFile n;parms;msg
  r←⍬
- filename←{0<⎕NC ⍵:⍎⍵ ⋄ n.∆HtmlFilename}'filename'
+ filename←{0<⎕NC ⍵:⍎⍵ ⋄ n.myFile.filenameHtml}'filename'
  :If n.Markdown.∆LastSavedVersion≡n.Markdown.Text
      parms←G.Dialogs.CreateParmsForYesOrNo
      parms.addToCaption←'View in browser'

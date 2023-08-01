@@ -1,5 +1,5 @@
  {r}←SaveMarkdownAsHTML_(n filename);parms;html;ns;msg
- parms←##.MarkAPL.CreateParms
+ parms←MarkAPL.CreateParms
  parms.verbose←0
  parms.createFullHtmlPage←n.FullHtmlDocument.State
  :If parms.cssURL≢⎕NULL
@@ -8,7 +8,7 @@
      parms.cssURL←F.PWD,'\CSS\'
  :EndIf
  #.CursorObj←1
- (html ns)←parms ##.MarkAPL.Markdown2HTML,n.Markdown.Text
+ (html ns)←parms MarkAPL.Markdown2HTML,n.Markdown.Text
  #.CursorObj←0
  :If ~0=≢ns.report
      parms←G.Dialogs.CreateParmsForShowLongMsg
@@ -20,5 +20,5 @@
          :Return
      :EndIf
  :EndIf
- SaveText filename html
+ (⊂,html)F.NPUT filename 1
 ⍝Done

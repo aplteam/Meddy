@@ -2,7 +2,11 @@
  parms←G.FileBox.CreateParms
  parms.fileMode←'Write'
  :If 0=⎕NC'filename'
-     filename←↑,/1↓⎕NPARTS n.∆Filename
+     :If n.myFile.firstFlag
+         filename←''
+     :Else
+         filename←↑,/1↓⎕NPARTS n.myFile.filenameMarkdown
+     :EndIf
  :Else
      parms.file←↑,/1↓⎕NPARTS filename
  :EndIf

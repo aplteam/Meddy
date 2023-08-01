@@ -1,0 +1,8 @@
+ r←SaveHtmlAlongMarkdown n;parms;q
+ parms←G.Dialogs.CreateParmsForYesOrNo
+ parms.addToCaption←'HTML'
+ q←''
+ q,←⊂'Save HTML in the same directory as the Markdown?'
+ q,←⊂'(',(↑⎕NPARTS n.myFile.filenameMarkdown),')'
+ r←parms n.∆globalParms G.Dialogs.YesOrNo q
+⍝Done

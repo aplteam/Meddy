@@ -1,4 +1,4 @@
- {r}←CreateNewDocument_ n
+ {r}←CreateNewDocument_ n;myFile
  r←⍬
  :If ∨/'-presentation'∘≡¨2 ⎕NQ #'GetCommandLineArgs'
      CreateNewPresentation_ n
@@ -6,12 +6,11 @@
      {}ToggleControlsAndCommands n 1
      {}2 ⎕NQ n.TabBtn1'Select'
      {}⎕NQ n.Markdown'GotFocus'
-     n.Markdown.∆LastSavedVersion←''
      n←InitialUndoRedoStack n
      n.(Row Col).Caption←'Row:' 'Col:'
      n.(Row Col).Text←'1'
-     n.∆parms.saveHtml←SaveHTMLValues.YesButKeepAsking
-     n.∆parms.firstFlag←1
+     n.Markdown.∆LastSavedVersion←''
+     n.myFile←CreateMyFileObject ⍬
      0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
  :EndIf
  {}1 RefreshPreview n

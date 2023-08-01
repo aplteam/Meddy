@@ -1,14 +1,14 @@
- {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay;E;qdmx
+ {success}←{newFlag}ProcessMarkdown n;markdown;embeddedParms;parms;html;ns;okay;E;qdmx;m
  success←1
  #.CursorObj←1
  WriteToStatusbar n'Converting Markdown to HTML...'
  newFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'newFlag'
  markdown←n.Markdown.Text
- (markdown embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
- :If AllParmsAreOkay n embeddedParms
-     :Trap (1=n.∆INI.Get'Config:trap')/##.EventCodes.(WS_FULL SYNTAX_ERROR INDEX_ERROR RANK_ERROR LENGTH_ERROR LIMIT_ERROR DOMAIN_ERROR FILE_NAME_ERROR)
+ (markdown n.∆parms.embeddedParms)←GetEmbeddedParmsAndRemoveFromMarkdown markdown
+ :If AllParmsAreOkay n n.∆parms.embeddedParms
+     :Trap (1=n.∆INI.Get'Config:trap')/EventCodes.(WS_FULL SYNTAX_ERROR INDEX_ERROR RANK_ERROR LENGTH_ERROR LIMIT_ERROR DOMAIN_ERROR FILE_NAME_ERROR)
          parms←GetPreferences n
-         parms←CompileParmsForMarkAPL n parms embeddedParms
+         parms←CompileParmsForMarkAPL n parms
          parms←n CheckOnCssFiles parms
          :If 0=F.IsFile parms.screenCSS
              parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
@@ -19,10 +19,14 @@
              parms.cssURL←''
          :EndIf
          :Trap 0
-             (html ns)←parms ##.MarkAPL.Markdown2HTML⊆markdown
+             (html ns)←parms MarkAPL.Markdown2HTML⊆markdown
          :Else
              qdmx←⎕DMX
-             n TellErrorWhileConvertingMarkdown qdmx.EM
+             m←''
+             m,←⊂'Converting to HTML failed, input appears not to be valid Markdown.'
+             m,←⊂''
+             m,←⊂'(',qdmx.EM,')'
+             {}n TellErrorWhileConvertingMarkdown m
              :Return
          :EndTrap
          n.HTML.∆HTML←html

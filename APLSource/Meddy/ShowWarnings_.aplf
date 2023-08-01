@@ -15,7 +15,7 @@
  msg←msg((≢msg)⍴'=')
  msg,←report
  n.∆Form.CursorObj←0
- flag←~n.∆globalParms parms G.Dialogs.ShowLongMsg msg
+ flag←0=n.∆globalParms parms G.Dialogs.ShowLongMsg msg
  #.CursorObj←was
  :If askForShowingAgain
      n.∆Menubar.noWarnings.Checked←flag

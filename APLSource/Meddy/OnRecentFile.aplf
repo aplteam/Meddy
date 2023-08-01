@@ -6,10 +6,12 @@
  :If 0=≢∊n.HTML.Text
      n OpenRecentFile filename
  :Else
-     cmd←''
-     cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
-     cmd,←'-file="',filename,'" '
-     cmd,←A.IsDevelopment/'"',⎕WSID,'" '
-     ##.OS.ShellExecute cmd
+     :If A.IsDevelopment
+         ⎕←'Normally a new instance of Meddy would be started here...'
+     :Else
+         cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+         cmd,←'-file="',filename,'" '
+         OS.WinExecBatch cmd
+     :EndIf
  :EndIf
 ⍝Done

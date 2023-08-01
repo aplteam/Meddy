@@ -1,7 +1,7 @@
  value←ReadPathFromRegistry dummy;regKey
  regKey←n.∆globalParms.userRegKey,'\Preferences\Path'
  :Trap 0
-     value←##.WinRegSimple.Read regKey
+     value←WinRegSimple.Read regKey
  :Else
      value←''
  :EndTrap

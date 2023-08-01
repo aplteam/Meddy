@@ -1,7 +1,7 @@
  parms←GetPreferences n;ind
 ⍝ Returns the default parameters plus what's defined in the config, if there is any.
 ⍝ However, any settings in the INI file take precedence.
- parms←##.MarkAPL.CreateParms
+ parms←MarkAPL.CreateParms
  parms.createFullHtmlPage←n.FullHtmlDocument.State
  parms.title←'Meddy'
  parms.head←'<meta name="author" content="',⎕AN,'">'
@@ -9,7 +9,7 @@
  parms.verbose←0
  parms.checkFootnotes←1
  parms.checkLinks←1
- parms←parms InjectConfigFile n.∆Filename
+ parms←parms InjectConfigFile n.myFile.filenameMarkdown
  parms.width←n.∆Prefs.Width
  parms.screenCSS←('MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'MarkAPL_screen.css' 'BlackOnWhite_screen.css' 'MarkAPL_screen.css'
  parms.printCSS←('MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'MarkAPL_print.css' 'BlackOnWhite_print.css' 'MarkAPL_print.css'

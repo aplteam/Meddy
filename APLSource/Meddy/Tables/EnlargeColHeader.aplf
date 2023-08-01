@@ -1,0 +1,10 @@
+r←length EnlargeColHeader header
+ :If '::'≡2↑¯1⌽header
+     r←':',((length-2)⍴'-'),':'
+ :ElseIf ':'=1⍴header
+     r←':',(length-1)⍴'-'
+ :ElseIf ':'=¯1↑header
+     r←((length-1)⍴'-'),':'
+ :Else
+     r←length⍴'-'
+ :EndIf

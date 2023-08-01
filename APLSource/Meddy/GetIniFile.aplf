@@ -3,7 +3,7 @@
  :If 0=⎕NC'ini2'
  :OrIf 0=≢ini2
      :If F.IsFile ini1~'"'
-         instance←⎕NEW ##.IniFiles(,⊂ini1~'"')
+         instance←⎕NEW IniFiles(,⊂ini1~'"')
      :Else
          'Meddy cannot continue!'TellFileNotFound n ini1
          Off 0

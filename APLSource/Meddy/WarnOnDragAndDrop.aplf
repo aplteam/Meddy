@@ -1,6 +1,6 @@
  {r}←WarnOnDragAndDrop n;parms;msg
  r←⍬
- :If ##.WinSys.IsRunningAsAdmin
+ :If WinSys.IsRunningAsAdmin
      parms←G.Dialogs.CreateParmsForShowMsg
      parms.addToCaption←'Drag and drop'
      parms.minSize←⍬ 600

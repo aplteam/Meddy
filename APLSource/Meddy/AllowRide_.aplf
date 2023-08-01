@@ -15,8 +15,8 @@
  :EndIf
  :If (≢/,¨0 port)∧0<≢port
  :AndIf 0=IsConnectedToRide ⍬
-     :If 0=≢##.FilesAndDirs.Dir'conga??_32.dll'
-         :If ##.APLTreeUtils2.IsDevelopment
+     :If 0=≢FilesAndDirs.Dir'conga??_32.dll'
+         :If APLTreeUtils2.IsDevelopment
              'Conga DLL is missing"'⎕SIGNAL 6
          :Else
              ⎕OFF 106   ⍝ means: "Conga DLL is missing"

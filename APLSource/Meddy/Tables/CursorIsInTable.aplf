@@ -1,0 +1,7 @@
+ bool←n CursorIsInTable curPos;item;curPos
+⍝ Returns 1 in case the cursor is in a line that defines a table.
+ :If 0<≢n.Markdown.Text                                     ⍝ If empty there cannot be a table
+     item←{' '@(1+⍸'\|'⍷⍵)⊣⍵}(0⌈curPos)⊃n.Markdown.Text     ⍝ Replace escaped pipes by spaces
+     item/⍨←~##.GetMaskForCode item                         ⍝ Remove code
+     bool←'|'∊item                                          ⍝ Is it a table row at all?
+ :EndIf

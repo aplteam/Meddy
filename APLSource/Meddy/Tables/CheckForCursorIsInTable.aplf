@@ -1,0 +1,8 @@
+ bool←CheckForCursorIsInTable n;rows;ind
+⍝ Checks whether the cursor is currently positioned withing the definition of a table in the Markdown
+ :If bool←0<≢n.Markdown.SelText
+     ind←¯1+∪↑¨n.Markdown.SelText
+     rows←##.A.DLB n.Markdown.Text[ind]
+     bool←(↑¨rows)∧.='|'
+ :EndIf
+⍝Done

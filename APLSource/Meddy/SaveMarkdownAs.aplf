@@ -1,65 +1,32 @@
  {r}←SaveMarkdownAs n;parms;filename;buff;rc;question
- r←⍬
- filename←AskForSaveFilename n
- :If 0≠≢filename
+ r←0
+ {}RefreshPreview n
+ :If 0≠≢filename←AskForSaveFilename n
+     n.myFile.firstFlag←0
      filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0=≢⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
      :If F.IsFile filename
-         :If 0=n AlreadyExistsSaveAnyway filename
-             :Return
-         :Else
-             n.∆TIE_NO←TieFile filename
-             :If 0<≢n.∆TIE_NO
-                 (⊂n.Markdown.Text)F.NPUT n.∆TIE_NO
-             :Else
-                 n.∆TIE_NO←⍬
-                 :Return
-             :EndIf
-         :EndIf
-     :Else
-         (⊂n.Markdown.Text)filename
-         ⎕NUNTIE n.∆TIE_NO
-         n.∆TIE_NO←⍬
-         :If OpenFile__ n filename #.CursorObj
-             :Return
-         :EndIf
+     :AndIf 0=n AlreadyExistsSaveAnyway filename
+         :Return
      :EndIf
-     n.∆IgnoreConfigFile←1
      UpdateFilename n filename
-     rc←SaveText n.∆TIE_NO n.Markdown.Text
+     :If 0≠rc←SaveText filename n.Markdown.Text
+         :Return
+     :EndIf
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
-     n.∆parms.saveHtml←DoYouWantToSaveHtml n
-     n.∆parms.firstFlag←0
-     :If n.∆parms.saveHtml∊SaveHTMLValues.(Always YesButKeepAsking)
-     :AndIf 0=rc
-         RefreshPreview n
-         :If 0=≢n.∆HtmlFilename
-             n.∆HtmlFilename←(↑,/¯1↓⎕NPARTS filename),'.html'
-         :Else
-             :If 0<≢n.∆HtmlFilename
-             :AndIf (↑⎕NPARTS n.∆HtmlFilename)≢(↑⎕NPARTS n.∆Filename)
-                 parms←G.Dialogs.CreateParmsForYesOrNo
-                 parms.addToCaption←'HTML folder'
-                 question←''
-                 question,←⊂'Currently the markdown file is saved in'
-                 question,←⊂'a different folder than the HTML file.'
-                 question,←⊂''
-                 question,←⊂'Should the HTML be saved in the same'
-                 question,←⊂'folder as the markdown file?'
-                 :If n.∆globalParms parms G.Dialogs.YesOrNo question
-                     n.∆HtmlFilename←↑,/(↑⎕NPARTS n.∆Filename),1↓⎕NPARTS n.∆HtmlFilename
-                 :EndIf
-             :ElseIf (1⊃⎕NPARTS n.∆HtmlFilename)≢(1⊃⎕NPARTS n.∆Filename)
-                 n.∆HtmlFilename←↑{⍺,⍵}/(2↑⎕NPARTS n.∆Filename),¯1↑⎕NPARTS n.∆HtmlFilename
+     :If IsPresentation n
+         SaveMarkdownAsPresentation n n.myFile.filenameHtml
+     :Else
+         n.myFile.saveHtml←DoYouWantToSaveHtml n
+         :If n.myFile.saveHtml
+             :If 0=≢filename←GetFolderFromMeddyConfigFile n
+                 n.myFile.filenameHtml←↑{⍺,⍵}/(2↑⎕NPARTS n.myFile.filenameMarkdown),{0=≢⍵:'.html' ⋄ ⍵}↑¯1↑⎕NPARTS n.myFile.filenameHtml
+             :Else
+                 n.myFile.filenameHtml←filename
              :EndIf
-         :EndIf
-         :If IsPresentation n
-             SaveMarkdownAsPresentation n n.∆HtmlFilename
-         :Else
              {}SaveHTML n
          :EndIf
+         n.∆Menubar.(save close).Active←1
+         n.∆Menubar.save.Active←1
+         {}n AddFileToRecentFileList n.myFile.filenameMarkdown
      :EndIf
-     n.∆Menubar.(save close).Active←1
-     n.∆Menubar.save.Active←1
-     {}n AddFileToRecentFileList n.∆Filename
  :EndIf
-⍝Done

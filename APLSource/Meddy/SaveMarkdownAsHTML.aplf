@@ -1,18 +1,13 @@
- {r}←{askFlag}SaveMarkdownAsHTML n;filename
+ {r}←SaveMarkdownAsHTML n;filename
  r←⍬
  :If MarkdownHasChanged n
      'Export HTML'TellMarkdownNeedsSaving n
  :Else
-     askFlag←{0<⎕NC ⍵:'ASK'≡1 ⎕C⍎⍵ ⋄ 0=≢n.∆HtmlFilename}'askFlag'
-     :If 0=≢n.∆HtmlFilename
-     :AndIf ~0=≢n.∆Filename
-         n.∆HtmlFilename←↑{⍺,⍵}/(¯1↓1 ⎕NPARTS n.∆Filename),⊂'.html'
+     :If 0=≢n.myFile.filenameHtml
+     :AndIf ~0=≢n.myFile.filenameMarkdown
+         n.myFile.filenameHtml←↑{⍺,⍵}/(¯1↓1 ⎕NPARTS n.myFile.filenameMarkdown),⊂'.html'
      :EndIf
-     :If askFlag
-         filename←AskForSaveHtmlFilename n
-     :Else
-         filename←n.∆HtmlFilename
-     :EndIf
+     filename←n.myFile.filenameHtml
      :If 0≠≢filename
          filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0=≢⍵:'.html' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
          :If IsPresentation n
@@ -20,7 +15,9 @@
          :Else
              SaveMarkdownAsHTML_ n filename
          :EndIf
-         n.∆HtmlFilename←filename
+         n.myFile.filenameHtml←filename
+         n.myFile.saveHtml←1
+         n.∆Menubar.export.Active←0
          WriteToStatusbar n('HTML saved: ',filename)
      :EndIf
  :EndIf

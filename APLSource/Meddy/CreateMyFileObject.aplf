@@ -1,0 +1,7 @@
+ myFile←CreateMyFileObject dummy
+ myFile←⎕NS''
+ myFile.saveHtml←0
+ myFile.firstFlag←1
+ myFile.filenameMarkdown←GetTempFilenameForMeddy'.md'
+ myFile.isTempFile←1
+ myFile.filenameHtml←''

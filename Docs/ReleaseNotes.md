@@ -1,55 +1,73 @@
-[parm]:title='Meddy Release Notes'
-[parm]:saveHTML=0
+# Release Notes 
 
+## 3.0.0 - 2023-07-31
 
-# Release Notes
-
-## 2.11.2 - 2020-08-29
-
-* When copying text from Notepad++ a nested vector is saved in the clipboard. The first item contains all the text (`⎕UCS 13` separated), the second one is empty. This is now converted automatically into something useful.
-
-  Something similar happens when text from Google Mail is copied, but because when Meddy gets to see the text it's not able to restore fully what was copied. The reason is that every two `⎕UCS 10`s got already converted into a single one, and there is nothing we can do about this. No idea how Microsoft Word handles this, but they do.
+* Major improvements in terms of stability, particularly when invalid Markdown was provided as input
+* Enhanced formatting and editing of tables
+  * `Ctrl+T` formats a table in the Markdown properly
+  * `Ctrl+Ins` inserts a column into a table to the right of the cursor
+  * `Ctrl+Shift+Ins` inserts a column into a table to the left of the cursor
+  * `Ctrl+Tab` jumps to next column
+  * `Ctrl+Shift+Tab` jumps to the previous column
+  * `Ctrl+Shift+<up>` moves the current table row up
+  * `Ctrl+Shift+<down>` moves the current table row down
+  * `Ctrl+Shift+<right>` moves the current column to the right
+  * `Ctrl+Shift+<left>` moves the current column to the left
+  * `Ctrl+Shift+E` extends the current line
+  * `Ctrl+Shift+V` inserts a table into the markdown and formats it
+* Potentially breaking change: the parameter `saveHTML` must not carry a 2 anymore, it must be either a 0 or a 1.
+* Bug fixes
+  * Pressing `ALT+F4` and then clicking `<Cancel>` (or pressing `<Escape>`) lead to a loss of all changes because Meddy quit anyway.
+  * Ticks are not displayed in the table-of-contents anymore
+  * Adding a "head" parameter at the top of the document crashed Meddy
+  * Error message in case of invalid Markdown was everything but helpful
+  * In case of invalid Markdown Meddy crashed rather the refusing gracefully
+  * Saving a document in a folder when admin right are required appeared to be successful but was not
+  * Meddy crashed in case the value of an embedded parameter carried a `=` character
+  * Meddy crashed when the dialog the put the MarkAPL report in display was closed with `Alt+F4`
+  * Trying to save a document in a folder that required admin rights without having those appeared to work but did not
 
 ## 2.11.1 - 2020-08-24
 
 * When a document that was saved with a TOC was changed so that there were no headers anynmore and then saved under a different name, Meddy crashed.
-
 * When Meddy was asked to close down but there were unsaved changes waiting, and the attempt to save them failed with error 19, then Meddy informed the user about the error but closed down anyway, effectively discarding the changes.
 
 ## 2.11.0 - 2020-08-19
 
-* The "Search > Find next (F3)" menu command is back.
+* The “Search & Find next (F3)” menu command is back.
 * Renaming a markdown file did not rename the associated HTML file except when it was moved to a different directory.
-* "Show warnings" is not a preference anymore but a document-specific option that after opening always defaults to "true".
-
-  If it is switched off via the menu command "Settings > Show warnings" then the message "There are warnings" is shown in the status bar.
+* “Show warnings” is not a preference anymore but a document-specific option that after opening always defaults to “true”.
+  If it is switched off via the menu command “Settings &gt; Show warnings” then the message “There are warnings” is shown in the status bar.
 * Bug fixes
-  * <Escape> and <Enter> (triggering the default button) did not work in dialogs in 2.10.3.
-      
-    This was a Dyalog issue, not a Meddy issue, but it is solved now with the new version of Dyalog 18.0
-  * A header that resulted in containing tags was shown with the tags in the TOC. Now removed.
+ 
+* <Escape> and <Enter> (triggering the default button) did not work in dialogs in 2.10.3.
+
+  This was a Dyalog issue, not a Meddy issue, but it is solved now with the new version of Dyalog 18.0
+* A header that resulted in containing tags was shown with the tags in the TOC. Now removed.
 * Under the hood Meddy now uses 18.0.
-
-## 2.10.3 - 2020-07-15
   
-* Bug fix: under some circumstances a click on the special characters could crash Meddy.
+## 2.10.3 - 2020-07-15
 
+* Bug fix: under some circumstances a click on the special characters could crash Meddy.
+  
 ## 2.10.2 - 2020-06-03
 
 * Toc was not always updated properly (#44).
 * Clicking on a title in the Preview does not work (#43).
 * TOC and Markdown can get out of sync (#42).
-
+  
 ## 2.10.1 - 2020-05-26
 
-* "New", when selected while a document is currently open, crashed Meddy.
-
+* “New”, when selected while a document is currently open, crashed Meddy.
+  
 ## 2.10.0 - 2020-05-24
-
-* "Find" improved (#36).
-* The markdown context menu now offers a command "Copy ID" (#25).
-* The "View" menu and the markdown context menu now offer a command "Sync".
+ 
+* “Find” improved (#36).
+* The markdown context menu now offers a command “Copy ID” (#25).
+* The “View” menu and the markdown context menu now offer a command “Sync”.
 * Handling of the TOC improved including some changes to the context menu.
 * Files are tied exclusively for the course of the session, preventing accidental double-editing
 * Bug fixes:
-  * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+ 
+* #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+

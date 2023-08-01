@@ -4,6 +4,9 @@
  ind←↑ind
  :If ind∊⍳≢n.Toc.∆Toc
      (header row)←n.Toc.∆Toc[ind;1 3]
+     :If row≥≢n.Markdown.Text
+         :Return ⍝ Yes, this did happen!
+     :EndIf
      caption←A.DLB A.DTB{⍵↓⍨+/∧\'#'=⍵}(row-1)⊃n.Markdown.Text
      :If '}'=¯1↑caption
      :AndIf '{'∊caption
@@ -11,6 +14,9 @@
      :EndIf
      :If header≢caption
          2 RefreshPreview n
+         :If ind≥≢n.Toc.∆Toc
+             :Return
+         :EndIf
          (header row)←n.Toc.∆Toc[ind;1 3]
      :EndIf
      length←1+≢(row-1)⊃n.Markdown.Text

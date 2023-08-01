@@ -51,6 +51,74 @@
  m.MoveFocus2TOC←m.⎕NEW'MenuItem'∆
  m.MoveFocus2TOC.onSelect←1
 
+ m.Sep15←m.⎕NEW⊂'Separator'
+
+ ∆←''
+ ∆,←⊂'Caption'('Format table',TAB,'Ctrl+Tab')
+ m.FormatTable←m.⎕NEW'MenuItem'∆
+ m.FormatTable.onSelect←1
+ m.FormatTable.Active←Tables.CheckForCursorIsInTable n
+
+ ∆←''
+ ∆,←⊂'Caption'('Paste table',TAB,'Ctrl+Shift+V')
+ m.PasteTable←m.⎕NEW'MenuItem'∆
+ m.PasteTable.onSelect←1
+ m.PasteTable.Active←(Tables.CheckForCursorIsInTable n)∧Tables.ClipboardHasTable
+
+ ∆←''
+ ∆,←⊂'Caption'('Insert column to the right',TAB,'Ctrl+F9')
+ m.InsertColumnRight←m.⎕NEW'MenuItem'∆
+ m.InsertColumnRight.onSelect←1
+ m.InsertColumnRight.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Insert column to the left',TAB,'Ctrl+Shift+F9')
+ m.InsertColumnLeft←m.⎕NEW'MenuItem'∆
+ m.InsertColumnLeft.onSelect←1
+ m.InsertColumnLeft.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Jump one column right',TAB,'Ctrl+Tab')
+ m.JumpOneColumnRight←m.⎕NEW'MenuItem'∆
+ m.JumpOneColumnRight.onSelect←1
+ m.JumpOneColumnRight.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Jump one column left',TAB,'Ctrl+Shift+Tab')
+ m.JumpOneColumnLeft←m.⎕NEW'MenuItem'∆
+ m.JumpOneColumnLeft.onSelect←1
+ m.JumpOneColumnLeft.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Move current row up',TAB,'Ctrl+Shift+<Up>')
+ m.MoveRowUp←m.⎕NEW'MenuItem'∆
+ m.MoveRowUp.onSelect←1
+ m.MoveRowUp.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Move current row down',TAB,'Ctrl+Shift+<Down>')
+ m.MoveRowDown←m.⎕NEW'MenuItem'∆
+ m.MoveRowDown.onSelect←1
+ m.MoveRowDown.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Move current column right',TAB,'Ctrl+F5')
+ m.MoveColRight←m.⎕NEW'MenuItem'∆
+ m.MoveColRight.onSelect←1
+ m.MoveColRight.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Move current column left',TAB,'Ctrl+F4')
+ m.MoveColLeft←m.⎕NEW'MenuItem'∆
+ m.MoveColLeft.onSelect←1
+ m.MoveColLeft.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
+ ∆,←⊂'Caption'('Extend current line',TAB,'Ctrl+Shift+E')
+ m.ExtendCurrentLine←m.⎕NEW'MenuItem'∆
+ m.ExtendCurrentLine.onSelect←1
+ m.ExtendCurrentLine.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
  m.Sep20←m.⎕NEW⊂'Separator'
 
  ∆←''

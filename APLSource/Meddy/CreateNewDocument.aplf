@@ -1,21 +1,19 @@
  {r}←CreateNewDocument n;cmd
  r←⍬
- :If 0=≢∊n.HTML.Text
+ :If 0=n.⎕NC'myFile'
      CreateNewDocument_ n
  :Else
      :If A.IsDevelopment
-         ⎕LX←'#._Meddy.Meddy.Run ⍬'
-         0 ⎕SAVE ⎕WSID
+         ⎕←'Normally a new instance of Meddy would be started here...'
+     :Else
+         cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+         cmd,←'-new '
+         cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
+         :If 0
+             cmd,←' -x'
+         :EndIf
+         OS.WinExecBatch cmd
      :EndIf
-     cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
-     cmd,←A.IsDevelopment/'"',F.PWD,'\',⎕WSID,'.dws" '
-     cmd,←'-new '
-     cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
-     :If A.IsDevelopment
-     :AndIf 0
-         cmd,←' -x'
-     :EndIf
-     ##.OS.WinExecBatch cmd
+     0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
  :EndIf
- 0{⍵.AcceptFiles←⍺}¨{⍵[;0]}n.∆List'SubForm'
 ⍝Done

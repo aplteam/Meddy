@@ -1,6 +1,6 @@
  ShowMarkAPL_CheatSheet←{
      n←⍵
-     filename←F.PWD,'\MarkAPL_CheatSheet.html'
+     filename←MarkAPL.##.TatinVars.GetFullPath2AssetsFolder,'\MarkAPL_CheatSheet.html'
      0=F.IsFile filename:n TellFileDoesNotExist filename
      rc←n OpenInDefaultBrowser filename
      1:rc←rc

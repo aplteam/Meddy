@@ -1,0 +1,50 @@
+ Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q
+⍝ Version 3.0.0 ⋄ 2023-07-29
+ ⎕IO←1 ⋄ ⎕ML←1
+ q←'Sure you want to build a new version of Meddy? The WS will be destroyed in the process!'
+ :If ##.TestCases.CommTools.YesOrNo q
+     pathToSource←##.CiderConfig.HOME,'\'
+     targetPath←##.CiderConfig.HOME,'\Dist\'
+     M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
+⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
+     name←'Meddy'
+     {}⎕SE.Cider.CloseProject''
+     ⎕WSID←targetPath,name,'.dws'
+     M.RecreateFolder targetPath
+     M.IncreaseBuildIDInFunction'#.Meddy.Meddy.Version'
+     ⎕LX←'#.Meddy.Run'''''
+     ⎕EX¨'MAF'
+     0 ⎕SAVE ⎕WSID
+     #.⎕EX #.⎕NL⍳16
+     '#.Meddy.Meddy'#.⎕CY ⎕WSID
+     ⎕NDELETE targetPath,'Meddy.dws'
+     'Conga'#.⎕CY'conga'
+     {}2 ⎕SE.Tatin.LoadDependencies(pathToSource,'packages')'#.Meddy'
+     #.Meddy.GitHubAPIv3.##.HttpCommand.CongaRef←#.Conga
+     M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
+     parms←M.CreateStandAloneExeParms targetPath'Meddy'
+     parms.CompanyName←'Kai Jaeger'
+     parms.FileDescription←'Markdown editor'
+     parms.Icon←pathToSource,'Meddy1.ico'
+     ∆Stop ⎕STOP⊃⎕SI
+     ⎕←(⎕PW-1)⍴'-'
+     ⎕←'Please trace through the next statement until you read the lable ∆CarryOn when you might execute →⎕LC'
+     ⎕←'This avoids running into strange issues with references in # pointing to ⎕SE and vice versa'
+∆Stop:
+     ⎕EX¨'AFM'
+     ⎕SE.MakeHelpers.MakeStandAloneRunTimeExe parms
+∆CarryOn: ⍝ From here →⎕LC is okay
+     M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
+     M.UpdateVersionNumberInInno_ISS(pathToSource,name,'.iss')(2⊃##.Meddy.Version)
+     M.ConvertMarkdownToHtml5 pathToSource∘,¨'Docs\' 'HTML\'
+     {}⎕SE.Tatin.LoadPackages'aplteam-Inno'#
+     setupExe←pathToSource #.Inno.Run name
+     :If 1 M.YesOrNo'Would you like to execute "',setupExe,'" ?'
+         {}M.Pause'First we need to make an attempt to un-install Meddy, then to install it'
+         {}M.##.OS.WinExecBatch'"',(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\unins000.exe"'
+         {}M.##.OS.WinExecBatch setupExe
+     :EndIf
+     F.DeleteFile targetPath,name,'.exe'
+     ⎕←'*** Done, clearing the workspace...'
+     ⎕CLEAR
+ :EndIf

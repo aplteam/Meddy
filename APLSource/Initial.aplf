@@ -1,5 +1,0 @@
- Initial
- 'APLGUI.APLGUI'⎕CY CiderConfig.HOME,'/APLGUI.dws'
- ⎕EX¨↑⍕¨APLGUI.(Busy DirSelect TableEdit TableViewer ProcessTool SelAndProcess)
- 'PresentAPL'⎕CY CiderConfig.HOME,'/PresentAPL.dws'
-⍝Done

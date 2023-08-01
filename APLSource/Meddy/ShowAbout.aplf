@@ -6,11 +6,11 @@
  about←''
  about,←appName,' version ',↑{⍺,' from ',⍵}/1↓Version
  about,←'⋄',appName,' is a simple Markdown editor.'
- about,←'⋄It was developed by Kai Jaeger / APL Team Ltd'
+ about,←'⋄It was developed by Kai Jaeger'
  about,←'⋄The project lives on GitHub:'
  about,←'⋄<https://github.com/aplteam/Meddy>'
  about,←''
- about,←'⋄It uses MarkAPL version ',(1⊃##.MarkAPL.Version),' from ',2⊃##.MarkAPL.Version
+ about,←'⋄It uses MarkAPL version ',(1⊃MarkAPL.Version),' from ',2⊃MarkAPL.Version
  about,←'⋄for converting any Markdown to HTML5.'
  about,←'⋄For details see:'
  about,←'⋄<https://github.com/aplteam/MarkAPL>'

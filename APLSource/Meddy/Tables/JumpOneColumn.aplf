@@ -1,0 +1,21 @@
+ {r}←leftRight JumpOneColumn n;data;col;row;newCol
+ r←0
+ leftRight←⎕C leftRight
+ :If =/↑¨n.Markdown.SelText                     ⍝ Cursor must be in a single spot
+     (row col)←¯1+0⊃n.Markdown.SelText          ⍝ Where is the cursor?
+ :AndIf n CursorIsInTable row                   ⍝ Is it inside a table?
+     data←row⊃n.Markdown.Text
+     :If {'|'≠1⍴⍵↓⍨+/∧\' '=⍵}data
+         data[0]←'|'
+     :EndIf
+     data←{' '@(1+⍸'\|'⍷⍵)⊣⍵}data               ⍝ Replace escaped pipes by spaces
+     data←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}data  ⍝ Replace code by spaces
+     newCol←'|'+.=col↑data
+     :If 'left'≡leftRight
+         newCol-←1
+         n.Markdown.SelText←2⍴⊂(1+row)(2+(+\data='|')⍳newCol)
+     :Else
+         newCol+←1
+         n.Markdown.SelText←2⍴⊂(1+row)(2+(+\data='|')⍳newCol)
+     :EndIf
+ :EndIf

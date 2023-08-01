@@ -15,12 +15,34 @@
          InjectMarkdownExpression n
      :Case contextMenu.SplitAt50
          n.Splitter2.Posn[1]←⌈n.LeftAndRight.Size[1]÷2
+     :Case contextMenu.FormatTable
+         Tables.FormatTableInMarkdown n
+     :Case contextMenu.InsertColumnRight
+         r←'Right'Tables.InsertColumn n
+     :Case contextMenu.InsertColumnLeft
+         r←'Left'Tables.InsertColumn n
+     :Case contextMenu.JumpOneColumnRight
+         'Right'Tables.JumpOneColumn n
+     :Case contextMenu.JumpOneColumnLeft
+         'Left'Tables.JumpOneColumn n
+     :Case contextMenu.MoveRowDown
+         'Down'Tables.MoveRow n
+     :Case contextMenu.MoveRowUp
+         'Up'Tables.MoveRow n
+     :Case contextMenu.MoveColRight
+         'Up'Tables.MoveCol n
+     :Case contextMenu.MoveColLeft
+         'Up'Tables.MoveCol n
      :Case contextMenu.copyID
          CopyID n
      :Case contextMenu.Sync
          SyncTocAndPreviewWithCursorInMarkdown n
      :Case contextMenu.MoveFocus2TOC
          ⎕NQ n.Toc'GotFocus'
+     :Case contextMenu.PasteTable
+         Tables.PasteTable n
+     :Case contextMenu.ExtendCurrentLine
+         Tables.ExtendCurrentLine n
      :Else
          :If menuItem∊contextMenu.(cut copy paste)
              contextMenu SendKeystroke n menuItem

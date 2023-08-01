@@ -8,13 +8,14 @@
      n.Toc.Depth←⍬
      n.Toc.∆Toc←0 4⍴⍬
  :Else
+     toc[;1]←toc[;1]~¨'`'
      n.Toc.Items←toc[;1]
      closingTags←{'(</[^?]+>)'⎕S{⍵.Match}⊣⍵}¨n.Toc.Items
      :If ∨/b←≢¨closingTags
          (b/n.Toc.Items)←(b/closingTags){⍺ ⎕R''⊣⍵}¨b/n.Toc.Items
          (b/n.Toc.Items)←('/'~¨¨⍨b/closingTags){⍺ ⎕R''⊣⍵}¨b/n.Toc.Items
      :EndIf
-     :Trap 0
+     :Trap 11
          n.Toc.Depth←0⌈¯1+1,2{(⍺+1)≥⍵:⍵ ⋄ ⍺+1}/toc[;0] ⍝ Correct any user mistakes, otherwise we get a DOMAIN ERROR.
      :Else
          n.Toc.Depth←(≢toc)⍴0    ⍝ Last resort
@@ -25,20 +26,7 @@
      n.Toc.RealDepth←toc[;0]        ⍝ In case the user has built an invalid structure of headers we need to remember his definition
      toc[;0]←toc[;0]-(↑toc[;0])-1
      n.TocSF.(Active Visible)←1
-
-     ⍝⍝⍝⍝ Policy change: we now show the full TOC all the time  ⍝TODO⍝
-     :If 1
-         {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍳≢n.Toc.Depth   ⍝ ⍸ n.Toc.Depth∊0 1
-     :Else
-         :If 0=≢allStates
-             {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍸n.Toc.Depth∊0 1
-         :ElseIf ~0=≢was←↓(5⊃¨allStates)⌿was
-             now←↓n.Toc.(Depth,[0.5]Items)
-         :AndIf ~0=≢was←(was∊now)/was
-             n ExpandThese now⍳was
-         :EndIf
-     :EndIf
-
+     {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍳≢n.Toc.Depth   ⍝ ⍸ n.Toc.Depth∊0 1
      toc[;1]←(,¨'“”')⎕R(,¨'""')⊣toc[;1]
      n.Toc.∆Toc←toc
      :If 0≠≢invalid←⍸0,2{(⍺+1)≥⍵:0 ⋄ 1}/toc[;0]
@@ -48,6 +36,8 @@
              (4⊃¨states)←1              ⍝ Make invalid bold
          :EndIf
          {}n.Toc SetState¨invalid,¨⊂¨states
+         WriteToStatusbar n'There is a problem with the menu hierarchy'
+         n.StatusField1.FCol←255 0 0
      :EndIf
      n.Toc.SelItems[row⌊¯1+≢n.Toc.SelItems]←1
  :EndIf

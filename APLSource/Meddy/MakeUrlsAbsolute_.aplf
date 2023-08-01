@@ -9,7 +9,7 @@
              ⍝ It's an absolute path - nothing to do
              txt←ns.Match
          :Else
-             txt←##.FilesAndDirs.EnforceSlash ns.Match,↑⎕NPARTS n.∆Filename
+             txt←FilesAndDirs.EnforceSlash ns.Match,↑⎕NPARTS n.myFile.filenameMarkdown
          :EndIf
      :EndFor
  :Else

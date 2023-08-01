@@ -12,5 +12,9 @@
          :Return
      :EndIf
  :EndIf
- 1 SaveText filename html
+ :If 0=≢n.myFile.filenameHtml
+ :AndIf ~0=≢n.myFile.filenameMarkdown
+     n.myFile.filenameHtml←↑{⍺,⍵}/(¯1↓1 ⎕NPARTS n.myFile.filenameMarkdown),⊂'.html'
+ :EndIf
+ {}SaveHTML n
 ⍝Done

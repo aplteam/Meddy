@@ -1,0 +1,18 @@
+ {r}←PasteTable n;cl;parms;buff;table;headerInd;cursPos
+⍝ In case the clipboard carries a table it is inserted into the Markdown
+ r←0
+ cl←⎕NEW⊂'Clipboard'
+ buff←cl.Array
+ :If 2=⍴⍴buff
+     :If (≢buff)≥headerInd←1+1⍳⍨∧/0<≢¨buff
+         buff←((headerInd)↑buff)⍪((≢¨buff[headerInd-1;])⍴¨'-')⍪headerInd↓buff
+     :EndIf
+     buff←'|',(⊃⊃¨{⍺,'|',⍵}/¨↓buff),'|'
+     cursPos←↑↑n.Markdown.SelText
+     n.Markdown.Text←((cursPos-1)↑n.Markdown.Text),(↓buff),cursPos↓n.Markdown.Text
+     FormatTableInMarkdown n
+ :Else
+     parms←##.G.Dialogs.CreateParmsForShowMsg
+     parms.addToCaption←'Paste Table'
+     n.∆globalParms parms ##.G.Dialogs.ShowMsg'The clipboard does not carry a table.'
+ :EndIf

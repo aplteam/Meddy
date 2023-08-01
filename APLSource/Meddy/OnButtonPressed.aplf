@@ -3,6 +3,6 @@
      msg←⍵
      n.Btn1≢↑msg:0   ⍝ "Close"?!
      n.∆parms.∆files←'"'¨n.∆parms.∆files,¨'"'
-     _←##.OS.WinExecute¨n.∆parms.∆files
+     _←OS.WinExecute¨n.∆parms.∆files
      0
  }

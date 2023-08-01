@@ -1,6 +1,6 @@
  {row}←RefreshToc n;toc;bool
 ⍝ This function checks whether the TOC has changed and if so tries its
-⍝ best to make sure that the best item is selected.
+⍝ best to make sure that the correct item is selected.
 ⍝ Returns ⍬ in case the TOC has not changed and the row in the TreeView otherwise.
  row←⍬
  :If 0=n.Toc.⎕NC'∆Toc'

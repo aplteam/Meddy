@@ -1,6 +1,0 @@
- r←∆GetSymbolicName value;ind
-⍝ Takes a value and returns the associated symbolic name or ''.
-⍝ `r` is always nested.
- ind←∆All⍳value
- r←({⍵[⍋⍎¨⍵]}(' '~¨⍨↓⎕NL 3)~' '~¨⍨↓'∆'⎕NL 3)[ind]
- ⍝Done

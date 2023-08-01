@@ -4,7 +4,10 @@
  msg←''
  msg,←⊂'Unable to save this file:'
  msg,←⊂filenames
- msg,←⊂'Error message: ',##.EventCodes.GetName dmx.EN
+ msg,←⊂'Error message: ',EventCodes.GetName dmx.EN
  msg,←⊂'Error code: ',⍕dmx.EN
+ :If 19=dmx.EN
+     msg,←'' 'You might lack the permission to save the file in that folder.'
+ :EndIf
  n.∆globalParms G.Dialogs.ShowMsg msg
 ⍝Done

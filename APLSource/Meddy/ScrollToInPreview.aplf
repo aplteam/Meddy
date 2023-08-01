@@ -11,6 +11,6 @@
  ⍝ This method may start producing syntax/domain errors even when everything is fine.
  ⍝ Therefore we have to trap such errors here.
  ⍝ Note that occasionally the function `scrollIntoView` requires an argument!
-     element.scrollIntoView
+     {}element.scrollIntoView
  :EndTrap
 ⍝Done

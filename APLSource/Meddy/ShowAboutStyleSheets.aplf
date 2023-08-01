@@ -1,6 +1,6 @@
  ShowAboutStyleSheets←{
      n←⍵
-     filename←F.PWD,'\Styles.html'
+     filename←MarkAPL.##.TatinVars.GetFullPath2AssetsFolder,'\Styles.html'
      0=F.IsFile filename:n TellFileDoesNotExist filename
      rc←n OpenInDefaultBrowser filename
      1:rc←rc

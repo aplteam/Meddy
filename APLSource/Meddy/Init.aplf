@@ -1,7 +1,6 @@
  n←Init n;msg;parms
  {}2035⌶'ScaledPixel'
  EstablishRefs ⍬
- G.EstablishRefsToParent ⍬
  :If A.IsDevelopment
      F.PolishCurrentDir
  :Else
@@ -19,5 +18,6 @@
  n.∆globalParms.globalRegKey←'HKLM\SOFTWARE\APL Team Ltd\Meddy'
  n.∆globalParms.userRegKey←'HKCU\SOFTWARE\APL Team Ltd\Meddy'
  n←EstablishPreferences n
- n.∆CurrentFontSize←{0::17 ⋄ ↑(//)⎕VFI ⍵}'17'##.WinRegSimple.Read n.∆globalParms.regKey
+ ∆SKIP_SAVE_FOR_UNDO←0
+ n.∆CurrentFontSize←{0::17 ⋄ ↑(//)⎕VFI ⍵}'17'WinRegSimple.Read n.∆globalParms.regKey
 ⍝Done

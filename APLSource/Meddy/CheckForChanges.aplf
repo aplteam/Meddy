@@ -9,18 +9,19 @@
      msg←'Would you like to save the latest changes first?'
      answer←n.∆globalParms parms G.Dialogs.YesNoCancel msg
      :If 1=answer
-         :If 0=≢n.∆Filename
+         :If n.myFile.isTempFile
              :If 0=≢filename←AskForSaveFilename n
+                 carryOnFlag←1
                  :Return
              :Else
                  UpdateFilename n filename
              :EndIf
          :EndIf
-         carryOnFlag←0≠SaveText n.∆Filename n.Markdown.Text
-         :If n.∆parms.saveHtml∊SaveHTMLValues.(Always YesButKeepAsking)
-             RefreshPreview n
-             htmlFilename←(↑,/¯1↓⎕NPARTS n.∆Filename),'.html'
-             (⊂n.HTML.Text)F.NPUT htmlFilename
+         carryOnFlag←0≠SaveText n.myFile.filenameMarkdown n.Markdown.Text
+         :If n.myFile.saveHtml
+             SaveHTML n
          :EndIf
+     :Else
+         carryOnFlag←answer=¯1
      :EndIf
  :EndIf

@@ -1,11 +1,11 @@
- {r}←ToggleControlsAndCommands(n on);refresh
-⍝ Toggles certain menubar commands and controls on or off.
+ {r}←ToggleControlsAndCommands(n onOff);refresh
+⍝ Toggles certain menubar commands and controls onOff or off.
 ⍝ Typically called after the user selected "Open", "New", "New presentation" or "Close" from the menubar.
  r←⍬
- n.(FullHtmlDocument HidePreview).(Visible Active)←on
- n.(Toc Left Right).(Visible Active)←on
+ n.(FullHtmlDocument HidePreview).(Visible Active)←onOff
+ n.(Toc Left Right).(Visible Active)←onOff
  n.(Splitter1 Splitter2).Visible←1
- n.∆Menubar.(save saveAs close refresh replace export exportAs find findInTOC undo redo prevHeader nextHeader view expression injectParms goto report spliAt50 sync).Active←on
- n.∆Menubar.∆EditCommands.Active←on
- n.HidePreview.Active←on
+ n.∆Menubar.(save saveAs close refresh replace export find findInTOC undo redo prevHeader nextHeader view expression injectParms goto report splitAt50 formatTable sync).Active←onOff
+ n.∆Menubar.∆EditCommands.Active←onOff
+ n.HidePreview.Active←onOff
 ⍝Done

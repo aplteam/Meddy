@@ -1,0 +1,29 @@
+ {r}←leftRight MoveCol n;ind;row;table;selText;col;currentCol;flag;add;buff
+⍝ Moves a column within the Markdown to either the left or to the right (⍺).
+ r←0
+ leftRight←⎕C leftRight
+ (row col)←¯1+0⊃n.Markdown.SelText
+ :If =/↑¨n.Markdown.SelText
+     (table ind)←FormatTableInMarkdown n
+ :AndIf ⍬≢table
+     currentCol←↑¯1↑col↑¯1++\'|'=(↑ind)⊃n.Markdown.Text
+ :AndIf ~currentCol∊¯1,1⊃⍴table
+     :If flag←'left'≡leftRight
+     :AndIf flag←0<currentCol
+         table[;currentCol+¯1 0]←table[;currentCol+0 ¯1]
+         add←¯1
+     :ElseIf flag←'right'≡leftRight
+     :AndIf flag←(1⊃⍴table)>currentCol+1
+         table[;currentCol+1 0]←table[;currentCol+0 1]
+         add←1
+     :Else
+         flag←0
+     :EndIf
+     :If flag
+         selText←n.Markdown.SelText
+         buff←'|',(↑⊃¨{⍺,'|',⍵}/⊃¨↓⍉table),'|'
+         n.Markdown.Text[ind]←↓buff
+         n.Markdown.SelText←2⍴⊂(↑↑selText)(1⍳⍨(currentCol+add)<(+\'|'=1↓buff[0;]))
+     :EndIf
+ :EndIf
+⍝Done

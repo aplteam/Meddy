@@ -1,6 +1,6 @@
  ShowQuickIntro←{
      n←⍵
-     filename←F.PWD,'\QuickIntro.html'
+     filename←MarkAPL.##.TatinVars.GetFullPath2AssetsFolder,'\QuickIntro.html'
      0=F.IsFile filename:n TellFileDoesNotExist filename
      rc←n OpenInDefaultBrowser filename
      1:rc←rc

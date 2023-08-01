@@ -6,8 +6,8 @@
  R←T._Failed
 
  CreateFolderAndMarkdownFile←{
-     folder←##.FilesAndDirs.GetTempPath,↑1↓⎕SI
-     _←'Create!'##.FilesAndDirs.CheckPath folder,'/level2'
+     folder←FilesAndDirs.GetTempPath,↑1↓⎕SI
+     _←'Create!'FilesAndDirs.CheckPath folder,'/level2'
      _←(⊂,⍵)⎕NPUT(folder,'/level2/my.md')1
      _←(⊂,⍺)⎕NPUT(folder,'/level2/.meddy')1
      folder
@@ -20,25 +20,25 @@
  msg,←⊂'then select the "Quit" command from the "File" menu.'
  folder←'outputpath=''../'''CreateFolderAndMarkdownFile msg
  n←∆RunMeddy folder,'/level2/my.md'
- n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils2.FormatDateTime ⎕TS
+ n.Markdown.Text,←⊂'Changed at ',APLTreeUtils2.FormatDateTime ⎕TS
  n.∆parms.firstFlag←0
  1 ⎕NQ n.∆Menubar.save'Select'
- →T.GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
+ →T.GoToTidyUp 1≠≢↑FilesAndDirs.Dir folder,'\*.html'
  1 ⎕NQ n.∆Menubar.quit'Select'
- Assert 0=↑##.FilesAndDirs.RmDir folder
+ Assert 0=↑FilesAndDirs.RmDir folder
 
- targetFolder←##.FilesAndDirs.GetTempSubDir''
+ targetFolder←FilesAndDirs.GetTempSubDir''
  folder←('outputpath=''',targetFolder,'''')CreateFolderAndMarkdownFile msg
  n←∆RunMeddy folder,'/level2/my.md'
- n.Markdown.Text,←⊂'Changed at ',##.APLTreeUtils2.FormatDateTime ⎕TS
+ n.Markdown.Text,←⊂'Changed at ',APLTreeUtils2.FormatDateTime ⎕TS
  n.∆parms.firstFlag←0
  1 ⎕NQ n.∆Menubar.save'Select'
- →T.GoToTidyUp 0≠≢↑##.FilesAndDirs.Dir folder,'\*.html'
- →T.GoToTidyUp 1≠≢↑##.FilesAndDirs.Dir targetFolder,'\*.html'
+ →T.GoToTidyUp 0≠≢↑FilesAndDirs.Dir folder,'\*.html'
+ →T.GoToTidyUp 1≠≢↑FilesAndDirs.Dir targetFolder,'\*.html'
 
  R←T._OK
 
 ∆TidyUp:
  :Trap 0 ⋄ 1 ⎕NQ n.∆Menubar.quit'Select' ⋄ :EndTrap
- :Trap 0 ⋄ ##.FilesAndDirs.RmDir folder ⋄ :EndTrap
- :Trap 0 ⋄ ##.FilesAndDirs.RmDir targetFolder ⋄ :EndTrap
+ :Trap 0 ⋄ FilesAndDirs.RmDir folder ⋄ :EndTrap
+ :Trap 0 ⋄ FilesAndDirs.RmDir targetFolder ⋄ :EndTrap

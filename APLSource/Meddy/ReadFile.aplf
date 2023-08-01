@@ -1,0 +1,19 @@
+ rc←ReadFile(n  cursorWas);parms;msg;qdmx
+⍝ Reads the file and assigns it as Markdown.
+⍝ Returns a 0 in case of success, otherwise 1.
+ :Trap 0
+     n.Markdown.Text←↑F.NGET n.myFile.filenameMarkdown
+     n.Markdown.Text←'\t'⎕R'    '⊣n.Markdown.Text  ⍝ Tabs ==> 4 spaces
+     rc←0
+ :Else
+     qdmx←⎕DMX
+     parms←G.Dialogs.CreateParmsForShowMsg
+     parms.style←G.Enums.DialogStyles.Error
+     parms.addToCaption←'Open'
+     msg←'Sorry, this file:'n.myFile.filenameMarkdown'caused a problem:'qdmx.Message('RC=',⍕qdmx.EN)
+     #.CursorObj←0
+     n.∆globalParms parms G.Dialogs.ShowMsg msg
+     #.CursorObj←cursorWas
+     rc←1
+ :EndTrap
+⍝Done
