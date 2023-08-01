@@ -39,31 +39,31 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}b
 </div>
 <ul>
 <li>Major improvements in terms of stability, particularly when invalid Markdown was provided as input</li>
+<li>Potentially breaking change: the parameter <code>saveHTML</code> must not carry a 2 anymore, it must be either a 0 or a 1.</li>
 <li>Enhanced formatting and editing of tables
 <ul>
 <li><code>Ctrl+T</code> formats a table in the Markdown properly</li>
-<li><code>Ctrl+Ins</code> inserts a column into a table to the right of the cursor</li>
-<li><code>Ctrl+Shift+Ins</code> inserts a column into a table to the left of the cursor</li>
+<li><code>Ctrl+F9</code> inserts a column into a table to the right of the cursor</li>
+<li><code>Ctrl+Shift+F9</code> inserts a column into a table to the left of the cursor</li>
 <li><code>Ctrl+Tab</code> jumps to next column</li>
 <li><code>Ctrl+Shift+Tab</code> jumps to the previous column</li>
 <li><code>Ctrl+Shift+&lt;up&gt;</code> moves the current table row up</li>
 <li><code>Ctrl+Shift+&lt;down&gt;</code> moves the current table row down</li>
-<li><code>Ctrl+Shift+&lt;right&gt;</code> moves the current column to the right</li>
-<li><code>Ctrl+Shift+&lt;left&gt;</code> moves the current column to the left</li>
+<li><code>Ctrl+Shift+F5</code> moves the current column to the right</li>
+<li><code>Ctrl+Shift+&lt;F4</code> moves the current column to the left</li>
 <li><code>Ctrl+Shift+E</code> extends the current line</li>
 <li><code>Ctrl+Shift+V</code> inserts a table into the markdown and formats it</li>
 </ul></li>
-<li>Potentially breaking change: the parameter <code>saveHTML</code> must not carry a 2 anymore, it must be either a 0 or a 1.</li>
 <li>Bug fixes
 <ul>
-<li>Pressing <code>ALT+F4</code> and then clicking <code>&lt;Cancel&gt;</code> (or pressing <code>&lt;Escape&gt;</code>) lead to a loss of all changes because Meddy quit anyway.</li>
+<li>Pressing <code>ALT+F4</code> and then clicking <code>&lt;Cancel&gt;</code> (or pressing <code>&lt;Escape&gt;</code>) lead to a loss of all changes because Meddy quit anyway</li>
 <li>Ticks are not displayed in the table-of-contents anymore</li>
 <li>Adding a “head” parameter at the top of the document crashed Meddy</li>
 <li>Error message in case of invalid Markdown was everything but helpful</li>
 <li>In case of invalid Markdown Meddy crashed rather the refusing gracefully</li>
-<li>Saving a document in a folder when admin right are required appeared to be successful but was not</li>
+<li>Saving a document in a folder when admin rights are required appeared to be successful but was not</li>
 <li>Meddy crashed in case the value of an embedded parameter carried a <code>=</code> character</li>
-<li>Meddy crashed when the dialog the put the MarkAPL report in display was closed with <code>Alt+F4</code></li>
+<li>Meddy crashed when the dialog that puts the MarkAPL report on display was closed with <code>Alt+F4</code></li>
 <li>Trying to save a document in a folder that required admin rights without having those appeared to work but did not</li>
 </ul></li>
 </ul>

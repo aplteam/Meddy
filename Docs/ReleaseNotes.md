@@ -3,28 +3,28 @@
 ## 3.0.0 - 2023-07-31
 
 * Major improvements in terms of stability, particularly when invalid Markdown was provided as input
+* Potentially breaking change: the parameter `saveHTML` must not carry a 2 anymore, it must be either a 0 or a 1.
 * Enhanced formatting and editing of tables
   * `Ctrl+T` formats a table in the Markdown properly
-  * `Ctrl+Ins` inserts a column into a table to the right of the cursor
-  * `Ctrl+Shift+Ins` inserts a column into a table to the left of the cursor
+  * `Ctrl+F9` inserts a column into a table to the right of the cursor
+  * `Ctrl+Shift+F9` inserts a column into a table to the left of the cursor
   * `Ctrl+Tab` jumps to next column
   * `Ctrl+Shift+Tab` jumps to the previous column
   * `Ctrl+Shift+<up>` moves the current table row up
   * `Ctrl+Shift+<down>` moves the current table row down
-  * `Ctrl+Shift+<right>` moves the current column to the right
-  * `Ctrl+Shift+<left>` moves the current column to the left
+  * `Ctrl+Shift+F5` moves the current column to the right
+  * `Ctrl+Shift+<F4` moves the current column to the left
   * `Ctrl+Shift+E` extends the current line
   * `Ctrl+Shift+V` inserts a table into the markdown and formats it
-* Potentially breaking change: the parameter `saveHTML` must not carry a 2 anymore, it must be either a 0 or a 1.
 * Bug fixes
-  * Pressing `ALT+F4` and then clicking `<Cancel>` (or pressing `<Escape>`) lead to a loss of all changes because Meddy quit anyway.
+  * Pressing `ALT+F4` and then clicking `<Cancel>` (or pressing `<Escape>`) lead to a loss of all changes because Meddy quit anyway
   * Ticks are not displayed in the table-of-contents anymore
   * Adding a "head" parameter at the top of the document crashed Meddy
   * Error message in case of invalid Markdown was everything but helpful
   * In case of invalid Markdown Meddy crashed rather the refusing gracefully
-  * Saving a document in a folder when admin right are required appeared to be successful but was not
+  * Saving a document in a folder when admin rights are required appeared to be successful but was not
   * Meddy crashed in case the value of an embedded parameter carried a `=` character
-  * Meddy crashed when the dialog the put the MarkAPL report in display was closed with `Alt+F4`
+  * Meddy crashed when the dialog that puts the MarkAPL report on display was closed with `Alt+F4`
   * Trying to save a document in a folder that required admin rights without having those appeared to work but did not
 
 ## 2.11.1 - 2020-08-24
@@ -70,4 +70,5 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
