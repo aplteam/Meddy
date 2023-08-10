@@ -8,10 +8,10 @@
      M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
 ⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
      name←'Meddy'
-     {}⎕SE.Cider.CloseProject''
      ⎕WSID←targetPath,name,'.dws'
      M.RecreateFolder targetPath
      M.IncreaseBuildIDInFunction'#.Meddy.Meddy.Version'
+    {}⎕SE.Cider.CloseProject''
      ⎕LX←'#.Meddy.Run'''''
      ⎕EX¨'MAF'
      0 ⎕SAVE ⎕WSID
