@@ -20,5 +20,9 @@
          :Return
      :EndIf
  :EndIf
- (⊂,html)F.NPUT filename 1
+ :Trap 16 19
+     (⊂,html)F.NPUT filename 1
+ :Else
+     TellFileSaveError filename
+ :EndTrap
 ⍝Done

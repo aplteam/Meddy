@@ -1,7 +1,9 @@
 (
- '* 3.0.1 - 2022-08-10'
+ '* 3.0.1 - 2022-08-11'
  ''
- '  * Bug fix: Build ID was not increased becasue the proejct was closed too early'
+ '  * Bug fixes'
+ '    * `SaveMarkdown` much more resilient now against disappearing network drives and the likes.'
+ '    * Build ID was not increased because the project was closed too early'
  '  * Packages updated'
  ''
  'We now use History just for tracking changes in the next release.'

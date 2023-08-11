@@ -1,5 +1,12 @@
 # Release Notes 
 
+## 3.0.1 - 2023-08-11
+
+* Bug fixes
+  * `SaveMarkdown` much more resilient now against disappearing network drives and the likes
+  * Build ID was not increased because the project was closed too early
+* Packages updated  
+
 ## 3.0.0 - 2023-07-31
 
 * Major improvements in terms of stability, particularly when invalid Markdown was provided as input
@@ -70,5 +77,6 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 

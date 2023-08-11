@@ -22,6 +22,7 @@
          headerRow←0
          hasColHeaders←((headerRow⊃table)~'| :')∧.='-'          ⍝ In case there are no column headers but column deviders for alignment
      :EndIf
+     footerRow←''
      :If hasFooter←2<≢table                                     ⍝ Does the table
      :AndIf ~hasFooter←(((footerRow←¯2+≢table2)⊃table)~'| ')∧.='=' ⍝ ... has somewhere ...
          hasFooter←(((footerRow←¯1+≢table2)⊃table)~'| ')∧.='='  ⍝ ... a footer?
