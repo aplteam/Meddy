@@ -1,3 +1,7 @@
  r←ClipboardHasTable;cl
  cl←⎕NEW⊂'Clipboard'
- r←2=⍴⍴cl.Array
+ :Trap 11
+     r←2=⍴⍴cl.Array
+ :Else
+     r←0
+ :EndTrap

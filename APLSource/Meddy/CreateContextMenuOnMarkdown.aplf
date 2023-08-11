@@ -54,7 +54,7 @@
  m.Sep15←m.⎕NEW⊂'Separator'
 
  ∆←''
- ∆,←⊂'Caption'('Format table',TAB,'Ctrl+Tab')
+ ∆,←⊂'Caption'('Format table',TAB,'Ctrl+T')
  m.FormatTable←m.⎕NEW'MenuItem'∆
  m.FormatTable.onSelect←1
  m.FormatTable.Active←Tables.CheckForCursorIsInTable n
