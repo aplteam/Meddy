@@ -1,4 +1,4 @@
-/* MarkAPL's default scree CSS version 2.7 from 2020-03-23 */
+/* MarkAPL's default scree CSS version 2.8 from 2023-08-13 */
 
 /* Note that there are some variables embedded as comments which will be replaced
    by MarkAPL. The names are embraced by "<<", so for a variable "foo" it is
@@ -620,13 +620,15 @@ nav code {
 }
 code {
     font-family: APLFont, monospace;
-    color: Black;
     font-weight: 800;
-    line-height: 1.2;
-    font-size: 0.88em;
-    margin: 0;
     color: #950000;
-    padding: 0 0.16em;
+    background-color: #e7e7e7;
+    line-height: 1.1;
+    font-size: 85%;
+    white-space: break-spaces;
+    margin: 0;
+    padding: 0.2em 0.4em;
+    border-radius: 6px;
 }
 
 tbody tr:nth-child(even) {
@@ -725,16 +727,16 @@ nav li p {
     padding: 0;
 }
 nav li {
-    font-size: 0.75rem;
-    line-height: 1.3;
+    font-size: 0.9em;
+    line-height: 1.5;
     padding: 0;
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: 0.83em;
+    margin-left: 2rm;
 }
 
 nav p{
-    font-weight: bold; 
+    font-weight: bold;
     font-size: 0.75rem;
     padding-top: 0;
 }
@@ -748,7 +750,7 @@ dt {
     font-weight: 800;
 }
 label#hide_toc_label {
-    font-size: 0.8em;
+    font-size: 1.1em;
 }
 .toc-container {
     position: relative;
@@ -757,6 +759,10 @@ label#hide_toc_label {
 div.toc-container h1 {
     font-size: 0.88em;
     margin: 0.27em 0 0.27em 0;
+}
+div.toc-container ul {
+    margin-left: -1em;
+    margin-right: 2em;
 }
 [type="checkbox"] {
     position: absolute;
@@ -768,12 +774,12 @@ label {
     height: 1.1em;
     cursor: pointer;
     top: 0;
-    padding-left: 1.1em;
+    padding-left: 2rm;
 }
 label:before {
     content: 'Table of contents  \25BC'; /* <<tocCaption>>'; */
     font-weight: bold;
-    font-size: 90%;
+    font-size: 80%;
     padding-bottom: 0;
 }
 [type="checkbox"] ~ div {

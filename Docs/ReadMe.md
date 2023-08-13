@@ -311,6 +311,7 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was originally written by Kai Jaeger
 
 | Created     | 2017-10-23 |
-| Version     | 3.0        |
-| Last update | 2022-07-31 |
+| Version     | 3.1        |
+| Last update | 2023-08-13 |
+
 

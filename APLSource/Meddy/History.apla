@@ -1,12 +1,9 @@
 (
- '* 3.0.1 - 2022-08-11'
- ''
+ '* 3.1.0 - 2022-08-13'
+ '                    '
+ '  * New version of MarkAPL with improved styling of TOCs and inline code'
  '  * Bug fixes'
- '    * `SaveMarkdown` much more resilient now against disappearing network drives and the likes'
- '    * Build ID was not increased because the project was closed too early'
- '    * Copying to and from the clipboard is more resilient now'
- '    * "Format table" in the context menu wrongly claimed that its hot key is Ctrl+TAB; its Ctrl+T'
- '  * Packages updated'
+ '    * Opening a Markdown file that had no HTML companion yet crashed'
  ''
  'We now use History just for tracking changes in the next release.'
 )

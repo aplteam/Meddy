@@ -23,7 +23,7 @@
      :AndIf 0=n.myFile.saveHtml←⎕NEXISTS htmlFilename
          :If n.myFile.saveHtml←n WantToSaveHtml ⍬
              :If SaveHtmlAlongMarkdown n
-                 n.myFile.filenameHtml←n.myFile.filenameHtml(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
+                 n.myFile.filenameHtml←(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
              :Else
                  n.myFile.filenameHtml←AskForSaveHtmlFilename n
              :EndIf
