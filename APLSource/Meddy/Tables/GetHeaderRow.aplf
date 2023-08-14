@@ -1,0 +1,10 @@
+ headerRow←GetHeaderRow table;hasColHeaders
+⍝ Returns the row of the header, if any. 1 or 2 if there is one, and ⍬ otherwise
+ headerRow←1                                                ⍝ Index of the column devider (MarkAPL allows the absence of col headers)
+ :If 0=hasColHeaders←((headerRow⊃table)~'| :')∧.='-'        ⍝ Does the table have column headers?
+     headerRow←0
+     hasColHeaders←((headerRow⊃table)~'| :')∧.='-'          ⍝ In case there are no column headers but column deviders for alignment
+ :EndIf
+ :If ~hasColHeaders
+     headerRow←⍬
+ :EndIf

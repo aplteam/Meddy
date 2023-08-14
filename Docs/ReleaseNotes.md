@@ -2,9 +2,12 @@ Release Notes
 =============
 
 
-## 3.1.0 - 2023-08-13
- * New version of MarkAPL with improved styling of TOCs and inline code
- * Bug fix: opening a Markdown file that had no HTML companion yet crashed
+## 3.1.0 - 2023-08-14
+
+* "Delete column" added to the table-specific commands                  
+* New version of MarkAPL integrated with improved styling of TOCs and inline code
+* Bug fixes
+  * Opening a Markdown file that had no HTML companion yet crashed
 
 ## 3.0.1 - 2023-08-11
 
@@ -83,6 +86,7 @@ Release Notes
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

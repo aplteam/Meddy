@@ -1,0 +1,21 @@
+ {r}←DeleteCol n;table;ind;currentCol;curPos;row;col;selText;buff;parms
+ r←0
+ :If =/↑¨selText←n.Markdown.SelText
+     curPos←¯1+0 0⊃n.Markdown.SelText           ⍝ Where is the cursor?
+ :AndIf n CursorIsInTable curPos                ⍝ Is it inside a table?
+     (table ind)←FormatTableInMarkdown n
+ :AndIf ⍬≢table
+     :If 0=≢1⊃⍴table
+         parms←##.G.Dialogs.CreateParmsForShowMsg
+         parms.caption←'Meddy'
+         parms ##.G.Dialogs.ShowMsg'You cannot delete the very last column of a table'
+     :Else
+         (row col)←¯1+0⊃n.Markdown.SelText
+         currentCol←↑¯1↑col↑¯1++\'|'=(↑ind)⊃n.Markdown.Text
+         table←table[;currentCol~⍨⍳1⊃⍴table]
+         buff←'|',(↑⊃¨{⍺,'|',⍵}/⊃¨↓⍉table),'|'
+         n.Markdown.Text[ind]←↓buff
+         n.Markdown.SelText←selText
+     :EndIf
+ :EndIf
+⍝Done

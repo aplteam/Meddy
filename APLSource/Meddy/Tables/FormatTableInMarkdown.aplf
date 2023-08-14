@@ -17,11 +17,7 @@
      table←##.TAB ⎕R'    '⊣table                                ⍝ Replace TABs by four spaces
      table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces (again)
      table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces (again)
-     headerRow←1                                                ⍝ Index of the column devider (MarkAPL allows the absence of col headers)
-     :If 0=hasColHeaders←((headerRow⊃table)~'| :')∧.='-'        ⍝ Does the table have column headers?
-         headerRow←0
-         hasColHeaders←((headerRow⊃table)~'| :')∧.='-'          ⍝ In case there are no column headers but column deviders for alignment
-     :EndIf
+     hasColHeaders←⍬≢headerRow←GetHeaderRow table
      footerRow←''
      :If hasFooter←2<≢table                                     ⍝ Does the table
      :AndIf ~hasFooter←(((footerRow←¯2+≢table2)⊃table)~'| ')∧.='=' ⍝ ... has somewhere ...

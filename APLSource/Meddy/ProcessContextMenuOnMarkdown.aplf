@@ -43,6 +43,8 @@
          Tables.PasteTable n
      :Case contextMenu.ExtendCurrentLine
          Tables.ExtendCurrentLine n
+     :Case contextMenu.DeleteCol
+         Tables.DeleteCol n
      :Else
          :If menuItem∊contextMenu.(cut copy paste)
              contextMenu SendKeystroke n menuItem

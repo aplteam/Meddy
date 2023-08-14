@@ -1,9 +1,10 @@
- {r}←n OnKeyPressInMarkdown msg;hasFocus;row;key;cl;buff
+ {r}←n OnKeyPressInMarkdown msg;hasFocus;row;key;cl;buff;keyAndState
  r←1
  key←,2⊃msg
  hasFocus←2 ⎕NQ #'GetFocusObj'
  :If 3<≢msg
-     :If 9 1≡msg[4 5]               ⍝ Shift+Tab?!
+     keyAndState←msg[4 5]
+     :If 9 1≡keyAndState                    ⍝ Shift+Tab?!
          n.Markdown.SelText←2⍴n.Markdown.SelText[1]
          ⍝{}1 ⎕NQ n.Toc'ItemUp'(n.Toc.SelItems⍳1)0 0 8
          0 ScrollToInMarkdown n(n.Toc.SelItems⍳1)
@@ -11,30 +12,32 @@
          n.(Row Col).Text←⊂''
          r←0
          :Return
-     :ElseIf 107 2≡msg[4 5]         ⍝ Ctrl++?!
+     :ElseIf 107 2≡keyAndState              ⍝ Ctrl++?!
          n ChangeFontSize 1
-     :ElseIf 109 2≡msg[4 5]         ⍝ Ctrl+-?!
+     :ElseIf 109 2≡keyAndState              ⍝ Ctrl+-?!
          n ChangeFontSize ¯1
-     :ElseIf 9 2≡msg[4 5]           ⍝ Ctrl+Tab
+     :ElseIf 9 2≡keyAndState                ⍝ Ctrl+Tab
          r←'Right'Tables.JumpOneColumn n
-     :ElseIf 9 3≡msg[4 5]           ⍝ Ctrl+Shift+Tab
+     :ElseIf 9 3≡keyAndState                ⍝ Ctrl+Shift+Tab
          r←'Left'Tables.JumpOneColumn n
-     :ElseIf 120 2≡msg[4 5]         ⍝ Ctrl+F9 (insert column)
+     :ElseIf 120 2≡keyAndState              ⍝ Ctrl+F9 (insert column)
          r←'Right'Tables.InsertColumn n
-     :ElseIf 120 3≡msg[4 5]         ⍝ Ctrl+Shift+F9 (insert column)
+     :ElseIf 120 3≡keyAndState              ⍝ Ctrl+Shift+F9 (insert column)
          r←'Left'Tables.InsertColumn n
-     :ElseIf 38 3≡msg[4 5]          ⍝ Ctrl+Shift+<up>
+     :ElseIf 38 3≡keyAndState               ⍝ Ctrl+Shift+<up>
          r←'Up'Tables.MoveRow n
-     :ElseIf 40 3≡msg[4 5]          ⍝ Ctrl+Shift+<down>
+     :ElseIf 40 3≡keyAndState               ⍝ Ctrl+Shift+<down>
          r←'Down'Tables.MoveRow n
-     :ElseIf 116 2≡msg[4 5]         ⍝ Ctrl+F5
+     :ElseIf 116 2≡keyAndState              ⍝ Ctrl+F5
          r←'Right'Tables.MoveCol n
-     :ElseIf 115 2≡msg[4 5]         ⍝ Ctrl+F4
+     :ElseIf 115 2≡keyAndState              ⍝ Ctrl+F4
          r←'Left'Tables.MoveCol n
-     :ElseIf 86 3≡msg[4 5]          ⍝ Ctrl+Shift+V
+     :ElseIf 86 3≡keyAndState               ⍝ Ctrl+Shift+V
          r←Tables.PasteTable n
-     :ElseIf 69 3≡msg[4 5]          ⍝ Ctrl+Shift+E
+     :ElseIf 69 3≡keyAndState               ⍝ Ctrl+Shift+E
          r←Tables.ExtendCurrentLine n
+     :ElseIf 46 2≡keyAndState               ⍝ Ctrl+Delete
+         r←Tables.DeleteCol n
      :ElseIf 2=≢key
          :Select key
          :Case 'HT'
@@ -48,14 +51,14 @@
              PolishClipboard ⍬
          :EndSelect
      :ElseIf 0=≢key
-         r←4=msg[5]                 ⍝ "Alt" key?!
+         r←4=msg[5]                         ⍝ "Alt" key?!
      :EndIf
      n.StatusField1.Text←''
      n.StatusField1.BCol←0
  :EndIf
  :If 3=≢msg
- :OrIf 4≠5⊃msg                      ⍝ Ony when no ALT key is pressed
+ :OrIf 4≠5⊃msg                              ⍝ Ony when no ALT key is pressed
      :Trap 0 ⋄ ⎕NQ hasFocus'GotFocus' ⋄ :EndTrap
-     ⎕NQ n.∆Form 9999               ⍝ Sets Row and Col in Statusbar, preserve data for undo/redo
+     ⎕NQ n.∆Form 9999                       ⍝ Sets Row and Col in Statusbar, preserve data for undo/redo
  :EndIf
 ⍝Done

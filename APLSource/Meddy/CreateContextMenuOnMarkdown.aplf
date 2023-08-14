@@ -114,6 +114,12 @@
  m.MoveColLeft.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
 
  ∆←''
+ ∆,←⊂'Caption'('Delete current column',TAB,'Ctrl+Del')
+ m.DeleteCol←m.⎕NEW'MenuItem'∆
+ m.DeleteCol.onSelect←1
+ m.DeleteCol.Active←(Tables.CheckForCursorIsInTable n)∧=/↑¨n.Markdown.SelText
+
+ ∆←''
  ∆,←⊂'Caption'('Extend current line',TAB,'Ctrl+Shift+E')
  m.ExtendCurrentLine←m.⎕NEW'MenuItem'∆
  m.ExtendCurrentLine.onSelect←1
