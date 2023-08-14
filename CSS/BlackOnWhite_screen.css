@@ -741,7 +741,7 @@ nav ul li {
     margin-bottom: 0.38em;
     margin-right: 1.5em;
     */
-    margin: 0.38em 1.5em 0.38em 2em;
+    margin: 0.38em 1em 0.38em 2em;
 }
 nav li p {
     margin: 0;
@@ -782,7 +782,7 @@ label#hide_toc_label {
     width: auto;
 }
 div.toc-container h3 {
-    font-size: 0.9em;
+    font-size: 1em;
     margin: 0.55em 0.27em 0.55em 0.66em;
 }
 [type="checkbox"] {

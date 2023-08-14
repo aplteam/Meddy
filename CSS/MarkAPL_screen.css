@@ -503,9 +503,8 @@ h3 {
     font-size: 1.22em;
 }
 nav h3 {
-    font-size: 0.88em;
-    margin-left: 0.83em;
-    margin-bottom: 0.27em;
+    font-size: 1.2em;
+    margin: 0 0 0.7em 0;
 }
 h4 {
     font-size: 1em;
@@ -689,7 +688,7 @@ nav {
     background-color: #f5f5f5;
     border: 1px solid Black;
     padding: 0.55em;
-    margin: 0.55em;
+    margin: 0.50em 0.30em 2em 0.30em;
     margin-right:0;
     box-shadow: 0.27em 0.27em 0.27em Gray;
     overflow : hidden;
@@ -703,7 +702,8 @@ nav#main_nav{
     width: auto;
 }
 nav#main_nav_no_collapse li {
-    font-size: 0.77rem;
+    font-size: 1em;
+    padding-left: 2em;
 }
 nav#main_nav_no_collapse li {
     line-height: 1.5;
@@ -732,7 +732,7 @@ nav li {
     padding: 0;
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: 2rm;
+    margin-left: 2em;
 }
 
 nav p{
@@ -761,8 +761,8 @@ div.toc-container h1 {
     margin: 0.27em 0 0.27em 0;
 }
 div.toc-container ul {
-    margin-left: -1em;
-    margin-right: 2em;
+    margin-left: -2em;
+    margin-right: 1em;
 }
 [type="checkbox"] {
     position: absolute;
@@ -774,7 +774,7 @@ label {
     height: 1.1em;
     cursor: pointer;
     top: 0;
-    padding-left: 2rm;
+    padding-left: 2em;
 }
 label:before {
     content: 'Table of contents  \25BC'; /* <<tocCaption>>'; */

@@ -42,9 +42,9 @@
      setupExe←pathToSource #.Inno.Run name
      :If 1 M.YesOrNo'Would you like to execute "',setupExe,'" ?'
          {}M.Pause'First we need to make an attempt to un-install Meddy, then to install it'
-         {}M.##.OS.WinExecBatch '"',(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\unins000.exe"'
+         {}M.##.OS.WinExecute '"',(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\unins000.exe"'
          {}M.Pause'Press <enter> once Meddy has beem successfully uninstalled'
-         {}M.##.OS.WinExecBatch setupExe
+         {}M.##.OS.WinExecute setupExe
      :EndIf
      F.DeleteFile targetPath,name,'.exe'
      ⎕←'*** Done, clearing the workspace...'
