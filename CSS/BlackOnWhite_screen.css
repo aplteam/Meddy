@@ -737,10 +737,6 @@ nav a:visited {
     color: black;
 }
 nav ul li {
-/*    margin-top: 0.38em;
-    margin-bottom: 0.38em;
-    margin-right: 1.5em;
-    */
     margin: 0.38em 1em 0.38em 2em;
 }
 nav li p {

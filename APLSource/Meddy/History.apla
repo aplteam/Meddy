@@ -1,10 +1,9 @@
 (
- '* 3.1.0 - 2022-08-14'
+ '* 3.1.1 - 2022-08-??'
  ''
- '  * "Delete column" added to the table-specific commands                  '
- '  * New version of MarkAPL with improved styling of TOCs and inline code'
  '  * Bug fixes'
- '    * Opening a Markdown file that had no HTML companion yet crashed'
+ '    * Formatting a table could lead to the loss of data under some circumstances'
+ '    * "Extend table row" did not work as intended'
  ''
  'We now use History just for tracking changes in the next release.'
 )

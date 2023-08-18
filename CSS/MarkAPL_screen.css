@@ -710,7 +710,7 @@ nav#main_nav_no_collapse li {
 }
 nav ul  {
     list-style-type: none;
-    margin: 0 0 0.11em 0;
+    margin: 0 4em 0.11em 0;
     padding: 0;
 }
 nav a:visited {
@@ -761,7 +761,7 @@ div.toc-container h1 {
     margin: 0.27em 0 0.27em 0;
 }
 div.toc-container ul {
-    margin-left: -2em;
+
     margin-right: 1em;
 }
 [type="checkbox"] {
@@ -774,7 +774,7 @@ label {
     height: 1.1em;
     cursor: pointer;
     top: 0;
-    padding-left: 2em;
+    padding-left: 1em;
 }
 label:before {
     content: 'Table of contents  \25BC'; /* <<tocCaption>>'; */
@@ -903,4 +903,16 @@ div.leanpub > div {
 }
 .print_only {
     display: none;
+}
+pre[data-language] button {
+    align-self: end;
+    padding: 0.5rem;
+    border: none;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin: 0.25rem 0;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: var(--font-size-s);
+    justify-self: end;
 }
