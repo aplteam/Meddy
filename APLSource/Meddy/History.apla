@@ -4,6 +4,8 @@
  '  * Bug fixes'
  '    * Formatting a table could lead to the loss of data under some circumstances'
  '    * "Extend table row" did not work as intended'
+ '    * When `saveHTML` was added as a parameter a value of ¯1 was established which later made '
+ '      Meddy crash. The default should be 0.'
  ''
  'We now use History just for tracking changes in the next release.'
 )

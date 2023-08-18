@@ -12,15 +12,15 @@
          embeddedParms←↑GetEmbeddedParms n.Markdown.Text
          :If 0<+/bool←embeddedParms{((≢⍵)↑¨⍺)≡¨⊂⍵}'[parm]:saveHTML'
              saveHTML←(↑¯1↑⍸bool)⊃embeddedParms
-             saveHTML←{↑↑(//)⎕VFI ⍵↓⍨1+⍵⍳'='}saveHTML
+             saveHTML←1={↑↑(//)⎕VFI ⍵↓⍨1+⍵⍳'='}saveHTML
          :ElseIf 0<n.∆parms.⎕NC'embeddedParms'
          :AndIf ∨/n.∆parms.embeddedParms{((≢⍵)↑¨⍺)≡¨⊂⍵}'[parm]:saveHTML'
-             saveHTML←SaveHTMLValues.YesButKeepAsking
+             saveHTML←0
          :Else
              saveHTML←n.myFile.saveHtml
          :EndIf
          n.∆parms.embeddedParms←embeddedParms
-         :If saveHTML
+         :If 1=saveHTML
              :Trap 16 19
                  (⊂,n.HTML.∆HTML)F.NPUT n.myFile.filenameHtml 1
              :Else

@@ -1,5 +1,5 @@
  saveHTML←{saveHTML}DoYouWantToSaveHtml n;parms;noOf;bool
-⍝ `saveHTML` will be one of SaveHTMLValues.∆All
+⍝ `saveHTML` will become 0 or 1
  :If 0=⎕NC'saveHTML'
      :If 0<noOf←'[parm]'{+/∧\⍺∘≡¨(≢⍺)↑¨⍵}n.Markdown.Text
      :AndIf ∨/bool←{∨/¨':saveHTML'∘⍷¨⍵}noOf↑n.Markdown.Text
@@ -10,5 +10,7 @@
          parms.addToCaption←'Save HTML'
          saveHTML←(n.∆globalParms parms)G.Dialogs.YesOrNo'Would you like to save the HTML as well?'
      :EndIf
+ :Else
+     saveHTML←0
  :EndIf
 ⍝Done
