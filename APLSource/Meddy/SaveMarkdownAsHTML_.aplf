@@ -2,10 +2,9 @@
  parms←MarkAPL.CreateParms
  parms.verbose←0
  parms.createFullHtmlPage←n.FullHtmlDocument.State
- :If parms.cssURL≢⎕NULL
-     parms.cssURL,←'CSS\'
- :Else
-     parms.cssURL←F.PWD,'\CSS\'
+ :If parms.cssURL≡⎕NULL
+ :OrIf 0=≢⎕NULL
+     parms.cssURL←MarkAPL.##.TatinVars.GetFullPath2AssetsFolder
  :EndIf
  #.CursorObj←1
  (html ns)←parms MarkAPL.Markdown2HTML,n.Markdown.Text

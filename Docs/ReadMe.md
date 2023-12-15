@@ -1,10 +1,8 @@
 [parm]:numberHeaders=2 3 4
 [parm]:leanpubExtensions=1
-[parm]:printCSS='BlackOnWhite_print.css'
-[parm]:screenCSS='BlackOnWhite_screen.css'
 [parm]:title='Meddy ReadMe'
 [parm]:toc= 2 3
-[parm]:saveHTML=0
+[parm]:saveHTML=1
 
 
 Read me
@@ -13,13 +11,19 @@ Read me
 Purpose
 -------
 
-**_Meddy_** is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is, refer to <https://github.com/aplteam/MarkAPL> for details.
+`Meddy` is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is, refer to <https://github.com/aplteam/MarkAPL> for details.
 
 Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are specific to MarkAPL.
 
 Another feature worth mentioning is Meddy's advanced table editing capability: commands are available for formatting tables in the Markdown, inserting columns, moving rows and columns and jumping from column to column.
 
 The application was created with Dyalog 18.2 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
+
+
+32-bit and the future
+---------------------
+
+Version 4.0.0 is the last major release delivered as a 32-bit application. Version 5.0.0 will be 64-bit.
 
 
 Usage
@@ -74,9 +78,11 @@ Note that the TOC offers a context menu command "Find in TOC..." for searching j
 CSS Style sheets
 ----------------
 
-By default Meddy uses the "MarkAPL" style sheet for the preview. You can switch to "BlackOnWhite" via the "Preferences" menu (= for all documents you are going to save). These two style sheets are the default style sheets MarkAPL is coming with.
+Since version 4.0.0 Meddy uses the "Dark" style sheet by default for the preview. You can switch to a different one via the "Preferences" menu (= for all documents you are going to save). 
 
 However, changing the preferences only takes effect after the current document, if any, is re-opened.
+
+In case you had Meddy installed and used before "Dark" was invented (4.0.0) you might need to check in the "Preferences" dialog box which style sheet is selected. Choosing "Dark" is recommended.
 
 You can also embed a parameter into any markdown document explicitly defining the style sheet to be used. This is the recommended way to use your own taylor-made CSS.
 
@@ -102,7 +108,7 @@ Notes:
 
 ⍝ * You can also specify one or more CSS files via the (optional) [INI file command line parameter](#meddy_config).
 
-* The two sets of style sheets that are coming with Meddy (_MarkAPL*.css and BlackOnWhite_*.css) both carry mark-up for the LeanPub extensions.
+* All style sheets that are coming with Meddy carry markup for the LeanPub extensions.
 
 * `cssURL` should either be a URL or specify the CSS folder relative to where the HTML page will be saved.
 
@@ -311,7 +317,6 @@ Meddy is free software. It may be distributed freely but must not be sold. Also,
 Meddy was originally written by Kai Jaeger
 
 | Created     | 2017-10-23 |
-| Version     | 3.1        |
-| Last update | 2023-08-13 |
-
+| Version     | 4.0        |
+| Last update | 2023-12-12 |
 

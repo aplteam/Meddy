@@ -21,6 +21,7 @@
      :EndIf
      :If ~hasMeddyConfigFile
      :AndIf 0=n.myFile.saveHtml←⎕NEXISTS htmlFilename
+         #.CursorObj←0
          :If n.myFile.saveHtml←n WantToSaveHtml ⍬
              :If SaveHtmlAlongMarkdown n
                  n.myFile.filenameHtml←(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
@@ -28,6 +29,7 @@
                  n.myFile.filenameHtml←AskForSaveHtmlFilename n
              :EndIf
          :EndIf
+         #.CursorObj←1
      :ElseIf 0<≢n.myFile.filenameHtml←htmlFilename
          n.myFile.saveHtml←1
      :EndIf

@@ -10,10 +10,10 @@
          parms←GetPreferences n
          parms←CompileParmsForMarkAPL n parms
          parms←n CheckOnCssFiles parms
-         :If 0=F.IsFile parms.screenCSS
+         :If 0=F.IsFile RemoveFileProtocol parms.screenCSS
              parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
              :If ⎕NULL≡parms.cssURL
-                 parms.cssURL←'file:///',F.PWD,'\CSS\'
+                 parms.cssURL←'file://',MarkAPL.##.TatinVars.GetFullPath2AssetsFolder
              :EndIf
          :Else
              parms.cssURL←''
@@ -29,7 +29,7 @@
              {}n TellErrorWhileConvertingMarkdown m
              :Return
          :EndTrap
-         n.HTML.∆HTML←html
+         n.HTML.∆HTML←html←,¨html
          n.HTML.∆ns←ns
          n.HideCSS.State ProcessHTML n
          :If 0=n.IE.∆Closed

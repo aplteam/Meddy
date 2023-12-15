@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "3.1.1-beta-1+455"
+#define MyAppVersion "4.0.0+499"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "Kai Jaeger"
@@ -61,7 +61,7 @@ Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
 ;Source: "HTML\ReadMe.html"; DestDir: "{app}";
 ;Source: "HTML\ReleaseNotes.html"; DestDir: "{app}";
 ;Source: "HTML\Presentations.html"; DestDir: "{app}";
-Source: "CSS\*"; DestDir: "{app}\CSS";
+;Source: "CSS\*"; DestDir: "{app}\CSS";       REMOVED - ⍝TODO⍝
 Source: "HTML\*"; DestDir: "{app}\HTML";
 Source: "packages\*"; DestDir: "{app}\packages"; Flags: createallsubdirs recursesubdirs
 Source: "Meddy2.ico"; DestDir: "{app}";

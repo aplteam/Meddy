@@ -5,7 +5,7 @@
  parms.addToCaption←'Preferences'
  parms.tips←0 2⍴⍬
  parms.tips⍪←'Width'('This affects only the preview.' 'You can set the width for your final' 'document with: [parm]:width=900')
- parms.tips⍪←'StyleSheet'('Select one of two styleSheet-sheet sets:' 'MarkAPL_[screen|print].css' 'BlackOnWhite_[screen|print].css' 'Or specify your own set in the Markdown with [parm]:')
+ parms.tips⍪←'StyleSheet'('Select one style sheet:' 'Dark_[screen|print].css' 'MarkAPL_[screen|print].css' 'BlackAndWhite_[screen|print].css' 'Or specify your own set in the Markdown with [parm]:')
  parms.tips⍪←'LeanPub'('See https://github.com/aplteam/MarkAPL' 'for details regarding LeanPub extensions.')
  parms.parent←n.∆Form
  parms.menubar←''
@@ -16,7 +16,7 @@
  width←(⍕¨100×5+⍳12),⊂'none'
  parms.props←1 2⍴'Width'(⊂'SelItems'({0=+/⍵:(-≢⍵)↑1 ⋄ ⍵}width≡¨⊂n.∆Prefs.Width))
  def⍪←'Width' 'Max-width for preview'(⍕¨width)DT.DropDown ⍬ 1 1
- styleSheet←'MarkAPL' 'BlackOnWhite'
+ styleSheet←'Dark' 'MarkAPL' 'BlackOnWhite'
  parms.props⍪←'StyleSheet'(⊂'SelItems'(styleSheet≡¨⊂n.∆Prefs.StyleSheet))
  parms.onInitial←'OnInitialPreferences'
  def⍪←'StyleSheet' 'Default style-sheet set'styleSheet DT.DropDown 30 1 1

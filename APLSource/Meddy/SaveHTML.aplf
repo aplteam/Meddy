@@ -1,4 +1,4 @@
- r←SaveHTML n
+  r←SaveHTML n
 ⍝ See also SaveText
  r←0
  :Trap 0

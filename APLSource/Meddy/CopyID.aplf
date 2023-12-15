@@ -1,8 +1,10 @@
  {r}←CopyID n;row;ind;txt;cl
  r←0
  row←0 0⊃n.Markdown.SelText
- ind←(⊃n.HTML.∆ns.toc)[;3]⍳row
- :If ind∊⍳≢n.HTML.∆ns.toc
+ ∘∘∘
+ :If 0<≢n.HTML.∆ns.toc
+     ind←(⊃n.HTML.∆ns.toc)[;3]⍳row
+ :AndIf ind∊⍳≢n.HTML.∆ns.toc
      txt←{0<≢2⊃⍵:2⊃⍵ ⋄ 1⊃⍵}ind⊃n.HTML.∆ns.toc
      cl←⎕NEW⊂'Clipboard'
      cl.Text←txt

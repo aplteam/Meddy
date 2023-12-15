@@ -1,5 +1,5 @@
  MarkdownHasChanged←{
      n←⍵
      0=n.Markdown.⎕NC'∆LastSavedVersion':0
-     n.Markdown.∆LastSavedVersion≢n.Markdown.Text
+     (∊n.Markdown.∆LastSavedVersion)≢∊n.Markdown.Text
  }

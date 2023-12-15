@@ -7,7 +7,7 @@
      ∆StartAtTop←1
  :EndIf
  r←⍬
- A←APLTreeUtils2 ⋄ G←APLGUI
+ A←##.APLTreeUtils2 ⋄ G←##.APLGUI
  parms←G.Input.CreateParms
  parms.addToCaption←'Find in TOC'
  parms.parent←n.∆Form

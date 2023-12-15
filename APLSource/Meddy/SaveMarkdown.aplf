@@ -3,9 +3,9 @@
  :If n.myFile.firstFlag
      SaveMarkdownAs n
  :Else
+     RefreshPreview n
      SaveText n.myFile.filenameMarkdown n.Markdown.Text
      n.Markdown.∆LastSavedVersion←n.Markdown.Text
-     RefreshPreview n
      :If IsPresentation n
          SaveMarkdownAsPresentation n n.myFile.filenameHtml
      :Else

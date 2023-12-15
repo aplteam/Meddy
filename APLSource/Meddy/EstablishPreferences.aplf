@@ -2,7 +2,7 @@
 ⍝ Reads the preferences from the Windows Registry or uses defaults.
  n.∆Prefs←n.⎕NS''
  n.∆Prefs.Width←900
- n.∆Prefs.StyleSheet←'MarkAPL'
+ n.∆Prefs.StyleSheet←'Dark'
  n.∆Prefs.Warnings←0
  n.∆Prefs.LeanpubExtensions←0
 ⍝ n.∆Prefs.PortNo←4711           ⍝ For Meddy's built-in server, if we ever support "Push"

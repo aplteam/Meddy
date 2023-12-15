@@ -3,6 +3,12 @@
  :If MarkdownHasChanged n
      'Show in default browser'TellMarkdownNeedsSaving n
  :Else
+     :If ~n.myFile.saveHtml
+         n.myFile.filenameHtml←FilesAndDirs.GetTempFilename2'Meddy'
+         FilesAndDirs.DeleteFile n.myFile.filenameHtml
+         n.myFile.filenameHtml←(↑,/¯1↓⎕NPARTS n.myFile.filenameHtml),'.html'
+         {}SaveHTML n
+     :EndIf
      :If 0=≢n.myFile.filenameHtml
          :If ~0∊≢n.myFile.filenameMarkdown
              htmlFilename←(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'

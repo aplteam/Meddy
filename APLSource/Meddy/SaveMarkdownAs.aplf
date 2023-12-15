@@ -27,6 +27,7 @@
          :EndIf
          n.∆Menubar.(save close).Active←1
          n.∆Menubar.save.Active←1
+         n.∆Menubar.export.Active←1
          {}n AddFileToRecentFileList n.myFile.filenameMarkdown
      :EndIf
  :EndIf

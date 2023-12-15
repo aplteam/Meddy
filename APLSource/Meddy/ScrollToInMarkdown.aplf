@@ -1,4 +1,4 @@
- {r}←{selectText}ScrollToInMarkdown(n ind);length;row;caption;pattern;level;offset;buff;best;header
+ {r}←{selectText}ScrollToInMarkdown(n ind);length;row;caption;pattern;level;offset;buff;best;header;caption_
  r←⍬
  selectText←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'selectText'
  ind←↑ind
@@ -7,17 +7,20 @@
      :If row≥≢n.Markdown.Text
          :Return ⍝ Yes, this did happen!
      :EndIf
-     caption←A.DLB A.DTB{⍵↓⍨+/∧\'#'=⍵}(row-1)⊃n.Markdown.Text
+     caption←A.DLB A.DTB{⍵↓⍨+/∧\'#'=⍵}caption_←(row-1)⊃n.Markdown.Text
      :If '}'=¯1↑caption
      :AndIf '{'∊caption
          caption←A.DTB{⍵↑⍨(≢⍵)-1+(⌽⍵)⍳'{'}caption
      :EndIf
-     :If header≢caption
+     :If ∧/(⎕D,'.')∊⍨{⍵↑⍨⍵⍳' '}header
+         header←{⍵↓⍨1+⍵⍳' '}header
+     :EndIf
+     :If caption≢header
          2 RefreshPreview n
          :If ind≥≢n.Toc.∆Toc
              :Return
          :EndIf
-         (header row)←n.Toc.∆Toc[ind;1 3]
+         row←1⊃n.Toc.∆Toc[ind;1 3]
      :EndIf
      length←1+≢(row-1)⊃n.Markdown.Text
      :If selectText

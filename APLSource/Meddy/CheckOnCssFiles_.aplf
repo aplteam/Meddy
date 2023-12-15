@@ -6,7 +6,7 @@
          :Return
      :EndIf
      cssFilename←{~','∊⍵:⊂⍵ ⋄ ','A.Split ⍵}cssFilename
- :AndIf 0=+/F.IsFile cssFilename
+ :AndIf 0=+/F.IsFile¨RemoveFileProtocol¨cssFilename
  :AndIf n.∆INI.Exist'CONFIG:workdir'
  :AndIf 0<≢buff←⊃n.∆INI.Get'CONFIG:workdir'
      cssFilename←buff∘,¨cssFilename

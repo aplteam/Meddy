@@ -1,5 +1,4 @@
- txt←MakeUrlsAbsolute_ ns;this;offset;length;drop;url;⎕TRAP
- ⎕TRAP←0 'S'
+ txt←MakeUrlsAbsolute_ ns;this;offset;length;drop;url
  :If 1=ns.PatternNum
      :For offset length :In ns.(Offsets Lengths)
          drop←+/↑¨ns.(Offsets Lengths)

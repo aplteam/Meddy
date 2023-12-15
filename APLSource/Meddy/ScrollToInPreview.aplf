@@ -6,11 +6,15 @@
      :Return
  :EndIf
  ID←(row,2)⊃n.HTML.∆ns.toc
- element←doc.getElementById⊂ID
- :Trap 2 11
+ element←doc.getElementById⊂⎕C ID
+ :If 0≢element
+     :Trap 2 11
  ⍝ This method may start producing syntax/domain errors even when everything is fine.
  ⍝ Therefore we have to trap such errors here.
  ⍝ Note that occasionally the function `scrollIntoView` requires an argument!
-     {}element.scrollIntoView
- :EndTrap
+         {}element.scrollIntoView
+     :Else
+          ⍝TODO⍝  ⍝TODO⍝
+     :EndTrap
+ :EndIf
 ⍝Done

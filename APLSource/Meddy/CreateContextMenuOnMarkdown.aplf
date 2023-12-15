@@ -11,7 +11,7 @@
  ∆←''
  ∆,←⊂'Caption'('Copy',TAB,'Ctrl+C')
  ∆,←⊂'Accelerator'(67 2)
- f←{0=≢∊⍵.Markdown.Text:0 ⋄ =/0⊃¨n.Markdown.SelText}n
+ f←{0=≢∊⍵.Markdown.Text:0 ⋄ ≢/n.Markdown.SelText}n
  ∆,←⊂'Active'f
  m.copy←m.⎕NEW'MenuItem'∆
  m.copy.onSelect←1
@@ -20,7 +20,7 @@
  ∆,←⊂'Caption'('Copy ID')
  f←{0=≢∊⍵.Markdown.Text:1 ⋄ =/0⊃¨n.Markdown.SelText}n
  f∧←{≡/⍵}↑¨n.Markdown.SelText
- f∧←{0=≢n.HTML.∆ns.toc:1 ⋄ (0 0⊃n.Markdown.SelText)∊(⊃⍵)[;3]}n.HTML.∆ns.toc
+ f∧←{0=≢n.HTML.∆ns.toc:0 ⋄ (0 0⊃n.Markdown.SelText)∊(⊃⍵)[;3]}n.HTML.∆ns.toc
  ∆,←⊂'Active'f
  m.copyID←m.⎕NEW'MenuItem'∆
  m.copyID.onSelect←1

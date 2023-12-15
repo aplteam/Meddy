@@ -11,7 +11,6 @@
      ⎕WSID←targetPath,name,'.dws'
      M.RecreateFolder targetPath
      M.IncreaseBuildIDInFunction'#.Meddy.Meddy.Version'
-     (##.CiderConfig.HOME,'/CSS/')⎕NCOPY⍠('IfExists' 'ReplaceIfNewer')('Wildcard' 1)⊣##.Meddy.MarkAPL.##.TatinVars.GetFullPath2AssetsFolder,'*.css' ⍝ Update CSS
      {}⎕SE.Cider.CloseProject''
      ⎕LX←'#.Meddy.Run'''''
      ⎕EX¨'MAF'

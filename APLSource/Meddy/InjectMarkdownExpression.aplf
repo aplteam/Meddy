@@ -7,7 +7,7 @@
  def←0 7⍴⍬
  caption←'What kind of expression would you like to inject at the cursor position?'
  def⍪←'Info' ''caption G.Enums.InputDataTypes.Label ⍬ 0 1
- options←'Image by URL' 'Image by file' 'Foot&note' '&Abbreviation' '&Definition list' '&Link by URL' '&Simplified link by URL' '&Bookmark Link'
+ options←'Image by URL' 'Image by file' 'Foot&note' '&Abbreviation' '&Definition list' '&Link by URL' '&Simplified link by URL' '&Bookmark Link' '&Collapsible'
  def⍪←'Expressions'('Expressions',↑,/'⋄',¨options)0 G.Enums.InputDataTypes.Radio ⍬ 1 1
  ⍝ [caption](url | title){special attrs}
  result←n.∆globalParms parms G.Input.Run def
@@ -30,6 +30,8 @@
          text←'<https://github.com/aplteam/MarkAPL {style="color: red;"}>'
      :Case 7 ⍝ Bookmark link
          text←GetTextToBeInjectedAsBookMark n
+     :Case 8 ⍝ Collapsible
+         text←'!> The caption',CR,'=> The details'
      :Else
          . ⍝ Huuh?!
      :EndSelect

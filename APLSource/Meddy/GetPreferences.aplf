@@ -11,6 +11,6 @@
  parms.checkLinks←1
  parms←parms InjectConfigFile n.myFile.filenameMarkdown
  parms.width←n.∆Prefs.Width
- parms.screenCSS←('MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'MarkAPL_screen.css' 'BlackOnWhite_screen.css' 'MarkAPL_screen.css'
- parms.printCSS←('MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'MarkAPL_print.css' 'BlackOnWhite_print.css' 'MarkAPL_print.css'
+ parms.screenCSS←('Dark' 'MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'Dark_screen.css' 'MarkAPL_screen.css' 'BlackOnWhite_screen.css' 'MarkAPL_screen.css'
+ parms.printCSS←('Dark' 'MarkAPL' 'BlackOnWhite'⍳⊂n.∆Prefs.StyleSheet)⊃'Dark_print.css' 'MarkAPL_print.css' 'BlackOnWhite_print.css' 'MarkAPL_print.css'
 ⍝Done

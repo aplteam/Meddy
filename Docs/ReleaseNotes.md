@@ -1,6 +1,24 @@
-Release Notes 
-=============
+# Release Notes 
 
+
+## 4.0.0 - 2023-12-12
+
+* New version of `MarkAPL` that breaks with past behaviour: HTML in markdown is now converted. 
+
+  If you need to _show_ HTML tags make it inline code.
+* Table-related context menu command "Delete column" added
+* Context menu command "Inject MarkAPL expression" now includes "Collapsibles".
+* New theme "Dark" added
+* All CSS style sheets improved
+* The parameter `collapsibleTOC` is deprecated now, and has no effect anymore
+* Bug fixes     
+  * Inserting a bookmark link should not add the header numbers to the link text  
+  * "Copy ID" crashed in documents with no header
+  * "Copy" was not always available in the context menu when it should have been
+  * Formatting a table could lead to the loss of data under some circumstances
+  * "Extend table row" did not work as intended
+  * When `saveHTML` was added as a parameter, a value of `¯1` was established which 
+     made Meddy crash later. The default should be `0`.
 
 ## 3.1.0 - 2023-08-14
 
@@ -45,7 +63,7 @@ Release Notes
 
 ## 2.11.1 - 2020-08-24
 
-* When a document that was saved with a TOC was changed so that there were no headers anynmore and then saved under a different name, Meddy crashed.
+* When a document that was saved with a TOC was changed so that there were no headers anymore, and then saved under a different name, Meddy crashed.
 * When Meddy was asked to close down but there were unsaved changes waiting, and the attempt to save them failed with error 19, then Meddy informed the user about the error but closed down anyway, effectively discarding the changes.
 
 ## 2.11.0 - 2020-08-19
@@ -86,6 +104,14 @@ Release Notes
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
+
+
+
+
+
+
+
 
 
 

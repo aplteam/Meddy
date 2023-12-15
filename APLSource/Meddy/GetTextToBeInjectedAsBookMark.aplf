@@ -21,6 +21,7 @@
          parms2←G.Request.CreateParmsForString
          parms2.addToCaption←'Link text'
          parms2.default←↑bool2/bool/n.Toc.Items
+         parms2.default←{~' '∊⍵:⍵ ⋄ l←(⍵⍳' ')↑⍵ ⋄ 0=+/(∨/'.'∊l)∧×/(l~'.')∊⎕D:⍵ ⋄ (1+≢l)↓⍵}parms2.default
          (success linkText)←n.∆globalParms parms2 G.Request.AskForString'Please specify the link text:'
      :AndIf success
          :If linkText≢parms2.default
