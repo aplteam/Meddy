@@ -1,6 +1,10 @@
 # Release Notes 
 
 
+## 4.1.0 - 2023-12-26
+
+* New version of MarkAPL integrated
+
 ## 4.0.0 - 2023-12-12
 
 * New version of `MarkAPL` that breaks with past behaviour: HTML in markdown is now converted. 
@@ -104,6 +108,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

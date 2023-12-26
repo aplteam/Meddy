@@ -96,11 +96,11 @@ This can be achieved by setting these parameters:
 [parm]:cssUrl='file:///CSS/'
 [parm]:linkToCss=1
 [parm]:leanpubExtensions=1
-[parm]:screenCSS=Screen.CSS
-[parm]:printCSS=Print.CSS
+[parm]:screenCSS='Screen.css'
+[parm]:printCSS='Print.css'
 ~~~
 
-Note that you can specify more than one CSS file: separate them with commata. In case of conflicts the last one wins.
+Note that you can specify more than one CSS file: separate them with commata. In case of a conflict the last hit wins.
 
 Notes:
 
@@ -318,5 +318,6 @@ Meddy was originally written by Kai Jaeger
 
 | Created     | 2017-10-23 |
 | Version     | 4.0        |
-| Last update | 2023-12-12 |
+| Last update | 2023-12-26 |
+
 
