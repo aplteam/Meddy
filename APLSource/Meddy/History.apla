@@ -1,4 +1,8 @@
 (
+ '* 4.1.0 - 2022-12-26'
+ ''
+ '  * New version of MarkAPL integrated'
+ ''
  '* 4.0.0 - 2022-12-15'
  '  '
  '  * Context menu command "Delete column" added'
