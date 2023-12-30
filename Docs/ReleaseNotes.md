@@ -1,3 +1,6 @@
+[parm]:title = 'Meddy Release Notes'
+
+
 # Release Notes 
 
 
@@ -108,6 +111,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

@@ -1,8 +1,8 @@
-[parm]:numberHeaders=2 3 4
-[parm]:leanpubExtensions=1
-[parm]:title='Meddy ReadMe'
-[parm]:toc= 2 3
-[parm]:saveHTML=1
+[parm]:numberHeaders        = 2 3 4
+[parm]:leanpubExtensions    = 1
+[parm]:title                = 'Meddy ReadMe'
+[parm]:toc                  = 2 3
+[parm]:saveHTML             = 1
 
 
 Read me
@@ -23,7 +23,7 @@ The application was created with Dyalog 18.2 32 bit Unicode but is delivered as 
 32-bit and the future
 ---------------------
 
-Version 4.0.0 is the last major release delivered as a 32-bit application. Version 5.0.0 will be 64-bit.
+Version 4 is the last major release delivered as a 32-bit application. Version 5.0.0 will be 64-bit.
 
 
 Usage
@@ -319,5 +319,6 @@ Meddy was originally written by Kai Jaeger
 | Created     | 2017-10-23 |
 | Version     | 4.0        |
 | Last update | 2023-12-26 |
+
 
 
