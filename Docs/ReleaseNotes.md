@@ -4,9 +4,9 @@
 # Release Notes 
 
 
-## 4.1.0 - 2023-12-26
+## 4.1.0 - 2024-01-11
 
-* New version of MarkAPL integrated
+* New version of MarkAPL, APLGUI and FilesAndDirs integrated.
 
 ## 4.0.0 - 2023-12-12
 
@@ -111,6 +111,9 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
+
+
 
 
 
