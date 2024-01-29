@@ -4,6 +4,10 @@
 # Release Notes 
 
 
+## 4.1.1 - 2024-01-29
+
+* Bug fix: the print style sheet of the "Dark" theme used a way-too-big base font size.
+
 ## 4.1.0 - 2024-01-11
 
 * New version of MarkAPL, APLGUI and FilesAndDirs integrated.
@@ -111,6 +115,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

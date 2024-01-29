@@ -1,10 +1,14 @@
-  Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q
-⍝ Version 3.1.0 ⋄ 2023-08-13
+ Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q
+⍝ Version 3.2.1 ⋄ 2024-01-29
  ⎕IO←1 ⋄ ⎕ML←1
  q←'Sure you want to build a new version of Meddy? The WS will be destroyed in the process!'
+ 'This requires a 32-bit version of Dyalog APL'⎕SIGNAL 11/⍨∨/'-64'⍷1⊃# ⎕WG'APLVersion'
  :If ##.TestCases.CommTools.YesOrNo q
      pathToSource←##.CiderConfig.HOME,'\'
      targetPath←##.CiderConfig.HOME,'\Dist\'
+     :If 0=⎕SE.⎕NC'MakeHelpers'
+         ⎕SE.Tatin.LoadPackages'[tatin]MakeHelpers'⎕SE
+     :EndIf
      M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
 ⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
      name←'Meddy'
@@ -28,8 +32,8 @@
      parms.Icon←pathToSource,'Meddy1.ico'
      ∆Stop ⎕STOP⊃⎕SI
      ⎕←(⎕PW-1)⍴'-'
-     ⎕←'Please trace through the next statement until you read the lable ∆CarryOn when you might execute →⎕LC'
-     ⎕←'This avoids running into strange issues with references in # pointing to ⎕SE and vice versa'
+     ⎕←'Please trace through the next statement until you reach the lable ∆CarryOn when you might execute →⎕LC.'
+     ⎕←'This avoids running into strange issues with references in # pointing to ⎕SE and vice versa.'
 ∆Stop:
      ⎕EX¨'AFM'
      ⎕SE.MakeHelpers.MakeStandAloneRunTimeExe parms
@@ -41,8 +45,9 @@
      setupExe←pathToSource #.Inno.Run name
      :If 1 M.YesOrNo'Would you like to execute "',setupExe,'" ?'
          {}M.Pause'First we need to make an attempt to un-install Meddy, then to install it'
-         {}M.##.OS.WinExecute '"',(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\unins000.exe"'
-         {}M.Pause'Press <enter> once Meddy has beem successfully uninstalled'
+         {}M.##.OS.WinExecute'"',(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\unins000.exe"'
+         {}M.Pause'Press <enter> once Meddy has been successfully uninstalled'
+         'Install direcotory is not empty'⎕SIGNAL 11/⍨0≠≢⊃F.Dir(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\'
          {}M.##.OS.WinExecute setupExe
      :EndIf
      F.DeleteFile targetPath,name,'.exe'

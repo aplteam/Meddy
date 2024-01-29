@@ -11,6 +11,6 @@
  buff←'|'{(⍺≠⍵)⊆⍵}row⊃md
  →T.PassesIf 2=≢buff
  version←APLTreeUtils2.DMB 1⊃buff
- →T.PassesIf version≡{⍵/⍨1≥+\'.'=⍵}1⊃##.Meddy.Version
+ →T.PassesIf version≡{⍵↑⍨⌊/⍵⍳' +'}1⊃##.Meddy.Version
 
  R←T._OK
