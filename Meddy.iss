@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "4.1.1+539"
+#define MyAppVersion "5.0.0+565"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "Kai Jaeger"
@@ -20,7 +20,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={commonpf32}\{#MyAppPublisher}\{#MyAppName}
+DefaultDirName={commonpf64}\{#MyAppPublisher}\{#MyAppName}
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 AllowNoIcons=yes
 OutputDir=C:/Users/kai/AppData/Local/Temp/InnoTempDir
@@ -36,17 +36,17 @@ Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License";
 
 [Registry]
 ; Globals
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}"; Flags: uninsdeletekeyifempty
-Root: HKLM32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; Flags: uninsdeletekey
+Root: HKLM64; Subkey: "Software\{#MyAppPublisher}"; Flags: uninsdeletekeyifempty
+Root: HKLM64; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; Flags: uninsdeletekey
 Root: HKCR;   Subkey: ".md"; ValueType: string; ValueName: ""; ValueData: "markdownfile"; Flags: uninsdeletevalue; Tasks: DefaultApp
 Root: HKCR;   Subkey: "markdownfile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletevalue; Tasks: DefaultApp
 ;User-specific 
-Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter1Posn"; ValueData: ""; Flags: uninsdeletekey
-Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter2Posn"; ValueData: ""; Flags: uninsdeletekey
-Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: dword; ValueName: "FontSize"; ValueData: 17; Flags: uninsdeletekey
-Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "RecentFiles"; ValueData: ""; Flags: uninsdeletekey
-Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "FirstFlag"; ValueData: 1; Flags: uninsdeletekey
-Root: HKCU32; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "SaveHTML"; ValueData: 1; Flags: uninsdeletekey
+Root: HKCU64; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter1Posn"; ValueData: ""; Flags: uninsdeletekey
+Root: HKCU64; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\MainForm"; ValueType: string; ValueName: "Splitter2Posn"; ValueData: ""; Flags: uninsdeletekey
+Root: HKCU64; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: dword; ValueName: "FontSize"; ValueData: 17; Flags: uninsdeletekey
+Root: HKCU64; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}"; ValueType: string; ValueName: "RecentFiles"; ValueData: ""; Flags: uninsdeletekey
+Root: HKCU64; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "FirstFlag"; ValueData: 1; Flags: uninsdeletekey
+Root: HKCU64; Subkey: "Software\{#MyAppPublisher}\{#MyAppName}\Preferences"; ValueType: dword; ValueName: "SaveHTML"; ValueData: 1; Flags: uninsdeletekey
 
 [Dirs]
 Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
@@ -54,8 +54,8 @@ Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
 [Files]
 
 ; The Conga DLLs are required for "Check for updates" (and potentially a Ride)
-Source: "conga34ssl32.dll"; DestDir: "{app}";
-Source: "conga34_32.dll"; DestDir: "{app}";
+Source: "conga35ssl64.dll"; DestDir: "{app}";
+Source: "conga35_64.dll"; DestDir: "{app}";
 ;Source: "dyalognet.dll"; DestDir: "{app}"     
 Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
 ;Source: "HTML\ReadMe.html"; DestDir: "{app}";

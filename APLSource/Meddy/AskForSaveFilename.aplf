@@ -15,9 +15,14 @@
  :AndIf 0<≢buff←↑buff
      filename←{⍵↓⍨2+1⍳⍨'# '⍷⍵}buff
  :EndIf
- :If 0=≢path←↑⎕NPARTS filename
+ :Trap 10 ⍝ LIMIT ERROR: when filename carries too many words
+     :If 0=≢path←↑⎕NPARTS filename
+         path←n.∆Path
+     :EndIf
+ :Else
+     filename←''
      path←n.∆Path
- :EndIf
+ :EndTrap
  flag←0
  :Repeat
      parms.addToCaption←'Save Markdown file'

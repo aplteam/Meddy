@@ -4,6 +4,11 @@
 # Release Notes 
 
 
+## 5.0.0 - 2024-02-06
+
+* Meddy is now a 64-bit appliation
+
+
 ## 4.1.1 - 2024-01-29
 
 * Bug fix: the print style sheet of the "Dark" theme used a way-too-big base font size.

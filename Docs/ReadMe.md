@@ -11,19 +11,13 @@ Read me
 Purpose
 -------
 
-`Meddy` is a simple 32-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is, refer to <https://github.com/aplteam/MarkAPL> for details.
+`Meddy` is a simple 64-bit Markdown Windows-only editor written in Dyalog APL; it allows one to edit a Markdown file and to convert it into valid HTML5 by using MarkAPL; if you don't know what MarkAPL is, refer to <https://github.com/aplteam/MarkAPL> for details.
 
 Meddy's main advantage is not its features, it's the fact that MarkAPL is used as converter: by using an editor which uses MarkAPL you can take advantage of the features that are specific to MarkAPL.
 
 Another feature worth mentioning is Meddy's advanced table editing capability: commands are available for formatting tables in the Markdown, inserting columns, moving rows and columns and jumping from column to column.
 
-The application was created with Dyalog 18.2 32 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
-
-
-32-bit and the future
----------------------
-
-Version 4 is the last major release delivered as a 32-bit application. Version 5.0.0 will be 64-bit.
+The application was created with Dyalog 19. 64 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
 
 
 Usage

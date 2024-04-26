@@ -1,8 +1,7 @@
- Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q
-⍝ Version 3.2.1 ⋄ 2024-01-29
+ Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q;filename;installDir32;installDir64
+⍝ Version 3.3.0 ⋄ 2024-02-06
  ⎕IO←1 ⋄ ⎕ML←1
  q←'Sure you want to build a new version of Meddy? The WS will be destroyed in the process!'
- 'This requires a 32-bit version of Dyalog APL'⎕SIGNAL 11/⍨∨/'-64'⍷1⊃# ⎕WG'APLVersion'
  :If ##.TestCases.CommTools.YesOrNo q
      pathToSource←##.CiderConfig.HOME,'\'
      targetPath←##.CiderConfig.HOME,'\Dist\'
@@ -30,24 +29,46 @@
      parms.CompanyName←'Kai Jaeger'
      parms.FileDescription←'Markdown editor'
      parms.Icon←pathToSource,'Meddy1.ico'
-     ∆Stop ⎕STOP⊃⎕SI
-     ⎕←(⎕PW-1)⍴'-'
-     ⎕←'Please trace through the next statement until you reach the lable ∆CarryOn when you might execute →⎕LC.'
-     ⎕←'This avoids running into strange issues with references in # pointing to ⎕SE and vice versa.'
-∆Stop:
      ⎕EX¨'AFM'
+⍝     ⎕SIGNAL 0
      ⎕SE.MakeHelpers.MakeStandAloneRunTimeExe parms
-∆CarryOn: ⍝ From here →⎕LC is okay
      M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
      M.UpdateVersionNumberInInno_ISS(pathToSource,name,'.iss')(2⊃##.Meddy.Version)
      M.ConvertMarkdownToHtml5 pathToSource∘,¨'Docs\' 'HTML\'
      {}⎕SE.Tatin.LoadPackages'aplteam-Inno'#
      setupExe←pathToSource #.Inno.Run name
      :If 1 M.YesOrNo'Would you like to execute "',setupExe,'" ?'
-         {}M.Pause'First we need to make an attempt to un-install Meddy, then to install it'
-         {}M.##.OS.WinExecute'"',(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\unins000.exe"'
-         {}M.Pause'Press <enter> once Meddy has been successfully uninstalled'
-         'Install direcotory is not empty'⎕SIGNAL 11/⍨0≠≢⊃F.Dir(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\'
+         installDir32←(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\'
+         :If ⎕NEXISTS installDir32
+             q←'' 'It appears that the 32-bit version of Meddy is installed. Uninstall?'
+             :If 1 M.YesOrNo q
+                 filename←⊃⊃F.Dir installDir32,'/unins???.exe'
+                 :If 0<≢filename
+                     {}M.##.OS.WinExecute filename
+                     :If ~M.YesOrNo'Did you un-install the 32-bit version of Meddy?'
+                         :Return
+                     :EndIf
+                     :If F.IsFile filename
+                         ⎕←'The 32-bit version of Meddy is still installed, therefore the 64-bit version cannot be installed!'
+                         :Return
+                     :EndIf
+                 :Else
+                     ⎕←'The 32-bit version of Meddy is still installed, therefore the 64-bit version cannot be installed!'
+                     :Return
+                 :EndIf
+             :EndIf
+         :EndIf
+         installDir64←(2 ⎕NQ #'GetEnvironment' 'ProgramFiles'),'\Kai Jaeger\Meddy\'
+         :If F.IsDir installDir64
+             filename←⊃⊃F.Dir installDir64,'/unins???.exe'
+         :AndIf F.IsFile filename
+             {}M.Pause'First we need to make an attempt to un-install Meddy, then to install it'
+             {}M.##.OS.WinExecute'"',(filename~'"'),'"'
+             {}M.Pause'Press <enter> once Meddy has been successfully uninstalled'
+         :EndIf
+         :If F.IsDir installDir64
+             'Install directory is not empty'⎕SIGNAL 11/⍨0≠≢⊃F.Dir installDir64
+         :EndIf
          {}M.##.OS.WinExecute setupExe
      :EndIf
      F.DeleteFile targetPath,name,'.exe'
