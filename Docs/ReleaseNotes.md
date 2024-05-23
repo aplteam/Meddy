@@ -8,6 +8,10 @@
 
 * Meddy is now a 64-bit appliation
 
+  Because of that your are advised to uninstall any earlier version of Meddy because that would be a 32-bit application.
+
+* Bug fix: in case the filename was guessed by Meddy under some circumstances the resulting filename might end up with plenty of words, causing a LIMIT ERROR.
+
 
 ## 4.1.1 - 2024-01-29
 
@@ -120,6 +124,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

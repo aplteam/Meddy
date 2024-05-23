@@ -7,7 +7,7 @@ aplteam-EventCodes-3.0.1
 aplteam-WinRegSimple-3.1.0
 aplteam-APLGUI-0.32.0
 aplteam-OS-3.1.1
-aplteam-GitHubAPIv3-1.1.0
-aplteam-APLProcess-0.7.1
+aplteam-GitHubAPIv3-1.2.0
+aplteam-APLProcess-0.7.0
 aplteam-PresentAPL-3.2.0
 aplteam-MarkAPL-12.1.2

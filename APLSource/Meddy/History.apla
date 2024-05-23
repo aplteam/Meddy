@@ -1,6 +1,9 @@
 (
- '* 5.0.0 - 2024-02-06'
+ '* 5.0.0 - 2024-05-24'
  '  * Meddy is now a 64-bit application'
+ '  * Bug fixes'
+ '    * When the filename was compiled from a level-one header for saving the document, too many words '
+ '      could cause a LIMIT ERROR. '
  '* 4.1.1 - 2024-01-29'
  '  * Bug fix: print-outs used a way-too-large base font size'
  '* 4.1.0 - 2024-01-11'
