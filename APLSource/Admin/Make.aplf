@@ -1,5 +1,5 @@
- Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q;filename;installDir32;installDir64
-⍝ Version 3.3.0 ⋄ 2024-02-06
+ Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q;filename;installDir32;installDir64;rc;msg;processInfo;result
+⍝ Version 3.4.0 ⋄ 2024-06-08
  ⎕IO←1 ⋄ ⎕ML←1
  q←'Sure you want to build a new version of Meddy? The WS will be destroyed in the process!'
  :If ##.TestCases.CommTools.YesOrNo q
@@ -30,7 +30,7 @@
      parms.FileDescription←'Markdown editor'
      parms.Icon←pathToSource,'Meddy1.ico'
      ⎕EX¨'AFM'
-⍝     ⎕SIGNAL 0
+     ⎕SIGNAL 0
      ⎕SE.MakeHelpers.MakeStandAloneRunTimeExe parms
      M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
      M.UpdateVersionNumberInInno_ISS(pathToSource,name,'.iss')(2⊃##.Meddy.Version)
@@ -44,10 +44,8 @@
              :If 1 M.YesOrNo q
                  filename←⊃⊃F.Dir installDir32,'/unins???.exe'
                  :If 0<≢filename
-                     {}M.##.OS.WinExecute filename
-                     :If ~M.YesOrNo'Did you un-install the 32-bit version of Meddy?'
-                         :Return
-                     :EndIf
+                     (rc processInfo result msg)←##.Meddy.Execute.Application filename
+                     {⍵:.}rc≠0
                      :If F.IsFile filename
                          ⎕←'The 32-bit version of Meddy is still installed, therefore the 64-bit version cannot be installed!'
                          :Return
@@ -62,14 +60,14 @@
          :If F.IsDir installDir64
              filename←⊃⊃F.Dir installDir64,'/unins???.exe'
          :AndIf F.IsFile filename
-             {}M.Pause'First we need to make an attempt to un-install Meddy, then to install it'
-             {}M.##.OS.WinExecute'"',(filename~'"'),'"'
-             {}M.Pause'Press <enter> once Meddy has been successfully uninstalled'
+             (rc processInfo result msg)←##.Meddy.Execute.Application filename
+             {⍵:.}rc≠0
          :EndIf
          :If F.IsDir installDir64
              'Install directory is not empty'⎕SIGNAL 11/⍨0≠≢⊃F.Dir installDir64
          :EndIf
-         {}M.##.OS.WinExecute setupExe
+         (rc processInfo result msg)←##.Meddy.Execute.Application setupExe
+         {⍵:.}rc≠0
      :EndIf
      F.DeleteFile targetPath,name,'.exe'
      ⎕←'*** Done, clearing the workspace...'
