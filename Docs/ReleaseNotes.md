@@ -4,6 +4,10 @@
 # Release Notes 
 
 
+## 5.1.0 - 2024-08-09
+
+* Comes with a new version of MarkAPL with a number of important bug fixes
+
 ## 5.0.0 - 2024-02-06
 
 * Meddy is now a 64-bit appliation
@@ -124,6 +128,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

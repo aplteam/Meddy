@@ -1,7 +1,7 @@
 (
- '* 5.0.1 - 2024-06-08'
+ '* 5.1.0 - 2024-08-09'
  '  * `Make` amended'
- '  * Packages updated (CodeCoverage)'
+ '  * Packages updated (MarkAPL, CodeCoverage)'
  '* 5.0.0 - 2024-05-24'
  '  * Meddy is now a 64-bit application'
  '  * Bug fixes'

@@ -1,5 +1,5 @@
  Make;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q;filename;installDir32;installDir64;rc;msg;processInfo;result
-⍝ Version 3.4.0 ⋄ 2024-06-08
+⍝ Version 3.4.1 ⋄ 2024-08-09
  ⎕IO←1 ⋄ ⎕ML←1
  q←'Sure you want to build a new version of Meddy? The WS will be destroyed in the process!'
  :If ##.TestCases.CommTools.YesOrNo q
@@ -13,7 +13,7 @@
      name←'Meddy'
      ⎕WSID←targetPath,name,'.dws'
      M.RecreateFolder targetPath
-     M.IncreaseBuildIDInFunction'#.Meddy.Meddy.Version'
+     {}M.IncreaseBuildIDInFunction'#.Meddy.Meddy.Version'
      {}⎕SE.Cider.CloseProject''
      ⎕LX←'#.Meddy.Run'''''
      ⎕EX¨'MAF'
@@ -31,10 +31,10 @@
      parms.Icon←pathToSource,'Meddy1.ico'
      ⎕EX¨'AFM'
      ⎕SIGNAL 0
-     ⎕SE.MakeHelpers.MakeStandAloneRunTimeExe parms
+     {}⎕SE.MakeHelpers.MakeStandAloneRunTimeExe parms
      M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
      M.UpdateVersionNumberInInno_ISS(pathToSource,name,'.iss')(2⊃##.Meddy.Version)
-     M.ConvertMarkdownToHtml5 pathToSource∘,¨'Docs\' 'HTML\'
+     {}M.ConvertMarkdownToHtml5 pathToSource∘,¨'Docs\' 'HTML\'
      {}⎕SE.Tatin.LoadPackages'aplteam-Inno'#
      setupExe←pathToSource #.Inno.Run name
      :If 1 M.YesOrNo'Would you like to execute "',setupExe,'" ?'
