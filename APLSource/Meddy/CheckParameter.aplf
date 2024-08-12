@@ -9,7 +9,7 @@
  :If (⊂name)∊'bookmarkLink' 'createFullHtmlPage' 'lineNumberOffset' 'toc' 'width' 'numberHeaders' 'saveHTML'
      success←↑0=1↑0⍴∊value
  ⍝ II. Flags
- :ElseIf (⊂name)∊'bookmarkMayStartWithDigit' 'checkFootnotes' 'checkLinks' 'collapsibleTOC' 'compileFunctions' 'compressCSS' 'debug' 'div_h_tag' 'enforceEdge' 'ignoreEmbeddedParms' 'leanpubExtensions' 'linkToCSS' 'markdownStrict' 'noCSS' 'reportLinks' 'smoothScrolling' 'subTocs' 'syntaxSugar' 'verbose' 'presentation' 'copy2ClipboardBtn'
+ :ElseIf (⊂name)∊'bookmarkMayStartWithDigit' 'checkFootnotes' 'checkLinks' 'compileFunctions' 'compressCSS' 'debug' 'div_h_tag' 'enforceEdge' 'ignoreEmbeddedParms' 'leanpubExtensions' 'linkToCSS' 'markdownStrict' 'noCSS' 'reportLinks' 'smoothScrolling' 'subTocs' 'syntaxSugar' 'verbose' 'presentation' 'copy2ClipboardBtn'
      success←↑(1=≢value)∧value∊0 1
 ⍝ III. Text
  :ElseIf (⊂name)∊'charset' 'footnotesCaption' 'head' 'homeFolder' 'imageURL' 'inputFilename' 'lang' 'leanpubIconsUrl' 'outputFilename' 'printCSS' 'reportLinksCaption' 'screenCSS' 'tocCaption' 'copiedCaption' 'copyCaption' 'tocHideCaption' 'tocShowCaption'

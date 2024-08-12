@@ -63,6 +63,7 @@
              (rc processInfo result msg)←##.Meddy.Execute.Application filename
              {⍵:.}rc≠0
          :EndIf
+         ⎕DL 0.5
          :If F.IsDir installDir64
              'Install directory is not empty'⎕SIGNAL 11/⍨0≠≢⊃F.Dir installDir64
          :EndIf
