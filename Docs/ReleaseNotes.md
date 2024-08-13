@@ -8,6 +8,22 @@
 
 * Comes with a new version of MarkAPL with a number of important bug fixes
 
+* The mark-up for the recently introduced checkboxes was changed.
+
+  Instead of:
+
+  ```
+   [ ]  ⍝ Note the leading space!
+  ``` 
+
+  it's now 
+
+  ```
+  - [ ]   ⍝ No leading space!
+  ```
+
+  The reason for this change is that GitHub uses the `- [ ]` syntax. Due to the normative power of the factual we felt obliged to follow suit.
+
 ## 5.0.0 - 2024-02-06
 
 * Meddy is now a 64-bit appliation
@@ -128,6 +144,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

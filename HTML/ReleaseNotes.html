@@ -25,6 +25,12 @@ html{-webkit-text-size-adjust:100%;}body{margin:0;}main{display:block;}h1{margin
 </div>
 <ul>
 <li>Comes with a new version of MarkAPL with a number of important bug fixes</li>
+<li>The mark-up for the recently introduced checkboxes was changed.
+<p>Instead of:</p>
+<pre tabindex="0"><code> [ ]  ⍝ Note the leading space!</code></pre>
+<p>it's now</p>
+<pre tabindex="0"><code>- [ ]   ⍝ No leading space!</code></pre>
+<p>The reason for this change is that GitHub uses the <code>- [ ]</code> syntax. Due to the normative power of the factual we felt obliged to follow suit.</p></li>
 </ul>
 <div class="h_tag">
 <a href="#500---2024-02-06" id="500---2024-02-06" class="autoheader_anchor">
@@ -200,5 +206,42 @@ html{-webkit-text-size-adjust:100%;}body{margin:0;}main{display:block;}h1{margin
 <li>Bug fixes:</li>
 <li>#22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.</li>
 </ul>
+
+<script>
+
+// Adds a "Copy" button to every code block & established the event handler
+const copyButtonLabel = " Copy " ;
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    button.title = "Copies the code block to the clipboard.";
+    block.appendChild(button);
+     
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }  
+});  
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  button.innerText = " Copied ";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 700);
+}
+
+</script>
+
 </body>
 </html>
