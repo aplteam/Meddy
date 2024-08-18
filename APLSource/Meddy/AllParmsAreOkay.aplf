@@ -1,4 +1,4 @@
- success←AllParmsAreOkay (n embeddedParms);this;report
+ success←AllParmsAreOkay(n embeddedParms);this;report;msg
  report←''
  :For this :In embeddedParms
      :Trap 6
@@ -10,6 +10,10 @@
      :EndTrap
  :EndFor
  :If ~success←0∊≢report
-     {}n TellInvalidParameter report
+     msg←report,⊂'Needs to be addressed ASAP, otherwise Meddy cannot succeed!'
+     :If ∨/∨/¨'"collapsibleTOC"'⍷¨report
+         msg,←⊂'("collapsibleTOC" was removed from Meddy for some time)'
+     :EndIf
+     {}n TellInvalidParameter msg
  :EndIf
 ⍝Done

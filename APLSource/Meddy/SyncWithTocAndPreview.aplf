@@ -2,51 +2,53 @@
 ⍝ Makes sure that when the user moved the cursor in the markdown area around that the TOC and the Preview
 ⍝ still show the correct parts of the document.
  r←⍬
- :If ≡/0⊃¨n.Markdown.SelText
-     currentLine←↑↑n.Markdown.SelText
-     currentToc←n.Toc.SelItems⍳1
-     success←counter←0
-     ind←⌽currentLine↑⍳≢n.Markdown.Text
-     :Repeat
+ :If 0<⎕NC'n.Toc.∆Toc'  ⍝ Happens only to be false when the HTML is not (yet or at all) ready
+     :If ≡/0⊃¨n.Markdown.SelText
+         currentLine←↑↑n.Markdown.SelText
+         currentToc←n.Toc.SelItems⍳1
+         success←counter←0
+         ind←⌽currentLine↑⍳≢n.Markdown.Text
+         :Repeat
      ⍝ On large documents a loop is most likely more sufficient because we won't need
      ⍝ to process a lot of stuff before actually finding a header, and then we can stop.
-         :For i :In ind
-             thisRow←i⊃n.Markdown.Text
-             isSetText←0
-             :If ~0=≢'^\s{0,3}#{1,6}\s+.'⎕S 0⊣thisRow
-             :OrIf isSetText←CheckForSeTextHeader i n.Markdown.Text
-                 success←1
-                 :If isSetText
-                     caption←A.DLB A.DTB(i-1)⊃n.Markdown.Text
-                 :Else
-                     caption←{⍵↓⍨1+⍵⍳' '}A.DLB A.DTB i⊃n.Markdown.Text
-                 :EndIf
-                 caption←{⍵↑⍨⍵⍳'{'}caption
-                 :Select +/bool←n.Toc.∆Toc[;1]≡¨⊂caption
-                 :Case 0
-                     ⍝ Happens  when the very last line is a header
-                 :Case 1
-                     :If currentToc≠newToc←bool⍳1
-                         n.Toc.SelItems←bool
-                         ScrollToInPreview n(bool⍳1)
+             :For i :In ind
+                 thisRow←i⊃n.Markdown.Text
+                 isSetText←0
+                 :If ~0=≢'^\s{0,3}#{1,6}\s+.'⎕S 0⊣thisRow
+                 :OrIf isSetText←CheckForSeTextHeader i n.Markdown.Text
+                     success←1
+                     :If isSetText
+                         caption←A.DLB A.DTB(i-1)⊃n.Markdown.Text
+                     :Else
+                         caption←{⍵↓⍨1+⍵⍳' '}A.DLB A.DTB i⊃n.Markdown.Text
                      :EndIf
-                 :Else
+                     caption←{⍵↑⍨⍵⍳'{'}caption
+                     :Select +/bool←n.Toc.∆Toc[;1]≡¨⊂caption
+                     :Case 0
+                     ⍝ Happens  when the very last line is a header
+                     :Case 1
+                         :If currentToc≠newToc←bool⍳1
+                             n.Toc.SelItems←bool
+                             ScrollToInPreview n(bool⍳1)
+                         :EndIf
+                     :Else
                  ⍝ More than one hit. We choose the one that is closest to the current row in Toc.
                  ⍝ Not 100% save but it will almost certainly work just fine.
-                     row←({⍵⊃⍨{{⍵⍳⌊/⍵}|⍵}⍵-currentToc}(⍸bool))
-                     bool2←(≢bool)⍴0
-                     bool2[row]←1
-                     n.Toc.SelItems←bool2
-                     ScrollToInPreview n row
-                 :EndSelect
-                 :Leave
+                         row←({⍵⊃⍨{{⍵⍳⌊/⍵}|⍵}⍵-currentToc}(⍸bool))
+                         bool2←(≢bool)⍴0
+                         bool2[row]←1
+                         n.Toc.SelItems←bool2
+                         ScrollToInPreview n row
+                     :EndSelect
+                     :Leave
+                 :EndIf
+             :EndFor
+             counter+←1
+             :If 0=success      ⍝ Happens when the cursor is above the very first header
+             :AndIf 1=counter   ⍝ In a second attempt we need to find the first header _underneath_ the cursor!
+                 ind←(currentLine-1)↓⍳≢n.Markdown.Text
              :EndIf
-         :EndFor
-         counter+←1
-         :If 0=success      ⍝ Happens when the cursor is above the very first header
-         :AndIf 1=counter   ⍝ In a second attempt we need to find the first header _underneath_ the cursor!
-             ind←(currentLine-1)↓⍳≢n.Markdown.Text
-         :EndIf
-     :Until 2<counter
+         :Until 2<counter
+     :EndIf
  :EndIf
 ⍝Done

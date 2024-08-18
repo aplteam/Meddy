@@ -1,5 +1,8 @@
 (
- '* 5.1.0 - 2024-08-13'
+ '* 5.0.2 - 2024-08-18'
+ '  * In case a document contained `collapsibleTOC` as parameter, an error msg was provided that did not sound'
+ '    that urgent, but soon after Meddy crashed as a consequence.'
+ '* 5.0.1 - 2024-08-13'
  '  * `Make` amended'
  '  * Packages updated (MarkAPL, CodeCoverage, Laguntza, FilesAndDirs)'
  '* 5.0.0 - 2024-05-24'
