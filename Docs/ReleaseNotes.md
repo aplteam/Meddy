@@ -4,7 +4,11 @@
 # Release Notes 
 
 
-## 5.1.0 - 2024-08-09
+## 5.0.2 - 2024-08-18
+
+* Bug fix for documents that contain a definition of the parameter `collapsibleTOC` which made Meddy crash inn 5.0.1
+
+## 5.0.1 - 2024-08-13
 
 * Comes with a new version of MarkAPL with a number of important bug fixes
 
@@ -144,6 +148,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 
