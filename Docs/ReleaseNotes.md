@@ -4,6 +4,12 @@
 # Release Notes 
 
 
+## 5.0.3 - 2024-09-11
+
+* New version of `PresentAPL` integrated that fixes a problem with the colour of visited links
+
+* For presentation, one could not specify a CSS file as a parameter
+
 ## 5.0.2 - 2024-08-18
 
 * Bug fix for documents that contain a definition of the parameter `collapsibleTOC` which made Meddy crash inn 5.0.1
@@ -148,6 +154,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

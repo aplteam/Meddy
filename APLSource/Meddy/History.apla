@@ -1,4 +1,7 @@
 (
+ '* 5.0.3 - 2024-09-11'
+ '  * New version of `PresentAPL` integrated that fixes a problem with the colour of visited links'
+ '  * For presentation, one could not specify a CSS file as a parameter$'
  '* 5.0.2 - 2024-08-18'
  '  * In case a document contained `collapsibleTOC` as parameter, an error msg was provided that did not sound'
  '    that urgent, but soon after Meddy crashed as a consequence.'
