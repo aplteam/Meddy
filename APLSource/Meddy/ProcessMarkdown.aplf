@@ -13,7 +13,8 @@
          :If 0=F.IsFile RemoveFileProtocol parms.screenCSS
              parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
              :If ⎕NULL≡parms.cssURL
-                 :If parms.presentation
+                 :If 0<parms.⎕NC'presentation'
+                 :AndIf parms.presentation
                      parms.cssURL←'file://',PresentAPL.##.TatinVars.GetFullPath2AssetsFolder,'CSS/'
                  :Else
                      parms.cssURL←'file://',MarkAPL.##.TatinVars.GetFullPath2AssetsFolder

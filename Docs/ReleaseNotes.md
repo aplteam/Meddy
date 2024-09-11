@@ -3,7 +3,6 @@
 
 # Release Notes 
 
-
 ## 5.0.3 - 2024-09-11
 
 * New version of `PresentAPL` integrated that fixes a problem with the colour of visited links
@@ -154,6 +153,9 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
+
+
 
 
 
