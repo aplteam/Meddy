@@ -3,6 +3,12 @@
 
 # Release Notes 
 
+## 5.0.4 - 2024-10-05
+
+* Default CSS for new presentations changed from PresentAPL_Green.css to PresentAPL_Blue.css
+
+* Bug fix: In presentation mode, the default CSS file was not found
+
 ## 5.0.3 - 2024-09-11
 
 * New version of `PresentAPL` integrated that fixes a problem with the colour of visited links
@@ -153,6 +159,9 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
+
+
 
 
 

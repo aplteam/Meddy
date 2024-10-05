@@ -1,7 +1,7 @@
  r←GetPresentationTemplate
  r←''
  r,←⊂'[parm]:presentation=1'
- r,←⊂'[parm]:screenCSS    = ''PresentAPL_Green.css'''
+ r,←⊂'[parm]:screenCSS    = ''PresentAPL_Blue.css'''
  r,←⊂'[parm]:printCSS     = '''' '
  r,←⊂''
  r,←⊂'# -Title of the presentation-'

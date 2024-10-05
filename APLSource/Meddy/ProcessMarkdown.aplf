@@ -16,6 +16,11 @@
                  :If 0<parms.⎕NC'presentation'
                  :AndIf parms.presentation
                      parms.cssURL←'file://',PresentAPL.##.TatinVars.GetFullPath2AssetsFolder,'CSS/'
+                     ⍝ Is it pointing to one of the presentation-capable CSS files?
+                     :If ~(⊂parms.screenCSS)∊'PresentAPL_Blue.css' 'PresentAPL_Green.css'
+                         parms.screenCSS←'PresentAPL_Blue.css'  ⍝ That's the default for presentations
+                         parms.printCSS←''
+                     :EndIf
                  :Else
                      parms.cssURL←'file://',MarkAPL.##.TatinVars.GetFullPath2AssetsFolder
                  :EndIf

@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "5.0.3+595"
+#define MyAppVersion "5.0.4+606"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "Kai Jaeger"
@@ -28,6 +28,7 @@ OutputBaseFilename="SetUp_{#MyAppName}_{#MyAppVersion}"
 Compression=lzma
 SolidCompression=yes
 SetupIconFile={#MyAppIcoName}
+AppMutex=MeddyMutex
 ;UninstallDisplayIcon={app}\{#MyAppIcoName}
 
 
@@ -57,7 +58,7 @@ Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
 Source: "conga35ssl64.dll"; DestDir: "{app}";
 Source: "conga35_64.dll"; DestDir: "{app}";
 ;Source: "dyalognet.dll"; DestDir: "{app}"     
-Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"
+Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "HTML\ReadMe.html"; DestDir: "{app}";
 ;Source: "HTML\ReleaseNotes.html"; DestDir: "{app}";
 ;Source: "HTML\Presentations.html"; DestDir: "{app}";
