@@ -1,8 +1,8 @@
  {r}←CopyID n;row;ind;txt;cl
  r←0
- row←0 0⊃n.Markdown.SelText
- ∘∘∘
- :If 0<≢n.HTML.∆ns.toc
+ :If 0<n.HTML.⎕NC'∆ns'
+     row←0 0⊃n.Markdown.SelText
+ :AndIf 0<≢n.HTML.∆ns.toc
      ind←(⊃n.HTML.∆ns.toc)[;3]⍳row
  :AndIf ind∊⍳≢n.HTML.∆ns.toc
      txt←{0<≢2⊃⍵:2⊃⍵ ⋄ 1⊃⍵}ind⊃n.HTML.∆ns.toc
