@@ -6,6 +6,7 @@
  '    * Pressing F4 crashed Meddy when the sync attempted to sync wiith the very first header or when so '
  '      far no header was displayed in the TreeView (TOC)'
  '    * A right-click in the markdown area crashed Meddy if there was no TOC (yet).'
+ '    * The "About" dialog box showed mutilated information regarding the version of MarkAPL used.'
  '* 5.0.4 - 2024-10-05'
  '  * Default CSS for new presentations changed from PresentAPL_Green.css to PresentAPL_Blue.css '
  '  * Bug fixes:'
