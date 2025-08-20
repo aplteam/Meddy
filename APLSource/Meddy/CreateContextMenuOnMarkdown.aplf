@@ -20,7 +20,9 @@
  ∆,←⊂'Caption'('Copy ID')
  f←{0=≢∊⍵.Markdown.Text:1 ⋄ =/0⊃¨n.Markdown.SelText}n
  f∧←{≡/⍵}↑¨n.Markdown.SelText
- f∧←{0=≢n.HTML.∆ns.toc:0 ⋄ (0 0⊃n.Markdown.SelText)∊(⊃⍵)[;3]}n.HTML.∆ns.toc
+ :If 0<n.HTML.⎕NC'∆ns'
+     f∧←{0=≢n.HTML.∆ns.toc:0 ⋄ (0 0⊃n.Markdown.SelText)∊(⊃⍵)[;3]}n.HTML.∆ns.toc
+ :EndIf
  ∆,←⊂'Active'f
  m.copyID←m.⎕NEW'MenuItem'∆
  m.copyID.onSelect←1
