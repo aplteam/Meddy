@@ -1,0 +1,6 @@
+ {r}←ShowMeddyMsg msg;parms
+ r←0
+ parms←APLGUI.Dialogs.CreateParmsForShowMsg
+ parms.caption←'Meddy: File not found'
+ {}parms APLGUI.Dialogs.ShowMsg msg
+⍝Done

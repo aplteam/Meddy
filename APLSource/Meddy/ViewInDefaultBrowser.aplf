@@ -38,7 +38,11 @@
                  :Return
              :EndIf
          :EndIf
-         OS.WinExecute'"',htmlFilename,'"'
+         :If ⎕NEXISTS htmlFilename~'"'
+             OS.WinExecute'"',(htmlFilename~'"'),'"'
+         :Else
+             ShowMeddyMsg'Could not find:'htmlFilename
+         :EndIf
      :EndIf
  :EndIf
 ⍝Done

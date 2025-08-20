@@ -1,4 +1,8 @@
 (
+ '* 5.0.1 - 2025-08-19'
+ '  * Bug fixes'
+ '    * So far, when a user pressed F10 in order to view the HTML in the default browser, Meddy crashed'
+ '      in case that file could not be found. Now an appropriate message is displayed.'
  '* 5.0.4 - 2024-10-05'
  '  * Default CSS for new presentations changed from PresentAPL_Green.css to PresentAPL_Blue.css '
  '  * Bug fixes:'
