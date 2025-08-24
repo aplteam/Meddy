@@ -1,6 +1,6 @@
 ; This script is best executed by Meddy's "Make" utility.
 
-#define MyAppVersion "5.0.5-beta-4+627"
+#define MyAppVersion "5.0.5-beta-6+632"
 #define MyAppName "Meddy"
 #define MyAppExeName "Meddy.exe"
 #define MyAppPublisher "Kai Jaeger"
@@ -55,8 +55,8 @@ Name: "{commonappdata}\{#MyAppName}"; Permissions: users-modify
 [Files]
 
 ; The Conga DLLs are required for "Check for updates" (and potentially a Ride)
-Source: "conga35ssl64.dll"; DestDir: "{app}";
-Source: "conga35_64.dll"; DestDir: "{app}";
+Source: "conga36ssl64.dll"; DestDir: "{app}";
+Source: "conga36_64.dll"; DestDir: "{app}";
 ;Source: "dyalognet.dll"; DestDir: "{app}"     
 Source: "{#TargetDir}\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "HTML\ReadMe.html"; DestDir: "{app}";

@@ -1,6 +1,7 @@
  Make flag;⎕IO;⎕ML;parms;ref;cfg;xml;path2Dyalog
-⍝ Version 3.5.0 ⋄ 2025-08-23
-⍝ Starts the appropriate version of APL and makes sure that this instanc executes ∆Make.
+⍝ Version 3.5.0 ⋄ 2025-08-24
+⍝ Starts the appropriate version of APL and makes sure that this instance executes ∆Make.
+⍝ Note that no error trapping is used, therefore WindowsStyle should be "normal" and SessionFile←1
  ⎕IO←1 ⋄ ⎕ML←1
  :If flag
      xml←⊃⎕NGET(##.CiderConfig.HOME,'/Make/make.config')
@@ -8,6 +9,7 @@
      path2Dyalog←3⊃cfg[cfg[;2]⍳⊂'exe';]
      :If 1 ##.TestCases.CommTools.YesOrNo'Create new version with:'path2Dyalog
          'Dyalog EXE not found'Assert ⎕NEXISTS path2Dyalog
+         ⎕ED'#.Meddy.Meddy.Version'
          parms←##.TestCases.APLProcess.CreateParms
          parms.WorkspaceName←##.CiderConfig.HOME,'/Make/Make.dws'
          parms.SessionFile←1
