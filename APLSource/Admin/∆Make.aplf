@@ -3,7 +3,7 @@
  ⎕IO←1 ⋄ ⎕ML←1
  :If flag
      pathToSource←##.CiderConfig.HOME,'\'
-     targetPath←##.CiderConfig.HOME,'\Dist\'
+     targetPath←##.CiderConfig.HOME,'/',##.CiderConfig.CIDER.distributionFolder,'/'
      :If 0=⎕SE.⎕NC'MakeHelpers'
          ⎕SE.Tatin.LoadPackages'[tatin]MakeHelpers'⎕SE
      :EndIf

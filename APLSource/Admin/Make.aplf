@@ -1,15 +1,18 @@
- Make flag;⎕IO;⎕ML;parms;ref;cfg;xml
+ Make flag;⎕IO;⎕ML;parms;ref;cfg;xml;path2Dyalog
 ⍝ Version 3.5.0 ⋄ 2025-08-23
 ⍝ Starts the appropriate version of APL and makes sure that this instanc executes ∆Make.
  ⎕IO←1 ⋄ ⎕ML←1
  :If flag
      xml←⊃⎕NGET(##.CiderConfig.HOME,'/Make/make.config')
      cfg←⎕XML xml
-     :If 1 ##.TestCases.CommTools.YesOrNo'Create new version with:'(3⊃cfg[cfg[;2]⍳⊂'exe';])
+     path2Dyalog←3⊃cfg[cfg[;2]⍳⊂'exe';]
+     :If 1 ##.TestCases.CommTools.YesOrNo'Create new version with:'path2Dyalog
          parms←##.TestCases.APLProcess.CreateParms
          parms.WorkspaceName←##.CiderConfig.HOME,'/Make/Make.dws'
          parms.SessionFile←1
-         parms.LX←1
+         :If 0
+             parms.LX←0
+         :EndIf
          parms.WindowsStyle←'Normal'
          ref←##.TestCases.APLProcess.New parms
          'Something went wrong'Assert ref.HasExited
