@@ -17,7 +17,7 @@ Meddy's main advantage is not its features, it's the fact that MarkAPL is used a
 
 Another feature worth mentioning is Meddy's advanced table editing capability: commands are available for formatting tables in the Markdown, inserting columns, moving rows and columns and jumping from column to column.
 
-The application was created with Dyalog 19. 64 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
+The application was created with Dyalog 20.0 64 bit Unicode but is delivered as a stand-alone EXE, meaning that you don't need this version of Dyalog - or any version - in order to run it.
 
 
 Usage

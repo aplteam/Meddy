@@ -6,7 +6,7 @@
  AllowRide_ ⍬
  EnableCONTINUE_workspaces ⍬
  APLVersion←# ⎕WG'APLVersion'
- minVersion←19.0
+ minVersion←20.0
  :If minVersion>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'APLTreeUtils2.Split ⍵)÷1 10}1⊃APLVersion
      11 ⎕SIGNAL⍨'This application requires to run under at least Dyalog ',4 1⍕minVersion
  :EndIf

@@ -7,9 +7,11 @@
      cfg←⎕XML xml
      path2Dyalog←3⊃cfg[cfg[;2]⍳⊂'exe';]
      :If 1 ##.TestCases.CommTools.YesOrNo'Create new version with:'path2Dyalog
+         'Dyalog EXE not found'Assert ⎕NEXISTS path2Dyalog
          parms←##.TestCases.APLProcess.CreateParms
          parms.WorkspaceName←##.CiderConfig.HOME,'/Make/Make.dws'
          parms.SessionFile←1
+         parms.Exe←path2Dyalog
          :If 0
              parms.LX←0
          :EndIf

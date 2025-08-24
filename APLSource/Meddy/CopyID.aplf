@@ -1,5 +1,6 @@
  {r}←CopyID n;row;ind;txt;cl
  r←0
+ {}2 RefreshPreview n
  :If 0<n.HTML.⎕NC'∆ns'
      row←0 0⊃n.Markdown.SelText
  :AndIf 0<≢n.HTML.∆ns.toc
