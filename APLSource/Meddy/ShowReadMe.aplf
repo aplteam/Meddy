@@ -1,7 +1,7 @@
  ShowReadMe←{
      n←⍵
      filename←F.PWD,'\HTML\ReadMe.html'
-     0=F.IsFile filename:n TellFileDoesNotExist filename
+     0=F.IsFile filename:TellFileDoesNotExist filename
      rc←n OpenInDefaultBrowser filename
      1:rc←rc
  }

@@ -2,7 +2,7 @@
  r←⍬
  tellNothingFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'tellNothingFlag'
  :If 0=n.⎕NC'∆Report'
-     {}TellNothingToReport⍣tellNothingFlag⊣n
+     {}TellNothingToReport⍣tellNothingFlag⊣⍬
  :Else
      :If n.∆Menubar.noWarnings.Checked
          1 WriteToStatusbar n''
@@ -12,7 +12,7 @@
              report/⍨←'Warning:'{⍺∘≢¨(≢⍺)↑¨⍵}report
          :EndIf
          :If 0=≢report
-             {}TellNothingToReport⍣tellNothingFlag⊣n
+             {}TellNothingToReport⍣tellNothingFlag⊣⍬
          :Else
              ShowWarnings_ n report
          :EndIf

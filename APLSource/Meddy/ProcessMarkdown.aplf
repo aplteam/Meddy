@@ -36,7 +36,7 @@
              m,←⊂'Converting to HTML failed, input appears not to be valid Markdown.'
              m,←⊂''
              m,←⊂'(',qdmx.EM,')'
-             {}n TellErrorWhileConvertingMarkdown m
+             {}TellErrorWhileConvertingMarkdown m
              :Return
          :EndTrap
          n.HTML.∆HTML←html←,¨html
@@ -64,7 +64,7 @@
                      n.IE.IEobject.Document.head.innerHTML←1↓↑,/(⎕UCS 10),¨GetHead html
                  :EndIf
              :Else
-                 TellNeedForRestart n
+                 TellNeedForRestart ⍬
              :EndTrap
          :Else
              G.IE.ShowHtml n.IE.IEobject(MakeUrlsAbsolute html)
@@ -74,7 +74,7 @@
          n.∆Report←ns.report
          ReportConversionProblem n
      :Else
-         TellAboutConversionFailure n
+         TellAboutConversionFailure ⍬
          success←0
          {}ResetAfterError⍣newFlag⊣n
      :EndTrap

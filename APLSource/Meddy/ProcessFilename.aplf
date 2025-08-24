@@ -9,7 +9,7 @@
              filename LoadFile n
              r←1
          :Else
-             {}n TellFileDoesNotExist filename
+             {}TellFileDoesNotExist filename
          :EndIf
      :EndIf
  :EndIf

@@ -1,10 +1,6 @@
  TellMeddyIsUp2Date←{
-     n←⍵
-     parms←G.Dialogs.CreateParmsForShowMsg
-     parms.parent←n.∆Form
-     parms.style←G.Enums.DialogStyles.Info
-     msg←'Meddy is up to date.'
+     msg←'Is up to date.'
      #.CursorObj←0
-     _←n.∆globalParms parms G.Dialogs.ShowMsg msg
+     _←ShowMeddyMsg msg
      1:shy←⍬
  }

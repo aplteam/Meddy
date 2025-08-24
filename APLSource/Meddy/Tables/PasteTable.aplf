@@ -14,5 +14,5 @@
  :Else
      parms←##.G.Dialogs.CreateParmsForShowMsg
      parms.addToCaption←'Paste Table'
-     n.∆globalParms parms ##.G.Dialogs.ShowMsg'The clipboard does not carry a table.'
+     ##.ShowMeddyMsg'The clipboard does not carry a table.'
  :EndIf

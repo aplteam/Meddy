@@ -9,5 +9,5 @@
  :If 19=dmx.EN
      msg,←'' 'You might lack the permission to save the file in that folder.'
  :EndIf
- n.∆globalParms G.Dialogs.ShowMsg msg
+ ShowMeddyMsg msg
 ⍝Done

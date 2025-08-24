@@ -3,6 +3,6 @@
  :If CheckClipboardData
      ViewClipboard_ n
  :Else
-     TellIncompatibleClipboard n
+     TellIncompatibleClipboard ⍬
  :EndIf
 ⍝Done

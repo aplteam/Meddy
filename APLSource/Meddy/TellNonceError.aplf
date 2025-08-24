@@ -1,10 +1,5 @@
- {r}←TellNonceError n;parms;msg
+ {r}←TellNonceError dummy;parms;msg
  r←⍬
- parms←G.Dialogs.CreateParmsForShowMsg
- parms.addToCaption←'Sorry!'
- parms.style←G.Enums.DialogStyles.Error
- parms.(hasProgressbar hasStatusbar)←0
- parms.parent←n.∆Form
  msg←'Sorry, not implemented yet!'
- {}n.∆globalParms parms G.Dialogs.ShowMsg msg
+ {}'Sorry!'ShowMeddyMsg msg
 ⍝Done

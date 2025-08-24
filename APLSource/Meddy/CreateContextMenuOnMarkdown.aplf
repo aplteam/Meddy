@@ -22,6 +22,8 @@
  f∧←{≡/⍵}↑¨n.Markdown.SelText
  :If 0<n.HTML.⎕NC'∆ns'
      f∧←{0=≢n.HTML.∆ns.toc:0 ⋄ (0 0⊃n.Markdown.SelText)∊(⊃⍵)[;3]}n.HTML.∆ns.toc
+ :Else
+     f←0
  :EndIf
  ∆,←⊂'Active'f
  m.copyID←m.⎕NEW'MenuItem'∆

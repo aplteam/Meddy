@@ -26,7 +26,7 @@
          n.∆Report←ns.report
          ReportConversionProblem n
      :Else
-         TellAboutConversionFailure n
+         TellAboutConversionFailure ⍬
          {}ResetAfterError⍣newFlag⊣n
      :EndTrap
  :EndIf

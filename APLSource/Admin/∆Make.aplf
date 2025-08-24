@@ -1,0 +1,40 @@
+ ∆Make flag;pathToSource;M;A;targetPath;name;F;setupExe;⎕IO;⎕ML;parms;q;filename;installDir32;rc;msg;processInfo;result
+⍝ Version 3.5.0 ⋄ 2025-08-23
+ ⎕IO←1 ⋄ ⎕ML←1
+ :If flag
+     pathToSource←##.CiderConfig.HOME,'\'
+     targetPath←##.CiderConfig.HOME,'\Dist\'
+     :If 0=⎕SE.⎕NC'MakeHelpers'
+         ⎕SE.Tatin.LoadPackages'[tatin]MakeHelpers'⎕SE
+     :EndIf
+     M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
+⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
+     name←'Meddy'
+     ⎕WSID←targetPath,name,'.dws'
+     M.RecreateFolder targetPath
+     {}M.IncreaseBuildIDInFunction'#.Meddy.Meddy.Version'
+     {}⎕SE.Cider.CloseProject''
+     ⎕LX←'#.Meddy.Run'''''
+     ⎕EX¨'MAF'
+     0 ⎕SAVE ⎕WSID
+     #.⎕EX #.⎕NL⍳16
+     '#.Meddy.Meddy'#.⎕CY ⎕WSID
+     ⎕NDELETE targetPath,'Meddy.dws'
+     'Conga'#.⎕CY'conga'
+     {}2 ⎕SE.Tatin.LoadDependencies(pathToSource,'packages')'#.Meddy'
+     #.Meddy.GitHubAPIv3.##.HttpCommand.CongaRef←#.Conga
+     M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
+     parms←M.CreateStandAloneExeParms targetPath'Meddy'
+     parms.CompanyName←'Kai Jaeger'
+     parms.FileDescription←'Markdown editor'
+     parms.Icon←pathToSource,'Meddy1.ico'
+     ⎕EX¨'AFM'
+     ⎕SIGNAL 0
+     {}⎕SE.MakeHelpers.MakeStandAloneRunTimeExe parms
+     M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
+     M.UpdateVersionNumberInInno_ISS(pathToSource,name,'.iss')(2⊃##.Meddy.Version)
+     {}M.ConvertMarkdownToHtml5 pathToSource∘,¨'Docs\' 'HTML\'
+     {}⎕SE.Tatin.LoadPackages'aplteam-Inno'#
+     setupExe←pathToSource #.Inno.Run name
+     F.DeleteFile targetPath,name,'.exe'
+ :EndIf

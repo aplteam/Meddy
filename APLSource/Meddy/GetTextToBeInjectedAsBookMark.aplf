@@ -14,7 +14,7 @@
  :EndIf
  :If 0=≢buff
      msg←'In order to insert a bookmark link at least one header of level 2 or higher is required.'
-     {}msg TellNoHeadersYet n
+     {}msg TellNoHeadersYet ⍬
  :Else
      (success bool2)←n.∆globalParms parms G.SelectionTool.Run buff
      :If success

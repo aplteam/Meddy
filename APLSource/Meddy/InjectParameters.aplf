@@ -42,6 +42,6 @@
          n.Markdown.Text←markdown
      :EndIf
  :Else
-     n TellAllParametersAlreadyDefined'Sorry, but you have already embedded all possible parameters.'
+     TellAllParametersAlreadyDefined'Sorry, but you have already embedded all possible parameters.'
  :EndIf
 ⍝Done

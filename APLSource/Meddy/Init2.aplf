@@ -1,13 +1,11 @@
- n←{changeFlag}Init2 n;bool;buffer;folder;iniFilesNames;msg;parms;specialINI;workdir
+ n←{changeFlag}Init2 n;bool;buffer;folder;iniFilesNames;msg;specialINI;workdir
 ⍝ There are statements that need to run again in case the INI file(s) get changed while Meddy is running.
 ⍝ Therefore they are separated into this fn which is called early in `Run-Init` and again later in case of a change.
  :If ~F.IsFile'app.ini'
      msg←⊂'Could not find INI file "app.ini".'
      msg,←⊂'The program cannot be started.'
      msg,←'' 'The current directory is:'F.PWD
-     parms←G.Dialogs.CreateParmsForShowMsg
-     parms.caption←'Meddy'
-     parms G.Dialogs.ShowMsg msg
+     ShowMeddyMsg msg
      Off 1
  :EndIf
  n.∆INI←n.∆IniFilenam GetIniFile'app.ini'

@@ -5,7 +5,7 @@
      :If F.IsFile ini1~'"'
          instance←⎕NEW IniFiles(,⊂ini1~'"')
      :Else
-         'Meddy cannot continue!'TellFileNotFound n ini1
+         'Meddy cannot continue!'TellFileNotFound ini1
          Off 0
      :EndIf
  :Else

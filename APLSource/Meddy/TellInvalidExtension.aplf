@@ -4,5 +4,5 @@
  msg,←⊂'The file:'
  msg,←⊆filenames
  msg,←⊂'has an invalid extension'
- G.Dialogs.ShowMsg msg
+ ShowMeddyMsg msg
 ⍝Done

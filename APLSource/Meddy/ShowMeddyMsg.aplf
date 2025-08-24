@@ -1,6 +1,11 @@
- {r}←ShowMeddyMsg msg;parms
+ {r}←{caption}ShowMeddyMsg msg;parms
  r←0
+ caption←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'caption'
  parms←APLGUI.Dialogs.CreateParmsForShowMsg
- parms.caption←'Meddy: File not found'
+ parms.addToCaption←caption
+ :If 9=⎕NC'n'
+ :AndIf 0<n.⎕NC'∆globalParms'
+     parms ⎕NS n.∆globalParms
+ :EndIf
  {}parms APLGUI.Dialogs.ShowMsg msg
 ⍝Done

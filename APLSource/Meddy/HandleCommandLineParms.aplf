@@ -22,7 +22,7 @@
              filename←path,filename
              filename LoadFile n
          :Else
-             {}n TellFileDoesNotExist filename
+             {}TellFileDoesNotExist filename
          :EndIf
      :EndIf
  :ElseIf ∨/'-new'∘≡¨2 ⎕NQ #'GetCommandLineArgs'
@@ -33,6 +33,6 @@
      :If FilesAndDirs.Exists filename
          filename LoadFile n
      :Else
-         {}n TellFileDoesNotExist filename
+         {}TellFileDoesNotExist filename
      :EndIf
  :EndIf

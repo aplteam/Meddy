@@ -9,7 +9,7 @@
          report/⍨←'Warning:'{⍺∘≢¨(≢⍺)↑¨⍵}report
      :EndIf
      :If 0=≢report
-         {}TellNothingToReport⍣tellNothingFlag⊣n
+         {}TellNothingToReport ⍬
      :Else
          0 ShowWarnings_ n report
      :EndIf

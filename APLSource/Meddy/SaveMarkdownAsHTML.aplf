@@ -1,7 +1,7 @@
  {r}←SaveMarkdownAsHTML n;filename
  r←⍬
  :If MarkdownHasChanged n
-     'Export HTML'TellMarkdownNeedsSaving n
+     'Export HTML'TellMarkdownNeedsSaving ⍬
  :Else
      :If 0=≢n.myFile.filenameHtml
      :AndIf ~0=≢n.myFile.filenameMarkdown

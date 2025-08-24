@@ -1,5 +1,5 @@
  R←Test_Misc_001(stopFlag batchFlag);⎕TRAP;∆CommitUndoRedo
-⍝ Test the Unod/Redo stuff
+⍝ Test the Undo/Redo stuff
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed

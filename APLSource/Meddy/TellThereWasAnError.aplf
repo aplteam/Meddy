@@ -8,5 +8,5 @@
  :If ~0=≢filename
      msg,←'Meddy has saved the latest version of the Markdown in that folder; see:'filename
  :EndIf
- G.Dialogs.ShowMsg msg
+ ShowMeddyMsg msg
 ⍝Done

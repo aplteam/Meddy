@@ -14,6 +14,6 @@
      :If ∨/∨/¨'"collapsibleTOC"'⍷¨report
          msg,←⊂'("collapsibleTOC" was removed from Meddy for some time)'
      :EndIf
-     {}n TellInvalidParameter msg
+     {}TellInvalidParameter msg
  :EndIf
 ⍝Done

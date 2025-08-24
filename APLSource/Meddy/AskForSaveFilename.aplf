@@ -38,7 +38,7 @@
          filename,←'.md'
          flag←1
      :Else
-         {}TellExtensionIsInvalid n
+         {}TellExtensionIsInvalid ⍬
      :EndIf
  :Until flag
 ⍝Done

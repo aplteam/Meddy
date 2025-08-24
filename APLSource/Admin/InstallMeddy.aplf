@@ -1,0 +1,26 @@
+ {r}←InstallMeddy dummy;setupExe;installDir32;q;filename;rc;processInfo;result;msg
+⍝ Asks the user whethern she wants to innstall Meddy. if there is an installer EXE
+ r←0
+ setupExe←
+ :If 1 M.YesOrNo'Would you like to execute "',setupExe,'" ?'
+     installDir32←(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\'
+     :If ⎕NEXISTS installDir32
+         q←'' 'It appears that the 32-bit version of Meddy is installed. Uninstall?'
+         :If 1 M.YesOrNo q
+             filename←⊃⊃F.Dir installDir32,'/unins???.exe'
+             :If 0<≢filename
+                 (rc processInfo result msg)←##.Meddy.Execute.Application filename
+                 {⍵:.}rc≠0
+                 :If F.IsFile filename
+                     ⎕←'The 32-bit version of Meddy is still installed, therefore the 64-bit version cannot be installed!'
+                     :Return
+                 :EndIf
+             :Else
+                 ⎕←'The 32-bit version of Meddy is still installed, therefore the 64-bit version cannot be installed!'
+                 :Return
+             :EndIf
+         :EndIf
+     :EndIf
+     (rc processInfo result msg)←##.Meddy.Execute.Application setupExe
+     'Something went wrong'Assert 0=rc
+ :EndIf

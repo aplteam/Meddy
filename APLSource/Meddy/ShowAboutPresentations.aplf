@@ -1,9 +1,9 @@
- rc←ShowAboutPresentations n;filename
+ {rc}←ShowAboutPresentations n;filename
  rc←1
  filename←F.PWD,'/HTML/Presentations.html'
  :If F.IsFile filename
      rc←n OpenInDefaultBrowser filename
  :Else
-     n TellFileDoesNotExist filename
+     TellFileDoesNotExist filename
  :EndIf
 ⍝Done

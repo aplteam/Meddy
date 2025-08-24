@@ -19,7 +19,7 @@
          htmlFilename←n.myFile.filenameHtml
      :EndIf
      :If 0∊≢htmlFilename
-         TellHtmlNeedsSavingFirst n
+         TellHtmlNeedsSavingFirst ⍬
      :Else
          :If 0=F.IsFile htmlFilename
              htmlFilename←F.GetTempFilename''
@@ -34,7 +34,7 @@
              :EndIf
          :Else
              :If n.Markdown.∆LastSavedVersion≢n.Markdown.Text
-                 TellHtmlIsNotUpToDate n
+                 TellHtmlIsNotUpToDate ⍬
                  :Return
              :EndIf
          :EndIf

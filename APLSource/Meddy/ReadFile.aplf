@@ -1,4 +1,4 @@
- rc←ReadFile(n  cursorWas);parms;msg;qdmx
+ rc←ReadFile(n cursorWas);parms;msg;qdmx
 ⍝ Reads the file and assigns it as Markdown.
 ⍝ Returns a 0 in case of success, otherwise 1.
  :Trap 0
@@ -12,7 +12,7 @@
      parms.addToCaption←'Open'
      msg←'Sorry, this file:'n.myFile.filenameMarkdown'caused a problem:'qdmx.Message('RC=',⍕qdmx.EN)
      #.CursorObj←0
-     n.∆globalParms parms G.Dialogs.ShowMsg msg
+     ShowMeddyMsg msg
      #.CursorObj←cursorWas
      rc←1
  :EndTrap
