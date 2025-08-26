@@ -1,5 +1,5 @@
 aplteam-APLTreeUtils2-1.4.1
-aplteam-FilesAndDirs-7.1.0
+aplteam-FilesAndDirs-7.1.1
 aplteam-HandleError-5.0.2
 aplteam-WinSys-6.0.1
 aplteam-IniFiles-6.0.0
