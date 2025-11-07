@@ -6,9 +6,10 @@ aplteam-WinSys-6.0.1
 aplteam-IniFiles-6.1.0
 aplteam-EventCodes-4.0.0
 aplteam-WinRegSimple-4.0.0
-aplteam-APLGUI-0.36.0
 aplteam-GitHubAPIv3-2.1.0
 aplteam-APLProcess-0.10.0
 aplteam-PresentAPL-3.4.0
 aplteam-Execute-4.0.0
 aplteam-MarkAPL-14.2.0
+aplteam-APLGUI-0.36.1
+aplteam-DateAndTime-3.0.0

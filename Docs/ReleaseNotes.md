@@ -3,8 +3,9 @@
 
 # Release Notes 
 
-## 5.0.5 - 2025-08-20
+## 5.0.5 - 2025-11-07
 
+* This version is build with Dyalog 20.0
 * So far, when a user pressed F10 in order to view the HTML in the default browser, Meddy crashed in case that file could not be found. Now an appropriate message is displayed.
 * Pressing F4 crashed Meddy when it attempted to sync with the very first header or when so far no header was displayed in the TreeView (TOC)
 * A right-click in the markdown area crashed Meddy if there was no TOC (yet).
@@ -166,6 +167,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

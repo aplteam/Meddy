@@ -2,7 +2,7 @@
 
 _**Meddy**_ is a Markdown editor. It uses the [MarkAPL class](http://github.com/aplteam/MarkAPL) to convert Markdown to valid HTML5.
 
-Until (and including) version 5.* **Meddy**_ is a Windows-only GUI application written in Dyalog APL 19.0 Unicode 64-bit which is available as a stand-alone EXE.
+Until (and including) version 5.* **Meddy**_ is a Windows-only GUI application written in Dyalog APL 20.0 Unicode 64-bit which is available as a stand-alone EXE.
 
 With version 6.0.0, to be releases in 2026, Meddy will be a multi-platform application available on Windows, Linux and Mac-OS.
 
