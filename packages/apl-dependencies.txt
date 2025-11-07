@@ -1,12 +1,12 @@
+aplteam-OS-4.1.0
 aplteam-APLTreeUtils2-1.4.1
 aplteam-FilesAndDirs-7.1.1
 aplteam-HandleError-5.0.2
 aplteam-WinSys-6.0.1
-aplteam-IniFiles-6.0.0
+aplteam-IniFiles-6.1.0
 aplteam-EventCodes-4.0.0
 aplteam-WinRegSimple-4.0.0
 aplteam-APLGUI-0.36.0
-aplteam-OS-4.0.0
 aplteam-GitHubAPIv3-2.1.0
 aplteam-APLProcess-0.10.0
 aplteam-PresentAPL-3.4.0
