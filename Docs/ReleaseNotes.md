@@ -3,6 +3,15 @@
 
 # Release Notes 
 
+## 5.0.6 - 2025-12-30
+
+* The "About" dialog now report the version of APL Meddy is running on.
+* Bug fixes
+  * The function `DoYouWantToSaveHtml` crashed when the document had embedded parameters.
+  * The function `SaveMarkdown` now handles "FILE NAME ERROR"
+  * The "Save" command had no effect anymore
+   The "New" command always displayed the HTML preview pane
+
 ## 5.0.5 - 2025-11-07
 
 * This version is build with Dyalog 20.0
@@ -167,6 +176,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 

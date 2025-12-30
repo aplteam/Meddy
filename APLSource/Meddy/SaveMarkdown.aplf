@@ -21,7 +21,7 @@
          :EndIf
          n.∆parms.embeddedParms←embeddedParms
          :If 1=saveHTML
-             :Trap 16 19
+             :Trap 16 19 22
                  (⊂,n.HTML.∆HTML)F.NPUT n.myFile.filenameHtml 1
              :Else
                  TellFileSaveError n.myFile.filenameHtml

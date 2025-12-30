@@ -12,6 +12,7 @@
  about,←''
  about,←'⋄It uses MarkAPL version ',MarkAPL.Version
  about,←'⋄for converting any Markdown to HTML5.'
+ about,←'⋄Meddy runs on Dyalog APL ',1⊃#.APLVersion
  about,←'⋄For details see:'
  about,←'⋄<https://github.com/aplteam/MarkAPL>'
  inis←';'A.Split n.∆INI.IniFilename

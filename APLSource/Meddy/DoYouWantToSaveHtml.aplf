@@ -3,7 +3,7 @@
  :If 0=⎕NC'saveHTML'
      :If 0<noOf←'[parm]'{+/∧\⍺∘≡¨(≢⍺)↑¨⍵}n.Markdown.Text
      :AndIf ∨/bool←{∨/¨':saveHTML'∘⍷¨⍵}noOf↑n.Markdown.Text
-         saveHTML←1=↑↑(//)⎕VFI{⍵↓⍨1+⍵⍳'='}↑bool/n.Markdown.Text
+         saveHTML←1=↑↑(//)⎕VFI{⍵↓⍨1+⍵⍳'='}↑bool/noOf↑n.Markdown.Text
      :Else
          parms←G.Dialogs.CreateParmsForYesOrNo
          parms.parent←n.∆Form
