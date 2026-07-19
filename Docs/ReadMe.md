@@ -312,7 +312,8 @@ Meddy was originally written by Kai Jaeger
 
 | Created     | 2017-10-23 |
 | Version     |      5.0.6 |
-| Last update | 2025-12-30 |
+| Last update | 2026-07-14 |
+
 
 
 

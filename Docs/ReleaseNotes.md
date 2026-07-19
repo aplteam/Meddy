@@ -3,6 +3,10 @@
 
 # Release Notes 
 
+## 5.1.0 - 2026-07-19
+
+* Packages updated: version 4.1.0 of `PresentAPL` is a major improvement.
+
 ## 5.0.6 - 2025-12-30
 
 * The "About" dialog now report the version of APL Meddy is running on.
@@ -176,6 +180,8 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
+
 
 
 

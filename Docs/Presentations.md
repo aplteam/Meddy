@@ -4,7 +4,7 @@
 
 Meddy is able to create an HTML file that acts like a presentation in any modern browser. All that's needed is an embedded parameter: `[parm]:presentation=1`.
 
-Unfortunately Meddy cannot view the HTML as a presentation in its own "Preview" window for technical reasons. Instead the HTML is shown in "Print" mode. However, by pressing F10 one can get around this easily, asking the default browser for doing the job.
+Unfortunately Meddy cannot view the HTML as a presentation in its own "Preview" window for technical reasons. Instead the HTML is shown in "Print" mode. However, by pressing F10 one can get around this easily, asking the default browser to do the job.
 
 This feature enables you to generate a presentation with very little effort by following a simple and small set of rules.
 
@@ -20,11 +20,10 @@ You can use all the stuff supported by MarkAPL: paragraphs, lists, code blocks, 
 * It's just HTML5, CSS and a bit of JavaScript
 * Open Source
 * Simple and easy to use
-* Allows testing code expressions used in a presentation
 
 **Disadvantages:**
 
-* No animations other than animated GIFs
+* No animations other than animated GIFs and SVGs
 
 ## Rules for presentations
 
@@ -61,30 +60,20 @@ Information that should be visible only on the handouts needs to be embraced by 
 ```
 Some para.
 
+
 <div class="handout">
+
+
 This **para** shows in "Print" mode only.
+
+
 </div>
+
 
 Some other para.
 ```
 
-The blank line above and below the `<div>` is necessary: only then is it identified as an HTML block rather than beeing taken verbatim.
-
-Note however that the paragraph would not be interpreted as markdown. This means that `**para**` is not converted into bold but survives as it reads.
-
-However, it is easy to overcome this by defining **two** HTML block as shown here:
-
-```
-Some para.
-
-<div class="handout">
-
-This **para** shows in "Print" mode only.
-
-</div>
-
-Some other para.
-```
+The blank lines above and below the `<div>` is necessary: only then are `<div>` and `</div>` identified as two (!) HTML blocks, and anything in between is regarded as markdown.
 
 
 ## Keyboard shortcuts
@@ -104,12 +93,13 @@ The following keys are used to control a presentation:
 
 Notes:
 
-* All elements are always incremental; that means that by pressing `<CursorRight>` just one element at a time is revealed.
+* All elements are always incremental (except for the very first slide); that means that by pressing `<CursorRight>` just one element at a time is revealed.
 
   If you don't want this just press either `<PgDn>` or `<Enter>` - this shows a whole slide at once.
 
 ## Misc
  
-* The bottom-left corner shows an arrow as long as not all items on a slide are revealed.
+* In the footer an arrow shows once all elements of the current slide are revealed.
 
 * In "Print" mode all slides are combined into a single printable document. In this mode `<div>`s with the class "handout" assigned to them will become visible as well.
+

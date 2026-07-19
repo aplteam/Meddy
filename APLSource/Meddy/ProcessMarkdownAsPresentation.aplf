@@ -12,14 +12,14 @@
          :If 0<parms.⎕NC'screenCSS'
              parms.css←parms.screenCSS
          :EndIf
-         :If   ⎕NULL≡parms.cssURL
-         :orif 0=≢parms.cssURL
+         :If ⎕NULL≡parms.cssURL
+         :OrIf 0=≢parms.cssURL
              parms.cssURL←MarkAPL.##.TatinVars.GetFullPath2AssetsFolder
          :EndIf
          parms.cssURL←'expand'F.NormalizePath parms.cssURL
          parms.toc←0
          parms.verbose←0
-         (html ns)←PresentAPL.MakePresentationFromMarkdown(⊆markdown)parms
+         (html ns)←PresentAPL.MakePresentationFromMarkdownArray(⊆markdown)parms
          n.HTML.∆HTML←html
          n.HTML.∆ns←ns
          n.HideCSS.State ProcessHTML n

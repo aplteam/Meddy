@@ -1,5 +1,5 @@
  ∆Make flag;⎕IO;⎕ML;pathToSource;targetPath;M;A;F;name;parms
-⍝ Version 3.5.0 ⋄ 2025-08-23
+⍝ Version 3.5.1 ⋄ 2025-07-14
  ⎕IO←1 ⋄ ⎕ML←1
  :If flag
      pathToSource←##.CiderConfig.HOME,'\'
@@ -16,12 +16,13 @@
      {}⎕SE.Cider.CloseProject''
      ⎕LX←'#.Meddy.Run'''''
      ⎕EX¨'MAF'
+     {#.Meddy.Meddy.⎕EX ⍵⌿⍨#.Meddy.Meddy.{'#._tatin.'{⍺≡(≢⍺)↑⍵}⍕⍎⍵}¨↓⍵}#.Meddy.Meddy.⎕NL 9
      0 ⎕SAVE ⎕WSID
      #.⎕EX #.⎕NL⍳16
      '#.Meddy.Meddy'#.⎕CY ⎕WSID
      ⎕NDELETE targetPath,'Meddy.dws'
      'Conga'#.⎕CY'conga'
-     {}2 ⎕SE.Tatin.LoadDependencies(pathToSource,'packages')'#.Meddy'
+     {}3 ⎕SE.Tatin.LoadDependencies(pathToSource,'packages')'#.Meddy'
      #.Meddy.GitHubAPIv3.##.HttpCommand.CongaRef←#.Conga
      M←⎕SE.MakeHelpers ⋄ A←M.##.APLTreeUtils2 ⋄ F←M.##.FilesAndDirs
      parms←M.CreateStandAloneExeParms targetPath'Meddy'
