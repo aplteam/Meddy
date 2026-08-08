@@ -7,7 +7,6 @@
      :Else
          :Select col⊃alignment
          :Case 'L'
-⍝ ⍝TODO⍝              table_[dataRows;col]←↓{⍵↑[1]⍨1++/~∧⌿' '=⌽⍵}buff[dataRows;]
              table_[dataRows;col]←↓{(-+/∧\∧⌿' '=⌽⍵)↓[1]⍵}buff[dataRows;]
          :Case 'C'
              table_[dataRows;col]←↓buff[dataRows;]  ⍝ Does not require any action
@@ -18,7 +17,7 @@
  :EndFor
  newWidths←≢¨table_[↑dataRows;]
  :If hasColHeaders
-     table_[headerRow;]←newWidths↑¨table[headerRow;]
+     table_[headerRow;]←((newWidths-1)↑¨table[headerRow;]),¨¯1↑¨table[headerRow;]
  :EndIf
  :If hasFooter
      table_[footerRow;]←newWidths↑¨table[footerRow;]

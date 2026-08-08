@@ -45,6 +45,8 @@
              :ElseIf ':'=¯1↑colHeader                           ⍝ Right-aligned?
                  table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
                  alignment,←'R'
+             :Else
+                 alignment,←'L'
              :EndIf
          :ElseIf ∧/{0=≢⍵:1 ⋄ ↑↑⎕VFI ⍵}¨headerRow↓table[dataRows;i] ⍝ All cells contain something that is numeric? (ignores col headers & empty cells)
              table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
