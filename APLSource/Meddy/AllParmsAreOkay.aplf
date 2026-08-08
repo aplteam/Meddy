@@ -11,7 +11,7 @@
  :EndFor
  :If ~success←0∊≢report
      msg←report,⊂'Needs to be addressed ASAP, otherwise Meddy cannot succeed!'
-     :If ∨/∨/¨'"collapsibleTOC"'⍷¨report
+     :If ∨/∨/¨'"collapsibleTOC"'∘⍷¨report
          msg,←⊂'("collapsibleTOC" was removed from Meddy for some time)'
      :EndIf
      {}TellInvalidParameter msg

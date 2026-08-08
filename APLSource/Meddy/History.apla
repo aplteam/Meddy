@@ -1,4 +1,8 @@
 (
+ '* 5.1.1 - 2026-08-08'
+ '  * Bug fixes'
+ '    * Ctrl+T (format a table) could crash Meddy'
+ '    * Defining an invalid parameter let to a misleading error message '
  '* 5.1.0 - 2026-07-19'
  '  * Packages updated (PresentAPL & MarkAPL).'
  '  * All CSS style sheets got improved, including presentations. '
