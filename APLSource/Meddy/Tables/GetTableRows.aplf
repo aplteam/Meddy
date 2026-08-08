@@ -3,3 +3,5 @@
  noOf1←+/∧\0<⌽row↑lengths           ⍝ No of table rows including and above cursor
  noOf2←+/∧\0<row↓lengths            ⍝ No of table rows below cursor
  ind←(row-noOf1)+⍳noOf1+noOf2       ⍝ Index of the table
+ ind/⍨←'|'∊¨n.Markdown.Text[ind]
+⍝Done

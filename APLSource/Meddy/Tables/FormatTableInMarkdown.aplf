@@ -1,4 +1,4 @@
- {r}←{leftRight}FormatTableInMarkdown n;curPos;ind;table;table2;headerRow;hasColHeaders;dataRows;noOfCols;widths;hasFooter;colHeader;i;col;table3;direction;row;table4;footerRow;alignment
+ {r}←{leftRight}FormatTableInMarkdown n;curPos;ind;table;table2;headerRow;hasColHeaders;dataRows;noOfCols;widths;hasFooter;colHeader;i;col;table3;direction;row;table4;footerRow;alignment;spaces;noOfLeadingSpaces
 ⍝ If the cursor is inside a table the table is formatted, and the table as well as the index top the markdown items is returned.
 ⍝ If the cursor is not in a table nothing happens and `⍬ ⍬` is returned.
 ⍝ If the optional `⍺` is provided, a new column is added. `⍺` must be either "left" or "right".
@@ -11,6 +11,8 @@
      table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces
      table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces
  :AndIf ∧/'|'∊¨table2                                           ⍝ Indeed all are table rows?
+     noOfLeadingSpaces←⌊/spaces←+/∧\' '=⊃table
+     table←spaces↓¨table
      table←{'|'=↑⍵:⍵ ⋄ '|',⍵}¨table                             ⍝ Add leading pipe where required
      table←##.A.DTB table
      table←{'|'=↑¯1↑⍵:⍵ ⋄ ⍵,'|'}¨table                          ⍝ Add trailing pipe where required
@@ -36,7 +38,7 @@
          table[footerRow;]←widths⍴¨'='
      :EndIf
      alignment←⍬
-     :For i :In ⍳1⊃⍴table
+     :For i :In ⍳≢table
          colHeader←↑table[headerRow;i]
          :If ':'∊colHeader                                      ⍝ Did the user define the alignment
              :If '::'≡2⍴¯1⌽colHeader                            ⍝ Centered?
@@ -87,7 +89,7 @@
      :If n.Markdown.Text[ind]≢table4
          ##.SaveTextForUndo n
          ##.∆SKIP_SAVE_FOR_UNDO←1
-         n.Markdown.Text[ind]←table4
+         n.Markdown.Text[ind]←((≢table4)⍴⊂noOfLeadingSpaces⍴' '),¨table4
          :If 0=⎕NC'leftRight'
              n.Markdown.SelText←2⍴⊂(1+curPos),2
          :Else
