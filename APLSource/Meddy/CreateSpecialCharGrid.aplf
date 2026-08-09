@@ -2,7 +2,7 @@
  :If n.∆SpecialChars≢⍬
      ∆←''
      ∆,←⊂'Posn'(0 0)
-     ∆,←⊂'Values'(⍉⍪↑,/(⊂¨(↑↓⍉n.∆SpecialChars),¨':'),¨{↑,/⍵}¨1⊃↓⍉n.∆SpecialChars)
+     ∆,←⊂'Values'(⍉⍪⊃,/(⊂¨(⊃↓⍉n.∆SpecialChars),¨':'),¨{⊃,/⍵}¨1⊃↓⍉n.∆SpecialChars)
      ∆,←⊂'TitleHeight' 0
      ∆,←⊂'RowTitles' ''
      ∆,←⊂'VScroll' 0

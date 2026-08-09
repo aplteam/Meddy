@@ -8,7 +8,7 @@
          1 WriteToStatusbar n''
          report←n.∆Report
          :If 0=n.∆Prefs.Warnings
-         :OrIf n.∆INI{~⍺.Exist ⍵:0 ⋄ ↑⍺.Get ⍵}'CONFIG:warnings'
+         :OrIf n.∆INI{~⍺.Exist ⍵:0 ⋄ ⊃⍺.Get ⍵}'CONFIG:warnings'
              report/⍨←'Warning:'{⍺∘≢¨(≢⍺)↑¨⍵}report
          :EndIf
          :If 0=≢report

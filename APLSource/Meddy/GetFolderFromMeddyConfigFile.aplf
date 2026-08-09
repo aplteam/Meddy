@@ -4,11 +4,11 @@
      n←⍵
      (folder filename extension)←⎕NPARTS n.myFile.filenameMarkdown
      0=FilesAndDirs.IsFile folder,'.meddy':''
-     data←⊆↑F.NGET(↑⎕NPARTS n.myFile.filenameMarkdown),'.meddy'
-     data←⊃'='A.Split¨,data
+     data←⊆⊃F.NGET(⊃⎕NPARTS n.myFile.filenameMarkdown),'.meddy'
+     data←↑'='A.Split¨,data
      bool←(' '~¨⍨⎕C data[;0])≡¨⊂'outputpath'
      0=+/bool:''
-     target←1↓¯1↓⎕TC~⍨A.DLB A.DTB↑bool/data[;1]
+     target←1↓¯1↓⎕TC~⍨A.DLB A.DTB⊃bool/data[;1]
      {(':'∊⍵)∨('\\'≡2⍴⍵)∨('/'=1⍴⍵)}target:'expand'FilesAndDirs.NormalizePath target,'/',filename,'.html'           ⍝ Absolute path? Done!
      'expand'FilesAndDirs.NormalizePath folder,target,filename,'.html'
  }

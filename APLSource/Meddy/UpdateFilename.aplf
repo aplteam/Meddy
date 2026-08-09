@@ -3,6 +3,6 @@
  n.myFile.filenameMarkdown←fullPath
  n.∆Form.Caption←n.∆globalParms.caption,' - ',n.myFile.filenameMarkdown
  :If 0=n.∆INI.Exist'Config:workDir'
-     n.∆Path←↑⎕NPARTS fullPath
+     n.∆Path←⊃⎕NPARTS fullPath
  :EndIf
 ⍝Done

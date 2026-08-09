@@ -3,7 +3,7 @@
  upDown←⎕C upDown
  row←¯1+0 0⊃n.Markdown.SelText                  ⍝ Where is the cursor?
  :If n CursorIsInTable row                      ⍝ Is it inside a table?
- :AndIf =/↑¨n.Markdown.SelText
+ :AndIf =/⊃¨n.Markdown.SelText
      ind←GetTableRows row n.Markdown.Text
      row2←ind⍳row
      table←n.Markdown.Text[ind]
@@ -19,7 +19,7 @@
      :If flag
          selText←n.Markdown.SelText
          n.Markdown.Text[ind]←table
-         n.Markdown.SelText←2⍴⊂(add+↑↑selText),1
+         n.Markdown.SelText←2⍴⊂(add+⊃⊃selText),1
      :EndIf
  :EndIf
  ⍝Done

@@ -8,7 +8,7 @@
 
  buff←(,⊂'|aa|bbb|')Tbl.SplitTableRows,⊂'|aa|bbb|'
  →T.PassesIf 1=≢buff
- →T.PassesIf('aa' 'bbb')≡↑buff
+ →T.PassesIf('aa' 'bbb')≡⊃buff
 
  buff←('|aa|bbb|' '|cc|ddd|')Tbl.SplitTableRows'|aa|bbb|' '|cc|ddd|'
  →T.PassesIf 2=≢buff
@@ -16,7 +16,7 @@
 
  ⍝ ⍵ carries the pipes that really are cell deviders, so an escaped pipe stays within its cell
  buff←(,⊂'|a\|b|cc|')Tbl.SplitTableRows,⊂'|a  b|cc|'
- →T.PassesIf('a\|b' 'cc')≡↑buff
+ →T.PassesIf('a\|b' 'cc')≡⊃buff
 
  R←T._OK
 ⍝Done

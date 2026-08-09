@@ -4,7 +4,7 @@
  :If A.IsDevelopment
      F.PolishCurrentDir
  :Else
-     {}F.Cd↑1 ⎕NPARTS 1↓{⍵↑⍨+/∧\1=+\'"'=⍵}2 ⎕NQ #'GetCommandLine'
+     {}F.Cd⊃1 ⎕NPARTS 1↓{⍵↑⍨+/∧\1=+\'"'=⍵}2 ⎕NQ #'GetCommandLine'
  :EndIf
  n.∆globalParms←G.APLGuiGlobalParms.CreateDefaults
  n.∆RecentFiles←''
@@ -19,5 +19,5 @@
  n.∆globalParms.userRegKey←'HKCU\SOFTWARE\APL Team Ltd\Meddy'
  n←EstablishPreferences n
  ∆SKIP_SAVE_FOR_UNDO←0
- n.∆CurrentFontSize←{0::17 ⋄ ↑(//)⎕VFI ⍵}'17'WinRegSimple.Read n.∆globalParms.regKey
+ n.∆CurrentFontSize←{0::17 ⋄ ⊃(//)⎕VFI ⍵}'17'WinRegSimple.Read n.∆globalParms.regKey
 ⍝Done

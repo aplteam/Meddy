@@ -8,7 +8,7 @@
      regExMetaChars←'\^$.|?*+()[{'
      :If 0<+/bool←searchFor∊regExMetaChars
          (bool/searchFor)←'\',¨bool/searchFor
-         searchFor←↑,/searchFor
+         searchFor←⊃,/searchFor
      :EndIf
  :EndIf
  :If ¯1≡hits←n ProcessRegEx_Find(n.Markdown.Text)searchFor
@@ -35,7 +35,7 @@
          :Else
              bool←hits<GetCandidatesFromHits 0 ¯1+0⊃n.Markdown.SelText
              :If 1∊bool
-                 item←↑¯1↑⍸bool
+                 item←⊃¯1↑⍸bool
              :Else
                  n2.StatusField1.FCol←n.∆globalParms.alarmColor
                  n2.StatusField1.Text←'No more hits'

@@ -2,7 +2,7 @@
  r←⍬
  cm←CreateContextMenuForToc n
  :If ~0=≢res←⎕DQ cm.∆menu
-     :Select ↑res
+     :Select ⊃res
      :Case cm.ExpandAll
          ExpandAll n
      :Case cm.Cut

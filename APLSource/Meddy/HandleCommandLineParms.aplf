@@ -7,17 +7,17 @@
  :If 0=≢buff←'-dir='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
      n.∆Path←''
  :Else
-     n.∆Path←↑buff
+     n.∆Path←⊃buff
  :EndIf
 
  buff←'-file='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'
  :If 0≠≢buff
      r←1
-     :If FilesAndDirs.Exists filename←↑¯1↑buff
+     :If FilesAndDirs.Exists filename←⊃¯1↑buff
          filename LoadFile n
      :Else
          :If n.∆INI.Exist'Config:WorkDir'
-         :AndIf 0<≢path←↑n.∆INI.Get'Config:WorkDir'
+         :AndIf 0<≢path←⊃n.∆INI.Get'Config:WorkDir'
          :AndIf F.IsFile path,filename
              filename←path,filename
              filename LoadFile n
@@ -28,7 +28,7 @@
  :ElseIf ∨/'-new'∘≡¨2 ⎕NQ #'GetCommandLineArgs'
      CreateNewDocument_ n
  :ElseIf 2=≢#.GetCommandLineArgs
-     filename←↑¯1↑#.GetCommandLineArgs
+     filename←⊃¯1↑#.GetCommandLineArgs
  :AndIf (⎕C ¯1↑⎕NPARTS filename)∊'.md' '.markdown'
      :If FilesAndDirs.Exists filename
          filename LoadFile n

@@ -19,5 +19,5 @@
      :If ~rc∊0 ¯1
          11 ⎕SIGNAL⍨'Switching on Ride failed, rc=',⍕rc
      :EndIf
-     {}{_←⎕DL ⍵ ⋄ ∇ ⍵}⍣(⊃waitFlag)⊣1  ⍝ Endless loop for an early RIDE
+     {}{_←⎕DL ⍵ ⋄ ∇ ⍵}⍣(↑waitFlag)⊣1  ⍝ Endless loop for an early RIDE
  :EndIf

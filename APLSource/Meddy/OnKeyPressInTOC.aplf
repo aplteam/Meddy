@@ -1,7 +1,7 @@
  {r}←OnKeyPressInTOC msg;key;keyNo;shiftState;n;obj
  r←0
  (obj key keyNo shiftState)←msg[0 2 4 5]
- n←GetRef2n↑msg
+ n←GetRef2n⊃msg
  :If keyNo shiftState≡70 2
      ⍝ Ctrl+F                                   ⍝ There are currently no plans to implement this
  :ElseIf keyNo shiftState≡9 0                   ⍝ TAB

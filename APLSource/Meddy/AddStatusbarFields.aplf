@@ -7,7 +7,7 @@
  n.Row←n.Statusbar.⎕NEW'StatusField'∆
  n.Row.Posn[0]←n.StatusField1.Posn[0]
  ∆←⊂'Size'(⍬ 60)
- ∆,←⊂'Posn'((n.Row.Posn[0]),1⊃↑+/n.Row.(Posn Size))
+ ∆,←⊂'Posn'((n.Row.Posn[0]),1⊃⊃+/n.Row.(Posn Size))
  ∆,←⊂'Attach'(4⍴'Top' 'Right')
  n.Col←n.Statusbar.⎕NEW'StatusField'∆
  n.Col.Posn[0]←n.StatusField1.Posn[0]

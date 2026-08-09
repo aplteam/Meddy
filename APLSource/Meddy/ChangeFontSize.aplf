@@ -1,12 +1,12 @@
  {r}←n ChangeFontSize direction;newFontSize
  r←⍬
  :If 0<direction
-     newFontSize←↑(1+n.∆AllFontSizes⍳n.∆CurrentFontSize)⌽n.∆AllFontSizes
+     newFontSize←⊃(1+n.∆AllFontSizes⍳n.∆CurrentFontSize)⌽n.∆AllFontSizes
      :If newFontSize<n.∆CurrentFontSize
          :Return
      :EndIf
  :Else
-     newFontSize←↑(¯1+n.∆AllFontSizes⍳n.∆CurrentFontSize)⌽n.∆AllFontSizes
+     newFontSize←⊃(¯1+n.∆AllFontSizes⍳n.∆CurrentFontSize)⌽n.∆AllFontSizes
      :If newFontSize>n.∆CurrentFontSize
          :Return
      :EndIf

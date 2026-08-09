@@ -1,4 +1,4 @@
  OnCloseSpecialChars←{
-     (GetRef2n↑⍵).∆SpecialCharsForm←⍬
+     (GetRef2n⊃⍵).∆SpecialCharsForm←⍬
      1
  }

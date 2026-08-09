@@ -4,7 +4,7 @@
  ps.presentation←0
  list←ps.∆List[;0]
  list~←'inputFilename' 'outputFilename' 'compileFunctions' 'debug' 'homeFolder' 'verbose' ⍝ These parameters should not be embedded by the user
- :If 0<noOf←+/∧\'['=↑¨,n.Markdown.Text
+ :If 0<noOf←+/∧\'['=⊃¨,n.Markdown.Text
      list~←{{⍵↑⍨⍵⍳'='}(≢'[parm]:')↓⍵}¨{⍵/⍨'[parm]:'∘{⍺≡⎕C(≢⍺)↑⍵}¨⍵}noOf↑,n.Markdown.Text
  :EndIf
  (alreadyDefined comments)←GetEmbeddedParms n.Markdown.Text
@@ -16,8 +16,8 @@
      parms.info←'Note that embedded parameters are a MarkAPL-only feature!' 'Select parameters to embedd:'
      parms.fontLabel←n.∆globalParms.fontAPL
      parms.parent←n.∆Form
-     isNum←0=↑¨1↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
-     n2←n.∆globalParms parms G.OptionsTool.Create↓⎕FMT⊃(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
+     isNum←0=⊃¨1↑¨0⍴¨{⍵[⍵[;0]⍳list;1]}ps.∆List
+     n2←n.∆globalParms parms G.OptionsTool.Create↓⎕FMT↑(⊂¨list),¨⊂¨(' (text)' ' (numeric)')[isNum]
      n2.menubar.help←n2.menubar.edit.##.⎕NEW'Menu'(⊂'Caption' '&Help')
      n2.menubar.showDoc←n2.menubar.help.⎕NEW'MenuItem'(⊂'Caption' 'View parameter documentation')
      n2.menubar.showDoc.onSelect←'OnShowParameterDocumentation'
@@ -30,7 +30,7 @@
          list2←({⍵↑⍨⌊/⍵⍳' ='}¨{(≢'[parm]:')↓⍵}¨alreadyDefined),list     ⍝ Needed for eliminating doubles
          buff←alreadyDefined,'[parm]:'∘,¨list,¨('=' '=''''')[~isNum]
          buff←(⌽{(⍳≢⍵)=⍵⍳⍵}⌽list2)/buff                                 ⍝ Eliminate any doubles but make last one win
-         buff←(⊃'='A.Split¨buff),'='
+         buff←(↑'='A.Split¨buff),'='
          :If 0<≢list
              defaults←ps.∆List
              buff[list2⍳list;1]←{⎕NULL≡⍵:'⎕NULL' ⋄ 0=1↑0⍴⍵:⍕⍵ ⋄ '''',⍵,''''}¨defaults[defaults[;0]⍳list;1]

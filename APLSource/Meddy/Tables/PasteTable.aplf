@@ -7,8 +7,8 @@
      :If (≢buff)≥headerInd←1+1⍳⍨∧/0<≢¨buff
          buff←((headerInd)↑buff)⍪((≢¨buff[headerInd-1;])⍴¨'-')⍪headerInd↓buff
      :EndIf
-     buff←'|',(⊃⊃¨{⍺,'|',⍵}/¨↓buff),'|'
-     cursPos←↑↑n.Markdown.SelText
+     buff←'|',(↑↑¨{⍺,'|',⍵}/¨↓buff),'|'
+     cursPos←⊃⊃n.Markdown.SelText
      n.Markdown.Text←((cursPos-1)↑n.Markdown.Text),(↓buff),cursPos↓n.Markdown.Text
      FormatTableInMarkdown n
  :Else

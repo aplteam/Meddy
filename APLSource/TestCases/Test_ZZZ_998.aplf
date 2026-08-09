@@ -1,6 +1,6 @@
  R←Test_ZZZ_998(stopFlag batchFlag);⎕IO;⎕ML;⎕TRAP;report;buff;parms;ref
 ⍝ Checks on two text vectors: "⍝TODO⍝" and "⍝CHECK⍝"; never fails, just reports.
- ⎕IO←0 ⋄ ⎕ML←3
+ ⎕IO←0 ⋄ ⎕ML←1
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
 
  ref←#.Meddy.Meddy
@@ -34,7 +34,7 @@
          report,←⊂'    Nothing found!'
      :Else
          ⎕←'Checking for ⍝TODO⍝ and ⍝CHECK⍝ '{⍵↑,'--- ',⍺,' ',⍵⍴'-'}80⌊⎕PW-1
-         ⎕←⊃report
+         ⎕←↑report
      :EndIf
  :EndIf
 ⍝Done

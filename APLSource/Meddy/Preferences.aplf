@@ -24,8 +24,8 @@
  def⍪←'LeanPub' 'Support LeanPub e&xtensions'n.∆Prefs.LeanpubExtensions DT.YesNo ⍬ 1 1
  ⍝TODO⍝ def⍪←'PortNo' 'Port number'n.∆Prefs.PortNo DT.Numeric 5 1 1    ⍝⍝⍝⍝⍝ When we support push
  :If ~0=≢result←n.∆globalParms parms G.Input.Run def
-     Width←↑(1⊃result[result[;0]⍳⊂'Width';])/width
-     StyleSheet←↑(1⊃result[result[;0]⍳⊂'StyleSheet';])/styleSheet
+     Width←⊃(1⊃result[result[;0]⍳⊂'Width';])/width
+     StyleSheet←⊃(1⊃result[result[;0]⍳⊂'StyleSheet';])/styleSheet
      LeanpubExtensions←1⊃result[result[;0]⍳⊂'LeanPub';]
  ⍝TODO⍝      PortNo←1⊃result[result[;0]⍳⊂'PortNo';]                     ⍝⍝⍝⍝⍝ When we support push
  :AndIf Width StyleSheet≢n.∆Prefs.(Width StyleSheet)

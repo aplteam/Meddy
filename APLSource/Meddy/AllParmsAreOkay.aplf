@@ -3,7 +3,7 @@
  :For this :In embeddedParms
      :Trap 6
          :If 0=CheckParameter this
-             report,←⊂'Invalid: "',(↑this),'"'
+             report,←⊂'Invalid: "',(⊃this),'"'
          :EndIf
      :Else
          report,←⊂⎕DMX.EM

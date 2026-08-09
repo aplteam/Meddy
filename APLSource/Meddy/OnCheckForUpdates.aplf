@@ -1,6 +1,6 @@
  OnCheckForUpdates msg;n
  #.CursorObj←1
- n←GetRef2n↑msg
+ n←GetRef2n⊃msg
  CheckForUpdates n
  #.CursorObj←0
 ⍝Done

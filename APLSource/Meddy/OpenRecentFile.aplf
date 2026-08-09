@@ -14,7 +14,7 @@
          regKey←n.∆globalParms.userRegKey,'\RecentFiles'
          list←';'A.Split WinRegSimple.Read regKey
          list←((⎕C list)≢¨⊂⎕C filename)/list
-         WinRegSimple.Write regKey(↑{⍺,';',⍵}/list)
+         WinRegSimple.Write regKey(⊃{⍺,';',⍵}/list)
          {}AddRecentFilesFromWindowsRegistry n n.∆Menubar.recent
      :EndIf
  :EndIf

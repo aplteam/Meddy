@@ -4,5 +4,5 @@
      0=≢files:''
      files←A.Nest files
      files←({{⍵∧.≠'='}¨⍵}files)/files  ⍝ No variables
-     ('-'≠↑¨files)/files               ⍝ No flags
+     ('-'≠⊃¨files)/files               ⍝ No flags
  }

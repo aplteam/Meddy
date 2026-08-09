@@ -3,7 +3,7 @@
  {}RefreshPreview n
  :If 0≠≢filename←AskForSaveFilename n
      n.myFile.firstFlag←0
-     filename←'expand'F.NormalizePath{(↑,/2↑⍵),{0=≢⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
+     filename←'expand'F.NormalizePath{(⊃,/2↑⍵),{0=≢⍵:'.md' ⋄ ⍵}2⊃⍵}⎕NPARTS filename
      :If F.IsFile filename
      :AndIf 0=n AlreadyExistsSaveAnyway filename
          :Return
@@ -19,7 +19,7 @@
          n.myFile.saveHtml←DoYouWantToSaveHtml n
          :If n.myFile.saveHtml
              :If 0=≢filename←GetFolderFromMeddyConfigFile n
-                 n.myFile.filenameHtml←↑{⍺,⍵}/(2↑⎕NPARTS n.myFile.filenameMarkdown),{0=≢⍵:'.html' ⋄ ⍵}↑¯1↑⎕NPARTS n.myFile.filenameHtml
+                 n.myFile.filenameHtml←⊃{⍺,⍵}/(2↑⎕NPARTS n.myFile.filenameMarkdown),{0=≢⍵:'.html' ⋄ ⍵}⊃¯1↑⎕NPARTS n.myFile.filenameHtml
              :Else
                  n.myFile.filenameHtml←filename
              :EndIf

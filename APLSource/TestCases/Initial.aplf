@@ -1,5 +1,5 @@
  Initial
- ⎕IO←0 ⋄ ⎕ML←3
+ ⎕IO←0 ⋄ ⎕ML←1
  FilesAndDirs.PolishCurrentDir
  T←⎕NEW Tester2 ⎕THIS
  ⎕←'Note that the current directory will be switched to ',##.CiderConfig.HOME

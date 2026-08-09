@@ -1,6 +1,6 @@
  {r}←TellAboutConversionFailure dummy;msg
  r←⍬
  #.CursorObj←0
- msg←'Converting the markdown into HTML failed.' '',⊂↑⎕DMX.DM
+ msg←'Converting the markdown into HTML failed.' '',⊂⊃⎕DMX.DM
  'Conversion error'ShowMeddyMsg msg
 ⍝Done

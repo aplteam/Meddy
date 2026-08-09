@@ -1,6 +1,6 @@
  r←n2 OnNavigate msg;rf;doc;body;html;caption;ind;bool;n;toc
  r←1
- rf←↑msg
+ rf←⊃msg
  doc←rf.Document
  body←doc.body
  :If 0≠≢html←{11::'' ⋄ ⍵.innerHTML}body

@@ -1,14 +1,14 @@
  txt←MakeUrlsAbsolute_ ns;this;offset;length;drop;url
  :If 1=ns.PatternNum
      :For offset length :In ns.(Offsets Lengths)
-         drop←+/↑¨ns.(Offsets Lengths)
+         drop←+/⊃¨ns.(Offsets Lengths)
          url←{⍵↑⍨⍵⍳'"'}drop↓ns.Block
          :If ∨/'://'⍷url
-         :OrIf ('/'=↑url)∨(':'∊url)
+         :OrIf ('/'=⊃url)∨(':'∊url)
              ⍝ It's an absolute path - nothing to do
              txt←ns.Match
          :Else
-             txt←FilesAndDirs.EnforceSlash ns.Match,↑⎕NPARTS n.myFile.filenameMarkdown
+             txt←FilesAndDirs.EnforceSlash ns.Match,⊃⎕NPARTS n.myFile.filenameMarkdown
          :EndIf
      :EndFor
  :Else

@@ -7,7 +7,7 @@
  savePathInReg←0
  :If 0=≢n.∆Path
      n.∆Path←ReadPathFromRegistry ⍬                 ⍝ Restore latest folder
-     :If 0<≢buff←↑''n.∆INI.Get'CONFIG:workDir'
+     :If 0<≢buff←⊃''n.∆INI.Get'CONFIG:workDir'
          n.∆Path←'expand'F.NormalizePath buff       ⍝ But INI file takes precedence if defined at all
      :Else
          savePathInReg←~flag

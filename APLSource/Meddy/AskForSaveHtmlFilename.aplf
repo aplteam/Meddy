@@ -2,11 +2,11 @@
  parms←G.FileBox.CreateParms
  parms.fileMode←'Write'
  :If 0<≢n.myFile.filenameHtml
-     parms.file←↑,/1↓⎕NPARTS n.myFile.filenameHtml
-     path←↑⎕NPARTS n.myFile.filenameHtml
+     parms.file←⊃,/1↓⎕NPARTS n.myFile.filenameHtml
+     path←⊃⎕NPARTS n.myFile.filenameHtml
  :Else
      parms.file←(1⊃⎕NPARTS n.myFile.filenameMarkdown),'.html'
-     path←↑⎕NPARTS n.myFile.filenameMarkdown
+     path←⊃⎕NPARTS n.myFile.filenameMarkdown
  :EndIf
  parms.addToCaption←'Save HTML file'
  parms.filters←⊂'*.html' 'HTML file'

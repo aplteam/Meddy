@@ -12,7 +12,7 @@
  parms.leanpubExtensions←n.∆Prefs.LeanpubExtensions
  parms.leanpubExtensions←parms.leanpubExtensions n.∆INI.Get'CONFIG:leanpubExtensions'
  embeddedParms←n.∆parms.embeddedParms
- :If 0≠≢embeddedParms←⊃embeddedParms
+ :If 0≠≢embeddedParms←↑embeddedParms
      :If (≢embeddedParms)≠ind←embeddedParms[;0]⍳⊂'screenCSS'
          parms.screenCSS←''''~⍨1⊃embeddedParms[ind;]
      :EndIf

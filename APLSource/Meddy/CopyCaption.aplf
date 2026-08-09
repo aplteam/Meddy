@@ -9,8 +9,8 @@
      :If '#'=1⍴row⊃n.Markdown.Text
          cl.Text←{⍵↓⍨1++/∧\'#'=⍵}row⊃n.Markdown.Text
      :Else
-         buff←(+/∧\~(⊃↑¨row↓n.Markdown.Text)∊'-=')↑row↓n.Markdown.Text
-         cl.Text←1↓↑,/' ',¨buff
+         buff←(+/∧\~(↑⊃¨row↓n.Markdown.Text)∊'-=')↑row↓n.Markdown.Text
+         cl.Text←1↓⊃,/' ',¨buff
      :EndIf
  :EndIf
  ⍝Done

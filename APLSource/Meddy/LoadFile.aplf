@@ -12,9 +12,9 @@
      UpdateFilename n n.myFile.filenameMarkdown
      path←GetFolderFromMeddyConfigFile n
      :If hasMeddyConfigFile←0<≢path
-         htmlFilename←F.NormalizePath(↑⎕NPARTS path),'/',(1⊃⎕NPARTS n.myFile.filenameMarkdown),'.html'
+         htmlFilename←F.NormalizePath(⊃⎕NPARTS path),'/',(1⊃⎕NPARTS n.myFile.filenameMarkdown),'.html'
      :Else
-         htmlFilename←(⊃,/2↑⎕NPARTS n.myFile.filenameMarkdown),'.html'
+         htmlFilename←(↑,/2↑⎕NPARTS n.myFile.filenameMarkdown),'.html'
      :EndIf
      :If ~flag
          n.myFile.firstFlag←1
@@ -24,7 +24,7 @@
          #.CursorObj←0
          :If n.myFile.saveHtml←n WantToSaveHtml ⍬
              :If SaveHtmlAlongMarkdown n
-                 n.myFile.filenameHtml←(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
+                 n.myFile.filenameHtml←(⊃,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
              :Else
                  n.myFile.filenameHtml←AskForSaveHtmlFilename n
              :EndIf

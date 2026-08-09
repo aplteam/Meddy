@@ -6,6 +6,6 @@
  :AndIf 'Edit'≡n.Markdown ⎕WG'Type '
      filename←F.NormalizePath errParms.crashFilename,'.md'
      (⊂n.Markdown.Text)F.NPUT filename
-     filename←↑,/1↓⎕NPARTS filename
+     filename←⊃,/1↓⎕NPARTS filename
  :EndIf
 ⍝Done

@@ -1,6 +1,6 @@
  {r}←OnMenuCommand msg;n;menuItem
  r←0
- menuItem←↑msg
+ menuItem←⊃msg
  n←GetRef2n menuItem
  WriteToStatusbar n''
  :Select menuItem

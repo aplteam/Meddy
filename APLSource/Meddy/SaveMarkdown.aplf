@@ -9,10 +9,10 @@
      :If IsPresentation n
          SaveMarkdownAsPresentation n n.myFile.filenameHtml
      :Else
-         embeddedParms←↑GetEmbeddedParms n.Markdown.Text
+         embeddedParms←⊃GetEmbeddedParms n.Markdown.Text
          :If 0<+/bool←embeddedParms{((≢⍵)↑¨⍺)≡¨⊂⍵}'[parm]:saveHTML'
-             saveHTML←(↑¯1↑⍸bool)⊃embeddedParms
-             saveHTML←1={↑↑(//)⎕VFI ⍵↓⍨1+⍵⍳'='}saveHTML
+             saveHTML←(⊃¯1↑⍸bool)⊃embeddedParms
+             saveHTML←1={⊃⊃(//)⎕VFI ⍵↓⍨1+⍵⍳'='}saveHTML
          :ElseIf 0<n.∆parms.⎕NC'embeddedParms'
          :AndIf ∨/n.∆parms.embeddedParms{((≢⍵)↑¨⍺)≡¨⊂⍵}'[parm]:saveHTML'
              saveHTML←0

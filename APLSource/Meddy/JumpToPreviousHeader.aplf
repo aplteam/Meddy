@@ -2,7 +2,7 @@
 ⍝ Scroll the HTML so that the previous header relative to the current cursor position is shown.
      n←⍵
      0=≢n.Toc.∆Toc:0
-     ind←¯1++/n.Toc.∆Toc[;3]<↑↑n.Markdown.SelText
+     ind←¯1++/n.Toc.∆Toc[;3]<⊃⊃n.Markdown.SelText
      n.Toc.SelItems[]←0
      ind<0:r←⍬
      n.Toc.SelItems[ind]←1

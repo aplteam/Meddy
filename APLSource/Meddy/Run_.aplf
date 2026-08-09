@@ -1,18 +1,18 @@
  (n savePathInReg)←{testFlag}Run_(filename iniFile);APLVersion;flag;n;⎕IO;⎕ML;minVersion
 ⍝ Sub function called by the main function `Run`. Only used for automated tests.
- ⎕IO←0 ⋄ ⎕ML←3
+ ⎕IO←0 ⋄ ⎕ML←1
  {}2401⌶1 ⍝ Enable exposed root properties
  testFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'testFlag'
  AllowRide_ ⍬
  EnableCONTINUE_workspaces ⍬
  APLVersion←# ⎕WG'APLVersion'
  minVersion←19.0
- :If minVersion>{+/({↑↑(//)⎕VFI ⍵}¨2↑'.'APLTreeUtils2.Split ⍵)÷1 10}1⊃APLVersion
+ :If minVersion>{+/({⊃⊃(//)⎕VFI ⍵}¨2↑'.'APLTreeUtils2.Split ⍵)÷1 10}1⊃APLVersion
      11 ⎕SIGNAL⍨'This application requires to run under at least Dyalog ',4 1⍕minVersion
  :EndIf
  ⎕TRAP←(~testFlag)/SetTrap ⍬
  n←G.RefNamespace.Create'Meddy'
- n.∆IniFilenam←{0<⎕NC ⍵:⍎⍵ ⋄ {0=≢⍵:⍵ ⋄ ↑⍵}'-ini='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'}'iniFile'
+ n.∆IniFilenam←{0<⎕NC ⍵:⍎⍵ ⋄ {0=≢⍵:⍵ ⋄ ⊃⍵}'-ini='GetParamValue 2 ⎕NQ #'GetCommandLineArgs'}'iniFile'
  n←Init n
  ⎕TRAP←(n.∆INI.Get'Config:trap')SetTrap ⍬
  AllowRide n
@@ -25,6 +25,6 @@
  n.∆Form.CursorObj←0
  2 ⎕NQ #'Flush'
  ⎕DL 0.1
- {}WarnOnDragAndDrop⍣(~↑testFlag)⊣n
+ {}WarnOnDragAndDrop⍣(~⊃testFlag)⊣n
  HandlePreferences n
 ⍝Done

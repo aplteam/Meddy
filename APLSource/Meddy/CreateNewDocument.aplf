@@ -6,7 +6,7 @@
      :If A.IsDevelopment
          ⎕←'Normally a new instance of Meddy would be started here...'
      :Else
-         cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+         cmd←'"',(⊃2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
          cmd,←'-new '
          cmd,←'-posn="',(⍕20+n.∆Form.Posn),'" '
          :If 0

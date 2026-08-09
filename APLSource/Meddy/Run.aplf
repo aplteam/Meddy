@@ -6,7 +6,7 @@
 ⍝ It allows to simulate a command line parameter -ini={filename}
 ⍝ Always returns ⍬.
  r←⍬
- ⎕IO←0 ⋄ ⎕ML←3
+ ⎕IO←0 ⋄ ⎕ML←1
  EnableCONTINUE_workspaces ''
  A←APLTreeUtils2 ⋄ F←FilesAndDirs ⋄ G←APLGUI
  :If 0<##.⎕NC'CiderConfig'  ⍝ Running as a project?

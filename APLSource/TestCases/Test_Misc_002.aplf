@@ -10,7 +10,7 @@
  (md2 parms)←##.Meddy.{_←EstablishRefs ⍬ ⋄ GetEmbeddedParmsAndRemoveFromMarkdown ⍵}md
  →T.PassesIf 0∊≢∊md2
  →T.PassesIf∧/##.Meddy.{_←EstablishRefs ⍬ ⋄ CheckParameter ⍵}¨parms
- →T.PassesIf(2 2⍴'markdownStrict'(,0)'homeFolder' '''C:\Path with blanks\My''')≡⊃parms
+ →T.PassesIf(2 2⍴'markdownStrict'(,0)'homeFolder' '''C:\Path with blanks\My''')≡↑parms
 
  md←⊂'[parm]:markdownStrict=text'
  (md2 parms)←##.Meddy.{_←EstablishRefs ⍬ ⋄ GetEmbeddedParmsAndRemoveFromMarkdown ⍵}md

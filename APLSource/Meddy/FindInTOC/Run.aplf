@@ -1,6 +1,6 @@
  {r}←Run n;n2;A;G;parms;def;DT
 ⍝ Allows the user to search for text in the table-of-contents.
- ⎕IO←0 ⋄ ⎕ML←3   ⍝ Needed to overcome an acre probkem with ⎕IO and ⎕ML; kai 2019-10-16
+ ⎕IO←0 ⋄ ⎕ML←1   ⍝ Needed to overcome an acre probkem with ⎕IO and ⎕ML; kai 2019-10-16
  :If 0=⎕NC'∆SearchString'
      ∆SearchString←''
      ∆Case←0

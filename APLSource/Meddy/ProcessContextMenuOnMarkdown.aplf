@@ -3,7 +3,7 @@
  contextMenu←CreateContextMenuOnMarkdown n
  res←n DQ contextMenu
  :If 0≠≢res
-     menuItem←↑res
+     menuItem←⊃res
      :Select menuItem
      :Case contextMenu.Find
          FindInMarkdown n

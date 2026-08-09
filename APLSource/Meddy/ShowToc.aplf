@@ -1,6 +1,6 @@
  n←{row}ShowToc n;toc;depth;diff;invalid;states;allStates;was;now;closingTags;b
  row←n.Toc{0<⎕NC ⍵:⍎⍵ ⋄ 0}'row'
- toc←⊃n.HTML.∆ns.toc
+ toc←↑n.HTML.∆ns.toc
  n.Toc.Visible←0
  :If 0=≢toc
      n.Toc.Items←''
@@ -21,10 +21,10 @@
          n.Toc.Depth←(≢toc)⍴0    ⍝ Last resort
      :EndTrap
      allStates←n.Toc GetState¨⍳≢n.Toc.Items
-     n.Toc.Depth←n.Toc.((⊃⌈/≢¨(Depth Items))↑Depth)
-     was←n.Toc.(↑,[0.5]/Depth Items)
+     n.Toc.Depth←n.Toc.((↑⌈/≢¨(Depth Items))↑Depth)
+     was←n.Toc.(⊃,[0.5]/Depth Items)
      n.Toc.RealDepth←toc[;0]        ⍝ In case the user has built an invalid structure of headers we need to remember his definition
-     toc[;0]←toc[;0]-(↑toc[;0])-1
+     toc[;0]←toc[;0]-(⊃toc[;0])-1
      n.TocSF.(Active Visible)←1
      {}{2 ⎕NQ n.Toc'Expanding'⍵}¨⍳≢n.Toc.Depth   ⍝ ⍸ n.Toc.Depth∊0 1
      toc[;1]←(,¨'“”')⎕R(,¨'""')⊣toc[;1]

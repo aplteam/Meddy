@@ -1,7 +1,7 @@
  table_←CompressTable(table alignment dataRows hasColHeaders hasFooter headerRow footerRow);col;buff;newWidths
  table_←(⍴table)⍴''
  :For col :In ⍳1⊃⍴table
-     buff←⊃table[;col]
+     buff←↑table[;col]
      :If ∧/,' '=buff[dataRows;]
          table_[dataRows;col]←↓buff[dataRows;]      ⍝ In case it is completely empty we don't touch it
      :Else
@@ -15,7 +15,7 @@
          :EndSelect
      :EndIf
  :EndFor
- newWidths←≢¨table_[↑dataRows;]
+ newWidths←≢¨table_[⊃dataRows;]
  :If hasColHeaders
      table_[headerRow;]←((newWidths-1)↑¨table[headerRow;]),¨¯1↑¨table[headerRow;]
  :EndIf

@@ -14,7 +14,7 @@
      n.Markdown.SelText←was[0 0]
  :Else
      n.Markdown.SelText←was
-     (1 1⊃n.Markdown.SelText)←(0 1⊃was)+↑≢nr.Replace_with.Text
+     (1 1⊃n.Markdown.SelText)←(0 1⊃was)+⊃≢nr.Replace_with.Text
  :EndIf
  RefreshPreview n
 ⍝Done

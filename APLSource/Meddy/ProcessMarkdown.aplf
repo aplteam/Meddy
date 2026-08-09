@@ -11,7 +11,7 @@
          parms←CompileParmsForMarkAPL n parms
          parms←n CheckOnCssFiles parms
          :If 0=F.IsFile RemoveFileProtocol parms.screenCSS
-             parms.cssURL←↑parms.cssURL n.∆INI.Get'CONFIG:cssURL'
+             parms.cssURL←⊃parms.cssURL n.∆INI.Get'CONFIG:cssURL'
              :If ⎕NULL≡parms.cssURL
                  :If 0<parms.⎕NC'presentation'
                  :AndIf parms.presentation
@@ -47,7 +47,7 @@
              :Trap 0
              ⍝ Do not use the `Refresh` method here - won't work! Or rather, it works
              ⍝ but the next line has then no effect any more, and it won't recover!
-                 n.IE.IEobject.Document.body.innerHTML←1↓↑,/(⎕UCS 10),¨GetBody html
+                 n.IE.IEobject.Document.body.innerHTML←1↓⊃,/(⎕UCS 10),¨GetBody html
              ⍝ Do not attempt to change the header: does not work!
                  okay←1
              :Else
@@ -61,7 +61,7 @@
              :EndIf
              :Trap 0
                  :If ~((⎕UCS 10)A.Split n.IE.IEobject.Document.head.innerHTML){(∧/⍺∊⍵)∧∧/⍵∊⍺}(GetHead html)  ⍝ Any change in <head>?!
-                     n.IE.IEobject.Document.head.innerHTML←1↓↑,/(⎕UCS 10),¨GetHead html
+                     n.IE.IEobject.Document.head.innerHTML←1↓⊃,/(⎕UCS 10),¨GetHead html
                  :EndIf
              :Else
                  TellNeedForRestart ⍬

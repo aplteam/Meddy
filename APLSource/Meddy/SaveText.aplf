@@ -5,7 +5,7 @@
 ⍝ See also SaveHTML.
  rc←0
  statusbarFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'statusbarFlag'
- buff←{↓⍣(↑2=⍴⍴⍵)⊣⍵}text
+ buff←{↓⍣(⊃2=⍴⍴⍵)⊣⍵}text
  :Trap EventCodes.(FILE_ACCESS_ERROR FILE_DAMAGED FILE_NAME_ERROR FILE_SYSTEM_NO_SPACE FILE_TIE_ERROR FILE_TIE_QUOTA_USED_UP FILE_TIED)
      {⍵:.}(∨/'<!DOCTYPE html>'⍷∊3↑buff)   ⍝TODO⍝  Make sure that we do not save HTML accidentally
      {}(⊂buff)F.NPUT filename 1

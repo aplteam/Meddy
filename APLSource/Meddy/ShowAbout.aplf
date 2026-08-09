@@ -4,7 +4,7 @@
 
  defMat←0 7⍴⍬
  about←''
- about,←appName,' version ',↑{⍺,' from ',⍵}/1↓Version
+ about,←appName,' version ',⊃{⍺,' from ',⍵}/1↓Version
  about,←'⋄',appName,' is a simple Markdown editor.'
  about,←'⋄It was developed by Kai Jaeger'
  about,←'⋄The project lives on GitHub:'
@@ -20,7 +20,7 @@
      inis,←⊂'"',('expand'F.NormalizePath'specialchars.ini'),'"'
  :EndIf
  about,←'⋄INI file',((1<≢inis)/'s'),':'
- about,←{1=≡⍵:'⋄',⍵ ⋄ ⊃,/'⋄',¨⍵}inis
+ about,←{1=≡⍵:'⋄',⍵ ⋄ ↑,/'⋄',¨⍵}inis
  defMat⍪←'About' ''about G.Enums.InputDataTypes.Label ⍬ 1 1
 
  parms←G.Input.CreateParms

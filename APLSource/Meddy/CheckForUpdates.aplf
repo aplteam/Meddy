@@ -13,7 +13,7 @@
              url←api.GetRelease'Meddy' 'EXE'
          :Else
              dmx←⎕DMX
-             TellErrorWhileCheckingForBetterVersion{0=≢⍵:'' ⋄ ↑⍵}dmx.DM
+             TellErrorWhileCheckingForBetterVersion{0=≢⍵:'' ⋄ ⊃⍵}dmx.DM
              :Return
          :EndTrap
          :If 0=≢url

@@ -3,6 +3,6 @@
 
  ⍝ --- The checkboxes
  gap←⌈n.∆globalParms.fontStandard.Size×parms.vGap
- startPoint←gap+↑+⌿⊃n.StyleSheet.(Posn Size)
- n.LeanPub.Posn←(startPoint+0,¯1↓+\↑n.LeanPub.Size),1⊃n.LeanPub.Posn
+ startPoint←gap+⊃+⌿↑n.StyleSheet.(Posn Size)
+ n.LeanPub.Posn←(startPoint+0,¯1↓+\⊃n.LeanPub.Size),1⊃n.LeanPub.Posn
 ⍝Done

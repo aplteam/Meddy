@@ -2,7 +2,7 @@
 ⍝ returns the leading parameters: all leading lines that start with `[parm]:`
      md←⍵
      bool←~WhereIsLeanPubEncodingLine md
-     firstChars←↑¨bool/md
+     firstChars←⊃¨bool/md
      noOf←+/∧\firstChars∊'[⍝'
      0=noOf:'' ''
      noOf-←+/∧\'⍝'=⌽noOf↑firstChars

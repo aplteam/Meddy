@@ -5,18 +5,18 @@
      :If n.myFile.firstFlag
          filename←''
      :Else
-         filename←↑,/1↓⎕NPARTS n.myFile.filenameMarkdown
+         filename←⊃,/1↓⎕NPARTS n.myFile.filenameMarkdown
      :EndIf
  :Else
-     parms.file←↑,/1↓⎕NPARTS filename
+     parms.file←⊃,/1↓⎕NPARTS filename
  :EndIf
  :If 0=≢filename
  :AndIf 0<≢buff←' {0,3}# [^$]+'⎕S{⍵.Match}⍠('Mode' 'L')⊣n.Markdown.Text
- :AndIf 0<≢buff←↑buff
+ :AndIf 0<≢buff←⊃buff
      filename←{⍵↓⍨2+1⍳⍨'# '⍷⍵}buff
  :EndIf
  :Trap 10 ⍝ LIMIT ERROR: when filename carries too many words
-     :If 0=≢path←↑⎕NPARTS filename
+     :If 0=≢path←⊃⎕NPARTS filename
          path←n.∆Path
      :EndIf
  :Else
@@ -31,7 +31,7 @@
      :If 0=≢filename←n.∆globalParms parms G.FileBox.Run path
          :Return
      :EndIf
-     extension←↑¯1↑⎕NPARTS filename
+     extension←⊃¯1↑⎕NPARTS filename
      :If (⊂⎕C extension)∊'.md' '.markdown'
          flag←1
      :ElseIf 0=≢extension

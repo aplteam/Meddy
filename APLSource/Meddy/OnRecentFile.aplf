@@ -1,6 +1,6 @@
  OnRecentFile msg;ref;n;filename;cmd
 ⍝ User has selected a file from the "Recent files" menu list.
- ref←↑msg
+ ref←⊃msg
  n←GetRef2n ref
  filename←{⍵↓⍨1+⍵⍳' '}ref.Caption
  :If 0=≢∊n.HTML.Text
@@ -9,7 +9,7 @@
      :If A.IsDevelopment
          ⎕←'Normally a new instance of Meddy would be started here...'
      :Else
-         cmd←'"',(↑2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
+         cmd←'"',(⊃2 ⎕NQ'#' 'GetCommandLineArgs'),'" '
          cmd,←'-file="',filename,'" '
          OS.WinExecBatch cmd
      :EndIf

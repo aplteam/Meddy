@@ -1,4 +1,4 @@
  OnToggleFullHtmlDocument←{
-     n←GetRef2n↑⍵
+     n←GetRef2n⊃⍵
      ProcessMarkdown n
  }

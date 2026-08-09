@@ -2,7 +2,7 @@
 ⍝
  r←⍬
  :If 0<≢n.HTML.∆ns.toc
-     row←↑↑n.Markdown.SelText
+     row←⊃⊃n.Markdown.SelText
      ind←0⌈¯1++/row≥3⊃¨n.HTML.∆ns.toc
      n.Toc.SelItems[]←0
      n.Toc.SelItems[ind]←1

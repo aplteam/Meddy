@@ -14,11 +14,11 @@
          :EndIf
          replaceBy,←⊂replaceString
          pattern,←⊂searchFor
-         n.Markdown.Text←(⎕UCS 13)A.Split pattern ⎕R replaceBy⍠options⊣1↓↑,/(⎕UCS 13),¨n.Markdown.Text
+         n.Markdown.Text←(⎕UCS 13)A.Split pattern ⎕R replaceBy⍠options⊣1↓⊃,/(⎕UCS 13),¨n.Markdown.Text
      :Else
          pattern,←⊂searchFor
          replaceBy,←⊂replaceString
-         n.Markdown.Text←(⎕UCS 13)A.Split pattern ⎕R replaceBy⍠options⊣1↓↑,/(⎕UCS 13),¨n.Markdown.Text
+         n.Markdown.Text←(⎕UCS 13)A.Split pattern ⎕R replaceBy⍠options⊣1↓⊃,/(⎕UCS 13),¨n.Markdown.Text
      :EndIf
  :Else
      r←¯1

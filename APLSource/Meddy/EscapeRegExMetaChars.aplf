@@ -3,5 +3,5 @@
      txt←⍵
      0=+/bool←txt∊meta:txt
      (bool/txt)←'\',¨bool/txt
-     ↑,/txt
+     ⊃,/txt
  }

@@ -4,7 +4,7 @@
  r←⍬
  :If 0<⎕NC'n.Toc.∆Toc'  ⍝ Happens only to be false when the HTML is not (yet or at all) ready
      :If ≡/0⊃¨n.Markdown.SelText
-         currentLine←↑↑n.Markdown.SelText
+         currentLine←⊃⊃n.Markdown.SelText
          currentToc←n.Toc.SelItems⍳1
          success←counter←0
          ind←⌽currentLine↑⍳≢n.Markdown.Text

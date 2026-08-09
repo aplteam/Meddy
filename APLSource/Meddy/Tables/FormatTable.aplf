@@ -18,11 +18,11 @@
      table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces
      table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces
  :AndIf ∧/'|'∊¨table2                                           ⍝ Indeed all are table rows?
-     noOfLeadingSpaces←⌊/spaces←+/∧\' '=⊃table
+     noOfLeadingSpaces←⌊/spaces←+/∧\' '=↑table
      table←spaces↓¨table
-     table←{'|'=↑⍵:⍵ ⋄ '|',⍵}¨table                             ⍝ Add leading pipe where required
+     table←{'|'=⊃⍵:⍵ ⋄ '|',⍵}¨table                             ⍝ Add leading pipe where required
      table←##.A.DTB table
-     table←{'|'=↑¯1↑⍵:⍵ ⋄ ⍵,'|'}¨table                          ⍝ Add trailing pipe where required
+     table←{'|'=⊃¯1↑⍵:⍵ ⋄ ⍵,'|'}¨table                          ⍝ Add trailing pipe where required
      table←##.TAB ⎕R'    '⊣table                                ⍝ Replace TABs by four spaces
      table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces (again)
      table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces (again)
@@ -35,7 +35,7 @@
      dataRows←(⍳≢table)~(hasColHeaders/headerRow),(hasFooter/footerRow) ⍝ Pure data rows (without header & footer deviders)
      noOfCols←table2+.=¨'|'                                     ⍝ No of columns in each row
      table,¨←((⌈/noOfCols)-noOfCols)⍴¨'|'                       ⍝ Add column where required
-     table←⊃table SplitTableRows table2                         ⍝ Split and reformat
+     table←↑table SplitTableRows table2                         ⍝ Split and reformat
      table←{⍵∧.=' ':⍵ ⋄ ##.A.DLB ⍵}¨table                       ⍝ Remove leading spaces unless a cell is empty
      widths←⌈⌿≢¨table[dataRows;]                                ⍝ Column widths
      :If hasColHeaders
@@ -45,20 +45,20 @@
          table[footerRow;]←widths⍴¨'='
      :EndIf
      alignment←⍬
-     :For i :In ⍳↑⌽⍴table                                       ⍝ Loop through the columns
-         colHeader←↑table[headerRow;i]
+     :For i :In ⍳⊃⌽⍴table                                       ⍝ Loop through the columns
+         colHeader←⊃table[headerRow;i]
          :If ':'∊colHeader                                      ⍝ Did the user define the alignment
              :If '::'≡2⍴¯1⌽colHeader                            ⍝ Centered?
                  table[dataRows;i]←widths[i]{⍵,⍨¨' '⍴⍨¨⌊0.5×⍺-≢¨⍵}##.A.DTB table[dataRows;i]
                  alignment,←'C'
              :ElseIf ':'=¯1↑colHeader                           ⍝ Right-aligned?
-                 table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
+                 table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}↑table[dataRows;i]
                  alignment,←'R'
              :Else
                  alignment,←'L'
              :EndIf
-         :ElseIf ∧/{0=≢⍵:1 ⋄ ↑↑⎕VFI ⍵}¨headerRow↓table[dataRows;i] ⍝ All cells contain something that is numeric? (ignores col headers & empty cells)
-             table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
+         :ElseIf ∧/{0=≢⍵:1 ⋄ ⊃⊃⎕VFI ⍵}¨headerRow↓table[dataRows;i] ⍝ All cells contain something that is numeric? (ignores col headers & empty cells)
+             table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}↑table[dataRows;i]
              alignment,←'R'
          :Else
              alignment,←'L'
@@ -90,7 +90,7 @@
      :Else
          table3←table
      :EndIf
-     table4←↓'|',(⊃⊃{⍺,'|',⍵}/¨↓⊃¨↓⍉table3),'|'
+     table4←↓'|',(↑↑{⍺,'|',⍵}/¨↓↑¨↓⍉table3),'|'
      cells←table3
      markdown←((≢table4)⍴⊂noOfLeadingSpaces⍴' '),¨table4
      :If 0=⎕NC'leftRight'

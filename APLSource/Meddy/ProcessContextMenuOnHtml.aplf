@@ -3,7 +3,7 @@
  contextMenu←CreateContextMenuOnHTML n
  res←''DQ contextMenu
  :If 0≠≢res
-     :Select ↑res
+     :Select ⊃res
      :Case contextMenu.CopyAll
          :If ≡/n.HTML.SelText
              cl←⎕NEW,⊂'Clipboard'

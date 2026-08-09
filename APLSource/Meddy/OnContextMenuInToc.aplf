@@ -1,4 +1,4 @@
  OnContextMenuInToc←{
-     n←GetRef2n↑⍵
+     n←GetRef2n⊃⍵
      ContextMenuInToc n
  }

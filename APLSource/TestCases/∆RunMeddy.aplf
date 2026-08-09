@@ -6,5 +6,5 @@
  #.⎕SHADOW'ErrParms'
  ##.Meddy.⎕SHADOW¨'AFG'
  ##.Meddy.(A F G)←##.Meddy.(APLTreeUtils2 FilesAndDirs APLGUI)
- n←↑1 ##.Meddy.Run_ y
+ n←⊃1 ##.Meddy.Run_ y
 ⍝Done

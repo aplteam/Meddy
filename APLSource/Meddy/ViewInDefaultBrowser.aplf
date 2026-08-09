@@ -6,12 +6,12 @@
      :If ~n.myFile.saveHtml
          n.myFile.filenameHtml←FilesAndDirs.GetTempFilename2'Meddy'
          FilesAndDirs.DeleteFile n.myFile.filenameHtml
-         n.myFile.filenameHtml←(↑,/¯1↓⎕NPARTS n.myFile.filenameHtml),'.html'
+         n.myFile.filenameHtml←(⊃,/¯1↓⎕NPARTS n.myFile.filenameHtml),'.html'
          {}SaveHTML n
      :EndIf
      :If 0=≢n.myFile.filenameHtml
          :If ~0∊≢n.myFile.filenameMarkdown
-             htmlFilename←(↑,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
+             htmlFilename←(⊃,/¯1↓⎕NPARTS n.myFile.filenameMarkdown),'.html'
          :Else
              htmlFilename←''
          :EndIf
@@ -24,7 +24,7 @@
          :If 0=F.IsFile htmlFilename
              htmlFilename←F.GetTempFilename''
              F.DeleteFile htmlFilename
-             htmlFilename←(↑,/¯1↓⎕NPARTS htmlFilename),'.html'
+             htmlFilename←(⊃,/¯1↓⎕NPARTS htmlFilename),'.html'
              :If IsPresentation n
                  html←ProcessMarkdownAsPresentation n
                  (⊂html)F.NPUT htmlFilename

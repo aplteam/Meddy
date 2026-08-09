@@ -13,11 +13,11 @@
 ⍝ In case [INI] is specified as "workDir" (or part of it) this string is replaced by the folder the INI file lives in
  :If 0<≢n.∆IniFilenam
  :AndIf n.∆INI.Exist'CONFIG:workdir'
-     workdir←↑n.∆INI.Get'CONFIG:workdir'
+     workdir←⊃n.∆INI.Get'CONFIG:workdir'
  :AndIf ∨/bool←'[INI]'⍷workdir
      iniFilesNames←';'A.Split n.∆INI.IniFilename
-     iniFilesNames←↑(~∨/¨'app.ini'∘⍷¨iniFilesNames)/iniFilesNames ⍝ Remove main INI file
-     folder←↑⎕NPARTS iniFilesNames~'"'
+     iniFilesNames←⊃(~∨/¨'app.ini'∘⍷¨iniFilesNames)/iniFilesNames ⍝ Remove main INI file
+     folder←⊃⎕NPARTS iniFilesNames~'"'
      workdir←{(-⍵)⌽folder,(≢'[INI]')↓⍵⌽workdir}bool⍳1
      workdir n.∆INI.Put'CONFIG:workDir'
  :EndIf

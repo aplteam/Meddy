@@ -6,13 +6,13 @@
  distributionFolder←##.CiderConfig.HOME,'/',##.CiderConfig.CIDER.distributionFolder
  setupExe←F.ListFiles2 distributionFolder,'/*.exe'
  'Check "distributionFolder" - there must be exactly one file SetUp*.exe in it'Assert 1=≢setupExe
- setupExe←⊃setupExe
+ setupExe←↑setupExe
  :If 1 C.YesOrNo'Would you like to execute "',setupExe,'" ?'
      installDir32←(2 ⎕NQ #'GetEnvironment' 'ProgramFiles(x86)'),'\Kai Jaeger\Meddy\'
      :If ⎕NEXISTS installDir32
          q←'' 'It appears that the 32-bit version of Meddy is installed. Uninstall?'
          :If 1 C.YesOrNo q
-             filename←⊃⊃F.Dir installDir32,'/unins???.exe'
+             filename←↑↑F.Dir installDir32,'/unins???.exe'
              :If 0<≢filename
                  (rc processInfo result msg)←##.Meddy.Execute.Application filename
                  {⍵:.}rc≠0

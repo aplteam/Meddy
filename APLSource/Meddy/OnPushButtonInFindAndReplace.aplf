@@ -1,6 +1,6 @@
  r←OnPushButtonInFindAndReplace msg;n2;obj;n
  r←0
- obj←↑msg
+ obj←⊃msg
  n2←GetRef2n obj
  :If obj≢n2.Close
      n←GetRef2n n2.∆Form.##

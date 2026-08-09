@@ -11,7 +11,7 @@
  parms.maxLength←60
  (btn searchFor)←n.∆globalParms parms G.Request.AskForString'Search for:'
  :If btn
-     html←1↓↑,/(⎕UCS 13),¨n.HTML.Text
+     html←1↓⊃,/(⎕UCS 13),¨n.HTML.Text
      ShowMeddyMsg 'Sorry, not ready yet!'
  :EndIf
 ⍝Done
