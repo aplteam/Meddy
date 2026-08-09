@@ -1,0 +1,23 @@
+ R←Test_Table_010(stopFlag batchFlag);⎕TRAP;Tbl;cells;markdown;newCursorCol
+⍝ `FormatTable` reports "not a table" rather than crashing when it is fed something else
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+
+ (cells markdown newCursorCol)←Tbl.FormatTable('just prose' 'more prose')0 2
+ →T.PassesIf ⍬≡cells
+ →T.PassesIf ⍬≡markdown
+ →T.PassesIf ⍬≡newCursorCol
+
+ (cells markdown newCursorCol)←Tbl.FormatTable ⍬ 0 0
+ →T.PassesIf ⍬≡cells
+ →T.PassesIf ⍬≡markdown
+
+ ⍝ A single row without a column devider is still a table
+ (cells markdown newCursorCol)←Tbl.FormatTable(,⊂'| a | b |')0 2
+ →T.PassesIf(,⊂'|a|b|')≡markdown
+
+ R←T._OK
+⍝Done

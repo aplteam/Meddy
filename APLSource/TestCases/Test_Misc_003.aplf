@@ -4,9 +4,9 @@
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
- md←↑⎕NGET (##.CiderConfig.HOME,'\Docs\ReadMe.md') 1
+ md←↑⎕NGET(##.CiderConfig.HOME,'\Docs\ReadMe.md')1
 
- row←⍸∨/¨'|Version|'∘⍷¨md~¨' '
+ row←⍸∨/¨'|lastversion|'∘⍷¨⎕C md~¨' '
  →T.PassesIf 1=≢row
  buff←'|'{(⍺≠⍵)⊆⍵}row⊃md
  →T.PassesIf 2=≢buff

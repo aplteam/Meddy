@@ -1,0 +1,102 @@
+ (cells markdown newCursorCol)←{leftRight}FormatTable(table cursorRow cursorCol);table2;table3;table4;headerRow;hasColHeaders;dataRows;noOfCols;widths;hasFooter;colHeader;i;col;footerRow;alignment;spaces;noOfLeadingSpaces;currentLine;textLeftOfCursor
+⍝ Formats a Markdown table. This function does not know anything about the GUI;
+⍝ see `FormatTableInMarkdown` for the function that extracts the table from the
+⍝ Markdown and injects the result back into it.
+⍝ `⍵` is a three-item vector:
+⍝ * `table` is a vector of character vectors: the lines the table consists of, indentation included.
+⍝ * `cursorRow` is the index into `table` of the line the cursor is on.
+⍝ * `cursorCol` is the number of characters to the left of the cursor on that line.
+⍝ If the optional `⍺` is provided, a new column is added. `⍺` must be either "left" or "right".
+⍝ The new column is added either to the left or the right of the cursor.
+⍝ Returns a three-item vector:
+⍝ * `cells` is the formatted table as a matrix of cells, or `⍬` in case `table` is not a table.
+⍝ * `markdown` is the formatted table as a vector of character vectors, indentation included.
+⍝ * `newCursorCol` is the column the cursor is supposed to be moved to.
+ (cells markdown newCursorCol)←⍬ ⍬ ⍬
+ :If 0<≢table
+     currentLine←cursorRow⊃table                                ⍝ Remember it: `table` is about to be changed
+     table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces
+     table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces
+ :AndIf ∧/'|'∊¨table2                                           ⍝ Indeed all are table rows?
+     noOfLeadingSpaces←⌊/spaces←+/∧\' '=⊃table
+     table←spaces↓¨table
+     table←{'|'=↑⍵:⍵ ⋄ '|',⍵}¨table                             ⍝ Add leading pipe where required
+     table←##.A.DTB table
+     table←{'|'=↑¯1↑⍵:⍵ ⋄ ⍵,'|'}¨table                          ⍝ Add trailing pipe where required
+     table←##.TAB ⎕R'    '⊣table                                ⍝ Replace TABs by four spaces
+     table2←{' '@(1+⍸'\|'⍷⍵)⊣⍵}¨table                           ⍝ Replace escaped pipes by spaces (again)
+     table2←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}¨table2             ⍝ Replace code by spaces (again)
+     hasColHeaders←⍬≢headerRow←GetHeaderRow table
+     footerRow←''
+     :If hasFooter←2<≢table                                     ⍝ Does the table
+     :AndIf ~hasFooter←(((footerRow←¯2+≢table2)⊃table)~'| ')∧.='=' ⍝ ... has somewhere ...
+         hasFooter←(((footerRow←¯1+≢table2)⊃table)~'| ')∧.='='  ⍝ ... a footer?
+     :EndIf
+     dataRows←(⍳≢table)~(hasColHeaders/headerRow),(hasFooter/footerRow) ⍝ Pure data rows (without header & footer deviders)
+     noOfCols←table2+.=¨'|'                                     ⍝ No of columns in each row
+     table,¨←((⌈/noOfCols)-noOfCols)⍴¨'|'                       ⍝ Add column where required
+     table←⊃table SplitTableRows table2                         ⍝ Split and reformat
+     table←{⍵∧.=' ':⍵ ⋄ ##.A.DLB ⍵}¨table                       ⍝ Remove leading spaces unless a cell is empty
+     widths←⌈⌿≢¨table[dataRows;]                                ⍝ Column widths
+     :If hasColHeaders
+         table[headerRow;]←widths EnlargeColHeader¨table[headerRow;] ⍝ Beef up the column headers but save the colons, if any
+     :EndIf
+     :If hasFooter
+         table[footerRow;]←widths⍴¨'='
+     :EndIf
+     alignment←⍬
+     :For i :In ⍳↑⌽⍴table                                       ⍝ Loop through the columns
+         colHeader←↑table[headerRow;i]
+         :If ':'∊colHeader                                      ⍝ Did the user define the alignment
+             :If '::'≡2⍴¯1⌽colHeader                            ⍝ Centered?
+                 table[dataRows;i]←widths[i]{⍵,⍨¨' '⍴⍨¨⌊0.5×⍺-≢¨⍵}##.A.DTB table[dataRows;i]
+                 alignment,←'C'
+             :ElseIf ':'=¯1↑colHeader                           ⍝ Right-aligned?
+                 table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
+                 alignment,←'R'
+             :Else
+                 alignment,←'L'
+             :EndIf
+         :ElseIf ∧/{0=≢⍵:1 ⋄ ↑↑⎕VFI ⍵}¨headerRow↓table[dataRows;i] ⍝ All cells contain something that is numeric? (ignores col headers & empty cells)
+             table[dataRows;i]←↓{⍵⌽⍨-+/∧\' '=⌽⍵}⊃table[dataRows;i]
+             alignment,←'R'
+         :Else
+             alignment,←'L'
+         :EndIf
+     :EndFor
+     table←CompressTable table alignment dataRows hasColHeaders hasFooter headerRow footerRow
+     :If 0<⎕NC'leftRight'
+         :If 0<≢textLeftOfCursor←##.A.DLB cursorCol↑currentLine
+             textLeftOfCursor←{' '@(1+⍸'\|'⍷⍵)⊣⍵}textLeftOfCursor
+             textLeftOfCursor←{b←~##.GetMaskForCode ⍵ ⋄ b\b/⍵}textLeftOfCursor
+         :EndIf
+         :If leftRight≡'left'
+             col←0⌈¯1+'|'+.=textLeftOfCursor
+         :ElseIf leftRight≡'right'
+             col←(1⊃⍴table)⌊'|'+.=textLeftOfCursor
+         :EndIf
+         table3←((≢table),0)⍴''
+         :If col>0
+             table3,←col↑[1]table
+         :EndIf
+         table3,←⊂'    '
+         :If (1⊃⍴table)>col
+             table3,←col↓[1]table
+         :EndIf
+         table3[headerRow;col]←⊂'----'
+         :If hasFooter
+             table3[footerRow;col]←⊂'===='
+         :EndIf
+     :Else
+         table3←table
+     :EndIf
+     table4←↓'|',(⊃⊃{⍺,'|',⍵}/¨↓⊃¨↓⍉table3),'|'
+     cells←table3
+     markdown←((≢table4)⍴⊂noOfLeadingSpaces⍴' '),¨table4
+     :If 0=⎕NC'leftRight'
+         newCursorCol←2
+     :Else
+         newCursorCol←2++/col≥+\'|'=1⊃table4
+     :EndIf
+ :EndIf
+⍝Done

@@ -1,0 +1,19 @@
+ R←Test_Table_006(stopFlag batchFlag);⎕TRAP;Tbl;cells;markdown;newCursorCol;cells2;markdown2;newCursorCol2
+⍝ `FormatTable` formats a plain table, and formatting an already formatted table changes nothing
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+ (cells markdown newCursorCol)←Tbl.FormatTable('| Name | Qty |' '|---|---|' '| a | 1 |')0 2
+ →T.PassesIf('|Name|Qty|' '|----|---|' '|a   |  1|')≡markdown
+ →T.PassesIf 3 2≡⍴cells
+ →T.PassesIf 2≡newCursorCol
+
+ ⍝ Feeding the result back in must not change it any more
+ (cells2 markdown2 newCursorCol2)←Tbl.FormatTable markdown 0 2
+ →T.PassesIf markdown≡markdown2
+ →T.PassesIf cells≡cells2
+
+ R←T._OK
+⍝Done

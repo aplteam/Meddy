@@ -1,0 +1,18 @@
+ R←Test_Table_008(stopFlag batchFlag);⎕TRAP;Tbl;cells;markdown;newCursorCol
+⍝ `FormatTable` honours the alignment defined by colons, and right-aligns purely numeric columns
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+
+ ⍝ Alignment defined by the user
+ (cells markdown newCursorCol)←Tbl.FormatTable('| L | C | R |' '|:---|:--:|---:|' '| a | b | c |' '| dddd | ee | f |')0 2
+ →T.PassesIf('|L   | C |R|' '|:---|:-:|:|' '|a   | b |c|' '|dddd|ee |f|')≡markdown
+
+ ⍝ No alignment defined, but one column holds nothing but numbers
+ (cells markdown newCursorCol)←Tbl.FormatTable('| Item | Count |' '|---|---|' '| apples | 12 |' '| pears | 3 |')0 2
+ →T.PassesIf('|Item  |Count|' '|------|-----|' '|apples|   12|' '|pears |    3|')≡markdown
+
+ R←T._OK
+⍝Done

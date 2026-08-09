@@ -1,0 +1,22 @@
+ R←Test_Table_005(stopFlag batchFlag);⎕TRAP;Tbl;buff
+⍝ `SplitTableRows` splits table rows into their cells, guided by ⍵ rather than by ⍺
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+
+ buff←(,⊂'|aa|bbb|')Tbl.SplitTableRows,⊂'|aa|bbb|'
+ →T.PassesIf 1=≢buff
+ →T.PassesIf('aa' 'bbb')≡↑buff
+
+ buff←('|aa|bbb|' '|cc|ddd|')Tbl.SplitTableRows'|aa|bbb|' '|cc|ddd|'
+ →T.PassesIf 2=≢buff
+ →T.PassesIf(('aa' 'bbb')('cc' 'ddd'))≡buff
+
+ ⍝ ⍵ carries the pipes that really are cell deviders, so an escaped pipe stays within its cell
+ buff←(,⊂'|a\|b|cc|')Tbl.SplitTableRows,⊂'|a  b|cc|'
+ →T.PassesIf('a\|b' 'cc')≡↑buff
+
+ R←T._OK
+⍝Done

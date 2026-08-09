@@ -1,0 +1,14 @@
+ R←Test_Table_003(stopFlag batchFlag);⎕TRAP;Tbl
+⍝ `GetHeaderRow` detects the column devider, with and without column headers
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+ →T.PassesIf 1≡Tbl.GetHeaderRow'| A | B |' '|---|---|' '| 1 | 2 |'  ⍝ With column headers
+ →T.PassesIf 0≡Tbl.GetHeaderRow'|---|---|' '| a | 1 |'              ⍝ Devider but no column headers
+ →T.PassesIf ⍬≡Tbl.GetHeaderRow'| A | B |' '| 1 | 2 |'              ⍝ No devider at all
+ →T.PassesIf ⍬≡Tbl.GetHeaderRow,⊂'| a | b |'                        ⍝ A single row cannot carry a devider
+
+ R←T._OK
+⍝Done

@@ -1,0 +1,17 @@
+ R←Test_Table_009(stopFlag batchFlag);⎕TRAP;Tbl;cells;markdown;newCursorCol
+⍝ `FormatTable` preserves the indentation of a table that is part of a list
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+ (cells markdown newCursorCol)←Tbl.FormatTable('  | A | B |' '  |---|---|' '  | 1 | 2 |')0 4
+ →T.PassesIf('  |A|B|' '  |-|-|' '  |1|2|')≡markdown
+ →T.PassesIf 3 2≡⍴cells
+
+ ⍝ The indentation is taken from the least indented row
+ (cells markdown newCursorCol)←Tbl.FormatTable('    | A | B |' '  |---|---|' '   | 1 | 2 |')0 6
+ →T.PassesIf('  |A|B|' '  |-|-|' '  |1|2|')≡markdown
+
+ R←T._OK
+⍝Done

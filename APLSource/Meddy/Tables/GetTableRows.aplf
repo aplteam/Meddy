@@ -1,7 +1,9 @@
- ind←GetTableRows(row n);noOf1;noOf2;lengths
- lengths←≢¨n.Markdown.Text~¨' '     ⍝ Because empty rows define beginning and end of the table
- noOf1←+/∧\0<⌽row↑lengths           ⍝ No of table rows including and above cursor
- noOf2←+/∧\0<row↓lengths            ⍝ No of table rows below cursor
- ind←(row-noOf1)+⍳noOf1+noOf2       ⍝ Index of the table
- ind/⍨←'|'∊¨n.Markdown.Text[ind]
+ ind←GetTableRows(row markdown);noOf1;noOf2;lengths
+ lengths←≢¨markdown~¨' '                ⍝ Because empty rows define beginning and end of the table
+ noOf1←+/∧\0<⌽row↑lengths               ⍝ No of table rows including and above cursor
+ noOf1←+/∧\⌽'|'∊¨(-noOf1)↑row↑markdown  ⍝ Corrections: of those, only the ones carrying a pipe
+ noOf2←+/∧\0<row↓lengths                ⍝ No of table rows below cursor
+ noOf2←+/∧\'|'∊¨noOf2↑row↓markdown      ⍝ Corrections: of those, only the ones carrying a pipe
+ ind←(row-noOf1)+⍳noOf1+noOf2           ⍝ Index of the table
+ ind/⍨←'|'∊¨markdown[ind]
 ⍝Done

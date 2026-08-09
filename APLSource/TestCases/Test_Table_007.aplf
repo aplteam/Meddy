@@ -1,0 +1,21 @@
+ R←Test_Table_007(stopFlag batchFlag);⎕TRAP;Tbl;cells;markdown;newCursorCol
+⍝ `FormatTable` copes with any ratio between the number of rows and the number of columns.
+⍝ Guards against the column loop running over the number of rows rather than the number of columns.
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+
+ ⍝ Many more rows than columns
+ (cells markdown newCursorCol)←Tbl.FormatTable('| A | B | C |' '|---|---|---|' '| 1 | 22 | 333 |' '| 4444 | 5 | 6 |' '| 7 | 8 | 9 |' '| 10 | 11 | 12 |')0 2
+ →T.PassesIf('|   A| B|  C|' '|----|--|---|' '|   1|22|333|' '|4444| 5|  6|' '|   7| 8|  9|' '|  10|11| 12|')≡markdown
+ →T.PassesIf 6 3≡⍴cells
+
+ ⍝ More columns than rows
+ (cells markdown newCursorCol)←Tbl.FormatTable('| A | B | C | D | E |' '|---|---|---|---|---|' '| 1 | 2 | 3 | 4 | 5 |')0 2
+ →T.PassesIf('|A|B|C|D|E|' '|-|-|-|-|-|' '|1|2|3|4|5|')≡markdown
+ →T.PassesIf 3 5≡⍴cells
+
+ R←T._OK
+⍝Done

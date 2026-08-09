@@ -1,0 +1,19 @@
+ R←Test_Table_002(stopFlag batchFlag);⎕TRAP;Tbl;md
+⍝ `GetTableRows` ignores neighbouring lines that are not table rows, even when there is no empty line in between
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+
+ ⍝ A table inside a list: neither the list item nor the trailing note belong to it
+ md←'* Item' '  | A | B |' '  |---|---|' '  | 1 | 2 |' '  a trailing note'
+ →T.PassesIf 1 2 3≡Tbl.GetTableRows 2 md
+
+ ⍝ Two tables separated by a line of prose must not be merged into one
+ md←'| A | B |' '|---|---|' 'prose line' '| C | D |' '|---|---|'
+ →T.PassesIf 0 1≡Tbl.GetTableRows 0 md
+ →T.PassesIf 3 4≡Tbl.GetTableRows 3 md
+
+ R←T._OK
+⍝Done

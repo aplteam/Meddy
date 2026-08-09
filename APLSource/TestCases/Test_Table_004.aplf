@@ -1,0 +1,14 @@
+ R←Test_Table_004(stopFlag batchFlag);⎕TRAP;Tbl
+⍝ `EnlargeColHeader` widens a column devider but preserves the alignment colons
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+ →T.PassesIf'-----'≡5 Tbl.EnlargeColHeader'---'   ⍝ No alignment defined
+ →T.PassesIf':----'≡5 Tbl.EnlargeColHeader':--'   ⍝ Left
+ →T.PassesIf'----:'≡5 Tbl.EnlargeColHeader'--:'   ⍝ Right
+ →T.PassesIf':---:'≡5 Tbl.EnlargeColHeader':-:'   ⍝ Centered
+
+ R←T._OK
+⍝Done

@@ -1,0 +1,21 @@
+ R←Test_Table_011(stopFlag batchFlag);⎕TRAP;Tbl;cells;markdown;newCursorCol
+⍝ `FormatTable` inserts a new column to the left or to the right of the cursor when ⍺ is provided
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ Tbl←##.Meddy.Tables
+
+ ⍝ Cursor in the first column, new column to the right of it
+ (cells markdown newCursorCol)←'right'Tbl.FormatTable('| A | B |' '|---|---|' '| 1 | 2 |')0 3
+ →T.PassesIf('|A|    |B|' '|-|----|-|' '|1|    |2|')≡markdown
+ →T.PassesIf 3 3≡⍴cells
+ →T.PassesIf 4≡newCursorCol
+
+ ⍝ Cursor in the second column, new column to the left of it
+ (cells markdown newCursorCol)←'left'Tbl.FormatTable('| A | B |' '|---|---|' '| 1 | 2 |')0 7
+ →T.PassesIf('|A|    |B|' '|-|----|-|' '|1|    |2|')≡markdown
+ →T.PassesIf 3 3≡⍴cells
+
+ R←T._OK
+⍝Done

@@ -3,6 +3,10 @@
 
 # Release Notes 
 
+## 5.1.1 - 2026-08-09
+
+* Couple of bug fixes related to formatting tables.
+
 ## 5.1.0 - 2026-07-19
 
 * Packages updated: version 4.1.0 of `PresentAPL` is a major improvement.
@@ -180,6 +184,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 
