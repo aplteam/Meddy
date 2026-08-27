@@ -3,6 +3,11 @@
 
 # Release Notes 
 
+## 5.2.0 - 2026-09-27
+
+* A race for the clipboard could crash Meddy, typically by executing Ctrl+V.
+* Internal changes
+
 ## 5.1.1 - 2026-08-09
 
 * Couple of bug fixes related to formatting tables.
@@ -184,6 +189,7 @@
 * Bug fixes:
  
 * #22, #24, #27, #41, #40, #39, #34, #30, #32, #16, #29 fixed.
+
 
 
 
