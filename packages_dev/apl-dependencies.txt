@@ -2,6 +2,6 @@ aplteam-Tester2-4.4.0
 aplteam-CodeCoverage-0.12.0
 aplteam-APLTreeUtils2-1.4.1
 aplteam-FilesAndDirs-7.1.1
-aplteam-CommTools-2.0.2
+aplteam-CommTools-2.1.0
 aplteam-Inno-2.0.0
 aplteam-APLProcess-0.10.0
